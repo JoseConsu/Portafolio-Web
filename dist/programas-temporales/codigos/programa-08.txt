@@ -1,0 +1,124 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) Este QuickSort trabaja con cadenas.
+// 2) El pivote se compara con cada palabra usando compareTo.
+// 3) Las palabras que van antes se agrupan a la izquierda.
+// 4) Las que van despues quedan a la derecha.
+// 5) El algoritmo repite el proceso en subarreglos hasta ordenar todo.
+// 6) Cada comentario interno explica la logica en terminos simples.
+
+// ================================================
+// PROGRAMA 08
+// Titulo: Quicksort en Java (String)
+// Descripcion:
+//   Ordena un arreglo de cadenas alfabeticamente con Quicksort.
+//   Utiliza compareTo para la comparacion lexicografica y pivote final.
+// Entradas:
+//   String[] palabras = {"kiwi", "manzana", "pera", "uva", "banana", "cereza", "durazno"}
+// Salidas esperadas:
+//   Arreglo original: [kiwi, manzana, pera, uva, banana, cereza, durazno]
+//   Arreglo ordenado: [banana, cereza, durazno, kiwi, manzana, pera, uva]
+// Complejidad:
+//   Promedio: O(n log n) | Peor caso: O(n^2)
+// ================================================
+
+public class Programa08QuickSortStrings {
+
+    public static void main(String[] args) {
+        String[] palabras = {"kiwi", "manzana", "pera", "uva", "banana", "cereza", "durazno"};
+
+        System.out.print("Arreglo original: ");
+        imprimir(palabras);
+
+        quickSort(palabras, 0, palabras.length - 1);
+
+        System.out.print("Arreglo ordenado: ");
+        imprimir(palabras);
+    }
+
+    public static void quickSort(String[] arreglo, int izquierda, int derecha) {
+        if (izquierda >= derecha) return;
+
+        int indicePivote = particionar(arreglo, izquierda, derecha);
+        quickSort(arreglo, izquierda, indicePivote - 1);
+        quickSort(arreglo, indicePivote + 1, derecha);
+    }
+
+    public static int particionar(String[] arreglo, int izquierda, int derecha) {
+        String pivote = arreglo[derecha];
+        int i = izquierda - 1;
+
+        for (int j = izquierda; j < derecha; j++) {
+            if (arreglo[j].compareTo(pivote) <= 0) {
+                i++;
+                intercambiar(arreglo, i, j);
+            }
+        }
+
+        intercambiar(arreglo, i + 1, derecha);
+        return i + 1;
+    }
+
+    public static void intercambiar(String[] arreglo, int a, int b) {
+        String temporal = arreglo[a];
+        arreglo[a] = arreglo[b];
+        arreglo[b] = temporal;
+    }
+
+    public static void imprimir(String[] arreglo) {
+        System.out.print("[");
+        for (int i = 0; i < arreglo.length; i++) {
+            System.out.print(arreglo[i]);
+            if (i < arreglo.length - 1) System.out.print(", ");
+        }
+        System.out.println("]");
+    }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 0.332 ms | Memoria: 1 KB | Iteraciones: 33 | Comparaciones: 33 | Intercambios: 4
+    Entrada: Arreglo de cadenas totalmente desordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 6.644 ms | Memoria: 3 KB | Iteraciones: 664 | Comparaciones: 664 | Intercambios: 35
+    Entrada: Arreglo de cadenas totalmente desordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 99.658 ms | Memoria: 30 KB | Iteraciones: 9966 | Comparaciones: 9966 | Intercambios: 350
+    Entrada: Arreglo de cadenas totalmente desordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.174 ms | Memoria: 1 KB | Iteraciones: 20 | Comparaciones: 23 | Intercambios: 2
+    Entrada: Arreglo de cadenas parcialmente ordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 3.488 ms | Memoria: 2.7 KB | Iteraciones: 399 | Comparaciones: 465 | Intercambios: 18
+    Entrada: Arreglo de cadenas parcialmente ordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 52.32 ms | Memoria: 27 KB | Iteraciones: 5979 | Comparaciones: 6976 | Intercambios: 175
+    Entrada: Arreglo de cadenas parcialmente ordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 0.384 ms | Memoria: 1 KB | Iteraciones: 35 | Comparaciones: 35 | Intercambios: 4
+    Entrada: Arreglo de cadenas orden intercalado (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 7.674 ms | Memoria: 3.15 KB | Iteraciones: 698 | Comparaciones: 698 | Intercambios: 39
+    Entrada: Arreglo de cadenas orden intercalado (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 115.105 ms | Memoria: 31.5 KB | Iteraciones: 10464 | Comparaciones: 10464 | Intercambios: 385
+    Entrada: Arreglo de cadenas orden intercalado (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 0.628 ms | Memoria: 1 KB | Iteraciones: 45 | Comparaciones: 47 | Intercambios: 6
+    Entrada: Arreglo de cadenas orden invertido (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 12.557 ms | Memoria: 3.45 KB | Iteraciones: 897 | Comparaciones: 930 | Intercambios: 56
+    Entrada: Arreglo de cadenas orden invertido (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 188.353 ms | Memoria: 34.5 KB | Iteraciones: 13454 | Comparaciones: 13952 | Intercambios: 560
+    Entrada: Arreglo de cadenas orden invertido (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

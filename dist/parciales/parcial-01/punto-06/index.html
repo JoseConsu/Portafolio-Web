@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Punto 6: Serie histórica dólar 2022 (Colombia) | Parcial 1</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.28488erS.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Parcial 1</p> <h1>Punto 6: Serie histórica dólar 2022 (Colombia)</h1> <p>Evaluar los 6 algoritmos con la serie histórica 2022 de la divisa USD/COP para comparar comparaciones, tiempo y memoria, e identificar periodos de valor más alto y más bajo.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos"> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true"> </a> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true">Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+PARCIAL 1 - PUNTO 6
+
+Serie histórica 2022 USD/COP (periodos mensuales de referencia),
+consultada y organizada con base en datos públicos del Banco de la República.
+Se comparan 6 algoritmos midiendo:
+- Comparaciones
+- Tiempo de ejecución (ns)
+- Memoria utilizada aproximada (bytes)
+
+Además, se identifica el periodo más alto y más bajo del dólar en 2022.
+*/
+
+import java.util.Arrays;
+
+public class Parcial01Punto06 {
+
+    static class Registro {
+        String periodo;
+        double valor;
+
+        Registro(String periodo, double valor) {
+            this.periodo = periodo;
+            this.valor = valor;
+        }
+    }
+
+    static class Resultado {
+        String algoritmo;
+        long comparaciones;
+        long tiempoNs;
+        long memoriaBytes;
+
+        Resultado(String algoritmo, long comparaciones, long tiempoNs, long memoriaBytes) {
+            this.algoritmo = algoritmo;
+            this.comparaciones = comparaciones;
+            this.tiempoNs = tiempoNs;
+            this.memoriaBytes = memoriaBytes;
+        }
+    }
+
+    interface Ordenador {
+        long ordenar(Registro[] arr);
+    }
+
+    // Serie 2022 (USD/COP por mes de referencia)
+    static Registro[] SERIE_2022 = {
+            new Registro(&quot;2022-01&quot;, 3968.71),
+            new Registro(&quot;2022-02&quot;, 3939.56),
+            new Registro(&quot;2022-03&quot;, 3786.53),
+            new Registro(&quot;2022-04&quot;, 3785.38),
+            new Registro(&quot;2022-05&quot;, 3924.57),
+            new Registro(&quot;2022-06&quot;, 4027.30),
+            new Registro(&quot;2022-07&quot;, 4327.29),
+            new Registro(&quot;2022-08&quot;, 4303.33),
+            new Registro(&quot;2022-09&quot;, 4435.95),
+            new Registro(&quot;2022-10&quot;, 4737.30),
+            new Registro(&quot;2022-11&quot;, 4810.20),
+            new Registro(&quot;2022-12&quot;, 4778.85)
+    };
+
+    public static void main(String[] args) {
+        Resultado[] resultados = new Resultado[] {
+                medir(&quot;Burbuja Simple&quot;, SERIE_2022, Parcial01Punto06::burbujaSimple),
+                medir(&quot;Burbuja Mejorado&quot;, SERIE_2022, Parcial01Punto06::burbujaMejorado),
+                medir(&quot;Quick Sort&quot;, SERIE_2022, Parcial01Punto06::quickSort),
+                medir(&quot;Shell Sort&quot;, SERIE_2022, Parcial01Punto06::shellSort),
+                medir(&quot;Seleccion Directa&quot;, SERIE_2022, Parcial01Punto06::seleccionDirecta),
+                medir(&quot;Insercion&quot;, SERIE_2022, Parcial01Punto06::insercion)
+        };
+
+        System.out.println(&quot;=== RESULTADOS PUNTO 6 - SERIE HISTORICA USD/COP 2022 ===&quot;);
+        Resultado mejor = resultados[0];
+        for (Resultado r : resultados) {
+            System.out.printf(&quot;%-18s | Comp: %-4d | Tiempo: %-8d ns | Mem: %d bytes%n&quot;,
+                    r.algoritmo, r.comparaciones, r.tiempoNs, r.memoriaBytes);
+            if (r.tiempoNs &lt; mejor.tiempoNs) mejor = r;
+        }
+        System.out.println(&quot;----------------------------------------------------------&quot;);
+        System.out.println(&quot;Algoritmo mas eficiente (por tiempo): &quot; + mejor.algoritmo);
+
+        Registro[] ordenado = Arrays.copyOf(SERIE_2022, SERIE_2022.length);
+        quickSort(ordenado);
+        Registro minimo = ordenado[0];
+        Registro maximo = ordenado[ordenado.length - 1];
+
+        System.out.printf(&quot;Periodo mas bajo : %s | %.2f COP%n&quot;, minimo.periodo, minimo.valor);
+        System.out.printf(&quot;Periodo mas alto : %s | %.2f COP%n&quot;, maximo.periodo, maximo.valor);
+    }
+
+    static Resultado medir(String nombre, Registro[] base, Ordenador metodo) {
+        Registro[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long ini = System.nanoTime();
+        long comp = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comp, fin - ini, deltaMem);
+    }
+
+    static long memoriaUsada() {
+        Runtime r = Runtime.getRuntime();
+        return r.totalMemory() - r.freeMemory();
+    }
+
+    static int comparar(Registro a, Registro b) {
+        return Double.compare(a.valor, b.valor);
+    }
+
+    static long burbujaSimple(Registro[] a) {
+        long c = 0;
+        for (int i = 0; i &lt; a.length - 1; i++) {
+            for (int j = 0; j &lt; a.length - 1 - i; j++) {
+                c++;
+                if (comparar(a[j], a[j + 1]) &gt; 0) {
+                    Registro t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;
+                }
+            }
+        }
+        return c;
+    }
+
+    static long burbujaMejorado(Registro[] a) {
+        long c = 0;
+        boolean cambio;
+        for (int i = 0; i &lt; a.length - 1; i++) {
+            cambio = false;
+            for (int j = 0; j &lt; a.length - 1 - i; j++) {
+                c++;
+                if (comparar(a[j], a[j + 1]) &gt; 0) {
+                    Registro t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;
+                    cambio = true;
+                }
+            }
+            if (!cambio) break;
+        }
+        return c;
+    }
+
+    static long quickSort(Registro[] a) {
+        long[] c = {0};
+        qsr(a, 0, a.length - 1, c);
+        return c[0];
+    }
+
+    static void qsr(Registro[] a, int l, int h, long[] c) {
+        if (l &lt; h) {
+            int p = part(a, l, h, c);
+            qsr(a, l, p - 1, c);
+            qsr(a, p + 1, h, c);
+        }
+    }
+
+    static int part(Registro[] a, int l, int h, long[] c) {
+        Registro piv = a[h];
+        int i = l - 1;
+        for (int j = l; j &lt; h; j++) {
+            c[0]++;
+            if (comparar(a[j], piv) &lt;= 0) {
+                i++;
+                Registro t = a[i]; a[i] = a[j]; a[j] = t;
+            }
+        }
+        Registro t = a[i + 1]; a[i + 1] = a[h]; a[h] = t;
+        return i + 1;
+    }
+
+    static long shellSort(Registro[] a) {
+        long c = 0;
+        for (int g = a.length / 2; g &gt; 0; g /= 2) {
+            for (int i = g; i &lt; a.length; i++) {
+                Registro temp = a[i];
+                int j = i;
+                while (j &gt;= g) {
+                    c++;
+                    if (comparar(a[j - g], temp) &gt; 0) {
+                        a[j] = a[j - g];
+                        j -= g;
+                    } else break;
+                }
+                a[j] = temp;
+            }
+        }
+        return c;
+    }
+
+    static long seleccionDirecta(Registro[] a) {
+        long c = 0;
+        for (int i = 0; i &lt; a.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j &lt; a.length; j++) {
+                c++;
+                if (comparar(a[j], a[min]) &lt; 0) min = j;
+            }
+            Registro t = a[i]; a[i] = a[min]; a[min] = t;
+        }
+        return c;
+    }
+
+    static long insercion(Registro[] a) {
+        long c = 0;
+        for (int i = 1; i &lt; a.length; i++) {
+            Registro clave = a[i];
+            int j = i - 1;
+            while (j &gt;= 0) {
+                c++;
+                if (comparar(a[j], clave) &gt; 0) {
+                    a[j + 1] = a[j];
+                    j--;
+                } else break;
+            }
+            a[j + 1] = clave;
+        }
+        return c;
+    }
+}
+</code></pre> </section> <section class="ds-panel zona-imagen"> <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true">Output del punto</h2> <div class="marco-imagen"> <img src="/parciales/parcial-01/imagenes/punto-06.svg" alt="Imagen de salida de Punto 6: Serie histórica dólar 2022 (Colombia)" loading="lazy" decoding="async"> </div> </section> </main> <script>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

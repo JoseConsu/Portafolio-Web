@@ -1,0 +1,52 @@
+---
+import "../estilos/globales.css";
+import "../estilos/tema.css";
+
+import urlDesplazamiento from "../scripts/desplazamiento.ts?url";
+import urlTema from "../scripts/tema.ts?url";
+
+const { titulo = "Portafolio | Jose David Consuegra Medina" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{titulo}</title>
+    <meta
+      name="description"
+      content="Portafolio de Jose David Consuegra Medina: ciberseguridad, redes, servidores y centros de datos."
+    />
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+
+      try {
+        const temaGuardado = localStorage.getItem("tema");
+        const tema = temaGuardado === "claro" ? "claro" : "oscuro";
+        document.documentElement.setAttribute("data-tema", tema);
+        document.documentElement.style.colorScheme = tema === "claro" ? "light" : "dark";
+      } catch {
+        document.documentElement.setAttribute("data-tema", "oscuro");
+        document.documentElement.style.colorScheme = "dark";
+      }
+    </script>
+
+    <!-- Fuentes (personalizadas) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <slot />
+
+    <script type="module" src={urlTema}></script>
+    <script type="module" src={urlDesplazamiento}></script>
+  </body>
+</html>

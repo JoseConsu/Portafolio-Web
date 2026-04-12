@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { parciales } from "../../../parciales/parciales";
+
+export function getStaticPaths() {
+  return parciales.flatMap((parcial) =>
+    parcial.puntos.map((punto) => ({
+      params: { slug: parcial.slug, punto: punto.slug },
+      props: { parcial, punto },
+    }))
+  );
+}
+
+const { parcial, punto } = Astro.props;
+const codigoPlantilla = await readFile(join(process.cwd(), "public", punto.rutaCodigo.replace(/^\//, "")), "utf-8");
+---
+
+<BaseLayout title={`${punto.nombre} | ${parcial.titulo}`}>
+  <main class="programa-shell">
+    <section class="program-hero">
+      <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" />
+      <div>
+        <p class="ds-eyebrow">{parcial.titulo}</p>
+        <h1>{punto.nombre}</h1>
+        <p>{punto.descripcion}</p>
+      </div>
+      <a class="icono-volver" href={`/parciales/${parcial.slug}`} aria-label="Volver al listado de puntos" title="Volver al listado de puntos">
+        <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" />
+      </a>
+    </section>
+
+    <section class="ds-panel zona-codigo">
+      <div class="encabezado-cuadro">
+        <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" />Código del punto</h2>
+        {parcial.slug === "parcial-01" && (
+          <button class="boton-copiar" type="button" aria-label="Copiar codigo">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" />
+              <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" />
+            </svg>
+          </button>
+        )}
+      </div>
+      <pre class="cuadro-codigo"><code>{codigoPlantilla}</code></pre>
+    </section>
+
+    <section class="ds-panel zona-imagen">
+      <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true" />Output del punto</h2>
+      <div class="marco-imagen">
+        <img
+          src={punto.rutaImagen}
+          alt={`Imagen de salida de ${punto.nombre}`}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>
+</BaseLayout>

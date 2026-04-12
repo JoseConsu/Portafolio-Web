@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Punto 2: Arreglos casi ordenados (nombres y numeros) | Parcial 1</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.28488erS.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Parcial 1</p> <h1>Punto 2: Arreglos casi ordenados (nombres y numeros)</h1> <p>Ejecutar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion sobre dos arreglos casi ordenados para comparar tiempos en ambas situaciones.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos"> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true"> </a> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true">Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+PARCIAL 1 - PUNTO 2
+
+Ejecuta Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort,
+Seleccion Directa e Insercion sobre arreglos casi ordenados:
+1) nombres_casi_ordenados
+2) numeros_casi_ordenados
+*/
+
+import java.text.Normalizer;
+import java.util.Arrays;
+
+public class Parcial01Punto02 {
+
+    static class Resultado {
+        String algoritmo;
+        long comparaciones;
+        long tiempoNs;
+        long memoriaBytes;
+
+        Resultado(String algoritmo, long comparaciones, long tiempoNs, long memoriaBytes) {
+            this.algoritmo = algoritmo;
+            this.comparaciones = comparaciones;
+            this.tiempoNs = tiempoNs;
+            this.memoriaBytes = memoriaBytes;
+        }
+    }
+
+    static String normalizar(String s) {
+        return Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll(&quot;\\p{M}+&quot;, &quot;&quot;)
+                .toLowerCase();
+    }
+
+    static int compararTexto(String a, String b) {
+        return normalizar(a).compareTo(normalizar(b));
+    }
+
+    interface OrdenadorTexto {
+        long ordenar(String[] arr);
+    }
+
+    interface OrdenadorNumero {
+        long ordenar(int[] arr);
+    }
+
+    // Situacion 1 (exacta)
+    static String[] nombres_casi_ordenados = {
+            &quot;Zulma&quot;, &quot;Yuvia&quot;, &quot;Zuri&quot;, &quot;Yosef&quot;, &quot;Zósimo&quot;, &quot;Ximena&quot;, &quot;Zoren&quot;,
+            &quot;Xoán&quot;, &quot;Yara&quot;, &quot;Zenón&quot;, &quot;Zoe&quot;, &quot;Yurena&quot;, &quot;Zacarías&quot;, &quot;Xerach&quot;, &quot;Xenia&quot;, &quot;Xavier&quot;, &quot;Xavi&quot;, &quot;Xandra&quot;,
+            &quot;Xana&quot;, &quot;Wyatt&quot;, &quot;Winona&quot;, &quot;Wilson&quot;, &quot;Wilfredo&quot;, &quot;Wifredo&quot;, &quot;Wendy&quot;, &quot;Wenceslao&quot;, &quot;Walter&quot;,
+            &quot;Walda&quot;, &quot;Viviana&quot;, &quot;Visitación&quot;, &quot;Viriato&quot;, &quot;Virginia&quot;, &quot;Violeta&quot;, &quot;Vidal&quot;, &quot;Victoria&quot;, &quot;Victoriano&quot;,
+            &quot;Víctor&quot;, &quot;Vicente&quot;, &quot;Verónica&quot;, &quot;Vera&quot;, &quot;Veneranda&quot;, &quot;Venancio&quot;, &quot;Vania&quot;, &quot;Vanesa&quot;, &quot;Valery&quot;,
+            &quot;Valerio&quot;, &quot;Valeriano&quot;, &quot;Valeria&quot;, &quot;Valentino&quot;, &quot;Valentina&quot;, &quot;Uxía&quot;, &quot;Úrsula&quot;, &quot;Urraca&quot;, &quot;Urbano&quot;,
+            &quot;Unai&quot;, &quot;Umi&quot;, &quot;Uma&quot;, &quot;Ulpiano&quot;, &quot;Ulises&quot;, &quot;Ubaldo&quot;, &quot;Trinidad&quot;, &quot;Triana&quot;, &quot;Torcuato&quot;, &quot;Tomás&quot;,
+            &quot;Tobías&quot;, &quot;Timoteo&quot;, &quot;Tiburcio&quot;, &quot;Thiago&quot;, &quot;Thais&quot;, &quot;Teresa&quot;, &quot;Teonila&quot;, &quot;Teófilo&quot;, &quot;Teodora&quot;, &quot;Teo&quot;, &quot;Telesforo&quot;, &quot;Aaron&quot;, &quot;Abel&quot;, &quot;Abigail&quot;, &quot;Abril&quot;, &quot;Adán&quot;, &quot;Adela&quot;, &quot;Adolfo&quot;, &quot;Adrián&quot;, &quot;Adriana&quot;,
+            &quot;Agustín&quot;, &quot;Ainhoa&quot;, &quot;Aitana&quot;, &quot;Alan&quot;, &quot;Alba&quot;, &quot;Alberto&quot;, &quot;Aldana&quot;, &quot;Alejandro&quot;, &quot;Alejo&quot;, &quot;Alessandra&quot;,
+            &quot;Alex&quot;, &quot;Alfonsina&quot;, &quot;Alfonso&quot;, &quot;Alicia&quot;, &quot;Alma&quot;, &quot;Almudena&quot;, &quot;Alonso&quot;, &quot;Álvaro&quot;, &quot;Amadeo&quot;, &quot;Amalia&quot;,
+            &quot;Amanda&quot;, &quot;Amparo&quot;, &quot;Ana&quot;, &quot;Anabel&quot;, &quot;Anahí&quot;, &quot;Ander&quot;, &quot;Andrea&quot;, &quot;Andrés&quot;, &quot;Ángel&quot;, &quot;Ángela&quot;,
+            &quot;Angélica&quot;, &quot;Aníbal&quot;, &quot;Antía&quot;, &quot;Antón&quot;, &quot;Antonia&quot;, &quot;Antonio&quot;, &quot;Ariadna&quot;, &quot;Ariel&quot;, &quot;Arlet&quot;, &quot;Arnaldo&quot;,
+            &quot;Arnau&quot;, &quot;Arturo&quot;, &quot;Asier&quot;, &quot;Asunción&quot;, &quot;Augusto&quot;, &quot;Aurea&quot;, &quot;Aurora&quot;, &quot;Axel&quot;, &quot;Aylin&quot;, &quot;Azahara&quot;,
+            &quot;Bárbara&quot;, &quot;Bartolomé&quot;, &quot;Basilio&quot;, &quot;Bautista&quot;, &quot;Beatriz&quot;, &quot;Begoña&quot;, &quot;Belén&quot;, &quot;Beltrán&quot;, &quot;Benicio&quot;,
+            &quot;Benjamín&quot;, &quot;Benito&quot;, &quot;Berenice&quot;, &quot;Bernardo&quot;, &quot;Berta&quot;, &quot;Bianca&quot;, &quot;Biel&quot;, &quot;Blanca&quot;, &quot;Blas&quot;, &quot;Boris&quot;,
+            &quot;Braulio&quot;, &quot;Breixo&quot;, &quot;Brígida&quot;, &quot;Bruna&quot;, &quot;Bruno&quot;, &quot;Bryan&quot;, &quot;Caín&quot;, &quot;Caleb&quot;, &quot;Camilo&quot;, &quot;Candela&quot;,
+            &quot;Candelaria&quot;, &quot;Carina&quot;, &quot;Carla&quot;, &quot;Carlos&quot;, &quot;Carmelo&quot;, &quot;Carmen&quot;, &quot;Carolina&quot;, &quot;Casandra&quot;, &quot;Casimiro&quot;,
+            &quot;Catalina&quot;, &quot;Cayetana&quot;, &quot;Cecilia&quot;, &quot;Ceferino&quot;, &quot;Celia&quot;, &quot;Celina&quot;, &quot;César&quot;, &quot;Chantal&quot;, &quot;Charo&quot;, &quot;Chema&quot;,
+            &quot;Christian&quot;, &quot;Cintia&quot;, &quot;Cipriano&quot;, &quot;Cira&quot;, &quot;Ciro&quot;, &quot;Clara&quot;, &quot;Claudio&quot;, &quot;Clemente&quot;, &quot;Cleotilde&quot;, &quot;Clotilde&quot;,
+            &quot;Concepción&quot;, &quot;Conrado&quot;, &quot;Constanza&quot;, &quot;Consuelo&quot;, &quot;Coral&quot;, &quot;Cordelia&quot;, &quot;Cosme&quot;, &quot;Cristian&quot;,
+            &quot;Cristina&quot;, &quot;Cristóbal&quot;, &quot;Cruz&quot;, &quot;Custodia&quot;, &quot;Dalia&quot;, &quot;Dalma&quot;, &quot;Damián&quot;, &quot;Dánae&quot;, &quot;Daniel&quot;, &quot;Daniela&quot;,
+            &quot;Dante&quot;, &quot;Darío&quot;, &quot;David&quot;, &quot;Dayana&quot;, &quot;Débora&quot;, &quot;Delfina&quot;, &quot;Delia&quot;, &quot;Demian&quot;, &quot;Denis&quot;, &quot;Desiré&quot;,
+            &quot;Diana&quot;, &quot;Diego&quot;, &quot;Dina&quot;, &quot;Dionisio&quot;, &quot;Dolores&quot;, &quot;Domingo&quot;, &quot;Donato&quot;, &quot;Dora&quot;, &quot;Doris&quot;, &quot;Dulce&quot;,
+            &quot;Eber&quot;, &quot;Edgar&quot;, &quot;Edith&quot;, &quot;Edmundo&quot;, &quot;Eduardo&quot;, &quot;Efraín&quot;, &quot;Eider&quot;, &quot;Eladio&quot;, &quot;Eleazar&quot;, &quot;Elena&quot;,
+            &quot;Eliana&quot;, &quot;Elías&quot;, &quot;Elisa&quot;, &quot;Elisabet&quot;, &quot;Eloy&quot;, &quot;Elsa&quot;, &quot;Elvira&quot;, &quot;Emanuel&quot;, &quot;Emilia&quot;, &quot;Emiliano&quot;, &quot;Emilio&quot;,
+            &quot;Emma&quot;, &quot;Enrique&quot;, &quot;Enzo&quot;, &quot;Epifanio&quot;, &quot;Eric&quot;, &quot;Erick&quot;, &quot;Erika&quot;, &quot;Ernesto&quot;, &quot;Esmeralda&quot;, &quot;Esperanza&quot;,
+            &quot;Esteban&quot;, &quot;Estefanía&quot;, &quot;Estela&quot;, &quot;Ester&quot;, &quot;Esther&quot;, &quot;Estrella&quot;, &quot;Eugenia&quot;, &quot;Eugenio&quot;, &quot;Eulalia&quot;,
+            &quot;Eusebio&quot;, &quot;Eva&quot;, &quot;Evangelina&quot;, &quot;Evelyn&quot;, &quot;Ezequiel&quot;, &quot;Fabiana&quot;, &quot;Fabiano&quot;, &quot;Fabio&quot;, &quot;Fabiola&quot;,
+            &quot;Facundo&quot;, &quot;Fátima&quot;, &quot;Faustino&quot;, &quot;Fausto&quot;, &quot;Federico&quot;, &quot;Feliciano&quot;, &quot;Felipe&quot;, &quot;Félix&quot;, &quot;Fermín&quot;,
+            &quot;Fernanda&quot;, &quot;Fernando&quot;, &quot;Fidencio&quot;, &quot;Fiona&quot;, &quot;Fiorella&quot;, &quot;Flavia&quot;, &quot;Flavio&quot;, &quot;Flora&quot;, &quot;Florencia&quot;,
+            &quot;Florentino&quot;, &quot;Fortunato&quot;, &quot;Francesco&quot;
+    };
+
+    // Situacion 2 (exacta)
+    static int[] numeros_casi_ordenados = {
+            2491, 1083, 3922, 1045, 5671, 8234, 1012, 4456, 9012, 1033,
+            2289, 7341, 1095, 6612, 1004, 3345, 1077, 8890, 1056, 4123, 1102, 5567, 1028, 9934, 1069, 2145,
+            1088, 7756, 1041, 3021, 1099, 6643, 1007, 8812, 1052, 4409, 1105, 5521, 1024, 9134, 1065, 2045,
+            1081, 7156, 1047, 3121, 1093, 6243, 1001, 8212, 1058, 4109, 1101, 5121, 1029, 9234, 1061, 2245,
+            1086, 7256, 1043, 3221, 1091, 6343, 1015, 8312, 1054, 4209, 1106, 5221, 1022, 9334, 1067, 2345,
+            1089, 9301, 9302, 9303, 9304, 9305, 9306, 9307, 9308, 9309, 9310, 9311, 9312, 9313, 9314, 9315,
+            9316, 9317, 9318, 9319, 9320, 9321, 9322, 9323, 9324, 9325, 9326, 9327, 9328, 9329, 9330, 9331,
+            9332, 9333, 9334, 9335, 9336, 9337, 9338, 9339, 9340, 9341, 9342, 9343, 9344, 9345, 9346, 9347,
+            9348, 9349, 9350, 9351, 9352, 9353, 9354, 9355, 9356, 9357, 9358, 9359, 9360, 9361, 9362, 9363,
+            9364, 9365, 9366, 9367, 9368, 9369, 9370, 9371, 9372, 9373, 9374, 9375, 4567, 8912, 1234, 5678,
+            9023, 3456, 7890, 2345, 6789, 1122, 4433, 7788, 2299, 5566, 8811, 3344, 6677, 9900, 1357, 2468,
+            9753, 8642, 1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999, 1010, 2020, 3030, 4040, 5050,
+            6060, 7070, 8080, 9090, 1212, 2323, 3434, 4545, 5656, 6767, 7878, 8989, 1414, 2525, 3636, 4747,
+            5858, 6969, 7071, 8181, 9292, 1515, 2626, 3737, 4848, 5959, 1616, 2727, 3838, 4949, 1717, 2828,
+            3939, 5151, 6262, 7373, 8484, 9595, 1818, 2929, 4141, 5252, 6363, 7474, 8585, 9696, 1919, 3131,
+            4242, 5353, 6464, 7575, 8686, 9797, 2121, 3232, 4343, 5454, 6565, 7676, 8787, 9898, 1000, 2000,
+            3000, 4000, 5000, 6000, 7000, 8000, 9000, 1500, 2500, 3500, 4500, 5500, 6500, 7500, 8500, 9500,
+            1250, 2250, 3250, 4250, 5250, 6250, 7250, 8250, 9250, 1750, 2750, 3750, 4750, 5750, 6750, 7750,
+            8750, 9750, 1100, 2100, 3100, 4100, 5100, 6100, 7100, 8100, 9100, 1200, 2200, 3200, 4200, 5200,
+            6200, 7200, 8200, 9200
+    };
+
+    public static void main(String[] args) {
+        System.out.println(&quot;=== RESULTADOS PUNTO 2 - SITUACION 1 (nombres_casi_ordenados) ===&quot;);
+        Resultado[] r1 = new Resultado[] {
+                medirTexto(&quot;Burbuja Simple&quot;, nombres_casi_ordenados, Parcial01Punto02::burbujaSimpleTexto),
+                medirTexto(&quot;Burbuja Mejorado&quot;, nombres_casi_ordenados, Parcial01Punto02::burbujaMejoradoTexto),
+                medirTexto(&quot;Quick Sort&quot;, nombres_casi_ordenados, Parcial01Punto02::quickSortTexto),
+                medirTexto(&quot;Shell Sort&quot;, nombres_casi_ordenados, Parcial01Punto02::shellSortTexto),
+                medirTexto(&quot;Seleccion Directa&quot;, nombres_casi_ordenados, Parcial01Punto02::seleccionDirectaTexto),
+                medirTexto(&quot;Insercion&quot;, nombres_casi_ordenados, Parcial01Punto02::insercionTexto)
+        };
+        imprimirResultados(r1);
+
+        System.out.println();
+        System.out.println(&quot;=== RESULTADOS PUNTO 2 - SITUACION 2 (numeros_casi_ordenados) ===&quot;);
+        Resultado[] r2 = new Resultado[] {
+                medirNumero(&quot;Burbuja Simple&quot;, numeros_casi_ordenados, Parcial01Punto02::burbujaSimpleNum),
+                medirNumero(&quot;Burbuja Mejorado&quot;, numeros_casi_ordenados, Parcial01Punto02::burbujaMejoradoNum),
+                medirNumero(&quot;Quick Sort&quot;, numeros_casi_ordenados, Parcial01Punto02::quickSortNum),
+                medirNumero(&quot;Shell Sort&quot;, numeros_casi_ordenados, Parcial01Punto02::shellSortNum),
+                medirNumero(&quot;Seleccion Directa&quot;, numeros_casi_ordenados, Parcial01Punto02::seleccionDirectaNum),
+                medirNumero(&quot;Insercion&quot;, numeros_casi_ordenados, Parcial01Punto02::insercionNum)
+        };
+        imprimirResultados(r2);
+    }
+
+    static void imprimirResultados(Resultado[] resultados) {
+        Resultado mejor = resultados[0];
+        for (Resultado r : resultados) {
+            System.out.printf(&quot;%-18s | Comparaciones: %-9d | Tiempo: %-10d ns | Memoria: %d bytes%n&quot;,
+                    r.algoritmo, r.comparaciones, r.tiempoNs, r.memoriaBytes);
+            if (r.tiempoNs &lt; mejor.tiempoNs) mejor = r;
+        }
+        System.out.println(&quot;---------------------------------------------&quot;);
+        System.out.println(&quot;Algoritmo mas eficiente (por tiempo): &quot; + mejor.algoritmo);
+    }
+
+    static Resultado medirTexto(String nombre, String[] base, OrdenadorTexto metodo) {
+        String[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static Resultado medirNumero(String nombre, int[] base, OrdenadorNumero metodo) {
+        int[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static long memoriaUsada() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
+    // ===== TEXTO =====
+    static long burbujaSimpleTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[j + 1]) &gt; 0) {
+                    String t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                }
+            }
+        }
+        return comp;
+    }
+
+    static long burbujaMejoradoTexto(String[] arr) {
+        long comp = 0;
+        boolean huboCambio;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            huboCambio = false;
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[j + 1]) &gt; 0) {
+                    String t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                    huboCambio = true;
+                }
+            }
+            if (!huboCambio) break;
+        }
+        return comp;
+    }
+
+    static long quickSortTexto(String[] arr) {
+        long[] comp = {0};
+        quickSortRecTexto(arr, 0, arr.length - 1, comp);
+        return comp[0];
+    }
+
+    static void quickSortRecTexto(String[] arr, int low, int high, long[] comp) {
+        if (low &lt; high) {
+            int p = particionTexto(arr, low, high, comp);
+            quickSortRecTexto(arr, low, p - 1, comp);
+            quickSortRecTexto(arr, p + 1, high, comp);
+        }
+    }
+
+    static int particionTexto(String[] arr, int low, int high, long[] comp) {
+        String pivote = arr[high];
+        int i = low - 1;
+        for (int j = low; j &lt; high; j++) {
+            comp[0]++;
+            if (compararTexto(arr[j], pivote) &lt;= 0) {
+                i++;
+                String t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+            }
+        }
+        String t = arr[i + 1]; arr[i + 1] = arr[high]; arr[high] = t;
+        return i + 1;
+    }
+
+    static long shellSortTexto(String[] arr) {
+        long comp = 0;
+        for (int gap = arr.length / 2; gap &gt; 0; gap /= 2) {
+            for (int i = gap; i &lt; arr.length; i++) {
+                String temp = arr[i];
+                int j = i;
+                while (j &gt;= gap) {
+                    comp++;
+                    if (compararTexto(arr[j - gap], temp) &gt; 0) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    } else {
+                        break;
+                    }
+                }
+                arr[j] = temp;
+            }
+        }
+        return comp;
+    }
+
+    static long seleccionDirectaTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[min]) &lt; 0) min = j;
+            }
+            String t = arr[i]; arr[i] = arr[min]; arr[min] = t;
+        }
+        return comp;
+    }
+
+    static long insercionTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 1; i &lt; arr.length; i++) {
+            String clave = arr[i];
+            int j = i - 1;
+            while (j &gt;= 0) {
+                comp++;
+                if (compararTexto(arr[j], clave) &gt; 0) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                } else {
+                    break;
+                }
+            }
+            arr[j + 1] = clave;
+        }
+        return comp;
+    }
+
+    // ===== NUMEROS =====
+    static long burbujaSimpleNum(int[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (arr[j] &gt; arr[j + 1]) {
+                    int t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                }
+            }
+        }
+        return comp;
+    }
+
+    static long burbujaMejoradoNum(int[] arr) {
+        long comp = 0;
+        boolean huboCambio;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            huboCambio = false;
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (arr[j] &gt; arr[j + 1]) {
+                    int t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                    huboCambio = true;
+                }
+            }
+            if (!huboCambio) break;
+        }
+        return comp;
+    }
+
+    static long quickSortNum(int[] arr) {
+        long[] comp = {0};
+        quickSortRecNum(arr, 0, arr.length - 1, comp);
+        return comp[0];
+    }
+
+    static void quickSortRecNum(int[] arr, int low, int high, long[] comp) {
+        if (low &lt; high) {
+            int p = particionNum(arr, low, high, comp);
+            quickSortRecNum(arr, low, p - 1, comp);
+            quickSortRecNum(arr, p + 1, high, comp);
+        }
+    }
+
+    static int particionNum(int[] arr, int low, int high, long[] comp) {
+        int pivote = arr[high];
+        int i = low - 1;
+        for (int j = low; j &lt; high; j++) {
+            comp[0]++;
+            if (arr[j] &lt;= pivote) {
+                i++;
+                int t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+            }
+        }
+        int t = arr[i + 1]; arr[i + 1] = arr[high]; arr[high] = t;
+        return i + 1;
+    }
+
+    static long shellSortNum(int[] arr) {
+        long comp = 0;
+        for (int gap = arr.length / 2; gap &gt; 0; gap /= 2) {
+            for (int i = gap; i &lt; arr.length; i++) {
+                int temp = arr[i];
+                int j = i;
+                while (j &gt;= gap) {
+                    comp++;
+                    if (arr[j - gap] &gt; temp) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    } else {
+                        break;
+                    }
+                }
+                arr[j] = temp;
+            }
+        }
+        return comp;
+    }
+
+    static long seleccionDirectaNum(int[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                comp++;
+                if (arr[j] &lt; arr[min]) min = j;
+            }
+            int t = arr[i]; arr[i] = arr[min]; arr[min] = t;
+        }
+        return comp;
+    }
+
+    static long insercionNum(int[] arr) {
+        long comp = 0;
+        for (int i = 1; i &lt; arr.length; i++) {
+            int clave = arr[i];
+            int j = i - 1;
+            while (j &gt;= 0) {
+                comp++;
+                if (arr[j] &gt; clave) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                } else {
+                    break;
+                }
+            }
+            arr[j + 1] = clave;
+        }
+        return comp;
+    }
+}
+</code></pre> </section> <section class="ds-panel zona-imagen"> <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true">Output del punto</h2> <div class="marco-imagen"> <img src="/parciales/parcial-01/imagenes/punto-02.svg" alt="Imagen de salida de Punto 2: Arreglos casi ordenados (nombres y numeros)" loading="lazy" decoding="async"> </div> </section> </main> <script>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

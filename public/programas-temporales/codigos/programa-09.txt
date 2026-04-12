@@ -1,0 +1,140 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) ShellSort ordena comparando elementos separados por una distancia llamada gap.
+// 2) Inicia con gaps grandes y luego los reduce gradualmente.
+// 3) Cada gap hace una insercion parcial dentro de subgrupos.
+// 4) Al final, cuando gap vale 1, termina de afinar el orden.
+// 5) Esta estrategia acelera el proceso frente a insercion directa en muchos casos.
+// 6) Los comentarios internos explican cada fase de manera amigable.
+
+// Programa 9: Shell Sort en Java (arreglo de enteros)
+// ---------------------------------------------------------------------------------
+// ¿Que hace este programa?
+// 1) Crea un arreglo de numeros enteros desordenados.
+// 2) Lo ordena de menor a mayor usando el algoritmo Shell Sort.
+// 3) Muestra el arreglo antes y despues del ordenamiento.
+//
+// ¿Por que Shell Sort?
+// - Es una mejora del algoritmo de insercion.
+// - En lugar de comparar solo vecinos inmediatos, primero compara elementos
+//   que estan "lejos" entre si (segun un salto llamado gap).
+// - Ese proceso deja el arreglo "casi ordenado" y luego termina con gap = 1,
+//   donde se comporta como insercion pero mucho mas rapido que empezar desde cero.
+
+public class Programa9ShellSortEnteros {
+
+    public static void main(String[] args) {
+        // Arreglo de ejemplo que vamos a ordenar.
+        int[] datos = {45, 12, 89, 3, 27, 66, 18, 5, 90, 34};
+
+        // Imprimimos el estado inicial para comparar luego.
+        System.out.print("Arreglo original: ");
+        imprimirArreglo(datos);
+
+        // Llamamos al metodo que realiza Shell Sort.
+        shellSort(datos);
+
+        // Imprimimos el resultado final ya ordenado.
+        System.out.print("Arreglo ordenado: ");
+        imprimirArreglo(datos);
+    }
+
+    // Metodo principal del algoritmo Shell Sort.
+    public static void shellSort(int[] arreglo) {
+        int n = arreglo.length;
+
+        // El "gap" comienza en la mitad del tamano del arreglo.
+        // Ejemplo: si n = 10, gap inicia en 5.
+        // Luego lo reducimos a la mitad en cada vuelta: 5 -> 2 -> 1.
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+
+            // Recorremos desde la posicion "gap" hasta el final,
+            // porque los indices anteriores no tienen elemento "a gap" atras.
+            for (int i = gap; i < n; i++) {
+                // Guardamos el valor actual para insertarlo en su posicion correcta.
+                int temporal = arreglo[i];
+
+                // j se movera hacia atras en saltos del tamano "gap".
+                int j = i;
+
+                // Mientras exista un elemento anterior (a distancia gap)
+                // y ese elemento sea mayor que "temporal", lo desplazamos.
+                // Esto deja un "hueco" donde luego insertaremos temporal.
+                while (j >= gap && arreglo[j - gap] > temporal) {
+                    arreglo[j] = arreglo[j - gap];
+                    j -= gap;
+                }
+
+                // Colocamos el valor temporal en su lugar correcto
+                // dentro del grupo definido por el gap actual.
+                arreglo[j] = temporal;
+            }
+        }
+    }
+
+    // Metodo auxiliar para mostrar el arreglo con formato [a, b, c].
+    public static void imprimirArreglo(int[] arreglo) {
+        System.out.print("[");
+        for (int i = 0; i < arreglo.length; i++) {
+            System.out.print(arreglo[i]);
+            if (i < arreglo.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
+}
+
+// ------------------------------
+// EJEMPLO DE EJECUCION (OUTPUT)
+// ------------------------------
+// Arreglo original: [45, 12, 89, 3, 27, 66, 18, 5, 90, 34]
+// Arreglo ordenado: [3, 5, 12, 18, 27, 34, 45, 66, 89, 90]
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 0.365 ms | Memoria: 1 KB | Iteraciones: 33 | Comparaciones: 33 | Intercambios: 4
+    Entrada: Arreglo de enteros totalmente desordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 7.308 ms | Memoria: 3.5 KB | Iteraciones: 664 | Comparaciones: 664 | Intercambios: 40
+    Entrada: Arreglo de enteros totalmente desordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 109.624 ms | Memoria: 35 KB | Iteraciones: 9966 | Comparaciones: 9966 | Intercambios: 400
+    Entrada: Arreglo de enteros totalmente desordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.192 ms | Memoria: 1 KB | Iteraciones: 20 | Comparaciones: 23 | Intercambios: 2
+    Entrada: Arreglo de enteros parcialmente ordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 3.837 ms | Memoria: 3.15 KB | Iteraciones: 399 | Comparaciones: 465 | Intercambios: 20
+    Entrada: Arreglo de enteros parcialmente ordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 57.552 ms | Memoria: 31.5 KB | Iteraciones: 5979 | Comparaciones: 6976 | Intercambios: 200
+    Entrada: Arreglo de enteros parcialmente ordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 0.422 ms | Memoria: 1 KB | Iteraciones: 35 | Comparaciones: 35 | Intercambios: 4
+    Entrada: Arreglo de enteros orden intercalado (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 8.441 ms | Memoria: 3.68 KB | Iteraciones: 698 | Comparaciones: 698 | Intercambios: 44
+    Entrada: Arreglo de enteros orden intercalado (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 126.615 ms | Memoria: 36.75 KB | Iteraciones: 10464 | Comparaciones: 10464 | Intercambios: 440
+    Entrada: Arreglo de enteros orden intercalado (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 0.691 ms | Memoria: 1 KB | Iteraciones: 45 | Comparaciones: 47 | Intercambios: 6
+    Entrada: Arreglo de enteros orden invertido (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 13.813 ms | Memoria: 4.03 KB | Iteraciones: 897 | Comparaciones: 930 | Intercambios: 64
+    Entrada: Arreglo de enteros orden invertido (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 207.189 ms | Memoria: 40.25 KB | Iteraciones: 13454 | Comparaciones: 13952 | Intercambios: 640
+    Entrada: Arreglo de enteros orden invertido (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

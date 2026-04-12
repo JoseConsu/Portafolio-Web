@@ -1,0 +1,122 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) Primero se guarda una lista de palabras en desorden.
+// 2) El algoritmo Burbuja compara dos palabras vecinas en cada paso.
+// 3) Si estan en orden incorrecto alfabetico, se intercambian de lugar.
+// 4) Al terminar una pasada completa, la palabra "mas grande" queda al final.
+// 5) Se repiten pasadas hasta dejar todo el arreglo ordenado.
+// 6) Los comentarios dentro del codigo explican cada instruccion en lenguaje simple.
+
+// Programa 01: Ordenamiento Burbuja simple en C++ (String)
+// Descripcion:
+// Este programa ordena alfabeticamente 10 palabras usando el algoritmo burbuja.
+// La explicacion esta comentada linea por linea para facilitar su exposicion.
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // PASO 1: Declarar e inicializar los 10 datos de tipo string.
+    // Estos son los valores de entrada que vamos a ordenar.
+    string palabras[10] = {
+        "zorro", "manzana", "luna", "barco", "nube",
+        "guitarra", "isla", "avion", "perro", "casa"
+    };
+
+    // PASO 2: Mostrar el arreglo original para comparar antes/despues.
+    cout << "Arreglo original:\n";
+    for (int i = 0; i < 10; i++) {
+        cout << palabras[i] << (i < 9 ? ", " : "\n\n");
+    }
+
+    // PASO 3: Aplicar el algoritmo burbuja.
+    // Recorremos varias pasadas. En cada pasada, la palabra "mayor"
+    // (lexicograficamente) va quedando al final.
+    for (int pasada = 0; pasada < 9; pasada++) {
+        // Bandera para detectar si ya esta ordenado y salir antes.
+        bool huboIntercambio = false;
+
+        // Comparamos pares consecutivos: [j] y [j+1].
+        // El limite disminuye porque al final de cada pasada
+        // ya queda un elemento en su posicion definitiva.
+        for (int j = 0; j < 9 - pasada; j++) {
+            // Si la palabra actual es "mayor" que la siguiente,
+            // las intercambiamos para avanzar hacia orden ascendente.
+            if (palabras[j] > palabras[j + 1]) {
+                string temporal = palabras[j];
+                palabras[j] = palabras[j + 1];
+                palabras[j + 1] = temporal;
+                huboIntercambio = true;
+            }
+        }
+
+        // PASO 4: Mostrar estado del arreglo en cada pasada.
+        cout << "Pasada " << (pasada + 1) << ": ";
+        for (int k = 0; k < 10; k++) {
+            cout << palabras[k] << (k < 9 ? ", " : "\n");
+        }
+
+        // Si no hubo intercambio, significa que ya estaba ordenado.
+        if (!huboIntercambio) {
+            cout << "\nNo hubo intercambios; el arreglo ya esta ordenado.\n";
+            break;
+        }
+    }
+
+    // PASO 5: Mostrar el resultado final ordenado.
+    cout << "\nArreglo ordenado alfabeticamente:\n";
+    for (int i = 0; i < 10; i++) {
+        cout << palabras[i] << (i < 9 ? ", " : "\n");
+    }
+
+    return 0;
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 1.8 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 8
+    Entrada: Arreglo de cadenas totalmente desordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 180 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 80
+    Entrada: Arreglo de cadenas totalmente desordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 18000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 800
+    Entrada: Arreglo de cadenas totalmente desordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.945 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 4
+    Entrada: Arreglo de cadenas parcialmente ordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 94.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 40
+    Entrada: Arreglo de cadenas parcialmente ordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 9450 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 400
+    Entrada: Arreglo de cadenas parcialmente ordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 2.079 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 9
+    Entrada: Arreglo de cadenas orden intercalado (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 207.9 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 88
+    Entrada: Arreglo de cadenas orden intercalado (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 20790 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 880
+    Entrada: Arreglo de cadenas orden intercalado (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 3.402 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 13
+    Entrada: Arreglo de cadenas orden invertido (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 340.2 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 128
+    Entrada: Arreglo de cadenas orden invertido (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 34020 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 1280
+    Entrada: Arreglo de cadenas orden invertido (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Punto 4: Ordenamiento con valores repetidos | Parcial 1</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.28488erS.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Parcial 1</p> <h1>Punto 4: Ordenamiento con valores repetidos</h1> <p>Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos"> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true"> </a> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true">Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+PARCIAL 1 - PUNTO 4
+
+Ordenamiento de valores repetidos:
+Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort,
+Seleccion Directa e Insercion en dos arreglos con repeticiones.
+*/
+
+import java.text.Normalizer;
+import java.util.Arrays;
+
+public class Parcial01Punto04 {
+
+    static class Resultado {
+        String algoritmo;
+        long comparaciones;
+        long tiempoNs;
+        long memoriaBytes;
+
+        Resultado(String algoritmo, long comparaciones, long tiempoNs, long memoriaBytes) {
+            this.algoritmo = algoritmo;
+            this.comparaciones = comparaciones;
+            this.tiempoNs = tiempoNs;
+            this.memoriaBytes = memoriaBytes;
+        }
+    }
+
+    static String normalizar(String s) {
+        return Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll(&quot;\\p{M}+&quot;, &quot;&quot;)
+                .toLowerCase();
+    }
+
+    static int compararTexto(String a, String b) {
+        return normalizar(a).compareTo(normalizar(b));
+    }
+
+    interface OrdenadorTexto { long ordenar(String[] arr); }
+    interface OrdenadorNumero { long ordenar(int[] arr); }
+
+    static long memoriaUsada() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
+    // Situacion 1 (exacta)
+    static String[] nombres_repetidos_grande = { &quot;Sofía&quot;, &quot;Martina&quot;, &quot;Lucía&quot;, &quot;Natalia&quot;, &quot;Andrea&quot;,
+&quot;Laura&quot;, &quot;Carlos&quot;, &quot;Ana&quot;, &quot;Jesús&quot;, &quot;Alejandro&quot;, &quot;Valentina&quot;, &quot;Pedro&quot;, &quot;Isabel&quot;, &quot;Gabriel&quot;,
+&quot;María&quot;, &quot;Sara&quot;, &quot;Gonzalo&quot;, &quot;Marta&quot;, &quot;Ricardo&quot;, &quot;José&quot;, &quot;Lucía&quot;, &quot;Adrián&quot;, &quot;Samuel&quot;,
+&quot;Diego&quot;, &quot;Cristina&quot;, &quot;Alberto&quot;, &quot;Sara&quot;, &quot;Pablo&quot;, &quot;Laura&quot;, &quot;Cristina&quot;, &quot;Claudia&quot;, &quot;Marta&quot;,
+&quot;Fernando&quot;, &quot;Alba&quot;, &quot;Victoria&quot;, &quot;Laura&quot;, &quot;Guillermo&quot;, &quot;Sara&quot;, &quot;Antonio&quot;, &quot;Rubén&quot;, &quot;María&quot;,
+&quot;Javier&quot;, &quot;Beatriz&quot;, &quot;Laura&quot;, &quot;Francisco&quot;, &quot;Ricardo&quot;, &quot;Andrés&quot;, &quot;Víctor&quot;, &quot;Ricardo&quot;, &quot;Jorge&quot;,
+&quot;Javier&quot;, &quot;Patricia&quot;, &quot;Natalia&quot;, &quot;Carmen&quot;, &quot;Alejandro&quot;, &quot;Beatriz&quot;, &quot;Laura&quot;, &quot;Laura&quot;, &quot;Laura&quot;,
+&quot;Pablo&quot;, &quot;Martina&quot;, &quot;Ricardo&quot;, &quot;Ricardo&quot;, &quot;Javier&quot;, &quot;Sara&quot;, &quot;Diego&quot;, &quot;Laura&quot;, &quot;Adrián&quot;,
+&quot;Lucía&quot;, &quot;María&quot;, &quot;Laura&quot;, &quot;Laura&quot;, &quot;Alberto&quot;, &quot;Laura&quot;, &quot;Sara&quot;, &quot;Francisco&quot;, &quot;Andrea&quot;,
+&quot;Pablo&quot;, &quot;Lucía&quot;, &quot;Andrea&quot;, &quot;Lucía&quot;, &quot;Laura&quot;, &quot;Carmen&quot;, &quot;Sergio&quot;, &quot;José&quot;, &quot;Carlos&quot;, &quot;María&quot;,
+&quot;Laura&quot;, &quot;Javier&quot;, &quot;Laura&quot;, &quot;Ricardo&quot;, &quot;Andrea&quot;, &quot;María&quot;, &quot;Alberto&quot;, &quot;Laura&quot;, &quot;Fernando&quot;,
+&quot;Sofía&quot;, &quot;Martina&quot;, &quot;Lucía&quot;, &quot;Natalia&quot;, &quot;Andrea&quot;, &quot;Laura&quot;, &quot;Carlos&quot;, &quot;Ana&quot;, &quot;Jesús&quot;,
+&quot;Alejandro&quot;, &quot;Valentina&quot;, &quot;Pedro&quot;, &quot;Isabel&quot;, &quot;Gabriel&quot;, &quot;María&quot;, &quot;Sara&quot;, &quot;Gonzalo&quot;, &quot;Marta&quot;,
+&quot;Ricardo&quot;, &quot;José&quot;, &quot;Lucía&quot;, &quot;Adrián&quot;, &quot;Samuel&quot;, &quot;Diego&quot;, &quot;Cristina&quot;, &quot;Alberto&quot;, &quot;Sara&quot;,
+&quot;Pablo&quot;, &quot;Laura&quot;, &quot;Cristina&quot;, &quot;Claudia&quot;, &quot;Marta&quot;, &quot;Fernando&quot;, &quot;Alba&quot;, &quot;Victoria&quot;, &quot;Laura&quot;,
+&quot;Guillermo&quot;, &quot;Sara&quot;, &quot;Antonio&quot;, &quot;Rubén&quot;, &quot;María&quot;, &quot;Javier&quot;, &quot;Beatriz&quot;, &quot;Laura&quot;, &quot;Francisco&quot;,
+&quot;Ricardo&quot;, &quot;Andrés&quot;, &quot;Víctor&quot;, &quot;Ricardo&quot;, &quot;Jorge&quot;, &quot;Javier&quot;, &quot;Patricia&quot;, &quot;Natalia&quot;, &quot;Carmen&quot;,
+&quot;Alejandro&quot;, &quot;Beatriz&quot;, &quot;Laura&quot;, &quot;Laura&quot;, &quot;Laura&quot;, &quot;Pablo&quot;, &quot;Martina&quot;, &quot;Ricardo&quot;, &quot;Ricardo&quot;,
+&quot;Javier&quot;, &quot;Sara&quot;, &quot;Diego&quot;, &quot;Laura&quot;, &quot;Adrián&quot;, &quot;Lucía&quot;, &quot;María&quot;, &quot;Laura&quot;, &quot;Laura&quot;, &quot;Alberto&quot;,
+&quot;Laura&quot;, &quot;Sara&quot;, &quot;Francisco&quot;, &quot;Andrea&quot;, &quot;Pablo&quot;, &quot;Lucía&quot;, &quot;Andrea&quot;, &quot;Lucía&quot;, &quot;Laura&quot;,
+&quot;Carmen&quot;, &quot;Sergio&quot;, &quot;José&quot;, &quot;Carlos&quot;, &quot;María&quot;, &quot;Laura&quot;, &quot;Javier&quot;, &quot;Laura&quot;, &quot;Ricardo&quot;,
+&quot;Andrea&quot;, &quot;María&quot;, &quot;Alberto&quot;, &quot;Laura&quot;, &quot;Fernando&quot; };
+
+    // Situacion 2 (exacta)
+    static int[] numeros_repetidos_grande = { 3482, 9107, 4425, 1893, 7261, 5504, 2319, 8847, 6012,
+4390, 7712, 1056, 9238, 3341, 5609, 2174, 8045, 6673, 4920, 1155, 7839, 2902, 5418, 9367, 4081,
+6254, 8190, 3726, 1544, 9901, 4872, 7033, 2266, 5198, 8340, 6127, 4404, 1925, 7750, 3051, 8614,
+5592, 1289, 9430, 4716, 6885, 2349, 8102, 3957, 5023, 7468, 1184, 9036, 4277, 6511, 2890, 8433,
+5729, 3110, 9655, 4321, 7094, 1867, 5532, 8240, 6903, 3378, 1022, 9745, 4156, 7280, 2591, 8813,
+5466, 3804, 9129, 4670, 6044, 2133, 7952, 1409, 5821, 8366, 3294, 9510, 4837, 7125, 2068, 6741,
+8922, 5355, 3689, 1247, 9803, 4594, 7311, 2750, 8019, 5634, 3942, 9276, 4485, 6160, 1937, 7808,
+2211, 5090, 8527, 3403, 9388, 4122, 7555, 2640, 8734, 5209, 3567, 1376, 9942, 4601, 6499, 2822,
+8150, 3187, 5974, 7623, 1104, 9059, 4233, 6311, 2467, 8688, 5576, 3010, 9466, 4741, 7203, 1855, 5320, 8401, 6929, 3255, 1088, 9712, 4039, 7420, 2533, 8911, 5684, 3766, 9190, 4501,
+6277, 2004,7865, 1472, 5933, 8290, 3311, 9588, 4950, 7100, 2189, 6854, 8831, 5492, 3621, 1210, 9877, 4625,
+7380, 2712, 8076, 5145, 3878, 9343, 4422, 6089, 1901, 7725, 2240, 5011, 8594, 3476, 9411, 4199,
+7512, 2690, 8788, 5266, 3501, 1344, 9920, 4654, 6427, 2855, 8100, 3133, 5890, 7688, 1143, 9022,
+4289, 6366, 2401, 8632, 5511, 3074, 9499, 4776, 7250, 1812, 5394, 8467, 6981, 3222, 1050, 9777,
+4011, 7480, 2576, 8966, 5612, 3711, 9155, 4567, 6212, 2088, 7922, 1433, 5901, 8254, 3329, 9555,
+4912, 7177, 2150, 6811, 8876, 5427, 3601, 1255, 9840, 3482, 9107, 4425, 1893, 7261, 5504, 2319,
+8847, 6012, 4390, 7712, 1056, 9238, 3341, 5609, 2174, 8045, 6673, 4920, 1155, 7839, 2902, 5418,
+9367, 4081, 6254, 8190, 3726, 1544, 9901, 4872, 7033, 2266, 5198, 8340, 6127, 4404, 1925, 7750,
+3051, 8614, 5592, 1289, 9430, 4716, 6885, 2349, 8102, 3957, 5023, 7468, 1184, 9036, 4277, 6511,
+2890, 8433, 5729, 3110, 9655, 4321, 7094, 1867, 5532, 8240, 6903, 3378, 1022, 9745, 4156, 7280,
+2591, 8813, 5466, 3804, 9129, 4670, 6044, 2133, 7952, 1409, 5821, 8366, 3294, 9510, 4837, 7125,
+2068, 6741, 8922, 5355, 3689, 1247, 9803, 4594, 7311, 2750, 8019, 5634, 3942, 9276, 4485, 6160,
+1937, 7808, 2211, 5090, 8527, 3403, 9388, 4122, 7555, 2640, 8734, 5209, 3567, 1376, 9942, 4601,
+6499, 2822, 8150, 3187, 5974, 7623, 1104, 9059, 4233, 6311, 2467, 8688, 5576, 3010, 9466, 4741,
+7203, 1855, 5320, 8401, 6929, 3255, 1088, 9712, 4039, 7420, 2533, 8911, 5684, 3766, 9190, 4501,
+6277, 2004, 7865, 1472, 5933, 8290, 3311, 9588, 4950, 7100, 2189, 6854, 8831, 5492, 3621, 1210,
+9877, 4625, 7380, 2712, 8076, 5145, 3878, 9343, 4422, 6089, 1901, 7725, 2240, 5011, 8594, 3476,
+9411, 4199, 7512, 2690, 8788, 5266, 3501, 1344, 9920, 4654, 6427, 2855, 8100, 3133, 5890, 7688,
+1143, 9022, 4289, 6366, 2401, 8632, 5511, 3074, 9499, 4776, 7250, 1812, 5394, 8467, 6981, 3222,
+1050, 9777, 4011, 7480, 2576, 8966, 5612, 3711, 9155, 4567, 6212, 2088, 7922, 1433, 5901, 8254,
+3329, 9555, 4912, 7177, 2150, 6811, 8876, 5427, 3601, 1255, 9840 };
+
+    public static void main(String[] args) {
+        System.out.println(&quot;=== RESULTADOS PUNTO 4 - SITUACION 1 (nombres_repetidos_grande) ===&quot;);
+        Resultado[] r1 = new Resultado[] {
+                medirTexto(&quot;Burbuja Simple&quot;, nombres_repetidos_grande, Parcial01Punto04::burbujaSimpleTexto),
+                medirTexto(&quot;Burbuja Mejorado&quot;, nombres_repetidos_grande, Parcial01Punto04::burbujaMejoradoTexto),
+                medirTexto(&quot;Quick Sort&quot;, nombres_repetidos_grande, Parcial01Punto04::quickSortTexto),
+                medirTexto(&quot;Shell Sort&quot;, nombres_repetidos_grande, Parcial01Punto04::shellSortTexto),
+                medirTexto(&quot;Seleccion Directa&quot;, nombres_repetidos_grande, Parcial01Punto04::seleccionDirectaTexto),
+                medirTexto(&quot;Insercion&quot;, nombres_repetidos_grande, Parcial01Punto04::insercionTexto)
+        };
+        imprimirResultados(r1);
+
+        System.out.println();
+        System.out.println(&quot;=== RESULTADOS PUNTO 4 - SITUACION 2 (numeros_repetidos_grande) ===&quot;);
+        Resultado[] r2 = new Resultado[] {
+                medirNumero(&quot;Burbuja Simple&quot;, numeros_repetidos_grande, Parcial01Punto04::burbujaSimpleNum),
+                medirNumero(&quot;Burbuja Mejorado&quot;, numeros_repetidos_grande, Parcial01Punto04::burbujaMejoradoNum),
+                medirNumero(&quot;Quick Sort&quot;, numeros_repetidos_grande, Parcial01Punto04::quickSortNum),
+                medirNumero(&quot;Shell Sort&quot;, numeros_repetidos_grande, Parcial01Punto04::shellSortNum),
+                medirNumero(&quot;Seleccion Directa&quot;, numeros_repetidos_grande, Parcial01Punto04::seleccionDirectaNum),
+                medirNumero(&quot;Insercion&quot;, numeros_repetidos_grande, Parcial01Punto04::insercionNum)
+        };
+        imprimirResultados(r2);
+    }
+
+    static void imprimirResultados(Resultado[] resultados) {
+        Resultado mejor = resultados[0];
+        for (Resultado r : resultados) {
+            System.out.printf(&quot;%-18s | Comparaciones: %-9d | Tiempo: %-10d ns | Memoria: %d bytes%n&quot;,
+                    r.algoritmo, r.comparaciones, r.tiempoNs, r.memoriaBytes);
+            if (r.tiempoNs &lt; mejor.tiempoNs) mejor = r;
+        }
+        System.out.println(&quot;---------------------------------------------&quot;);
+        System.out.println(&quot;Algoritmo mas eficiente (por tiempo): &quot; + mejor.algoritmo);
+    }
+
+    static Resultado medirTexto(String nombre, String[] base, OrdenadorTexto metodo) {
+        String[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static Resultado medirNumero(String nombre, int[] base, OrdenadorNumero metodo) {
+        int[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static long burbujaSimpleTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++)
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[j + 1]) &gt; 0) {
+                    String t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                }
+            }
+        return comp;
+    }
+
+    static long burbujaMejoradoTexto(String[] arr) {
+        long comp = 0;
+        boolean huboCambio;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            huboCambio = false;
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[j + 1]) &gt; 0) {
+                    String t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                    huboCambio = true;
+                }
+            }
+            if (!huboCambio) break;
+        }
+        return comp;
+    }
+
+    static long quickSortTexto(String[] arr) {
+        long[] comp = {0};
+        quickSortRecTexto(arr, 0, arr.length - 1, comp);
+        return comp[0];
+    }
+
+    static void quickSortRecTexto(String[] arr, int low, int high, long[] comp) {
+        if (low &lt; high) {
+            int p = particionTexto(arr, low, high, comp);
+            quickSortRecTexto(arr, low, p - 1, comp);
+            quickSortRecTexto(arr, p + 1, high, comp);
+        }
+    }
+
+    static int particionTexto(String[] arr, int low, int high, long[] comp) {
+        String pivote = arr[high];
+        int i = low - 1;
+        for (int j = low; j &lt; high; j++) {
+            comp[0]++;
+            if (compararTexto(arr[j], pivote) &lt;= 0) {
+                i++;
+                String t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+            }
+        }
+        String t = arr[i + 1]; arr[i + 1] = arr[high]; arr[high] = t;
+        return i + 1;
+    }
+
+    static long shellSortTexto(String[] arr) {
+        long comp = 0;
+        for (int gap = arr.length / 2; gap &gt; 0; gap /= 2)
+            for (int i = gap; i &lt; arr.length; i++) {
+                String temp = arr[i];
+                int j = i;
+                while (j &gt;= gap) {
+                    comp++;
+                    if (compararTexto(arr[j - gap], temp) &gt; 0) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    } else break;
+                }
+                arr[j] = temp;
+            }
+        return comp;
+    }
+
+    static long seleccionDirectaTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                comp++;
+                if (compararTexto(arr[j], arr[min]) &lt; 0) min = j;
+            }
+            String t = arr[i]; arr[i] = arr[min]; arr[min] = t;
+        }
+        return comp;
+    }
+
+    static long insercionTexto(String[] arr) {
+        long comp = 0;
+        for (int i = 1; i &lt; arr.length; i++) {
+            String clave = arr[i];
+            int j = i - 1;
+            while (j &gt;= 0) {
+                comp++;
+                if (compararTexto(arr[j], clave) &gt; 0) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                } else break;
+            }
+            arr[j + 1] = clave;
+        }
+        return comp;
+    }
+
+    static long burbujaSimpleNum(int[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++)
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (arr[j] &gt; arr[j + 1]) {
+                    int t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                }
+            }
+        return comp;
+    }
+
+    static long burbujaMejoradoNum(int[] arr) {
+        long comp = 0;
+        boolean huboCambio;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            huboCambio = false;
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                comp++;
+                if (arr[j] &gt; arr[j + 1]) {
+                    int t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t;
+                    huboCambio = true;
+                }
+            }
+            if (!huboCambio) break;
+        }
+        return comp;
+    }
+
+    static long quickSortNum(int[] arr) {
+        long[] comp = {0};
+        quickSortRecNum(arr, 0, arr.length - 1, comp);
+        return comp[0];
+    }
+
+    static void quickSortRecNum(int[] arr, int low, int high, long[] comp) {
+        if (low &lt; high) {
+            int p = particionNum(arr, low, high, comp);
+            quickSortRecNum(arr, low, p - 1, comp);
+            quickSortRecNum(arr, p + 1, high, comp);
+        }
+    }
+
+    static int particionNum(int[] arr, int low, int high, long[] comp) {
+        int pivote = arr[high];
+        int i = low - 1;
+        for (int j = low; j &lt; high; j++) {
+            comp[0]++;
+            if (arr[j] &lt;= pivote) {
+                i++;
+                int t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+            }
+        }
+        int t = arr[i + 1]; arr[i + 1] = arr[high]; arr[high] = t;
+        return i + 1;
+    }
+
+    static long shellSortNum(int[] arr) {
+        long comp = 0;
+        for (int gap = arr.length / 2; gap &gt; 0; gap /= 2)
+            for (int i = gap; i &lt; arr.length; i++) {
+                int temp = arr[i];
+                int j = i;
+                while (j &gt;= gap) {
+                    comp++;
+                    if (arr[j - gap] &gt; temp) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    } else break;
+                }
+                arr[j] = temp;
+            }
+        return comp;
+    }
+
+    static long seleccionDirectaNum(int[] arr) {
+        long comp = 0;
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                comp++;
+                if (arr[j] &lt; arr[min]) min = j;
+            }
+            int t = arr[i]; arr[i] = arr[min]; arr[min] = t;
+        }
+        return comp;
+    }
+
+    static long insercionNum(int[] arr) {
+        long comp = 0;
+        for (int i = 1; i &lt; arr.length; i++) {
+            int clave = arr[i];
+            int j = i - 1;
+            while (j &gt;= 0) {
+                comp++;
+                if (arr[j] &gt; clave) {
+                    arr[j + 1] = arr[j];
+                    j--;
+                } else break;
+            }
+            arr[j + 1] = clave;
+        }
+        return comp;
+    }
+}
+</code></pre> </section> <section class="ds-panel zona-imagen"> <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true">Output del punto</h2> <div class="marco-imagen"> <img src="/parciales/parcial-01/imagenes/punto-04.svg" alt="Imagen de salida de Punto 4: Ordenamiento con valores repetidos" loading="lazy" decoding="async"> </div> </section> </main> <script>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

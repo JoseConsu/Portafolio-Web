@@ -1,0 +1,156 @@
+---
+import { perfil } from "../../datos/perfil";
+---
+
+<header class="panel portada">
+  <div class="fotoWrap" aria-label="Foto de perfil">
+    <img class="foto" src={perfil.foto} alt={`Foto de ${perfil.nombreCompleto}`} />
+    <div class="marco"></div>
+  </div>
+
+  <div>
+    <h1 class="nombre">{perfil.nombreCompleto}</h1>
+    <p class="rol">{perfil.titulo}</p>
+    <p class="textoSuave enfoque">{perfil.enfoque}</p>
+
+    <div class="acciones">
+      <a class="boton botonPrimario" href="/cv.pdf" target="_blank" rel="noreferrer">Descargar CV</a>
+      <a class="boton botonContacto correo" href={perfil.correoElectronico} aria-label="Enviar correo electrónico">
+        <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v.22L8 8.95.01 4.22V4zm0 1.38V12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.38L8.47 9.76a.75.75 0 0 1-.94 0L0 5.38z" />
+        </svg>
+        Correo electrónico
+      </a>
+      <a
+        class="boton botonContacto whatsapp"
+        href={perfil.whatsapp}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Contactar por WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M12.04 2C6.57 2 2.11 6.46 2.11 11.93c0 1.74.46 3.44 1.32 4.95L2 22l5.28-1.39a9.89 9.89 0 0 0 4.76 1.22h.01c5.47 0 9.93-4.45 9.93-9.92A9.86 9.86 0 0 0 12.04 2Zm0 18.13h-.01a8.18 8.18 0 0 1-4.17-1.15l-.3-.18-3.14.83.84-3.05-.2-.31a8.22 8.22 0 0 1-1.26-4.36c0-4.53 3.69-8.22 8.23-8.22a8.15 8.15 0 0 1 5.82 2.41 8.16 8.16 0 0 1 2.41 5.82c0 4.53-3.69 8.21-8.22 8.21Zm4.5-6.16c-.25-.13-1.47-.73-1.7-.81-.22-.08-.39-.13-.56.13-.16.24-.65.81-.79.98-.14.16-.29.18-.54.06-.25-.13-1.04-.38-1.98-1.22-.73-.65-1.22-1.46-1.37-1.7-.14-.24-.01-.37.11-.5.11-.11.25-.29.37-.43.12-.14.16-.24.24-.4.08-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.47c-.16 0-.43.06-.65.3-.22.24-.85.83-.85 2.04s.88 2.39 1 2.55c.12.16 1.73 2.63 4.19 3.69.59.25 1.05.41 1.4.52.59.18 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.13.21-.54.21-.99.15-1.09-.07-.1-.23-.16-.48-.29Z" />
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+.portada{
+  display:grid;
+  grid-template-columns: 300px 1fr;
+  gap: 26px;
+  align-items:center;
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: var(--glow);
+}
+
+/* CIRCULO REAL (varios respaldos) */
+.fotoWrap{
+  position: relative;
+  width: 270px;
+  height: 270px;
+  aspect-ratio: 1 / 1;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  /* respaldo extra si algo interfiere */
+  clip-path: circle(50% at 50% 50%);
+  -webkit-mask-image: radial-gradient(circle, #000 66%, transparent 67%);
+  mask-image: radial-gradient(circle, #000 66%, transparent 67%);
+}
+
+.foto{
+  width: 100%;
+  height: 100%;
+  display:block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  transform: scale(1.03);
+}
+
+.marco{
+  position:absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.18);
+  box-shadow: var(--glow);
+}
+
+.marco::before{
+  content:"";
+  position:absolute;
+  inset: -34px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    rgba(124,58,237,0.85),
+    rgba(37,99,235,0.85),
+    rgba(34,211,238,0.70),
+    rgba(124,58,237,0.85)
+  );
+  opacity: .16;
+  filter: blur(16px);
+}
+
+.nombre{
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: 0.6px;
+}
+
+.rol{ margin: 12px 0 12px; opacity: .92; font-size: 24px; }
+.enfoque{ margin: 0; font-size: 20px; }
+
+.acciones{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 18px; }
+
+.botonContacto{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+.botonContacto svg{
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.correo{
+  border-color: color-mix(in srgb, #60a5fa 60%, transparent);
+  background: color-mix(in srgb, #60a5fa 20%, transparent);
+}
+
+.whatsapp{
+  border-color: color-mix(in srgb, #22c55e 60%, transparent);
+  background: color-mix(in srgb, #22c55e 20%, transparent);
+}
+
+html[data-tema="claro"] .correo{
+  border-color: #2563eb;
+  background: #ffffff;
+  color: #1d4ed8;
+}
+
+html[data-tema="claro"] .whatsapp{
+  border-color: #16a34a;
+  background: #ffffff;
+  color: #15803d;
+}
+
+@media (max-width: 760px){
+  .portada{ grid-template-columns: 1fr; }
+  .fotoWrap{ margin: 0 auto; }
+  .nombre{ font-size: 34px; }
+}
+</style>

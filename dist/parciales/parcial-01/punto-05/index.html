@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Punto 5: Arreglos parcialmente ordenados | Parcial 1</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.28488erS.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Parcial 1</p> <h1>Punto 5: Arreglos parcialmente ordenados</h1> <p>Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos donde una mitad esta ordenada y la otra desordenada.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos"> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true"> </a> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true">Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+PARCIAL 1 - PUNTO 5
+
+Arreglos parcialmente ordenados:
+- Mitad 1 (inicio a mitad): ordenada
+- Mitad 2 (mitad a final): desordenada
+
+Se comparan 6 algoritmos:
+Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort,
+Seleccion Directa e Insercion.
+*/
+
+import java.text.Normalizer;
+import java.util.Arrays;
+
+public class Parcial01Punto05 {
+
+    static class Resultado {
+        String algoritmo;
+        long comparaciones;
+        long tiempoNs;
+        long memoriaBytes;
+
+        Resultado(String algoritmo, long comparaciones, long tiempoNs, long memoriaBytes) {
+            this.algoritmo = algoritmo;
+            this.comparaciones = comparaciones;
+            this.tiempoNs = tiempoNs;
+            this.memoriaBytes = memoriaBytes;
+        }
+    }
+
+    static String normalizar(String s) {
+        return Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll(&quot;\\p{M}+&quot;, &quot;&quot;)
+                .toLowerCase();
+    }
+
+    static int compararTexto(String a, String b) {
+        return normalizar(a).compareTo(normalizar(b));
+    }
+
+    interface OrdenadorTexto { long ordenar(String[] arr); }
+    interface OrdenadorNumero { long ordenar(int[] arr); }
+
+    static long memoriaUsada() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
+    // Diseñado para la consigna: mitad ordenada y mitad desordenada
+    static String[] nombres_parcialmente_ordenados = {
+            // Mitad ordenada (A..L)
+            &quot;Aaron&quot;, &quot;Alba&quot;, &quot;Andrea&quot;, &quot;Bruno&quot;, &quot;Camila&quot;, &quot;Diana&quot;, &quot;Elena&quot;, &quot;Fabio&quot;, &quot;Gabriel&quot;, &quot;Helena&quot;, &quot;Iris&quot;, &quot;Javier&quot;, &quot;Lucia&quot;,
+            // Mitad desordenada
+            &quot;Zoe&quot;, &quot;Mateo&quot;, &quot;Oscar&quot;, &quot;Nora&quot;, &quot;Pablo&quot;, &quot;Valeria&quot;, &quot;Rocio&quot;, &quot;Quino&quot;, &quot;Tomas&quot;, &quot;Ulises&quot;, &quot;Sofia&quot;, &quot;Ximena&quot;, &quot;Yago&quot;
+    };
+
+    static int[] numeros_parcialmente_ordenados = {
+            // Mitad ordenada
+            1001, 1050, 1090, 1140, 1200, 1260, 1300, 1350, 1400, 1450, 1500, 1550, 1600,
+            // Mitad desordenada
+            2200, 1780, 1999, 1701, 2500, 1650, 2400, 1822, 2600, 1755, 2300, 1688, 2100
+    };
+
+    public static void main(String[] args) {
+        System.out.println(&quot;=== RESULTADOS PUNTO 5 - SITUACION 1 (nombres_parcialmente_ordenados) ===&quot;);
+        Resultado[] r1 = new Resultado[] {
+                medirTexto(&quot;Burbuja Simple&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::burbujaSimpleTexto),
+                medirTexto(&quot;Burbuja Mejorado&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::burbujaMejoradoTexto),
+                medirTexto(&quot;Quick Sort&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::quickSortTexto),
+                medirTexto(&quot;Shell Sort&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::shellSortTexto),
+                medirTexto(&quot;Seleccion Directa&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::seleccionDirectaTexto),
+                medirTexto(&quot;Insercion&quot;, nombres_parcialmente_ordenados, Parcial01Punto05::insercionTexto)
+        };
+        imprimirResultados(r1);
+
+        System.out.println();
+        System.out.println(&quot;=== RESULTADOS PUNTO 5 - SITUACION 2 (numeros_parcialmente_ordenados) ===&quot;);
+        Resultado[] r2 = new Resultado[] {
+                medirNumero(&quot;Burbuja Simple&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::burbujaSimpleNum),
+                medirNumero(&quot;Burbuja Mejorado&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::burbujaMejoradoNum),
+                medirNumero(&quot;Quick Sort&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::quickSortNum),
+                medirNumero(&quot;Shell Sort&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::shellSortNum),
+                medirNumero(&quot;Seleccion Directa&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::seleccionDirectaNum),
+                medirNumero(&quot;Insercion&quot;, numeros_parcialmente_ordenados, Parcial01Punto05::insercionNum)
+        };
+        imprimirResultados(r2);
+    }
+
+    static void imprimirResultados(Resultado[] resultados) {
+        Resultado mejor = resultados[0];
+        for (Resultado r : resultados) {
+            System.out.printf(&quot;%-18s | Comparaciones: %-6d | Tiempo: %-10d ns | Memoria: %d bytes%n&quot;,
+                    r.algoritmo, r.comparaciones, r.tiempoNs, r.memoriaBytes);
+            if (r.tiempoNs &lt; mejor.tiempoNs) mejor = r;
+        }
+        System.out.println(&quot;---------------------------------------------&quot;);
+        System.out.println(&quot;Algoritmo mas eficiente (por tiempo): &quot; + mejor.algoritmo);
+    }
+
+    static Resultado medirTexto(String nombre, String[] base, OrdenadorTexto metodo) {
+        String[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static Resultado medirNumero(String nombre, int[] base, OrdenadorNumero metodo) {
+        int[] copia = Arrays.copyOf(base, base.length);
+        long memAntes = memoriaUsada();
+        long inicio = System.nanoTime();
+        long comparaciones = metodo.ordenar(copia);
+        long fin = System.nanoTime();
+        long memDespues = memoriaUsada();
+        long deltaMem = Math.max(0, memDespues - memAntes);
+        return new Resultado(nombre, comparaciones, fin - inicio, deltaMem);
+    }
+
+    static long burbujaSimpleTexto(String[] arr) { long c=0; for(int i=0;i&lt;arr.length-1;i++) for(int j=0;j&lt;arr.length-1-i;j++){ c++; if(compararTexto(arr[j],arr[j+1])&gt;0){String t=arr[j];arr[j]=arr[j+1];arr[j+1]=t;}} return c; }
+    static long burbujaMejoradoTexto(String[] arr) { long c=0; boolean cambio; for(int i=0;i&lt;arr.length-1;i++){ cambio=false; for(int j=0;j&lt;arr.length-1-i;j++){ c++; if(compararTexto(arr[j],arr[j+1])&gt;0){String t=arr[j];arr[j]=arr[j+1];arr[j+1]=t;cambio=true;}} if(!cambio) break;} return c; }
+    static long quickSortTexto(String[] arr){ long[] c={0}; qst(arr,0,arr.length-1,c); return c[0]; }
+    static void qst(String[] a,int l,int h,long[] c){ if(l&lt;h){ int p=pt(a,l,h,c); qst(a,l,p-1,c); qst(a,p+1,h,c);} }
+    static int pt(String[] a,int l,int h,long[] c){ String p=a[h]; int i=l-1; for(int j=l;j&lt;h;j++){ c[0]++; if(compararTexto(a[j],p)&lt;=0){ i++; String t=a[i]; a[i]=a[j]; a[j]=t; }} String t=a[i+1]; a[i+1]=a[h]; a[h]=t; return i+1; }
+    static long shellSortTexto(String[] a){ long c=0; for(int g=a.length/2;g&gt;0;g/=2) for(int i=g;i&lt;a.length;i++){ String t=a[i]; int j=i; while(j&gt;=g){ c++; if(compararTexto(a[j-g],t)&gt;0){ a[j]=a[j-g]; j-=g; } else break; } a[j]=t; } return c; }
+    static long seleccionDirectaTexto(String[] a){ long c=0; for(int i=0;i&lt;a.length-1;i++){ int m=i; for(int j=i+1;j&lt;a.length;j++){ c++; if(compararTexto(a[j],a[m])&lt;0) m=j; } String t=a[i]; a[i]=a[m]; a[m]=t; } return c; }
+    static long insercionTexto(String[] a){ long c=0; for(int i=1;i&lt;a.length;i++){ String k=a[i]; int j=i-1; while(j&gt;=0){ c++; if(compararTexto(a[j],k)&gt;0){ a[j+1]=a[j]; j--; } else break; } a[j+1]=k; } return c; }
+
+    static long burbujaSimpleNum(int[] a){ long c=0; for(int i=0;i&lt;a.length-1;i++) for(int j=0;j&lt;a.length-1-i;j++){ c++; if(a[j]&gt;a[j+1]){ int t=a[j]; a[j]=a[j+1]; a[j+1]=t; }} return c; }
+    static long burbujaMejoradoNum(int[] a){ long c=0; boolean cambio; for(int i=0;i&lt;a.length-1;i++){ cambio=false; for(int j=0;j&lt;a.length-1-i;j++){ c++; if(a[j]&gt;a[j+1]){ int t=a[j]; a[j]=a[j+1]; a[j+1]=t; cambio=true; }} if(!cambio) break; } return c; }
+    static long quickSortNum(int[] a){ long[] c={0}; qsn(a,0,a.length-1,c); return c[0]; }
+    static void qsn(int[] a,int l,int h,long[] c){ if(l&lt;h){ int p=pn(a,l,h,c); qsn(a,l,p-1,c); qsn(a,p+1,h,c);} }
+    static int pn(int[] a,int l,int h,long[] c){ int p=a[h]; int i=l-1; for(int j=l;j&lt;h;j++){ c[0]++; if(a[j]&lt;=p){ i++; int t=a[i]; a[i]=a[j]; a[j]=t; }} int t=a[i+1]; a[i+1]=a[h]; a[h]=t; return i+1; }
+    static long shellSortNum(int[] a){ long c=0; for(int g=a.length/2;g&gt;0;g/=2) for(int i=g;i&lt;a.length;i++){ int t=a[i]; int j=i; while(j&gt;=g){ c++; if(a[j-g]&gt;t){ a[j]=a[j-g]; j-=g; } else break; } a[j]=t; } return c; }
+    static long seleccionDirectaNum(int[] a){ long c=0; for(int i=0;i&lt;a.length-1;i++){ int m=i; for(int j=i+1;j&lt;a.length;j++){ c++; if(a[j]&lt;a[m]) m=j; } int t=a[i]; a[i]=a[m]; a[m]=t; } return c; }
+    static long insercionNum(int[] a){ long c=0; for(int i=1;i&lt;a.length;i++){ int k=a[i]; int j=i-1; while(j&gt;=0){ c++; if(a[j]&gt;k){ a[j+1]=a[j]; j--; } else break; } a[j+1]=k; } return c; }
+}
+</code></pre> </section> <section class="ds-panel zona-imagen"> <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true">Output del punto</h2> <div class="marco-imagen"> <img src="/parciales/parcial-01/imagenes/punto-05.svg" alt="Imagen de salida de Punto 5: Arreglos parcialmente ordenados" loading="lazy" decoding="async"> </div> </section> </main> <script>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

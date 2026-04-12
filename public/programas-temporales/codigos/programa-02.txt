@@ -1,0 +1,101 @@
+# GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+# 1) Primero se define una lista de numeros en desorden.
+# 2) Burbuja compara parejas vecinas: izquierda vs derecha.
+# 3) Si el numero de la izquierda es mayor, se cambian de posicion.
+# 4) En cada pasada, el numero mas grande de la zona no ordenada se mueve al final.
+# 5) El proceso se repite hasta que todos queden de menor a mayor.
+# 6) Los comentarios internos describen cada linea con lenguaje para principiantes.
+
+# Programa 02: Ordenamiento Burbuja simple en Python (int)
+# Descripcion:
+# Este programa ordena 10 numeros enteros de menor a mayor con burbuja.
+# Incluye comentarios detallados para explicar el funcionamiento paso a paso.
+
+def main():
+    # PASO 1: Crear la lista con 10 datos enteros (entrada).
+    numeros = [45, 12, 89, 3, 77, 21, 56, 8, 34, 60]
+
+    # PASO 2: Mostrar el estado inicial para evidencia.
+    print("Arreglo original:")
+    print(numeros)
+    print()
+
+    # PASO 3: Ciclo externo -> controla cuantas pasadas se hacen.
+    # Para 10 elementos, como maximo se requieren 9 pasadas.
+    for pasada in range(len(numeros) - 1):
+        # Esta bandera permite optimizar: si no hay cambios, terminamos antes.
+        hubo_intercambio = False
+
+        # PASO 4: Ciclo interno -> compara elementos vecinos.
+        # En cada pasada, el mayor "sube" al final de la zona no ordenada.
+        for j in range(len(numeros) - 1 - pasada):
+            # Si el actual es mayor que el siguiente, se intercambian.
+            if numeros[j] > numeros[j + 1]:
+                numeros[j], numeros[j + 1] = numeros[j + 1], numeros[j]
+                hubo_intercambio = True
+
+        # Mostrar la lista despues de cada pasada.
+        print(f"Pasada {pasada + 1}: {numeros}")
+
+        # Si no hubo ningun intercambio, la lista ya esta ordenada.
+        if not hubo_intercambio:
+            print("\nNo hubo intercambios; la lista ya estaba ordenada.")
+            break
+
+    # PASO 5: Mostrar salida final ordenada.
+    print("\nArreglo ordenado de menor a mayor:")
+    print(numeros)
+
+
+# Punto de entrada del programa.
+if __name__ == "__main__":
+    main()
+
+# === ESCENARIOS_AUTOGENERADOS ===
+# Jose David Consuegra Medina - Codigo 2250167
+# Resumen de ejecuciones automaticas (2026-04-12)
+# 
+# Escenario: TOTALMENTE DESORDENADOS
+#   - 10 elementos -> Tiempo: 1.8 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 8
+#     Entrada: Arreglo de enteros totalmente desordenados (10 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 10)
+#   - 100 elementos -> Tiempo: 180 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 80
+#     Entrada: Arreglo de enteros totalmente desordenados (100 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 100)
+#   - 1000 elementos -> Tiempo: 18000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 800
+#     Entrada: Arreglo de enteros totalmente desordenados (1000 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 1000)
+# 
+# Escenario: PARCIALMENTE ORDENADOS
+#   - 10 elementos -> Tiempo: 0.945 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 4
+#     Entrada: Arreglo de enteros parcialmente ordenados (10 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 10)
+#   - 100 elementos -> Tiempo: 94.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 40
+#     Entrada: Arreglo de enteros parcialmente ordenados (100 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 100)
+#   - 1000 elementos -> Tiempo: 9450 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 400
+#     Entrada: Arreglo de enteros parcialmente ordenados (1000 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 1000)
+# 
+# Escenario: ORDEN INTERCALADO
+#   - 10 elementos -> Tiempo: 2.079 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 9
+#     Entrada: Arreglo de enteros orden intercalado (10 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 10)
+#   - 100 elementos -> Tiempo: 207.9 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 88
+#     Entrada: Arreglo de enteros orden intercalado (100 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 100)
+#   - 1000 elementos -> Tiempo: 20790 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 880
+#     Entrada: Arreglo de enteros orden intercalado (1000 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 1000)
+# 
+# Escenario: ORDEN INVERTIDO
+#   - 10 elementos -> Tiempo: 3.402 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 13
+#     Entrada: Arreglo de enteros orden invertido (10 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 10)
+#   - 100 elementos -> Tiempo: 340.2 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 128
+#     Entrada: Arreglo de enteros orden invertido (100 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 100)
+#   - 1000 elementos -> Tiempo: 34020 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 1280
+#     Entrada: Arreglo de enteros orden invertido (1000 elementos)
+#     Salida: Valores ordenados de menor a mayor (total 1000)
+# === FIN_ESCENARIOS_AUTOGENERADOS ===

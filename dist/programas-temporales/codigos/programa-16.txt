@@ -1,0 +1,105 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) Insercion para cadenas ordena alfabeticamente con compareTo.
+// 2) En cada vuelta toma una palabra clave.
+// 3) Desplaza palabras mayores a la derecha para hacer espacio.
+// 4) Coloca la clave en la posicion alfabetica correcta.
+// 5) Repite hasta que todas las palabras queden ordenadas.
+// 6) Los comentarios internos estan escritos para personas que inician.
+
+// Programa 16: Ordenamiento por insercion en Java (String)
+//
+// Objetivo didactico:
+// - Aplicar insercion simple sobre cadenas usando compareTo.
+// - Reforzar la comparacion alfabetica en Java.
+//
+// Entrada del ejemplo:
+// [lima, bogota, medellin, cali, armenia]
+//
+// Salida esperada:
+// [armenia, bogota, cali, lima, medellin]
+
+import java.util.Arrays;
+
+public class Programa16InsercionCadenas {
+
+    public static void main(String[] args) {
+        // Arreglo de prueba para ordenar alfabeticamente.
+        String[] ciudades = {"lima", "bogota", "medellin", "cali", "armenia"};
+
+        System.out.println("Programa 16 - Insercion (String)");
+        System.out.println("Arreglo original: " + Arrays.toString(ciudades));
+
+        insercion(ciudades);
+
+        System.out.println("Arreglo ordenado: " + Arrays.toString(ciudades));
+    }
+
+    // Algoritmo de insercion para cadenas.
+    public static void insercion(String[] arreglo) {
+        // Recorremos desde el segundo elemento; el primero se asume ordenado.
+        for (int i = 1; i < arreglo.length; i++) {
+            // "clave" es la cadena actual por insertar.
+            String clave = arreglo[i];
+            int j = i - 1;
+
+            // compareTo > 0 significa que arreglo[j] va despues alfabeticamente,
+            // por eso se desplaza a la derecha.
+            while (j >= 0 && arreglo[j].compareTo(clave) > 0) {
+                arreglo[j + 1] = arreglo[j];
+                j--;
+            }
+
+            // Se coloca la clave en la posicion correcta.
+            arreglo[j + 1] = clave;
+        }
+    }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 1.4 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 4
+    Entrada: Arreglo de cadenas totalmente desordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 140 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 40
+    Entrada: Arreglo de cadenas totalmente desordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 14000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 400
+    Entrada: Arreglo de cadenas totalmente desordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.735 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 2
+    Entrada: Arreglo de cadenas parcialmente ordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 73.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 20
+    Entrada: Arreglo de cadenas parcialmente ordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 7350 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 200
+    Entrada: Arreglo de cadenas parcialmente ordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 1.617 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 4
+    Entrada: Arreglo de cadenas orden intercalado (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 161.7 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 44
+    Entrada: Arreglo de cadenas orden intercalado (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 16170 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 440
+    Entrada: Arreglo de cadenas orden intercalado (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 2.646 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 6
+    Entrada: Arreglo de cadenas orden invertido (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 264.6 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 64
+    Entrada: Arreglo de cadenas orden invertido (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 26460 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 640
+    Entrada: Arreglo de cadenas orden invertido (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

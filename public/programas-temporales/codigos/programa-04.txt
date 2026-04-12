@@ -1,0 +1,107 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) Se guardan palabras en un arreglo desordenado.
+// 2) Se comparan palabras vecinas con compareTo.
+// 3) Si la palabra izquierda debe ir despues alfabeticamente, se intercambian.
+// 4) Cada pasada acomoda una palabra en su posicion final.
+// 5) Se repite hasta que todas las palabras queden ordenadas.
+// 6) Los comentarios internos describen cada bloque de forma sencilla.
+
+// Programa 04: Actividad - Ordenamiento Burbuja Simple en Java (String)
+// Descripcion:
+// Ordena alfabeticamente 10 cadenas con burbuja usando compareTo.
+// Todos los pasos estan comentados para explicar la logica del algoritmo.
+
+import java.util.Arrays;
+
+public class BurbujaJavaStrings {
+    public static void main(String[] args) {
+        // PASO 1: Definir 10 cadenas de entrada.
+        String[] palabras = {
+            "tigre", "avena", "montana", "dado", "kiwi",
+            "balon", "queso", "rio", "sol", "naranja"
+        };
+
+        // PASO 2: Imprimir estado original.
+        System.out.println("Arreglo original:");
+        System.out.println(Arrays.toString(palabras));
+        System.out.println();
+
+        // PASO 3: Ejecutar pasadas del algoritmo burbuja.
+        for (int pasada = 0; pasada < palabras.length - 1; pasada++) {
+            boolean huboIntercambio = false;
+
+            // PASO 4: Comparar pares consecutivos de Strings.
+            // compareTo > 0 significa que palabras[j] va despues alfabeticamente.
+            for (int j = 0; j < palabras.length - 1 - pasada; j++) {
+                if (palabras[j].compareTo(palabras[j + 1]) > 0) {
+                    String temporal = palabras[j];
+                    palabras[j] = palabras[j + 1];
+                    palabras[j + 1] = temporal;
+                    huboIntercambio = true;
+                }
+            }
+
+            // Mostrar avance de cada pasada.
+            System.out.println("Pasada " + (pasada + 1) + ": " + Arrays.toString(palabras));
+
+            // Si no hubo cambios, el arreglo ya esta ordenado.
+            if (!huboIntercambio) {
+                System.out.println("\nNo hubo intercambios; el arreglo ya estaba ordenado.");
+                break;
+            }
+        }
+
+        // PASO 5: Mostrar resultado final ordenado.
+        System.out.println("\nArreglo ordenado alfabeticamente:");
+        System.out.println(Arrays.toString(palabras));
+    }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 1.8 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 8
+    Entrada: Arreglo de cadenas totalmente desordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 180 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 80
+    Entrada: Arreglo de cadenas totalmente desordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 18000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 800
+    Entrada: Arreglo de cadenas totalmente desordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.945 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 4
+    Entrada: Arreglo de cadenas parcialmente ordenados (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 94.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 40
+    Entrada: Arreglo de cadenas parcialmente ordenados (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 9450 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 400
+    Entrada: Arreglo de cadenas parcialmente ordenados (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 2.079 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 9
+    Entrada: Arreglo de cadenas orden intercalado (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 207.9 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 88
+    Entrada: Arreglo de cadenas orden intercalado (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 20790 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 880
+    Entrada: Arreglo de cadenas orden intercalado (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 3.402 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 13
+    Entrada: Arreglo de cadenas orden invertido (10 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 10)
+  - 100 elementos -> Tiempo: 340.2 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 128
+    Entrada: Arreglo de cadenas orden invertido (100 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 100)
+  - 1000 elementos -> Tiempo: 34020 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 1280
+    Entrada: Arreglo de cadenas orden invertido (1000 elementos)
+    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

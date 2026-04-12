@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="784" viewBox="0 0 1800 784" role="img" aria-labelledby="title desc">
+  <title id="title">Salida de consola actualizada - Parcial 1 Punto 4</title>
+  <desc id="desc">Salida de consola actual con comparaciones, tiempo y memoria por algoritmo.</desc>
+  <rect width="1800" height="784" fill="#020617"/>
+  <text x="50" y="60" fill="#93c5fd" font-family="Arial" font-size="30" font-weight="700">Parcial 1 - Punto 4 (salida actualizada)</text>
+  <text x="50" y="120" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">=== RESULTADOS PUNTO 4 - SITUACION 1 (nombres_repetidos_grande) ===</text>
+  <text x="50" y="154" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Burbuja Simple     | Comparaciones: 18336     | Tiempo: 161872814  ns | Memoria: 16960624 bytes</text>
+  <text x="50" y="188" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Burbuja Mejorado   | Comparaciones: 18258     | Tiempo: 119820626  ns | Memoria: 29360152 bytes</text>
+  <text x="50" y="222" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Quick Sort         | Comparaciones: 1886      | Tiempo: 10247278   ns | Memoria: 2832360 bytes</text>
+  <text x="50" y="256" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Shell Sort         | Comparaciones: 2845      | Tiempo: 15885450   ns | Memoria: 4687176 bytes</text>
+  <text x="50" y="290" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Seleccion Directa  | Comparaciones: 18336     | Tiempo: 53515618   ns | Memoria: 0 bytes</text>
+  <text x="50" y="324" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Insercion          | Comparaciones: 9142      | Tiempo: 7078113    ns | Memoria: 13631488 bytes</text>
+  <text x="50" y="358" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">---------------------------------------------</text>
+  <text x="50" y="392" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Algoritmo mas eficiente (por tiempo): Insercion</text>
+  <text x="50" y="426" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22"></text>
+  <text x="50" y="460" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">=== RESULTADOS PUNTO 4 - SITUACION 2 (numeros_repetidos_grande) ===</text>
+  <text x="50" y="494" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Burbuja Simple     | Comparaciones: 116886    | Tiempo: 2949974    ns | Memoria: 0 bytes</text>
+  <text x="50" y="528" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Burbuja Mejorado   | Comparaciones: 116655    | Tiempo: 3209615    ns | Memoria: 0 bytes</text>
+  <text x="50" y="562" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Quick Sort         | Comparaciones: 5807      | Tiempo: 258221     ns | Memoria: 0 bytes</text>
+  <text x="50" y="596" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Shell Sort         | Comparaciones: 6242      | Tiempo: 255722     ns | Memoria: 0 bytes</text>
+  <text x="50" y="630" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Seleccion Directa  | Comparaciones: 116886    | Tiempo: 2017106    ns | Memoria: 0 bytes</text>
+  <text x="50" y="664" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Insercion          | Comparaciones: 58367     | Tiempo: 1534690    ns | Memoria: 0 bytes</text>
+  <text x="50" y="698" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">---------------------------------------------</text>
+  <text x="50" y="732" fill="#cbd5e1" font-family="Courier New, monospace" font-size="22">Algoritmo mas eficiente (por tiempo): Shell Sort</text>
+</svg>

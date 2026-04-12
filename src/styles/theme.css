@@ -1,0 +1,78 @@
+:root {
+  /* Paleta editorial */
+  --ink: #0f0e0d;
+  --ink-2: #1a1916;
+  --ink-3: #252320;
+  --ink-4: #312f2b;
+  --cream: #f5f0e8;
+  --cream-2: #ede7d8;
+  --cream-3: #d9d0bc;
+  --text-1: #f0ebe0;
+  --text-2: #a09880;
+  --text-3: #5c5648;
+
+  --moss: #4a7c59;
+  --moss-dim: rgba(74, 124, 89, 0.14);
+  --moss-glow: rgba(74, 124, 89, 0.25);
+  --terra: #c4622d;
+  --terra-dim: rgba(196, 98, 45, 0.12);
+  --gold: #c9a84c;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+
+  --br-1: rgba(240, 235, 224, 0.06);
+  --br-2: rgba(240, 235, 224, 0.12);
+  --br-m: rgba(74, 124, 89, 0.3);
+
+  --sh-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --sh-md: 0 6px 24px rgba(0, 0, 0, 0.55);
+  --sh-lg: 0 12px 48px rgba(0, 0, 0, 0.65);
+
+  --ff-display: "Playfair Display", Georgia, serif;
+  --ff-body: "Outfit", system-ui, sans-serif;
+  --ff-mono: "JetBrains Mono", monospace;
+
+  /* Mapping para estilos existentes */
+  --accent: var(--moss);
+  --accent-2: var(--terra);
+  --accent-3: var(--gold);
+  --accent-soft: var(--moss-dim);
+  --accent-soft-2: var(--terra-dim);
+  --bg: var(--ink);
+  --panel: var(--ink-2);
+  --panel-soft: var(--ink-3);
+  --panel-glass: rgba(255, 255, 255, 0.04);
+  --text: var(--text-1);
+  --muted: var(--text-2);
+  --muted-strong: var(--cream-3);
+  --line: rgba(240, 235, 224, 0.18);
+  --shadow-sm: var(--sh-lg);
+  --shadow-glow: 0 12px 40px rgba(74, 124, 89, 0.3);
+  --focus-ring: 0 0 0 3px rgba(201, 168, 76, 0.25);
+}
+
+:root[data-theme="light"] {
+  --ink: #faf7f2;
+  --ink-2: #f0ebe0;
+  --ink-3: #e5dece;
+  --ink-4: #d5ccb8;
+  --cream: #1a1916;
+  --cream-2: #252320;
+  --cream-3: #3a3730;
+  --text-1: #1a1916;
+  --text-2: #5c5648;
+  --text-3: #a09880;
+
+  --br-1: rgba(26, 25, 22, 0.06);
+  --br-2: rgba(26, 25, 22, 0.14);
+
+  --bg: var(--ink);
+  --panel: var(--cream);
+  --panel-soft: var(--cream-2);
+  --text: var(--text-1);
+  --muted: var(--text-2);
+  --muted-strong: var(--text-3);
+  --line: rgba(26, 25, 22, 0.18);
+  --shadow-sm: 0 12px 30px rgba(26, 25, 22, 0.15);
+  --shadow-glow: 0 10px 26px rgba(74, 124, 89, 0.2);
+  --focus-ring: 0 0 0 3px rgba(74, 124, 89, 0.3);
+}

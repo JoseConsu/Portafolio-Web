@@ -1,0 +1,341 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { habilidades, parcialesAcademicos, perfil, proyectos, proyectosTemporales, sobreMi } from "../data/content";
+
+type ProyectoEntry = (typeof proyectos)[number] & { categoria: string };
+type SkillEntry = (typeof habilidades)[number] & { porcentaje: number };
+
+const projectList = proyectos as ProyectoEntry[];
+const skillsList = habilidades as SkillEntry[];
+
+const totalProgramas = proyectosTemporales.length;
+const totalParciales = parcialesAcademicos.length;
+const totalSkills = skillsList.length;
+
+const formatIndex = (value: string | undefined, prefix: string) => {
+  if (!value) return "00";
+  const segment = value.includes("/") ? value.split("/").filter(Boolean).pop() ?? value : value;
+  return segment.replace(`${prefix}-`, "").padStart(2, "0");
+};
+
+const categorizeSkill = (porcentaje: number) => {
+  if (porcentaje >= 80) return "Dominadas";
+  if (porcentaje < 5) return "Por aprender";
+  return "En proceso";
+};
+
+const skillGroups = [
+  "Dominadas",
+  "En proceso",
+  "Por aprender",
+].map((titulo) => ({
+  titulo,
+  listado: skillsList.filter((skill) => categorizeSkill(skill.porcentaje) === titulo),
+}));
+
+const categoriasProyectos = [
+  "todos",
+  ...new Set(projectList.map((proyecto) => proyecto.categoria)),
+];
+
+const formatCategoryLabel = (value: string) =>
+  value === "todos"
+    ? "Todos"
+    : value
+        .split("-")
+        .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+        .join(" ");
+---
+
+<BaseLayout>
+  <header class="nav app-nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#contenido-principal">
+        <span class="nav-logo-serif">{perfil.nombre.split(" ").slice(0, 2).join(" ")}</span>
+        <span class="nav-logo-mono">Infra · SecOps</span>
+      </a>
+      <div class="nav-links" role="menubar">
+        <button class="nav-btn active" data-target="sobre-mi" aria-current="page">
+          <img src="/icons/user.svg" alt="" class="ui-icon" aria-hidden="true" />Sobre mí
+        </button>
+        <button class="nav-btn" data-target="proyectos">
+          <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" />Proyectos
+        </button>
+        <button class="nav-btn" data-target="habilidades">
+          <img src="/icons/bolt.svg" alt="" class="ui-icon" aria-hidden="true" />Habilidades
+        </button>
+        <button class="nav-btn ghost" data-theme-toggle aria-pressed="false" aria-label="Cambiar tema de color">
+          <img src="/icons/theme.svg" alt="" class="ui-icon" aria-hidden="true" />Tema
+          <small data-theme-label>Oscuro</small>
+        </button>
+      </div>
+      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="portfolio-shell" id="contenido-principal">
+    <section class="hero" id="sobre-mi" data-section>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="hero-label">
+            <span class="hero-label-dot" aria-hidden="true"></span>
+            Portafolio activo · {perfil.rol}
+          </p>
+          <h1 class="hero-name">
+            {perfil.nombre}
+            <span>{perfil.enfoque}</span>
+          </h1>
+          <p class="hero-desc">{sobreMi.perfilLaboral[0]}</p>
+          {sobreMi.perfilLaboral[1] && <p class="hero-desc subtle">{sobreMi.perfilLaboral[1]}</p>}
+
+          <div class="hero-creds">
+            {[
+              ...sobreMi.estudios.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
+              ...sobreMi.experienciaLaboral.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
+              ...sobreMi.certificaciones.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
+            ].map((item) => (
+              <div class="cred-tag">
+                <strong>{item.texto}</strong>
+                <span>{item.detalle}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href={perfil.correo}>
+              <img src="/icons/mail.svg" alt="" class="ui-icon" aria-hidden="true" />Escríbeme
+            </a>
+            <a class="btn btn-secondary" href={perfil.whatsapp} target="_blank" rel="noreferrer">
+              <img src="/icons/whatsapp.svg" alt="" class="ui-icon" aria-hidden="true" />WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="polaroid">
+            <img src={perfil.foto} alt={`Foto de ${perfil.nombre}`} />
+            <span class="polaroid-caption">Bucaramanga · Colombia</span>
+          </div>
+          <div class="hero-stats-v" aria-label="Resumen numérico">
+            <div class="stat-v">
+              <span class="stat-v-num">{totalSkills}</span>
+              <span class="stat-v-lbl">Skills activas</span>
+            </div>
+            <div class="stat-v">
+              <span class="stat-v-num">{projectList.length}</span>
+              <span class="stat-v-lbl">Proyectos propios</span>
+            </div>
+            <div class="stat-v">
+              <span class="stat-v-num">{totalProgramas + totalParciales}</span>
+              <span class="stat-v-lbl">Piezas académicas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section paper" id="proyectos" data-section>
+      <div class="section-header">
+        <p class="section-eyebrow">// proyectos personales</p>
+        <h2 class="section-title">Arquitecturas y laboratorios que mantengo</h2>
+        <p class="section-subtitle">
+          Diseño infraestructura educativa propia, despliego mi portafolio en Astro y documento cada laboratorio de redes que ejecuto.
+        </p>
+      </div>
+
+      <div class="proj-filters" role="tablist" aria-label="Filtros de proyectos">
+        {categoriasProyectos.map((categoria) => (
+          <button
+            class={`filter-btn${categoria === "todos" ? " active" : ""}`}
+            data-filter={categoria}
+            type="button"
+          >
+            {formatCategoryLabel(categoria)}
+          </button>
+        ))}
+      </div>
+
+      <div class="project-grid" data-project-grid>
+        {projectList.map((proyecto) => (
+          <article class="proj-card" data-category={proyecto.categoria}>
+            <div class="proj-thumb">
+              <span class="proj-type-badge">{formatCategoryLabel(proyecto.categoria)}</span>
+              <span class="proj-thumb-icon">✹</span>
+            </div>
+            <div class="proj-body">
+              <p class="proj-subject">Proyecto activo</p>
+              <h3 class="proj-title">{proyecto.titulo}</h3>
+              <p class="proj-desc">{proyecto.descripcion}</p>
+              <div class="proj-footer">
+                <small>{proyecto.etiquetas.join(" • ")}</small>
+                <span class="proj-link">Documentado</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="university-block">
+        <div class="university-copy">
+          <p class="section-eyebrow">// proyectos universitarios</p>
+          <h3>Catálogo académico exclusivo</h3>
+          <p>
+            Los programas temporales y parciales viven aquí como referencia histórica controlada. Cada plantilla corre con su código, captura de resultados y rutas validadas en build.
+          </p>
+          <div class="university-meta">
+            <div>
+              <span class="stat-v-num">{totalProgramas}</span>
+              <span class="stat-v-lbl">Programas</span>
+            </div>
+            <div>
+              <span class="stat-v-num">{totalParciales}</span>
+              <span class="stat-v-lbl">Parciales</span>
+            </div>
+          </div>
+          <a class="btn btn-ghost" href="/programas-temporales/programa-01">Abrir catálogo</a>
+        </div>
+
+        <div class="university-details">
+          <details open>
+            <summary>
+              Programas temporales
+              <span class="details-state">Desplegar</span>
+            </summary>
+            <ul class="catalogue-list">
+              {proyectosTemporales.map((item) => (
+                <li class="catalogue-item">
+                  <a href={item.enlace}>
+                    <span class="catalogue-index">Programa {formatIndex(item.enlace, "programa")}</span>
+                    <span class="catalogue-title">{item.titulo}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+
+          <details>
+            <summary>
+              Parciales oficiales
+              <span class="details-state">Desplegar</span>
+            </summary>
+            <ul class="catalogue-list">
+              {parcialesAcademicos.map((item) => (
+                <li class="catalogue-item">
+                  <a href={item.enlace}>
+                    <span class="catalogue-index">Parcial {formatIndex(item.enlace, "parcial")}</span>
+                    <span class="catalogue-title">{item.titulo}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="habilidades" data-section>
+      <div class="section-header">
+        <p class="section-eyebrow">// habilidades</p>
+        <h2 class="section-title">Mapa de progreso técnico</h2>
+        <p class="section-subtitle">
+          Cada skill se alimenta desde <code>src/data/content.ts</code>; aquí solo cambio la presentación para resaltar prioridades.
+        </p>
+      </div>
+
+      <div class="skills-bg">
+        <div class="skills-cols">
+          {skillGroups.map((grupo) => (
+            <article class="skill-group">
+              <h3 class="skill-group-title">{grupo.titulo}</h3>
+              {grupo.listado.length > 0 ? (
+                <div class="skill-bars">
+                  {grupo.listado.map((skill) => (
+                    <div class="skill-bar-item">
+                      <div class="skill-bar-meta">
+                        <span class="skill-bar-name">{skill.nombre}</span>
+                        <span class="skill-bar-pct">{skill.porcentaje}%</span>
+                      </div>
+                      <div class="skill-track">
+                        <span class="skill-fill" style={`width:${skill.porcentaje}%`}></span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p class="empty-state">Pendiente de registrar.</p>
+              )}
+              {grupo.listado.length > 0 && (
+                <div class="tech-pills">
+                  {grupo.listado.map((skill) => (
+                    <span class="pill">
+                      <img src={skill.icono} alt="" class="ui-icon" aria-hidden="true" />
+                      {skill.nombre}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-bg" id="contacto" data-section>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p class="section-eyebrow">// contacto</p>
+          <h2 class="section-title">Hablemos de infraestructura, redes o ideas editoriales</h2>
+          <p>
+            Correo y WhatsApp están activos para coordinar sesiones de trabajo, mentorías académicas o colaboraciones puntuales.
+            Siempre respondo en menos de 24 horas.
+          </p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href={perfil.correo}>
+              <img src="/icons/mail.svg" alt="" class="ui-icon" aria-hidden="true" />Escríbeme
+            </a>
+            <a class="btn btn-secondary" href={perfil.whatsapp} target="_blank" rel="noreferrer">
+              <img src="/icons/whatsapp.svg" alt="" class="ui-icon" aria-hidden="true" />WhatsApp
+            </a>
+          </div>
+          <div class="contact-quote">
+            <p>“La ingeniería es estética cuando la documentación, el código y la evidencia conviven en un mismo espacio.”</p>
+            <cite>— Jose David Consuegra</cite>
+          </div>
+        </div>
+        <div class="contact-panel">
+          <div class="contact-card">
+            <p class="section-eyebrow">Disponibilidad</p>
+            <h3>Portafolio en actualización semanal</h3>
+            <p>
+              Cada entrega incluye código fuente validado, lectura de métricas y narrativa editorial coherente con la UIS.
+            </p>
+            <ul>
+              <li>Próxima ventana: Lunes a Viernes · 7:00 am – 6:00 pm</li>
+              <li>Ubicación: Bucaramanga, Colombia</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script is:inline>
+    const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+    const projectCards = Array.from(document.querySelectorAll(".proj-card[data-category]"));
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const activeFilter = button.dataset.filter ?? "todos";
+        filterButtons.forEach((btn) => btn.classList.toggle("active", btn === button));
+        projectCards.forEach((card) => {
+          const category = card.dataset.category ?? "";
+          const visible = activeFilter === "todos" || category === activeFilter;
+          card.classList.toggle("hidden", !visible);
+        });
+      });
+    });
+  </script>
+</BaseLayout>

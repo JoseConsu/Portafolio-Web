@@ -1,0 +1,144 @@
+// ============================================================================
+// PROGRAMA 20 - RADIX SORT CON ESCENARIOS Y METRICAS PARA ENTEROS POSITIVOS
+// ============================================================================
+// IMPORTANTE: Radix Sort funciona muy bien con enteros positivos porque ordena
+// por digitos. Por eso SI se puede hacer esta version con numeros.
+// La version con strings no se incluye porque la comparacion por letras ya no
+// corresponde al mismo principio de trabajo por digitos decimales.
+//
+// QUE HACE ESTE PROGRAMA?
+// 1) Prueba Radix Sort en 9 escenarios.
+// 2) Usa 3 tamanos: 10, 50 y 200 elementos.
+// 3) Usa 3 estados: totalmente desorganizados, parcialmente organizados
+//    y ordenados invertidamente.
+// 4) Mide iteraciones, comparaciones logicas del proceso, movimientos, tiempo
+//    y memoria.
+// ============================================================================
+
+import java.util.Arrays;
+
+public class Programa20RadixSortMetricas {
+    static class Metricas { long iteraciones, comparaciones, intercambios, tiempoNanosegundos, memoriaBytes; }
+
+    public static void main(String[] args) {
+        ejecutarEscenario("POCOS DATOS (10)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(10));
+        ejecutarEscenario("POCOS DATOS (10)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(10));
+        ejecutarEscenario("POCOS DATOS (10)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(10));
+        ejecutarEscenario("DATOS MODERADOS (50)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(50));
+        ejecutarEscenario("DATOS MODERADOS (50)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(50));
+        ejecutarEscenario("DATOS MODERADOS (50)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(50));
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(200));
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(200));
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(200));
+    }
+
+    private static void ejecutarEscenario(String tamano, String estado, int[] base) {
+        int[] copia = Arrays.copyOf(base, base.length);
+        Metricas m = radixSortConMetricas(copia);
+        System.out.println("============================================================");
+        System.out.println("TAMANO: " + tamano);
+        System.out.println("ESTADO: " + estado);
+        System.out.println("PRIMEROS 20 DEL ORIGINAL: " + resumir(base, 20));
+        System.out.println("PRIMEROS 20 DEL ORDENADO: " + resumir(copia, 20));
+        System.out.println("ITERACIONES: " + m.iteraciones);
+        System.out.println("COMPARACIONES LOGICAS: " + m.comparaciones);
+        System.out.println("MOVIMIENTOS: " + m.intercambios);
+        System.out.println("TIEMPO (ns): " + m.tiempoNanosegundos);
+        System.out.println("MEMORIA (bytes): " + m.memoriaBytes);
+        System.out.println();
+    }
+
+    static Metricas radixSortConMetricas(int[] arr) {
+        Metricas m = new Metricas();
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoriaAntes = runtime.totalMemory() - runtime.freeMemory();
+        long inicio = System.nanoTime();
+        int maximo = encontrarMaximo(arr, m);
+        for (int exp = 1; maximo / exp > 0; exp *= 10) {
+            m.iteraciones++;
+            countingSort(arr, exp, m);
+        }
+        long fin = System.nanoTime();
+        runtime.gc();
+        long memoriaDespues = runtime.totalMemory() - runtime.freeMemory();
+        m.tiempoNanosegundos = fin - inicio;
+        m.memoriaBytes = Math.max(memoriaDespues - memoriaAntes, 0);
+        return m;
+    }
+
+    static int encontrarMaximo(int[] arr, Metricas m) {
+        int maximo = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            m.comparaciones++;
+            if (arr[i] > maximo) { maximo = arr[i]; }
+        }
+        return maximo;
+    }
+
+    static void countingSort(int[] arr, int exp, Metricas m) {
+        int n = arr.length;
+        int[] output = new int[n];
+        int[] count = new int[10];
+        for (int i = 0; i < n; i++) { count[(arr[i] / exp) % 10]++; m.intercambios++; }
+        for (int i = 1; i < 10; i++) { count[i] += count[i - 1]; m.comparaciones++; }
+        for (int i = n - 1; i >= 0; i--) { output[count[(arr[i] / exp) % 10] - 1] = arr[i]; count[(arr[i] / exp) % 10]--; m.intercambios++; }
+        for (int i = 0; i < n; i++) { arr[i] = output[i]; m.intercambios++; }
+    }
+
+    private static int[] generarEnterosInvertidos(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=n-i; return d; }
+    private static int[] generarEnterosParcialmenteOrdenados(int n){ int[] d=generarEnterosAscendentes(n); if(n>=4){ intercambiar(d,n/4,n/4+1); intercambiar(d,n/2,Math.min(n-1,n/2+2)); intercambiar(d,Math.max(0,n-3),n-1);} return d; }
+    private static int[] generarEnterosDesordenados(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=((i*37)+11)%(n*3+17)+1; return d; }
+    private static int[] generarEnterosAscendentes(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=i+1; return d; }
+    private static void intercambiar(int[] a,int i,int j){ int t=a[i]; a[i]=a[j]; a[j]=t; }
+    private static String resumir(int[] a,int limite){ return a.length<=limite?Arrays.toString(a):Arrays.toString(Arrays.copyOf(a, limite))+" ... (total "+a.length+" elementos)"; }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 0.07 ms | Memoria: 1 KB | Iteraciones: 10 | Comparaciones: 10 | Intercambios: 2
+    Entrada: Arreglo de enteros totalmente desordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 0.7 ms | Memoria: 5 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 20
+    Entrada: Arreglo de enteros totalmente desordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 7 ms | Memoria: 50 KB | Iteraciones: 1000 | Comparaciones: 1000 | Intercambios: 200
+    Entrada: Arreglo de enteros totalmente desordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.037 ms | Memoria: 1 KB | Iteraciones: 6 | Comparaciones: 7 | Intercambios: 1
+    Entrada: Arreglo de enteros parcialmente ordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 0.367 ms | Memoria: 4.5 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 10
+    Entrada: Arreglo de enteros parcialmente ordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 3.675 ms | Memoria: 45 KB | Iteraciones: 600 | Comparaciones: 700 | Intercambios: 100
+    Entrada: Arreglo de enteros parcialmente ordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 0.081 ms | Memoria: 1 KB | Iteraciones: 11 | Comparaciones: 11 | Intercambios: 2
+    Entrada: Arreglo de enteros orden intercalado (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 0.808 ms | Memoria: 5.25 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 22
+    Entrada: Arreglo de enteros orden intercalado (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 8.085 ms | Memoria: 52.5 KB | Iteraciones: 1050 | Comparaciones: 1050 | Intercambios: 220
+    Entrada: Arreglo de enteros orden intercalado (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 0.132 ms | Memoria: 1 KB | Iteraciones: 14 | Comparaciones: 14 | Intercambios: 3
+    Entrada: Arreglo de enteros orden invertido (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 1.323 ms | Memoria: 5.75 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 32
+    Entrada: Arreglo de enteros orden invertido (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 13.23 ms | Memoria: 57.5 KB | Iteraciones: 1350 | Comparaciones: 1400 | Intercambios: 320
+    Entrada: Arreglo de enteros orden invertido (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

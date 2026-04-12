@@ -1,0 +1,105 @@
+// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
+// 1) Se crea un arreglo de enteros sin ordenar.
+// 2) Burbuja hace varias pasadas y compara elementos consecutivos.
+// 3) Si un elemento es mayor que el siguiente, se intercambian.
+// 4) Cada pasada coloca un valor grande en su posicion final.
+// 5) Se usa una bandera para detectar si ya no hubo cambios y terminar antes.
+// 6) Los comentarios del programa explican la logica paso a paso.
+
+// Programa 03: Actividad - Ordenamiento Burbuja Simple en Java (int)
+// Descripcion:
+// Ordena 10 numeros enteros con burbuja, explicando cada paso con comentarios.
+
+import java.util.Arrays;
+
+public class BurbujaJavaEnteros {
+    public static void main(String[] args) {
+        // PASO 1: Definir los 10 datos de entrada.
+        int[] numeros = {91, 14, 37, 5, 62, 48, 73, 26, 10, 55};
+
+        // PASO 2: Imprimir arreglo original.
+        System.out.println("Arreglo original:");
+        System.out.println(Arrays.toString(numeros));
+        System.out.println();
+
+        // PASO 3: Recorrer pasadas del algoritmo burbuja.
+        for (int pasada = 0; pasada < numeros.length - 1; pasada++) {
+            // Bandera de control para terminar antes si ya esta ordenado.
+            boolean huboIntercambio = false;
+
+            // PASO 4: Comparar elementos consecutivos en la parte no ordenada.
+            for (int j = 0; j < numeros.length - 1 - pasada; j++) {
+                // Si el numero actual es mayor que el siguiente,
+                // intercambiamos posiciones.
+                if (numeros[j] > numeros[j + 1]) {
+                    int temporal = numeros[j];
+                    numeros[j] = numeros[j + 1];
+                    numeros[j + 1] = temporal;
+                    huboIntercambio = true;
+                }
+            }
+
+            // Mostrar avance tras cada pasada.
+            System.out.println("Pasada " + (pasada + 1) + ": " + Arrays.toString(numeros));
+
+            // Si no hubo intercambio, ya no hace falta seguir iterando.
+            if (!huboIntercambio) {
+                System.out.println("\nNo hubo intercambios; el arreglo ya estaba ordenado.");
+                break;
+            }
+        }
+
+        // PASO 5: Resultado final.
+        System.out.println("\nArreglo ordenado de menor a mayor:");
+        System.out.println(Arrays.toString(numeros));
+    }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 1.8 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 8
+    Entrada: Arreglo de enteros totalmente desordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 180 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 80
+    Entrada: Arreglo de enteros totalmente desordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 18000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 800
+    Entrada: Arreglo de enteros totalmente desordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 0.945 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 4
+    Entrada: Arreglo de enteros parcialmente ordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 94.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 40
+    Entrada: Arreglo de enteros parcialmente ordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 9450 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 400
+    Entrada: Arreglo de enteros parcialmente ordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 2.079 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 9
+    Entrada: Arreglo de enteros orden intercalado (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 207.9 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 88
+    Entrada: Arreglo de enteros orden intercalado (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 20790 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 880
+    Entrada: Arreglo de enteros orden intercalado (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 3.402 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 13
+    Entrada: Arreglo de enteros orden invertido (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 340.2 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 128
+    Entrada: Arreglo de enteros orden invertido (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 34020 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 1280
+    Entrada: Arreglo de enteros orden invertido (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

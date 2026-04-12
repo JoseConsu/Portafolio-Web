@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { parciales } from "../../parciales/parciales";
+
+export function getStaticPaths() {
+  return parciales.map((parcial) => ({
+    params: { slug: parcial.slug },
+    props: { parcial },
+  }));
+}
+
+const { parcial } = Astro.props;
+---
+
+<BaseLayout title={`${parcial.titulo} | Parciales`}>
+  <main class="parcial-shell" id="contenido-principal">
+    <section class="encabezado-parcial">
+      <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" />
+      <div>
+        <p class="ds-eyebrow">Evaluaciones académicas</p>
+        <h1>{parcial.titulo}</h1>
+        <p>{parcial.descripcion}</p>
+      </div>
+      <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+        <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" />
+      </a>
+    </section>
+
+    <section class="ds-panel">
+      <h2>Puntos del parcial</h2>
+      <p>Selecciona un punto para ver su descripción, plantilla de código y su salida.</p>
+
+      <div class="program-grid">
+        {parcial.puntos.map((punto) => (
+          <a class="tarjeta-punto" href={`/parciales/${parcial.slug}/${punto.slug}`}>
+            <h3>{punto.nombre}</h3>
+            <p>{punto.descripcion}</p>
+            <span>Ver punto</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

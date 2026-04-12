@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Punto 7: Repetición de nombres y ordenamientos de salida | Parcial 1</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.28488erS.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Parcial 1</p> <h1>Punto 7: Repetición de nombres y ordenamientos de salida</h1> <p>Contar repeticiones de nombres en un arreglo generado y mostrar dos salidas: ordenada por nombre y ordenada por cantidad de repeticiones.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos"> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true"> </a> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true">Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>import java.util.*;
+
+class ArregloNombres {
+
+    public static String[] generarArregloNombres(int cantidad) {
+        String[] nombres = new String[cantidad];
+        String[] iniciales = {&quot;Ana&quot;, &quot;Luis&quot;, &quot;María&quot;, &quot;David&quot;, &quot;Sofía&quot;, &quot;Carlos&quot;, &quot;Elena&quot;, &quot;Alejandro&quot;, &quot;Isabella&quot;, &quot;Juan&quot;, &quot;Valentina&quot;, &quot;Andrea&quot;, &quot;Pedro&quot;, &quot;Camila&quot;, &quot;Fernando&quot;, &quot;Laura&quot;, &quot;Diego&quot;,
+&quot;Carolina&quot;, &quot;Gabriel&quot;, &quot;Javier&quot;, &quot;Ana&quot;, &quot;Miguel&quot;, &quot;Paula&quot;, &quot;Max&quot;, &quot;Bianca&quot;, &quot;Daniel&quot;, &quot;Isaac&quot;, &quot;Olivia&quot;, &quot;Ava&quot;, &quot;Liam&quot;, &quot;Eva&quot;, &quot;Mia&quot;, &quot;Sophia&quot;, &quot;Amelia&quot;, &quot;Isabella&quot;, &quot;Luna&quot;, &quot;Alexander&quot;,
+&quot;Benjamin&quot;, &quot;William&quot;, &quot;Emma&quot;, &quot;Oliver&quot;, &quot;Noah&quot;, &quot;Ethan&quot;, &quot;Henry&quot;, &quot;James&quot;, &quot;Arjun&quot;, &quot;Mateo&quot;, &quot;Lucas&quot;, &quot;Juan&quot;, &quot;Luciana&quot;, &quot;Esteban&quot;, &quot;Ximena&quot;, &quot;Ricardo&quot;, &quot;Micaela&quot;, &quot;Felipe&quot;, &quot;Bárbara&quot;,
+&quot;Santi&quot;, &quot;Valeria&quot;, &quot;Hugo&quot;, &quot;Florencia&quot;, &quot;Marcos&quot;, &quot;Agustina&quot;, &quot;Damián&quot;, &quot;Renata&quot;, &quot;Joaquín&quot;, &quot;Maite&quot;, &quot;Bautista&quot;, &quot;Irene&quot;, &quot;Rodrigo&quot;, &quot;Antonella&quot;, &quot;Samuel&quot;, &quot;Jimena&quot;, &quot;Emilio&quot;, &quot;Julieta&quot;,
+&quot;Tomás&quot;, &quot;Amparo&quot;, &quot;Benjamín&quot;, &quot;Celia&quot;, &quot;Vicente&quot;, &quot;Ainhoa&quot;, &quot;Mateo&quot;, &quot;Belén&quot;, &quot;Nicolás&quot;, &quot;Fátima&quot;, &quot;Sebastián&quot;, &quot;Gloria&quot;, &quot;Leonardo&quot;, &quot;Nuria&quot;, &quot;Matías&quot;, &quot;Silvia&quot;, &quot;Agustín&quot;, &quot;Rocío&quot;, &quot;Bruno&quot;,
+&quot;Miriam&quot;, &quot;Ignacio&quot;, &quot;Leticia&quot;, &quot;Simón&quot;, &quot;Esther&quot;, &quot;Félix&quot;, &quot;Raquel&quot;, &quot;Manuel&quot;, &quot;Salomé&quot;, &quot;Valentino&quot;, &quot;Triana&quot;, &quot;Thiago&quot;, &quot;Naiara&quot;, &quot;Ciro&quot;, &quot;Guadalupe&quot;, &quot;Enzo&quot;, &quot;Malena&quot;, &quot;Gael&quot;, &quot;Aitana&quot;,
+&quot;Ian&quot;, &quot;Manuela&quot;, &quot;Liam&quot;, &quot;Consuelo&quot;, &quot;Noah&quot;, &quot;Milagros&quot;, &quot;Dylan&quot;, &quot;Paloma&quot;, &quot;Axel&quot;, &quot;Esperanza&quot;, &quot;Luca&quot;, &quot;Verónica&quot;, &quot;Izan&quot;, &quot;Angélica&quot;, &quot;Leo&quot;, &quot;Viviana&quot;, &quot;Joel&quot;, &quot;Yolanda&quot;, &quot;Elias&quot;, &quot;Pilar&quot;,
+&quot;Isaac&quot;, &quot;Lidia&quot;, &quot;Aaron&quot;, &quot;Aurora&quot;, &quot;Oliver&quot;, &quot;Blanca&quot;, &quot;Erick&quot;, &quot;Elsa&quot;, &quot;Omar&quot;, &quot;Adela&quot;, &quot;Iker&quot;, &quot;Felisa&quot;, &quot;Saúl&quot;, &quot;Nerea&quot;, &quot;Pau&quot;, &quot;Lola&quot;, &quot;Eric&quot;, &quot;Candela&quot;, &quot;Iago&quot;, &quot;Inés&quot;, &quot;Unai&quot;, &quot;Amelia&quot;, &quot;Joan&quot;,
+&quot;Ariadna&quot;, &quot;Marc&quot;, &quot;Carla&quot;, &quot;Pol&quot;, &quot;Mireia&quot;, &quot;Pau&quot;, &quot;Laia&quot;, &quot;Oriol&quot;, &quot;Berta&quot;, &quot;Arnau&quot;, &quot;Jana&quot;, &quot;Nil&quot;, &quot;Ona&quot;, &quot;Biel&quot;, &quot;Arlet&quot;, &quot;Martí&quot;, &quot;Júlia&quot;, &quot;Jan&quot;, &quot;Emma&quot;, &quot;Aleix&quot;, &quot;Abril&quot;, &quot;Rocío&quot;, &quot;Santiago&quot;,
+&quot;Cayetana&quot;, &quot;Mario&quot;, &quot;Virginia&quot;, &quot;Gonzalo&quot;, &quot;Miranda&quot;, &quot;Alfonso&quot;, &quot;Estefanía&quot;, &quot;Cristóbal&quot;, &quot;Montserrat&quot;, &quot;Patricio&quot;, &quot;Cándida&quot;, &quot;Gregorio&quot;, &quot;Genoveva&quot;, &quot;Faustino&quot;, &quot;Adelaide&quot;, &quot;Marcelo&quot;,
+&quot;Graciela&quot;, &quot;Eugenio&quot;, &quot;Rafaela&quot;, &quot;Leandro&quot;, &quot;Zaira&quot;, &quot;Amadeo&quot;, &quot;Violeta&quot;, &quot;Camilo&quot;, &quot;Delfina&quot;, &quot;Federico&quot;, &quot;Jacinta&quot;, &quot;Lorenzo&quot;, &quot;Sabina&quot;, &quot;Gaspar&quot;, &quot;Ursula&quot;, &quot;Baltasar&quot;, &quot;Teodora&quot;, &quot;Melchor&quot;,
+&quot;Ofelia&quot;, &quot;Jonás&quot;, &quot;Ramona&quot;, &quot;Ezequiel&quot;, &quot;Dorotea&quot;, &quot;Abel&quot;, &quot;Isidra&quot;, &quot;Braulio&quot;, &quot;Eulalia&quot;, &quot;Hipólito&quot;, &quot;Justina&quot;, &quot;Mariano&quot;, &quot;Casandra&quot;, &quot;Donato&quot;, &quot;Remedios&quot;, &quot;Agapito&quot;, &quot;Priscila&quot;, &quot;Fidencio&quot;,
+&quot;Amalia&quot;, &quot;Eusebio&quot;, &quot;Sonia&quot;, &quot;Basilio&quot;, &quot;Tatiana&quot;, &quot;Cipriano&quot;, &quot;Vanesa&quot;, &quot;Dionisio&quot;, &quot;Susana&quot;, &quot;Eleuterio&quot;, &quot;Mónica&quot;, &quot;Feliciano&quot;, &quot;Teresa&quot;, &quot;Gumersindo&quot;, &quot;Lourdes&quot;, &quot;Heriberto&quot;, &quot;Josefina&quot;,
+&quot;Indalecio&quot;, &quot;Magdalena&quot;, &quot;Jerónimo&quot;, &quot;Rosario&quot;, &quot;Ladislau&quot;, &quot;Modesta&quot;, &quot;Macario&quot;, &quot;Purificación&quot;, &quot;Nicanor&quot;, &quot;Angustias&quot;, &quot;Olegario&quot;, &quot;Asunción&quot;, &quot;Pancracio&quot;, &quot;Concepción&quot;, &quot;Quirino&quot;,
+&quot;Inmaculada&quot;, &quot;Ruperto&quot;, &quot;Visitación&quot;, &quot;Servando&quot;, &quot;Candelaria&quot;, &quot;Torcuato&quot;, &quot;Milagros&quot;, &quot;Urbano&quot;, &quot;Natividad&quot;, &quot;Valeriano&quot;, &quot;Piedad&quot;, &quot;Wenceslao&quot;, &quot;Socorro&quot;, &quot;Zenón&quot;, &quot;Aurelia&quot;,
+&quot;Aniceto&quot;, &quot;Benigna&quot;, &quot;Casimiro&quot;, &quot;Dina&quot;, &quot;Eutropio&quot;, &quot;Edelmira&quot;, &quot;Florentino&quot;, &quot;Eustaquia&quot;, &quot;Gervasio&quot;, &quot;Gisela&quot;, &quot;Honorio&quot;, &quot;Herminia&quot;, &quot;Ildefonso&quot;, &quot;Imelda&quot;, &quot;Jenaro&quot;, &quot;Joaquina&quot;,
+&quot;Leoncio&quot;, &quot;Leocadia&quot;, &quot;Mauricio&quot;, &quot;Matilde&quot;, &quot;Nemesio&quot;, &quot;Noemí&quot;, &quot;Onofre&quot;, &quot;Olga&quot;, &quot;Perfecto&quot;, &quot;Petrona&quot;, &quot;Quiterio&quot;, &quot;Quina&quot;, &quot;Robustiano&quot;, &quot;Rufina&quot;, &quot;Saturio&quot;, &quot;Segunda&quot;, &quot;Telesforo&quot;,
+&quot;Teófila&quot;, &quot;Ulpiano&quot;, &quot;Urraca&quot;, &quot;Venancio&quot;, &quot;Veneranda&quot;, &quot;Wilfredo&quot;, &quot;Walda&quot;, &quot;Xavier&quot;, &quot;Xenia&quot;, &quot;Yago&quot;, &quot;Yara&quot;, &quot;Zacarías&quot;, &quot;Zulma&quot;, &quot;Adriano&quot;, &quot;Aída&quot;, &quot;Bernardo&quot;, &quot;Bibiana&quot;, &quot;Conrado&quot;,
+&quot;Coral&quot;, &quot;Desiderio&quot;, &quot;Dora&quot;, &quot;Edmundo&quot;, &quot;Edith&quot;, &quot;Fabio&quot;, &quot;Fabiana&quot;, &quot;Gerardo&quot;, &quot;Gema&quot;, &quot;Héctor&quot;, &quot;Helena&quot;, &quot;Ismael&quot;, &quot;Iris&quot;, &quot;Jacobo&quot;, &quot;Jade&quot;, &quot;Kevin&quot;, &quot;Keyla&quot;, &quot;Lázaro&quot;, &quot;Leila&quot;, &quot;Máximo&quot;,
+&quot;Maura&quot;, &quot;Néstor&quot;, &quot;Niza&quot;, &quot;Orlando&quot;, &quot;Olivia&quot;, &quot;Plácido&quot;, &quot;Perla&quot;, &quot;Quintín&quot;, &quot;Queila&quot;, &quot;Ramiro&quot;, &quot;Rebeca&quot;, &quot;Silverio&quot;, &quot;Selena&quot;, &quot;Tadeo&quot;, &quot;Thais&quot;, &quot;Ulises&quot;, &quot;Uxia&quot;, &quot;Valerio&quot;, &quot;Vera&quot;, &quot;Walter&quot;,
+&quot;Wendy&quot;, &quot;Xerach&quot;, &quot;Xana&quot;, &quot;Yusef&quot;, &quot;Yurena&quot;, &quot;Zigor&quot;, &quot;Zoe&quot;, &quot;Adolfo&quot;, &quot;Ariadne&quot;, &quot;Benito&quot;, &quot;Brigida&quot;, &quot;Claudio&quot;, &quot;Clotilde&quot;, &quot;Dante&quot;, &quot;Debora&quot;, &quot;Erasmo&quot;, &quot;Erika&quot;, &quot;Fausto&quot;, &quot;Fabiola&quot;,
+&quot;Guido&quot;, &quot;Greta&quot;, &quot;Hans&quot;, &quot;Hilda&quot;, &quot;Iñaki&quot;, &quot;Iratxe&quot;, &quot;Jordi&quot;, &quot;Josefa&quot;, &quot;Kurt&quot;, &quot;Katia&quot;, &quot;Lino&quot;, &quot;Lina&quot;, &quot;Modesto&quot;, &quot;Mila&quot;, &quot;Noel&quot;, &quot;Nora&quot;, &quot;Oswaldo&quot;, &quot;Olimpia&quot;, &quot;Pascual&quot;, &quot;Pastora&quot;, &quot;Radamel&quot;,
+&quot;Ruth&quot;, &quot;Serafín&quot;, &quot;Sira&quot;, &quot;Teo&quot;, &quot;Teonila&quot;, &quot;Ubaldo&quot;, &quot;Uma&quot;, &quot;Vidal&quot;, &quot;Vania&quot;, &quot;Wilson&quot;, &quot;Winona&quot;, &quot;Xoan&quot;, &quot;Xandra&quot;, &quot;Yanis&quot;, &quot;Yuvia&quot;, &quot;Zoren&quot;, &quot;Zaira&quot;, &quot;Alvaro&quot;, &quot;Aurelio&quot;, &quot;Bernabé&quot;,
+&quot;Carmelo&quot;, &quot;Celestino&quot;, &quot;Cornelio&quot;, &quot;Demétrio&quot;, &quot;Efraín&quot;, &quot;Eliseo&quot;, &quot;Emigdio&quot;, &quot;Epifanio&quot;, &quot;Everardo&quot;, &quot;Fulgencio&quot;, &quot;Gaudencio&quot;, &quot;Hipólito&quot;, &quot;Inocencio&quot;, &quot;Juvenal&quot;, &quot;Liberato&quot;, &quot;Longino&quot;,
+&quot;Mamerto&quot;, &quot;Nazario&quot;, &quot;Niceto&quot;, &quot;Octavio&quot;, &quot;Ovidio&quot;, &quot;Primitivo&quot;, &quot;Próspero&quot;, &quot;Rogelio&quot;, &quot;Rómulo&quot;, &quot;Severiano&quot;, &quot;Severo&quot;, &quot;Tiburcio&quot;, &quot;Valero&quot;, &quot;Victoriano&quot;, &quot;Viriato&quot;, &quot;Zósimo&quot;, &quot;Abundio&quot;,
+&quot;Acisclo&quot;, &quot;Anfiloquio&quot;, &quot;Apolonio&quot;, &quot;Arsenio&quot;, &quot;Ausencio&quot;, &quot;Baldomero&quot;, &quot;Bonifacio&quot;, &quot;Celedonio&quot;, &quot;Dalmacio&quot;, &quot;Donaciano&quot;, &quot; Egidio&quot;, &quot;Eleazar&quot;, &quot;Emeterio&quot;, &quot;Esiquio&quot;, &quot;Eufrasio&quot;,
+&quot;Exuperio&quot;, &quot;Florencio&quot;, &quot;Galdino&quot;, &quot;Hermenegildo&quot;, &quot;Hilarión&quot;, &quot;Indalecio&quot;, &quot;Isidoro&quot;, &quot;Leovigildo&quot;, &quot;Magín&quot;, &quot;Mamerto&quot;, &quot;Maximino&quot;, &quot;Medardo&quot;, &quot;Orencio&quot;, &quot;Pantaleón&quot;, &quot;Policarpo&quot;,
+&quot;Recaredo&quot;, &quot;Restituto&quot;, &quot;Sisenando&quot;, &quot;Telefón&quot;, &quot;Timoteo&quot;, &quot;Wifredo&quot;, &quot;Donovan&quot;, &quot;Emanuela&quot;, &quot;Fiorella&quot;, &quot;Gianluca&quot;, &quot;Isabella&quot;, &quot;Kilian&quot;, &quot;Lucrecia&quot;, &quot;Morgana&quot;, &quot;Nadir&quot;, &quot;Ottilie&quot;, &quot;Pavel&quot;,
+&quot;Quinn&quot;, &quot;Rocco&quot;, &quot;Sasha&quot;, &quot;Tatiana&quot;, &quot;Umi&quot;, &quot;Valery&quot;, &quot;Wyatt&quot;, &quot;Xavi&quot;, &quot;Yael&quot;, &quot;Zuri&quot;};
+
+        Random rand = new Random(2022);
+        for (int i = 0; i &lt; cantidad; i++) {
+            int index = rand.nextInt(iniciales.length);
+            nombres[i] = iniciales[index] + &quot; -&gt; &quot; + (i + 1);
+        }
+        return nombres;
+    }
+
+    public static void main(String[] args) {
+        int cantidadNombres = 200;
+        String[] nombres = generarArregloNombres(cantidadNombres);
+
+        Map&lt;String, Integer&gt; conteo = new HashMap&lt;&gt;();
+        for (String item : nombres) {
+            String nombre = item.split(&quot; -&gt; &quot;)[0].trim();
+            conteo.put(nombre, conteo.getOrDefault(nombre, 0) + 1);
+        }
+
+        List&lt;Map.Entry&lt;String, Integer&gt;&gt; porNombre = new ArrayList&lt;&gt;(conteo.entrySet());
+        porNombre.sort(Map.Entry.comparingByKey());
+
+        List&lt;Map.Entry&lt;String, Integer&gt;&gt; porRepeticiones = new ArrayList&lt;&gt;(conteo.entrySet());
+        porRepeticiones.sort((a, b) -&gt; {
+            int cmp = Integer.compare(b.getValue(), a.getValue());
+            if (cmp != 0) return cmp;
+            return a.getKey().compareTo(b.getKey());
+        });
+
+        System.out.println(&quot;=== TOTAL DE NOMBRES GENERADOS ===&quot;);
+        System.out.println(cantidadNombres);
+        System.out.println(&quot;NOMBRES UNICOS: &quot; + conteo.size());
+
+        System.out.println(&quot;\n=== LISTA ORDENADA POR NOMBRE (primeros 40) ===&quot;);
+        for (int i = 0; i &lt; Math.min(40, porNombre.size()); i++) {
+            Map.Entry&lt;String, Integer&gt; e = porNombre.get(i);
+            System.out.printf(&quot;%-20s -&gt; %d%n&quot;, e.getKey(), e.getValue());
+        }
+
+        System.out.println(&quot;\n=== LISTA ORDENADA POR CANTIDAD DE REPETICIONES (primeros 40) ===&quot;);
+        for (int i = 0; i &lt; Math.min(40, porRepeticiones.size()); i++) {
+            Map.Entry&lt;String, Integer&gt; e = porRepeticiones.get(i);
+            System.out.printf(&quot;%-20s -&gt; %d%n&quot;, e.getKey(), e.getValue());
+        }
+    }
+}
+</code></pre> </section> <section class="ds-panel zona-imagen"> <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true">Output del punto</h2> <div class="marco-imagen"> <img src="/parciales/parcial-01/imagenes/punto-07.svg" alt="Imagen de salida de Punto 7: Repetición de nombres y ordenamientos de salida" loading="lazy" decoding="async"> </div> </section> </main> <script>
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.innerHTML = "✅";
+        setTimeout(() => {
+          botonCopiar.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

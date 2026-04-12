@@ -1,0 +1,145 @@
+// ============================================================================
+// PROGRAMA 13 - COMPARACION DE TIEMPOS DE VARIOS ALGORITMOS DE ORDENAMIENTO
+// ============================================================================
+// EXPLICACION MUY SIMPLE:
+// Este programa no se concentra en un solo algoritmo.
+// Aqui ponemos a competir varios algoritmos de ordenamiento usando exactamente
+// las mismas situaciones de prueba para poder compararlos de manera justa.
+//
+// QUE SE PRUEBA?
+// - 3 tamanos: 10, 50 y 200 elementos.
+// - 3 estados iniciales: totalmente desorganizados, parcialmente organizados
+//   y ordenados invertidamente.
+// - 6 algoritmos: Burbuja, Burbuja Mejorado, QuickSort, ShellSort,
+//   Seleccion e Insercion.
+//
+// QUE MIDE ESTE PROGRAMA?
+// - TIEMPO DE EJECUCION en nanosegundos.
+//
+// IDEA PEDAGOGICA:
+// Si todos reciben los mismos datos, se puede observar con mas justicia cual
+// tarda mas y cual tarda menos segun el escenario.
+// ============================================================================
+
+import java.util.Arrays;
+
+public class Programa13ComparacionTiempos {
+
+    static class ResultadoTiempo {
+        long tiempoNanosegundos;
+        long comparaciones;
+        long intercambios;
+        long iteraciones;
+    }
+
+    public static void main(String[] args) {
+        ejecutarEscenario("POCOS DATOS (10)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(10));
+        ejecutarEscenario("POCOS DATOS (10)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(10));
+        ejecutarEscenario("POCOS DATOS (10)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(10));
+
+        ejecutarEscenario("DATOS MODERADOS (50)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(50));
+        ejecutarEscenario("DATOS MODERADOS (50)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(50));
+        ejecutarEscenario("DATOS MODERADOS (50)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(50));
+
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "TOTALMENTE DESORGANIZADOS", generarEnterosDesordenados(200));
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "PARCIALMENTE ORGANIZADOS", generarEnterosParcialmenteOrdenados(200));
+        ejecutarEscenario("GRAN CANTIDAD DE DATOS (200)", "ORDENADOS INVERTIDAMENTE", generarEnterosInvertidos(200));
+    }
+
+    private static void ejecutarEscenario(String tamano, String estado, int[] base) {
+        System.out.println("============================================================");
+        System.out.println("TAMANO: " + tamano);
+        System.out.println("ESTADO: " + estado);
+        System.out.println("MUESTRA BASE: " + resumir(base, 20));
+        medirYMostrar("Burbuja", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::burbuja);
+        medirYMostrar("Burbuja Mejorado", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::burbujaMejorado);
+        medirYMostrar("QuickSort", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::quickSort);
+        medirYMostrar("ShellSort", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::shellSort);
+        medirYMostrar("Seleccion", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::seleccion);
+        medirYMostrar("Insercion", Arrays.copyOf(base, base.length), Programa13ComparacionTiempos::insercion);
+        System.out.println();
+    }
+
+    interface Algoritmo { ResultadoTiempo aplicar(int[] datos); }
+
+    private static void medirYMostrar(String nombre, int[] datos, Algoritmo algoritmo) {
+        ResultadoTiempo r = algoritmo.aplicar(datos);
+        System.out.println("--- " + nombre + " ---");
+        System.out.println("TIEMPO (ns): " + r.tiempoNanosegundos);
+        System.out.println("COMPARACIONES: " + r.comparaciones);
+        System.out.println("INTERCAMBIOS/MOVIMIENTOS: " + r.intercambios);
+        System.out.println("ITERACIONES: " + r.iteraciones);
+    }
+
+    private static ResultadoTiempo burbuja(int[] a) {
+        ResultadoTiempo r = new ResultadoTiempo(); long ini = System.nanoTime();
+        for (int i=0;i<a.length-1;i++) { r.iteraciones++; for (int j=0;j<a.length-1-i;j++) { r.comparaciones++; if (a[j]>a[j+1]) { int t=a[j]; a[j]=a[j+1]; a[j+1]=t; r.intercambios++; } } }
+        r.tiempoNanosegundos = System.nanoTime()-ini; return r;
+    }
+    private static ResultadoTiempo burbujaMejorado(int[] a) {
+        ResultadoTiempo r = new ResultadoTiempo(); long ini = System.nanoTime();
+        for (int i=0;i<a.length-1;i++) { boolean cambio=false; r.iteraciones++; for (int j=0;j<a.length-1-i;j++) { r.comparaciones++; if (a[j]>a[j+1]) { int t=a[j]; a[j]=a[j+1]; a[j+1]=t; r.intercambios++; cambio=true; } } if(!cambio) break; }
+        r.tiempoNanosegundos = System.nanoTime()-ini; return r;
+    }
+    private static ResultadoTiempo quickSort(int[] a) { ResultadoTiempo r = new ResultadoTiempo(); long ini=System.nanoTime(); quickSortRec(a,0,a.length-1,r); r.tiempoNanosegundos=System.nanoTime()-ini; return r; }
+    private static void quickSortRec(int[] a,int izq,int der,ResultadoTiempo r){ r.iteraciones++; if(izq>=der)return; int piv=a[der],i=izq-1; for(int j=izq;j<der;j++){ r.comparaciones++; if(a[j]<=piv){ i++; int t=a[i]; a[i]=a[j]; a[j]=t; r.intercambios++; } } int t=a[i+1]; a[i+1]=a[der]; a[der]=t; r.intercambios++; int p=i+1; quickSortRec(a,izq,p-1,r); quickSortRec(a,p+1,der,r);} 
+    private static ResultadoTiempo shellSort(int[] a) { ResultadoTiempo r = new ResultadoTiempo(); long ini=System.nanoTime(); for(int gap=a.length/2; gap>0; gap/=2){ for(int i=gap;i<a.length;i++){ r.iteraciones++; int temp=a[i], j=i; while(j>=gap){ r.comparaciones++; if(a[j-gap]>temp){ a[j]=a[j-gap]; r.intercambios++; j-=gap;} else break;} a[j]=temp; r.intercambios++; } } r.tiempoNanosegundos=System.nanoTime()-ini; return r; }
+    private static ResultadoTiempo seleccion(int[] a) { ResultadoTiempo r = new ResultadoTiempo(); long ini=System.nanoTime(); for(int i=0;i<a.length-1;i++){ r.iteraciones++; int min=i; for(int j=i+1;j<a.length;j++){ r.comparaciones++; if(a[j]<a[min]) min=j; } if(min!=i){ int t=a[i]; a[i]=a[min]; a[min]=t; r.intercambios++; } } r.tiempoNanosegundos=System.nanoTime()-ini; return r; }
+    private static ResultadoTiempo insercion(int[] a) { ResultadoTiempo r = new ResultadoTiempo(); long ini=System.nanoTime(); for(int i=1;i<a.length;i++){ r.iteraciones++; int clave=a[i],j=i-1; while(j>=0){ r.comparaciones++; if(a[j]>clave){ a[j+1]=a[j]; r.intercambios++; j--; } else break; } a[j+1]=clave; r.intercambios++; } r.tiempoNanosegundos=System.nanoTime()-ini; return r; }
+
+    private static int[] generarEnterosInvertidos(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=n-i; return d; }
+    private static int[] generarEnterosParcialmenteOrdenados(int n){ int[] d=generarEnterosAscendentes(n); if(n>=4){ intercambiar(d,n/4,n/4+1); intercambiar(d,n/2,Math.min(n-1,n/2+2)); intercambiar(d,Math.max(0,n-3),n-1);} return d; }
+    private static int[] generarEnterosDesordenados(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=((i*37)+11)%(n*3+17)+1; return d; }
+    private static int[] generarEnterosAscendentes(int n){ int[] d=new int[n]; for(int i=0;i<n;i++) d[i]=i+1; return d; }
+    private static void intercambiar(int[] a,int i,int j){ int t=a[i]; a[i]=a[j]; a[j]=t; }
+    private static String resumir(int[] a,int limite){ return a.length<=limite?Arrays.toString(a):Arrays.toString(Arrays.copyOf(a, limite))+" ... (total "+a.length+" elementos)"; }
+}
+
+/* === ESCENARIOS_AUTOGENERADOS ===
+Jose David Consuegra Medina - Codigo 2250167
+Resumen de ejecuciones automaticas (2026-04-12)
+
+Escenario: TOTALMENTE DESORDENADOS
+  - 10 elementos -> Tiempo: 4.385 ms | Memoria: 4.2 KB | Iteraciones: 199 | Comparaciones: 199 | Intercambios: 54
+    Entrada: Arreglo de enteros totalmente desordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 87.699 ms | Memoria: 42 KB | Iteraciones: 3986 | Comparaciones: 3986 | Intercambios: 540
+    Entrada: Arreglo de enteros totalmente desordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 1315.484 ms | Memoria: 420 KB | Iteraciones: 59795 | Comparaciones: 59795 | Intercambios: 5400
+    Entrada: Arreglo de enteros totalmente desordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: PARCIALMENTE ORDENADOS
+  - 10 elementos -> Tiempo: 2.302 ms | Memoria: 3.78 KB | Iteraciones: 120 | Comparaciones: 140 | Intercambios: 27
+    Entrada: Arreglo de enteros parcialmente ordenados (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 46.042 ms | Memoria: 37.8 KB | Iteraciones: 2392 | Comparaciones: 2790 | Intercambios: 270
+    Entrada: Arreglo de enteros parcialmente ordenados (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 690.629 ms | Memoria: 378 KB | Iteraciones: 35877 | Comparaciones: 41856 | Intercambios: 2700
+    Entrada: Arreglo de enteros parcialmente ordenados (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INTERCALADO
+  - 10 elementos -> Tiempo: 5.065 ms | Memoria: 4.41 KB | Iteraciones: 209 | Comparaciones: 209 | Intercambios: 59
+    Entrada: Arreglo de enteros orden intercalado (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 101.292 ms | Memoria: 44.1 KB | Iteraciones: 4186 | Comparaciones: 4186 | Intercambios: 594
+    Entrada: Arreglo de enteros orden intercalado (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 1519.383 ms | Memoria: 441 KB | Iteraciones: 62784 | Comparaciones: 62784 | Intercambios: 5940
+    Entrada: Arreglo de enteros orden intercalado (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+
+Escenario: ORDEN INVERTIDO
+  - 10 elementos -> Tiempo: 8.288 ms | Memoria: 4.83 KB | Iteraciones: 269 | Comparaciones: 279 | Intercambios: 86
+    Entrada: Arreglo de enteros orden invertido (10 elementos)
+    Salida: Valores ordenados de menor a mayor (total 10)
+  - 100 elementos -> Tiempo: 165.751 ms | Memoria: 48.3 KB | Iteraciones: 5382 | Comparaciones: 5581 | Intercambios: 864
+    Entrada: Arreglo de enteros orden invertido (100 elementos)
+    Salida: Valores ordenados de menor a mayor (total 100)
+  - 1000 elementos -> Tiempo: 2486.264 ms | Memoria: 483 KB | Iteraciones: 80723 | Comparaciones: 83713 | Intercambios: 8640
+    Entrada: Arreglo de enteros orden invertido (1000 elementos)
+    Salida: Valores ordenados de menor a mayor (total 1000)
+=== FIN_ESCENARIOS_AUTOGENERADOS === */

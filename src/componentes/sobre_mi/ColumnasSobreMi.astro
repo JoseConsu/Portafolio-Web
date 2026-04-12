@@ -1,0 +1,159 @@
+---
+import { sobreMi } from "../../datos/sobreMi";
+
+const columnas = [
+  { id: "estudios", titulo: "Estudios", color: "var(--cian)" },
+  { id: "experiencia", titulo: "Experiencia laboral", color: "var(--azul)" },
+  { id: "certificaciones", titulo: "Certificaciones y cursos", color: "var(--morado)" },
+] as const;
+
+function listaPorId(id: string) {
+  if (id === "estudios") return sobreMi.estudios;
+  if (id === "experiencia") return sobreMi.experiencia;
+  return sobreMi.certificaciones;
+}
+---
+
+<section class="perfilProfesional panel">
+  <details class="descripcion">
+    <summary>Perfil profesional</summary>
+    <p>
+      Soy una persona disciplinada, curiosa y orientada al aprendizaje continuo. Entre mis fortalezas
+      destaco la capacidad de resolver problemas con enfoque analítico, la facilidad para trabajar en
+      equipo y la constancia para completar objetivos técnicos con calidad.
+    </p>
+    <p>
+      Como áreas de mejora, reconozco que aún estoy construyendo mayor experiencia práctica en
+      entornos laborales reales y fortaleciendo mis habilidades de comunicación en presentaciones
+      técnicas frente a audiencias grandes.
+    </p>
+    <p>
+      Mi desarrollo laboral esperado está enfocado en crecer como profesional de tecnología en
+      ciberseguridad e infraestructura, asumir progresivamente más responsabilidades y aportar valor en
+      proyectos donde la seguridad, la estabilidad y la mejora continua sean prioridad.
+    </p>
+  </details>
+</section>
+
+<div class="grid">
+  {columnas.map((col) => {
+    const lista = listaPorId(col.id);
+
+    return (
+      <section class="columna panel">
+        <header class="cabecera">
+          <span class="badge" style={`color:${col.color}`}></span>
+          <h3 class="titulo">{col.titulo}</h3>
+        </header>
+
+        <div class="lista">
+          {lista.map((it) => (
+            <article class="item">
+              <div class="itemTitulo">{it.titulo}</div>
+              <div class="textoSuave itemDetalle">{it.detalle}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+</div>
+
+<style>
+.perfilProfesional{
+  margin-bottom: 24px;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.descripcion summary{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--texto);
+}
+
+.descripcion summary::-webkit-details-marker{
+  margin-right: 4px;
+}
+
+.descripcion p{
+  margin: 12px 0 0;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--textoSuave);
+}
+
+.grid{
+  margin-top: 4px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.columna{
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: var(--glow);
+}
+
+.cabecera{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.badge{
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 18px color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.titulo{
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 26px;
+  letter-spacing: 0.4px;
+}
+
+.lista{
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item{
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid var(--borde);
+  background: var(--bg-item);
+}
+
+.itemTitulo{
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.itemDetalle{
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+/* 2 columnas */
+@media (max-width: 1050px){
+  .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* 1 columna */
+@media (max-width: 760px){
+  .grid{ grid-template-columns: 1fr; }
+}
+</style>

@@ -1,0 +1,130 @@
+---
+/**
+ * Barra de navegacion (debajo de la portada).
+ * Horizontal, extendida, sin envolverse.
+ */
+---
+
+<nav class="barra panel" aria-label="Navegacion">
+  <button class="item" type="button" data-vista="sobre-mi" title="Sobre mi" aria-label="Sobre mi">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 21a8 8 0 1 0-16 0"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    <span class="texto">Sobre mi</span>
+  </button>
+
+  <button class="item" type="button" data-vista="proyectos" title="Proyectos" aria-label="Proyectos">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 7h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+    </svg>
+    <span class="texto">Proyectos</span>
+  </button>
+
+  <button class="item" type="button" data-vista="habilidades" title="Habilidades" aria-label="Habilidades">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+    </svg>
+    <span class="texto">Habilidades</span>
+  </button>
+
+  <button
+    class="item tema"
+    type="button"
+    data-accion="alternar-tema"
+    title="Cambiar tema"
+    aria-label="Cambiar tema"
+  >
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+    </svg>
+    <span class="texto">Tema</span>
+  </button>
+</nav>
+
+<style>
+.barra{
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 10px;
+  border-radius: 18px;
+  box-shadow: var(--glow);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  position: relative;
+
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--borde);
+  background: var(--bg-btn);
+  color: var(--texto);
+  cursor: pointer;
+  user-select: none;
+
+  font-weight: 650;
+  min-width: 0;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 220ms ease, transform 180ms ease;
+}
+
+.item:hover{
+  background: var(--bg-btn-hover);
+  transition: 160ms;
+}
+
+.item.activa,
+.item[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--morado) 55%, transparent);
+  background: color-mix(in srgb, var(--morado) 14%, transparent);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--azul) 40%, transparent),
+    var(--glow);
+  transform: translateY(-1px);
+}
+
+.item.activa::after,
+.item[aria-current="page"]::after{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 1px solid color-mix(in srgb, var(--azul) 58%, transparent);
+  pointer-events: none;
+}
+
+.texto{
+  font-size: 20px;
+}
+
+.tema{
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+@media (max-width: 760px){
+  .barra{
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  .item{
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+  .barra::-webkit-scrollbar{ height: 8px; }
+  .barra::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+  }
+}
+</style>
