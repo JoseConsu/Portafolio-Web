@@ -7,12 +7,14 @@ export type PuntoParcial = {
   descripcion: string;
   rutaCodigo: string;
   rutaImagen: string;
+  valor?: number;
 };
 
 export type Parcial = {
   id: number;
   slug: string;
   titulo: string;
+  materia: string;
   descripcion: string;
   enlaceExterno: string;
   puntos: PuntoParcial[];
@@ -22,8 +24,10 @@ export const parciales: Parcial[] = [
   {
     id: 1,
     slug: "parcial-01",
-    titulo: "Parcial 1",
-    descripcion: `Fecha: ${fechaHoy}`,
+    titulo: "Parcial 01: Métricas de ordenamiento",
+    materia: "Análisis de algoritmos",
+    descripcion:
+      "Evaluación práctica sobre seis algoritmos de ordenamiento midiendo tiempo, memoria y estabilidad en escenarios reales.",
     enlaceExterno: "/parciales/parcial-01",
     puntos: [
       {
@@ -34,6 +38,7 @@ export const parciales: Parcial[] = [
           "Implementar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion para comparar tiempo y numero de comparaciones en un gran arreglo de nombres.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-01.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-01.svg",
+        valor: 25,
       },
 
       {
@@ -44,6 +49,7 @@ export const parciales: Parcial[] = [
           "Ejecutar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion sobre dos arreglos casi ordenados para comparar tiempos en ambas situaciones.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-02.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-02.svg",
+        valor: 20,
       },
 
       {
@@ -54,6 +60,7 @@ export const parciales: Parcial[] = [
           "Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos invertidos para analizar rendimiento en este escenario.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-03.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-03.svg",
+        valor: 20,
       },
 
       {
@@ -64,6 +71,7 @@ export const parciales: Parcial[] = [
           "Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-04.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-04.svg",
+        valor: 15,
       },
 
       {
@@ -74,6 +82,7 @@ export const parciales: Parcial[] = [
           "Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos donde una mitad esta ordenada y la otra desordenada.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-05.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-05.svg",
+        valor: 15,
       },
 
       {
@@ -84,6 +93,7 @@ export const parciales: Parcial[] = [
           "Evaluar los 6 algoritmos con la serie histórica 2022 de la divisa USD/COP para comparar comparaciones, tiempo y memoria, e identificar periodos de valor más alto y más bajo.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-06.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-06.svg",
+        valor: 15,
       },
 
       {
@@ -94,7 +104,20 @@ export const parciales: Parcial[] = [
           "Contar repeticiones de nombres en un arreglo generado y mostrar dos salidas: ordenada por nombre y ordenada por cantidad de repeticiones.",
         rutaCodigo: "/parciales/parcial-01/codigos/punto-07.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-07.svg",
+        valor: 10,
       },
     ],
   },
 ];
+
+export function formatParcialIndex(id: string) {
+  const match = id.match(/(\d{1,2})$/);
+  const numero = match ? match[1] : id;
+  return `Parcial #${numero.padStart(2, "0")}`;
+}
+
+export function totalPuntos(parcial: Parcial) {
+  return parcial.puntos.reduce((acum, punto) => acum + (punto.valor ?? 0), 0);
+}
+
+export const parcialesAcademicos: Parcial[] = parciales.map((parcial) => ({ ...parcial }));

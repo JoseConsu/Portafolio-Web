@@ -1,341 +1,717 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { habilidades, parcialesAcademicos, perfil, proyectos, proyectosTemporales, sobreMi } from "../data/content";
+import { perfil, sobreMi, proyectos, skillGroups } from "../data/content";
+import {
+  algoritmosPrograms,
+  simuladorProgram,
+  formatIndex,
+} from "../programas-temporales/programas";
+import {
+  parcialesAcademicos,
+  formatParcialIndex,
+  totalPuntos,
+} from "../parciales/parciales";
 
-type ProyectoEntry = (typeof proyectos)[number] & { categoria: string };
-type SkillEntry = (typeof habilidades)[number] & { porcentaje: number };
-
-const projectList = proyectos as ProyectoEntry[];
-const skillsList = habilidades as SkillEntry[];
-
-const totalProgramas = proyectosTemporales.length;
-const totalParciales = parcialesAcademicos.length;
-const totalSkills = skillsList.length;
-
-const formatIndex = (value: string | undefined, prefix: string) => {
-  if (!value) return "00";
-  const segment = value.includes("/") ? value.split("/").filter(Boolean).pop() ?? value : value;
-  return segment.replace(`${prefix}-`, "").padStart(2, "0");
+const MAX_PILLS = 8;
+const nombreTokens = perfil.nombre.split(" ");
+const heroNombre = {
+  linea1: nombreTokens[0] ?? "",
+  linea2: nombreTokens[1] ?? "",
+  linea3: nombreTokens.slice(2).join(" "),
 };
-
-const categorizeSkill = (porcentaje: number) => {
-  if (porcentaje >= 80) return "Dominadas";
-  if (porcentaje < 5) return "Por aprender";
-  return "En proceso";
-};
-
-const skillGroups = [
-  "Dominadas",
-  "En proceso",
-  "Por aprender",
-].map((titulo) => ({
-  titulo,
-  listado: skillsList.filter((skill) => categorizeSkill(skill.porcentaje) === titulo),
-}));
-
-const categoriasProyectos = [
-  "todos",
-  ...new Set(projectList.map((proyecto) => proyecto.categoria)),
-];
-
-const formatCategoryLabel = (value: string) =>
-  value === "todos"
-    ? "Todos"
-    : value
-        .split("-")
-        .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
-        .join(" ");
+const heroPhrases = JSON.stringify([
+  perfil.enfoque,
+  "Infraestructura y SecOps",
+  "Laboratorios académicos UIS",
+  "Proyectos con narrativa técnica",
+]);
 ---
 
-<BaseLayout>
-  <header class="nav app-nav" aria-label="Navegación principal">
-    <div class="nav-inner">
-      <a class="nav-logo" href="#contenido-principal">
-        <span class="nav-logo-serif">{perfil.nombre.split(" ").slice(0, 2).join(" ")}</span>
-        <span class="nav-logo-mono">Infra · SecOps</span>
+<BaseLayout title={`${perfil.nombre} | Portafolio`}>
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Navegación principal">
+    <div class="nav-inner container">
+      <a href="#home" class="nav-logo" aria-label={`Inicio — ${perfil.nombre}`}>
+        <span class="nav-logo-serif">{`${nombreTokens[0]?.[0] ?? ""}. ${nombreTokens[1] ?? ""}`}</span>
+        <span class="nav-logo-mono">infra · secops</span>
       </a>
-      <div class="nav-links" role="menubar">
-        <button class="nav-btn active" data-target="sobre-mi" aria-current="page">
-          <img src="/icons/user.svg" alt="" class="ui-icon" aria-hidden="true" />Sobre mí
+
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#sobre-mi" data-sec="sobre-mi">Perfil</a></li>
+        <li><a href="#trayectoria" data-sec="trayectoria">Trayectoria</a></li>
+        <li><a href="#proyectos" data-sec="proyectos">Proyectos</a></li>
+        <li><a href="#academico" data-sec="academico">Académico</a></li>
+        <li><a href="#contacto" data-sec="contacto">Contacto</a></li>
+      </ul>
+
+      <div class="nav-ctrl">
+        <button class="btn-theme" id="themeBtn" aria-label="Cambiar tema">
+          <span id="themeIco">🌙</span>
+          <span id="themeTxt">Dark</span>
         </button>
-        <button class="nav-btn" data-target="proyectos">
-          <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" />Proyectos
-        </button>
-        <button class="nav-btn" data-target="habilidades">
-          <img src="/icons/bolt.svg" alt="" class="ui-icon" aria-hidden="true" />Habilidades
-        </button>
-        <button class="nav-btn ghost" data-theme-toggle aria-pressed="false" aria-label="Cambiar tema de color">
-          <img src="/icons/theme.svg" alt="" class="ui-icon" aria-hidden="true" />Tema
-          <small data-theme-label>Oscuro</small>
+        <button class="hamburger" id="ham" aria-label="Abrir menú" aria-expanded="false">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
         </button>
       </div>
-      <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
-  </header>
+  </nav>
 
-  <main class="portfolio-shell" id="contenido-principal">
-    <section class="hero" id="sobre-mi" data-section>
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="hero-label">
-            <span class="hero-label-dot" aria-hidden="true"></span>
-            Portafolio activo · {perfil.rol}
-          </p>
-          <h1 class="hero-name">
-            {perfil.nombre}
-            <span>{perfil.enfoque}</span>
-          </h1>
-          <p class="hero-desc">{sobreMi.perfilLaboral[0]}</p>
-          {sobreMi.perfilLaboral[1] && <p class="hero-desc subtle">{sobreMi.perfilLaboral[1]}</p>}
+  <main id="main">
+    <section id="home" class="hero" aria-labelledby="hero-heading">
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+      <div class="hero-number" aria-hidden="true">01</div>
 
-          <div class="hero-creds">
-            {[
-              ...sobreMi.estudios.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
-              ...sobreMi.experienciaLaboral.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
-              ...sobreMi.certificaciones.map((item) => ({ texto: item.titulo, detalle: item.detalle })),
-            ].map((item) => (
-              <div class="cred-tag">
-                <strong>{item.texto}</strong>
-                <span>{item.detalle}</span>
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <div class="hero-label">
+              <span class="hero-label-dot" aria-hidden="true"></span>
+              Portafolio activo · Ingeniero de Sistemas
+            </div>
+
+            <h1 class="hero-name" id="hero-heading">
+              {heroNombre.linea1}
+              <span>{heroNombre.linea2}</span>
+              {heroNombre.linea3}
+            </h1>
+
+            <p class="hero-role" id="heroSubtitle" data-phrases={heroPhrases}>{perfil.enfoque}</p>
+            <p class="hero-desc">{sobreMi.perfilLaboral[0]}</p>
+
+            <div class="hero-cta">
+              <a href={perfil.correo} class="btn btn-moss">Escribirme →</a>
+              <a href={perfil.whatsapp} target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="hero-avatar-col" aria-hidden="true">
+            <div class="polaroid">
+              <div class="polaroid-inner real-photo">
+                <img src={perfil.foto ?? "/imagenes/yo.jpg"} alt={`Foto de ${perfil.nombre}`} loading="lazy" decoding="async" />
               </div>
+              <p class="polaroid-caption">Ingeniería UIS · 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre-mi" aria-labelledby="sobre-heading">
+      <div class="container">
+        <header class="section-header reveal">
+          <div class="section-eyebrow">Perfil profesional</div>
+          <h2 class="section-title" id="sobre-heading">
+            Código, <em>campus</em> y comunidad
+          </h2>
+        </header>
+
+        <div class="about-layout">
+          <div class="about-text reveal delay-1">
+            {sobreMi.perfilLaboral.map((parrafo, index) => (
+              <p class={index === 0 ? "about-lead" : ""}>{parrafo}</p>
             ))}
           </div>
 
-          <div class="hero-cta">
-            <a class="btn btn-primary" href={perfil.correo}>
-              <img src="/icons/mail.svg" alt="" class="ui-icon" aria-hidden="true" />Escríbeme
-            </a>
-            <a class="btn btn-secondary" href={perfil.whatsapp} target="_blank" rel="noreferrer">
-              <img src="/icons/whatsapp.svg" alt="" class="ui-icon" aria-hidden="true" />WhatsApp
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="polaroid">
-            <img src={perfil.foto} alt={`Foto de ${perfil.nombre}`} />
-            <span class="polaroid-caption">Bucaramanga · Colombia</span>
-          </div>
-          <div class="hero-stats-v" aria-label="Resumen numérico">
-            <div class="stat-v">
-              <span class="stat-v-num">{totalSkills}</span>
-              <span class="stat-v-lbl">Skills activas</span>
+          <aside class="info-aside reveal delay-2">
+            <div class="info-row">
+              <span class="info-row-lbl">Universidad</span>
+              <span class="info-row-val">Universidad Industrial de Santander (UIS)</span>
             </div>
-            <div class="stat-v">
-              <span class="stat-v-num">{projectList.length}</span>
-              <span class="stat-v-lbl">Proyectos propios</span>
+            <div class="info-row">
+              <span class="info-row-lbl">Programa</span>
+              <span class="info-row-val">Ingeniería de Sistemas</span>
             </div>
-            <div class="stat-v">
-              <span class="stat-v-num">{totalProgramas + totalParciales}</span>
-              <span class="stat-v-lbl">Piezas académicas</span>
+            <div class="info-row">
+              <span class="info-row-lbl">Disponibilidad</span>
+              <span class="info-row-val">Freelance · Remoto · Tiempo parcial o completo</span>
             </div>
-          </div>
+            <div class="info-row">
+              <span class="info-row-lbl">Idiomas</span>
+              <span class="info-row-val">Español nativo · Inglés técnico</span>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section class="section paper" id="proyectos" data-section>
-      <div class="section-header">
-        <p class="section-eyebrow">// proyectos personales</p>
-        <h2 class="section-title">Arquitecturas y laboratorios que mantengo</h2>
-        <p class="section-subtitle">
-          Diseño infraestructura educativa propia, despliego mi portafolio en Astro y documento cada laboratorio de redes que ejecuto.
-        </p>
-      </div>
-
-      <div class="proj-filters" role="tablist" aria-label="Filtros de proyectos">
-        {categoriasProyectos.map((categoria) => (
-          <button
-            class={`filter-btn${categoria === "todos" ? " active" : ""}`}
-            data-filter={categoria}
-            type="button"
-          >
-            {formatCategoryLabel(categoria)}
-          </button>
-        ))}
-      </div>
-
-      <div class="project-grid" data-project-grid>
-        {projectList.map((proyecto) => (
-          <article class="proj-card" data-category={proyecto.categoria}>
-            <div class="proj-thumb">
-              <span class="proj-type-badge">{formatCategoryLabel(proyecto.categoria)}</span>
-              <span class="proj-thumb-icon">✹</span>
-            </div>
-            <div class="proj-body">
-              <p class="proj-subject">Proyecto activo</p>
-              <h3 class="proj-title">{proyecto.titulo}</h3>
-              <p class="proj-desc">{proyecto.descripcion}</p>
-              <div class="proj-footer">
-                <small>{proyecto.etiquetas.join(" • ")}</small>
-                <span class="proj-link">Documentado</span>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="university-block">
-        <div class="university-copy">
-          <p class="section-eyebrow">// proyectos universitarios</p>
-          <h3>Catálogo académico exclusivo</h3>
-          <p>
-            Los programas temporales y parciales viven aquí como referencia histórica controlada. Cada plantilla corre con su código, captura de resultados y rutas validadas en build.
+    <section id="trayectoria" aria-labelledby="tray-heading">
+      <div class="container">
+        <header class="section-header reveal">
+          <div class="section-eyebrow">Trayectoria</div>
+          <h2 class="section-title" id="tray-heading">
+            Experiencia &amp; <em>formación</em>
+          </h2>
+          <p class="section-subtitle">
+            Experiencia profesional con impacto medible, construida en paralelo con la carrera universitaria en la UIS.
           </p>
-          <div class="university-meta">
-            <div>
-              <span class="stat-v-num">{totalProgramas}</span>
-              <span class="stat-v-lbl">Programas</span>
+        </header>
+
+        <div class="journey-grid">
+          <div>
+            <ol class="timeline" aria-label="Historial de experiencia laboral">
+              {sobreMi.experienciaLaboral.map((exp, index) => (
+                <li class={`timeline__item reveal delay-${index + 1}`}>
+                  <div class="timeline__node" aria-hidden="true">{index === 0 ? "💼" : "🚀"}</div>
+                  <div class="timeline__body">
+                    <p class="timeline__period">{exp.periodo}</p>
+                    <h3 class="timeline__role">{exp.cargo}</h3>
+                    <p class="timeline__company">{exp.empresa}</p>
+                    <p class="timeline__detail">{exp.detalle}</p>
+                    {exp.tecnologias && (
+                      <div class="timeline__tags">
+                        {exp.tecnologias.map((tech) => (
+                          <span class="pill">{tech}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div class="reveal delay-2">
+            <div class="credential-stack">
+              <div class="credential-stack__title">Estudios</div>
+              {sobreMi.estudios.map((estudio) => (
+                <div class="credential-card">
+                  {estudio.periodo && <div class="credential-card__label">{estudio.periodo}</div>}
+                  <div class="credential-card__titulo">{estudio.titulo}</div>
+                  <div class="credential-card__inst">{estudio.institucion}</div>
+                  {estudio.detalle && <div class="credential-card__detalle">{estudio.detalle}</div>}
+                </div>
+              ))}
             </div>
-            <div>
-              <span class="stat-v-num">{totalParciales}</span>
-              <span class="stat-v-lbl">Parciales</span>
+
+            <div class="credential-stack" style="margin-top: var(--sp-6);">
+              <div class="credential-stack__title">Certificaciones</div>
+              {sobreMi.certificaciones.map((cert) => (
+                <div class="credential-card">
+                  {cert.fecha && <div class="credential-card__label">{cert.fecha}</div>}
+                  <div class="credential-card__titulo">{cert.titulo}</div>
+                  <div class="credential-card__inst">{cert.emisor}</div>
+                  {cert.detalle && <div class="credential-card__detalle">{cert.detalle}</div>}
+                  {cert.enlace && (
+                    <a href={cert.enlace} target="_blank" rel="noopener" class="credential-card__link">
+                      Ver certificado →
+                    </a>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-          <a class="btn btn-ghost" href="/programas-temporales/programa-01">Abrir catálogo</a>
-        </div>
-
-        <div class="university-details">
-          <details open>
-            <summary>
-              Programas temporales
-              <span class="details-state">Desplegar</span>
-            </summary>
-            <ul class="catalogue-list">
-              {proyectosTemporales.map((item) => (
-                <li class="catalogue-item">
-                  <a href={item.enlace}>
-                    <span class="catalogue-index">Programa {formatIndex(item.enlace, "programa")}</span>
-                    <span class="catalogue-title">{item.titulo}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
-
-          <details>
-            <summary>
-              Parciales oficiales
-              <span class="details-state">Desplegar</span>
-            </summary>
-            <ul class="catalogue-list">
-              {parcialesAcademicos.map((item) => (
-                <li class="catalogue-item">
-                  <a href={item.enlace}>
-                    <span class="catalogue-index">Parcial {formatIndex(item.enlace, "parcial")}</span>
-                    <span class="catalogue-title">{item.titulo}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
         </div>
       </div>
     </section>
 
-    <section class="section" id="habilidades" data-section>
-      <div class="section-header">
-        <p class="section-eyebrow">// habilidades</p>
-        <h2 class="section-title">Mapa de progreso técnico</h2>
-        <p class="section-subtitle">
-          Cada skill se alimenta desde <code>src/data/content.ts</code>; aquí solo cambio la presentación para resaltar prioridades.
-        </p>
-      </div>
+    <section id="skills" aria-labelledby="skills-heading">
+      <div class="container">
+        <header class="section-header reveal">
+          <div class="section-eyebrow">Tecnologías</div>
+          <h2 class="section-title" id="skills-heading">Stack <em>técnico</em></h2>
+        </header>
 
-      <div class="skills-bg">
         <div class="skills-cols">
-          {skillGroups.map((grupo) => (
-            <article class="skill-group">
-              <h3 class="skill-group-title">{grupo.titulo}</h3>
-              {grupo.listado.length > 0 ? (
-                <div class="skill-bars">
-                  {grupo.listado.map((skill) => (
-                    <div class="skill-bar-item">
-                      <div class="skill-bar-meta">
-                        <span class="skill-bar-name">{skill.nombre}</span>
-                        <span class="skill-bar-pct">{skill.porcentaje}%</span>
-                      </div>
-                      <div class="skill-track">
-                        <span class="skill-fill" style={`width:${skill.porcentaje}%`}></span>
-                      </div>
-                    </div>
+          {skillGroups.map((group, index) => {
+            const visibles = group.habilidades.slice(0, MAX_PILLS);
+            const overflow = group.habilidades.length - MAX_PILLS;
+            const mod = group.grupo.replace(/\s/g, "-");
+            return (
+              <div class={`skill-group skill-group--${mod} reveal delay-${index + 1}`}>
+                <div class="skill-group__title">
+                  {group.grupo.charAt(0).toUpperCase() + group.grupo.slice(1)}
+                </div>
+                <div class="skill-group__pills">
+                  {visibles.map((skill) => (
+                    <span class="pill">{skill}</span>
+                  ))}
+                  {overflow > 0 && <span class="skill-group__pill-overflow">+{overflow} más</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" aria-labelledby="proj-heading">
+      <div class="container">
+        <header class="section-header reveal">
+          <div class="section-eyebrow">Proyectos</div>
+          <h2 class="section-title" id="proj-heading">Trabajo <em>selecto</em></h2>
+          <p class="section-subtitle">
+            Productos en producción construidos con código limpio, arquitecturas escalables y foco en el contexto colombiano.
+          </p>
+        </header>
+
+        <div class="proj-grid">
+          {proyectos.map((proyecto, index) => (
+            <article class={`proj-card reveal delay-${index + 1}`} aria-labelledby={`proj-${index}`}>
+              <div class="proj-card__thumb">
+                <span class="proj-card__icon" aria-hidden="true">{proyecto.categoria.includes("Infra") ? "🌐" : "✨"}</span>
+                <span class="proj-card__category">{proyecto.categoria}</span>
+              </div>
+              <div class="proj-card__body">
+                <h3 class="proj-card__title" id={`proj-${index}`}>{proyecto.titulo}</h3>
+                <p class="proj-card__desc">{proyecto.descripcion}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  {proyecto.tecnologias.map((tech) => (
+                    <span class="pill">{tech}</span>
                   ))}
                 </div>
-              ) : (
-                <p class="empty-state">Pendiente de registrar.</p>
-              )}
-              {grupo.listado.length > 0 && (
-                <div class="tech-pills">
-                  {grupo.listado.map((skill) => (
-                    <span class="pill">
-                      <img src={skill.icono} alt="" class="ui-icon" aria-hidden="true" />
-                      {skill.nombre}
-                    </span>
-                  ))}
+                <div class="proj-card__footer">
+                  <div class="proj-card__links">
+                    {proyecto.enlaceDemo && (
+                      <a href={proyecto.enlaceDemo} class="proj-card__link" target="_blank" rel="noopener">
+                        ↗ Demo
+                      </a>
+                    )}
+                    {proyecto.enlaceRepo && (
+                      <a href={proyecto.enlaceRepo} class="proj-card__link" target="_blank" rel="noopener">
+                        ⌥ GitHub
+                      </a>
+                    )}
+                  </div>
                 </div>
-              )}
+              </div>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section contact-bg" id="contacto" data-section>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <p class="section-eyebrow">// contacto</p>
-          <h2 class="section-title">Hablemos de infraestructura, redes o ideas editoriales</h2>
-          <p>
-            Correo y WhatsApp están activos para coordinar sesiones de trabajo, mentorías académicas o colaboraciones puntuales.
-            Siempre respondo en menos de 24 horas.
+    <section id="academico" aria-labelledby="acad-heading">
+      <div class="container">
+        <header class="section-header reveal">
+          <div class="section-eyebrow">Programas académicos</div>
+          <h2 class="section-title" id="acad-heading">Proyectos &amp; <em>parciales</em></h2>
+          <p class="section-subtitle">
+            Desde parciales de análisis de algoritmos hasta simuladores interactivos — cada pieza académica se construye con el mismo nivel de cuidado que un proyecto profesional.
           </p>
-          <div class="contact-actions">
-            <a class="btn btn-primary" href={perfil.correo}>
-              <img src="/icons/mail.svg" alt="" class="ui-icon" aria-hidden="true" />Escríbeme
-            </a>
-            <a class="btn btn-secondary" href={perfil.whatsapp} target="_blank" rel="noreferrer">
-              <img src="/icons/whatsapp.svg" alt="" class="ui-icon" aria-hidden="true" />WhatsApp
+        </header>
+
+        <div class="reveal">
+          <a href={simuladorProgram.enlaceExterno} class="simulator" aria-labelledby="sim-title">
+            <div>
+              <div class="simulator__badge">
+                <span class="simulator__badge-dot" aria-hidden="true"></span>
+                Simulador interactivo
+              </div>
+              <h3 class="simulator__title" id="sim-title">{simuladorProgram.titulo}</h3>
+              <p class="simulator__desc">{simuladorProgram.descripcion}</p>
+              <div class="simulator__metrics">
+                <div>
+                  <span class="simulator__metric-num">12</span>
+                  <span class="simulator__metric-lbl">Algoritmos</span>
+                </div>
+                <div>
+                  <span class="simulator__metric-num">8</span>
+                  <span class="simulator__metric-lbl">Distribuciones</span>
+                </div>
+                <div>
+                  <span class="simulator__metric-num">10</span>
+                  <span class="simulator__metric-lbl">Velocidades</span>
+                </div>
+              </div>
+              <span class="btn btn-moss" style="width:fit-content;">Abrir simulador →</span>
+            </div>
+            <div class="simulator__preview" aria-hidden="true">
+              {[40, 65, 30, 80, 55, 90, 20, 70, 45, 85].map((height) => (
+                <div class="sim-bar" style={`height:${height}%`}></div>
+              ))}
+            </div>
+          </a>
+        </div>
+
+        <div style="margin-bottom: var(--sp-6);">
+          <div class="reveal" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-6);">
+            <h3 style="font-family:var(--ff-display);font-size:1.3rem;font-weight:700;color:var(--text-1);">
+              Análisis de <em style="font-style:italic;color:var(--moss);">algoritmos</em>
+            </h3>
+            <a href="/programas-temporales/catalogo" class="btn btn-ghost" style="font-size:0.78rem;padding:7px 14px;">
+              Ver catálogo completo →
             </a>
           </div>
-          <div class="contact-quote">
-            <p>“La ingeniería es estética cuando la documentación, el código y la evidencia conviven en un mismo espacio.”</p>
-            <cite>— Jose David Consuegra</cite>
+          <div class="academics-grid">
+            {algoritmosPrograms.map((programa, index) => (
+              <a
+                href={programa.enlaceExterno}
+                class={`program-card reveal delay-${(index % 3) + 1}`}
+                aria-label={`${programa.titulo} — ${formatIndex(programa.id)}`}
+              >
+                <div class="program-card__index">{formatIndex(programa.id)}</div>
+                <div class="program-card__title">{programa.titulo}</div>
+                <p class="program-card__desc">{programa.descripcion}</p>
+                {programa.tags && (
+                  <div class="program-card__tags">
+                    {programa.tags.slice(0, 3).map((tag) => (
+                      <span class="pill">{tag}</span>
+                    ))}
+                  </div>
+                )}
+                <div class="program-card__cta">Ver programa →</div>
+              </a>
+            ))}
           </div>
         </div>
-        <div class="contact-panel">
-          <div class="contact-card">
-            <p class="section-eyebrow">Disponibilidad</p>
-            <h3>Portafolio en actualización semanal</h3>
-            <p>
-              Cada entrega incluye código fuente validado, lectura de métricas y narrativa editorial coherente con la UIS.
-            </p>
-            <ul>
-              <li>Próxima ventana: Lunes a Viernes · 7:00 am – 6:00 pm</li>
-              <li>Ubicación: Bucaramanga, Colombia</li>
-            </ul>
+
+        <div>
+          <h3 class="reveal" style="font-family:var(--ff-display);font-size:1.3rem;font-weight:700;color:var(--text-1);margin-bottom:var(--sp-6);">
+            Parciales <em style="font-style:italic;color:var(--terra);">académicos</em>
+          </h3>
+          <div class="parciales-grid">
+            {parcialesAcademicos.map((parcial, index) => (
+              <a
+                href={parcial.enlaceExterno}
+                class={`parcial-card reveal delay-${(index % 4) + 1}`}
+                aria-label={`${formatParcialIndex(parcial.slug)} — ${parcial.titulo}`}
+              >
+                <div class="parcial-card__index">{formatParcialIndex(parcial.slug)}</div>
+                <div class="parcial-card__title">{parcial.titulo}</div>
+                <div class="parcial-card__materia">{parcial.materia}</div>
+                <p class="parcial-card__desc">{parcial.descripcion}</p>
+                <div class="parcial-card__footer">
+                  <span class="parcial-card__points-badge">{totalPuntos(parcial)} pts</span>
+                  <span class="parcial-card__cta">Ver parcial →</span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>
     </section>
-  </main>
-  <script is:inline>
-    const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
-    const projectCards = Array.from(document.querySelectorAll(".proj-card[data-category]"));
 
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const activeFilter = button.dataset.filter ?? "todos";
-        filterButtons.forEach((btn) => btn.classList.toggle("active", btn === button));
-        projectCards.forEach((card) => {
-          const category = card.dataset.category ?? "";
-          const visible = activeFilter === "todos" || category === activeFilter;
-          card.classList.toggle("hidden", !visible);
+    <section id="contacto" aria-labelledby="contact-heading" style="background:var(--ink-2);border-top:1px solid var(--br-1);">
+      <div class="container">
+        <header class="section-header reveal" style="text-align:center;">
+          <div class="section-eyebrow" style="justify-content:center;">Contacto</div>
+          <h2 class="section-title" id="contact-heading" style="text-align:center;">
+            ¿Hablamos de tu<br /><em>próximo proyecto?</em>
+          </h2>
+        </header>
+
+        <div class="contact-grid">
+          <div class="reveal delay-1">
+            <h3 style="font-family:var(--ff-display);font-size:1.4rem;font-weight:700;color:var(--text-1);margin-bottom:var(--sp-4);">
+              Disponible para colaborar
+            </h3>
+            <p style="font-size:0.95rem;color:var(--text-2);line-height:1.7;margin-bottom:var(--sp-4);">
+              Trabajo con startups que necesitan un MVP, empresas que quieren modernizar su stack y proyectos académicos con componentes de software.
+            </p>
+            <div style="background:var(--card-bg-strong);border:1px solid var(--br-strong);border-radius:var(--r-xl);padding:var(--sp-4) var(--sp-5);box-shadow:var(--sh-card);margin-bottom:var(--sp-5);">
+              <div style="font-family:var(--ff-mono);font-size:0.65rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--sp-2);">
+                Disponibilidad actual
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#6bdf8f;animation:pulse-dot 2s infinite;flex-shrink:0;"></span>
+                <span style="font-size:0.9rem;color:var(--text-1);font-weight:500;">Freelance · Proyectos remotos</span>
+              </div>
+              <div style="font-size:0.82rem;color:var(--text-2);">Respuesta en menos de 24 horas hábiles.</div>
+            </div>
+            <blockquote style="border-left:3px solid var(--moss);padding-left:var(--sp-5);margin-bottom:var(--sp-5);">
+              <p style="font-family:var(--ff-display);font-style:italic;font-size:1rem;color:var(--text-2);line-height:1.6;">
+                "El mejor código es el que resuelve el problema real, no el que más impresiona."
+              </p>
+            </blockquote>
+            <div style="display:flex;gap:var(--sp-3);flex-wrap:wrap;">
+              <a href={perfil.github ?? "#"} target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a href={perfil.linkedIn ?? "#"} target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a href={perfil.correo} class="social-btn" aria-label="Email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+              </a>
+              <a href={perfil.whatsapp} target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <form class="contact-form reveal delay-2" id="contactForm" novalidate aria-label="Formulario de contacto">
+            <div class="form-field">
+              <label class="form-lbl" for="fName">Nombre</label>
+              <input class="form-inp" type="text" id="fName" placeholder="Tu nombre completo" required minlength="2" autocomplete="name" />
+            </div>
+            <div class="form-field">
+              <label class="form-lbl" for="fEmail">Email</label>
+              <input class="form-inp" type="email" id="fEmail" placeholder="tu@email.com" required autocomplete="email" />
+            </div>
+            <div class="form-field">
+              <label class="form-lbl" for="fType">Tipo de proyecto</label>
+              <select class="form-inp" id="fType">
+                <option value="">— Selecciona —</option>
+                <option value="professional">Proyecto profesional / empresa</option>
+                <option value="freelance">Freelance / startup</option>
+                <option value="academic">Colaboración académica</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-lbl" for="fMsg">Mensaje</label>
+              <textarea class="form-txt" id="fMsg" placeholder="Cuéntame sobre tu proyecto..." required minlength="20"></textarea>
+            </div>
+            <button type="submit" class="btn btn-moss" style="width:100%;justify-content:center;">Enviar mensaje →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-text">© {new Date().getFullYear()} {perfil.nombre} · Bucaramanga, Colombia</span>
+        <span class="footer-sig">Ingeniería con carácter</span>
+        <a href="#home" class="footer-top">↑ Inicio</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="btt" id="btt" aria-label="Volver al inicio">↑</button>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+    /* Inline styles from template */
+    .nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;background:rgba(15,14,13,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--br-1);transition:background var(--t-base)}
+    [data-theme="light"] .nav{background:rgba(250,247,242,.9)}
+    .nav-inner{margin:0 auto;height:100%;padding:0 var(--sp-8);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-6)}
+    .nav-logo{display:flex;align-items:baseline;gap:6px;text-decoration:none;line-height:1}
+    .nav-logo-serif{font-family:var(--ff-display);font-size:1.2rem;font-weight:700;color:var(--text-1);font-style:italic;letter-spacing:-.02em}
+    .nav-logo-mono{font-family:var(--ff-mono);font-size:.68rem;color:var(--moss);letter-spacing:.05em}
+    .nav-links{display:flex;align-items:center;gap:var(--sp-8);list-style:none}
+    .nav-links a{font-size:.75rem;font-weight:500;color:var(--text-2);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;position:relative;padding-bottom:2px;transition:color var(--t-fast)}
+    .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--moss);border-radius:9999px;transition:width var(--t-base)}
+    .nav-links a:hover,.nav-links a.active{color:var(--text-1)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-ctrl{display:flex;align-items:center;gap:var(--sp-3)}
+    .btn-theme{display:flex;align-items:center;gap:var(--sp-2);padding:5px 12px;background:rgba(255,255,255,.04);border:1px solid var(--br-2);border-radius:var(--r-md);color:var(--text-2);font-family:var(--ff-mono);font-size:.68rem;cursor:pointer;transition:all var(--t-fast)}
+    .btn-theme:hover{color:var(--moss);border-color:var(--br-moss);background:var(--moss-dim)}
+    .hamburger{display:none;flex-direction:column;gap:5px;padding:6px;background:none;border:none;cursor:pointer}
+    .hamburger__line{display:block;width:22px;height:1.5px;background:var(--text-2);border-radius:9999px;transition:all var(--t-base)}
+    .hamburger.open .hamburger__line:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px);background:var(--moss)}
+    .hamburger.open .hamburger__line:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hamburger.open .hamburger__line:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px);background:var(--moss)}
+    .hero{min-height:100svh;display:grid;place-items:center;padding:calc(var(--nav-h) + var(--sp-12)) 0 var(--sp-16);position:relative;overflow:hidden}
+    .hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(var(--br-1) 1px,transparent 1px),linear-gradient(90deg,var(--br-1) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;mask-image:radial-gradient(ellipse 80% 80% at 50% 40%,black 30%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 40%,black 30%,transparent 100%)}
+    .hero-number{position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:var(--ff-display);font-size:clamp(160px,20vw,340px);font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(74,124,89,.07);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.06em}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:var(--sp-16);align-items:center}
+    .hero-label{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:.68rem;color:var(--moss);letter-spacing:.1em;text-transform:uppercase;margin-bottom:var(--sp-5)}
+    .hero-label-dot{width:7px;height:7px;border-radius:50%;background:#6bdf8f;animation:pulse-dot 2.2s ease-in-out infinite;flex-shrink:0}
+    .hero-name{font-family:var(--ff-display);font-size:clamp(3rem,7vw,6rem);font-weight:900;letter-spacing:-.05em;line-height:.96;color:var(--text-1);margin-bottom:var(--sp-5)}
+    .hero-name span{display:block;font-style:italic;color:var(--moss)}
+    .hero-role{font-family:var(--ff-display);font-size:clamp(.95rem,2vw,1.4rem);font-weight:400;font-style:italic;color:var(--terra);margin-bottom:var(--sp-5);letter-spacing:-.01em;min-height:1.4em}
+    .hero-desc{font-size:1rem;color:var(--text-2);line-height:1.8;max-width:520px;margin-bottom:var(--sp-6)}
+    .hero-cta{display:flex;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+    .hero-avatar-col{display:flex;flex-direction:column;align-items:center;gap:var(--sp-6)}
+    .polaroid{position:relative;background:var(--ink-3);border:1px solid var(--br-2);border-radius:var(--r-lg);padding:var(--sp-3);padding-bottom:var(--sp-8);box-shadow:var(--sh-lg);transform:rotate(1.5deg);transition:transform var(--t-spring)}
+    .polaroid:hover{transform:rotate(0deg) scale(1.02)}
+    .polaroid-inner{width:170px;height:170px;border-radius:var(--r-md);background:var(--ink-4);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .polaroid-inner.real-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .polaroid-initials{font-family:var(--ff-display);font-size:3.8rem;font-weight:900;font-style:italic;color:var(--moss);user-select:none}
+    .polaroid-caption{text-align:center;font-family:var(--ff-mono);font-size:.62rem;color:var(--text-3);margin-top:var(--sp-2);letter-spacing:.05em}
+    @media(max-width:960px){.hero-inner,.about-layout{grid-template-columns:1fr}.hero-avatar-col{display:none}}
+    @media(max-width:768px){.nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--ink);border-bottom:1px solid var(--br-1);max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;gap:0}.nav-links.open{max-height:400px;padding:var(--sp-4) 0}.nav-links li{width:100%}.nav-links a{display:block;padding:var(--sp-3) var(--sp-8)}.nav-links a::after{display:none}.hamburger{display:flex}}
+    @media(max-width:480px){.hero-cta{flex-direction:column}}
+  </style>
+
+  <script>
+    'use strict';
+    (function(){
+      const STORAGE_KEY = 'jdc-theme';
+      const html=document.documentElement;
+      const btn=document.getElementById('themeBtn');
+      const ico=document.getElementById('themeIco');
+      const txt=document.getElementById('themeTxt');
+      let dark = localStorage.getItem(STORAGE_KEY)
+        ? localStorage.getItem(STORAGE_KEY)==='dark'
+        : window.matchMedia('(prefers-color-scheme:dark)').matches;
+      function applyTheme(isDark){
+        html.setAttribute('data-theme',isDark?'dark':'light');
+        if(ico) ico.textContent=isDark?'🌙':'☀️';
+        if(txt) txt.textContent=isDark?'Dark':'Light';
+      }
+      applyTheme(dark);
+      btn?.addEventListener('click',() => {
+        dark=!dark;
+        applyTheme(dark);
+        localStorage.setItem(STORAGE_KEY,dark?'dark':'light');
+      });
+    })();
+
+    (function(){
+      const ham=document.getElementById('ham');
+      const links=document.getElementById('navLinks');
+      if(!ham||!links) return;
+      ham.addEventListener('click',(event) => {
+        event.stopPropagation();
+        const open=links.classList.toggle('open');
+        ham.classList.toggle('open',open);
+        ham.setAttribute('aria-expanded',String(open));
+      });
+      document.addEventListener('click',(event) => {
+        if(!event.target.closest('.nav') && links.classList.contains('open')){
+          links.classList.remove('open');
+          ham.classList.remove('open');
+          ham.setAttribute('aria-expanded','false');
+        }
+      });
+      links.querySelectorAll('a').forEach((anchor) => {
+        anchor.addEventListener('click',() => {
+          links.classList.remove('open');
+          ham.classList.remove('open');
+          ham.setAttribute('aria-expanded','false');
         });
       });
+    })();
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click',function(event){
+        const target=document.querySelector(this.getAttribute('href'));
+        if(!target) return;
+        event.preventDefault();
+        const top=target.getBoundingClientRect().top+window.scrollY-80;
+        window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+      });
     });
+
+    (function(){
+      const sections=document.querySelectorAll('section[id]');
+      const navLinks=document.querySelectorAll('.nav-links a[data-sec]');
+      const backToTop=document.getElementById('btt');
+      let ticking=false;
+      function onScroll(){
+        const scrollY=window.scrollY;
+        if(backToTop) backToTop.classList.toggle('show',scrollY>500);
+        let current='';
+        const mid=scrollY+window.innerHeight/3;
+        sections.forEach((section) => {
+          if(mid>=section.offsetTop && mid<section.offsetTop+section.offsetHeight){
+            current=section.id;
+          }
+        });
+        navLinks.forEach((link) => {
+          link.classList.toggle('active',link.getAttribute('data-sec')===current);
+        });
+        ticking=false;
+      }
+      window.addEventListener('scroll',() => {
+        if(!ticking){
+          requestAnimationFrame(onScroll);
+          ticking=true;
+        }
+      },{passive:true});
+      backToTop?.addEventListener('click',() => window.scrollTo({top:0,behavior:'smooth'}));
+    })();
+
+    (function(){
+      if(!('IntersectionObserver' in window)){
+        document.querySelectorAll('.reveal').forEach((el) => {
+          el.style.opacity='1';
+          el.style.transform='none';
+        });
+        return;
+      }
+      const observer=new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -48px 0px'});
+      document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+    })();
+
+    (function(){
+      const target=document.getElementById('heroSubtitle');
+      if(!target) return;
+      const dataset=target.getAttribute('data-phrases');
+      const phrases=dataset ? JSON.parse(dataset) : [target.textContent.trim()];
+      let index=0;
+      let cursor=phrases[0].length;
+      let deleting=false;
+      target.textContent=phrases[0];
+      function loop(){
+        const current=phrases[index];
+        if(!deleting){
+          cursor++;
+          target.textContent=current.slice(0,cursor);
+          if(cursor>=current.length){
+            deleting=true;
+            setTimeout(loop,2800);
+            return;
+          }
+        } else {
+          cursor--;
+          target.textContent=current.slice(0,cursor);
+          if(cursor<=0){
+            deleting=false;
+            index=(index+1)%phrases.length;
+            setTimeout(loop,300);
+            return;
+          }
+        }
+        setTimeout(loop,deleting?40:70);
+      }
+      setTimeout(loop,2400);
+    })();
+
+    (function(){
+      const form=document.getElementById('contactForm');
+      if(!form) return;
+      const validators={
+        fName:(value) => value.trim().length>=2 ? null : 'Mínimo 2 caracteres.',
+        fEmail:(value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? null : 'Email inválido.',
+        fMsg:(value) => value.trim().length>=20 ? null : 'Mínimo 20 caracteres.',
+      };
+      function setError(id,message){
+        const field=document.getElementById(id);
+        if(!field) return;
+        let errorNode=field.parentElement?.querySelector('.ferr');
+        if(!errorNode){
+          errorNode=document.createElement('span');
+          errorNode.className='ferr';
+          errorNode.setAttribute('role','alert');
+          errorNode.style.cssText='display:block;font-family:var(--ff-mono);font-size:.62rem;color:var(--terra);margin-top:3px;';
+          field.parentElement?.appendChild(errorNode);
+        }
+        errorNode.textContent=message ?? '';
+        field.style.borderColor=message ? 'var(--terra)' : '';
+      }
+      form.addEventListener('submit',(event) => {
+        event.preventDefault();
+        let valid=true;
+        Object.keys(validators).forEach((key) => {
+          const field=document.getElementById(key);
+          if(!field) return;
+          const error=validators[key](field.value);
+          setError(key,error);
+          if(error) valid=false;
+        });
+        if(!valid){
+          const firstInvalid=form.querySelector('[style*="var(--terra)"]');
+          if(firstInvalid) firstInvalid.focus();
+          return;
+        }
+        const button=form.querySelector('[type="submit"]');
+        const original=button.innerHTML;
+        button.innerHTML='✓ Enviado';
+        button.style.background='var(--moss)';
+        button.disabled=true;
+        setTimeout(() => {
+          button.innerHTML=original;
+          button.style.background='';
+          button.disabled=false;
+          form.reset();
+          form.querySelectorAll('.ferr').forEach((node) => (node.textContent=''));
+        },3200);
+      });
+    })();
+
+    console.log('%c/ Portafolio — José D.C. /','font-family:serif;font-style:italic;font-size:16px;color:#4a7c59');
+    console.log('%cInfraestructura · Algoritmos · Astro','font-size:11px;color:#a09880;font-family:monospace');
   </script>
 </BaseLayout>

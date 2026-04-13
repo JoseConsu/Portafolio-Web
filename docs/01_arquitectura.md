@@ -5,6 +5,7 @@ Astro + TypeScript + CSS.
 
 ## Flujo general
 - `src/pages/index.astro` renderiza la home activa.
+- `src/pages/programas-temporales/catalogo.astro` lista todos los laboratorios en forma de tarjetas.
 - `src/layouts/BaseLayout.astro` monta tipografias, tema inicial y script cliente.
 - `src/data/content.ts` centraliza perfil, sobre mi, proyectos, habilidades y listados derivados.
 
@@ -24,6 +25,7 @@ Astro + TypeScript + CSS.
 ## Rutas activas
 - Home: `src/pages/index.astro`
 - Programas temporales: `src/pages/programas-temporales/[slug].astro`
+- Catálogo completo: `src/pages/programas-temporales/catalogo.astro`
 - Parciales: `src/pages/parciales/[slug].astro`
 - Puntos de parcial: `src/pages/parciales/[slug]/[punto].astro`
 
@@ -32,4 +34,4 @@ Astro + TypeScript + CSS.
 - `programa-30` está reservado para el laboratorio completo (se renderiza con `esSimuladorOrdenamientos`).
 
 ## Nota sobre codigo legacy
-Existen rutas antiguas en `src/datos`, `src/estilos`, `src/componentes` y scripts separados para desplazamiento/tema. No son la fuente principal de verdad para la home actual.
+Los módulos antiguos viven ahora bajo `src/legacy/` (`componentes`, `datos`, `estilos`). Siguen ahí como referencia histórica, pero la home y los catálogos consumen únicamente `src/data`, `src/styles` y las páginas dentro de `src/pages`. Cualquier actualización nueva debe tocar esas rutas modernas para evitar divergencias.

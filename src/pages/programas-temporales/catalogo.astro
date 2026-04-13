@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { programasTemporales } from "../../programas-temporales/programas";
+import { formatIndex } from "../../programas-temporales/programas";
+---
+
+<BaseLayout title="Catálogo de programas temporales">
+  <main class="catalogo-shell">
+    <section class="catalogo-hero">
+      <div>
+        <p class="section-eyebrow">Programas temporales</p>
+        <h1>Catálogo completo</h1>
+        <p>Explora los laboratorios documentados con métricas, código y evidencia visual. Cada tarjeta abre la plantilla correspondiente.</p>
+      </div>
+      <a class="btn btn-ghost" href="/">Volver a la portada →</a>
+    </section>
+
+    <section>
+      <div class="catalogo-grid">
+        {programasTemporales.map((programa) => (
+          <a class="program-card" href={programa.enlaceExterno} aria-label={`Abrir ${programa.titulo}`}>
+            <div class="program-card__index">{formatIndex(programa.slug)}</div>
+            <div class="program-card__title">{programa.titulo}</div>
+            <p class="program-card__desc">{programa.descripcion}</p>
+            <div class="program-card__cta">Ver programa →</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,78 +1,96 @@
+/* =============================================================
+   src/styles/theme.css
+   Design tokens — Portafolio José D.C.
+   
+   PLAN punto 3: añadido --card-bg-strong
+   PLAN punto 9: añadidas todas las utilidades nuevas
+   ============================================================= */
+
+/* ─── TEMA OSCURO (por defecto) ─────────────────────────────── */
 :root {
-  /* Paleta editorial */
-  --ink: #0f0e0d;
-  --ink-2: #1a1916;
-  --ink-3: #252320;
-  --ink-4: #312f2b;
-  --cream: #f5f0e8;
-  --cream-2: #ede7d8;
-  --cream-3: #d9d0bc;
-  --text-1: #f0ebe0;
-  --text-2: #a09880;
-  --text-3: #5c5648;
+  /* Fondos */
+  --ink:          #0f0e0d;
+  --ink-2:        #1a1916;
+  --ink-3:        #252320;
+  --ink-4:        #312f2b;
 
-  --moss: #4a7c59;
-  --moss-dim: rgba(74, 124, 89, 0.14);
-  --moss-glow: rgba(74, 124, 89, 0.25);
-  --terra: #c4622d;
-  --terra-dim: rgba(196, 98, 45, 0.12);
-  --gold: #c9a84c;
-  --gold-dim: rgba(201, 168, 76, 0.12);
+  /* Superficies de tarjeta */
+  --card-bg:      var(--ink-2);                    /* base existente */
+  --card-bg-strong: rgba(255, 255, 255, 0.08);     /* punto 3: mayor contraste */
 
-  --br-1: rgba(240, 235, 224, 0.06);
-  --br-2: rgba(240, 235, 224, 0.12);
-  --br-m: rgba(74, 124, 89, 0.3);
+  /* Texto */
+  --text-1:       #f0ebe0;
+  --text-2:       #a09880;
+  --text-3:       #5c5648;
 
-  --sh-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --sh-md: 0 6px 24px rgba(0, 0, 0, 0.55);
-  --sh-lg: 0 12px 48px rgba(0, 0, 0, 0.65);
+  /* Acentos */
+  --moss:         #4a7c59;
+  --moss-dim:     rgba(74, 124, 89, 0.14);
+  --moss-glow:    rgba(74, 124, 89, 0.28);
+  --terra:        #c4622d;
+  --terra-dim:    rgba(196, 98, 45, 0.13);
+  --gold:         #c9a84c;
+  --gold-dim:     rgba(201, 168, 76, 0.13);
 
-  --ff-display: "Playfair Display", Georgia, serif;
-  --ff-body: "Outfit", system-ui, sans-serif;
-  --ff-mono: "JetBrains Mono", monospace;
+  /* Bordes */
+  --br-1:         rgba(240, 235, 224, 0.06);
+  --br-2:         rgba(240, 235, 224, 0.12);
+  --br-strong:    rgba(240, 235, 224, 0.22);       /* punto 3 */
+  --br-moss:      rgba(74, 124, 89, 0.32);
+  --br-terra:     rgba(196, 98, 45, 0.28);
+  --br-gold:      rgba(201, 168, 76, 0.28);
 
-  /* Mapping para estilos existentes */
-  --accent: var(--moss);
-  --accent-2: var(--terra);
-  --accent-3: var(--gold);
-  --accent-soft: var(--moss-dim);
-  --accent-soft-2: var(--terra-dim);
-  --bg: var(--ink);
-  --panel: var(--ink-2);
-  --panel-soft: var(--ink-3);
-  --panel-glass: rgba(255, 255, 255, 0.04);
-  --text: var(--text-1);
-  --muted: var(--text-2);
-  --muted-strong: var(--cream-3);
-  --line: rgba(240, 235, 224, 0.18);
-  --shadow-sm: var(--sh-lg);
-  --shadow-glow: 0 12px 40px rgba(74, 124, 89, 0.3);
-  --focus-ring: 0 0 0 3px rgba(201, 168, 76, 0.25);
+  /* Sombras */
+  --sh-sm:        0 2px 8px  rgba(0, 0, 0, 0.40);
+  --sh-md:        0 6px 24px rgba(0, 0, 0, 0.55);
+  --sh-lg:        0 12px 48px rgba(0, 0, 0, 0.65);
+  --sh-card:      0 4px 20px rgba(0, 0, 0, 0.50), 0 0 0 1px var(--br-strong); /* punto 3 */
+
+  /* Tipografía */
+  --ff-display:   'Playfair Display', Georgia, serif;
+  --ff-body:      'Outfit', system-ui, sans-serif;
+  --ff-mono:      'JetBrains Mono', monospace;
+
+  /* Espaciado — base 4 px */
+  --sp-1:  4px;   --sp-2:  8px;   --sp-3:  12px;  --sp-4:  16px;
+  --sp-5:  20px;  --sp-6:  24px;  --sp-8:  32px;  --sp-10: 40px;
+  --sp-12: 48px;  --sp-16: 64px;  --sp-20: 80px;  --sp-24: 96px;
+
+  /* Radios */
+  --r-sm:   3px;
+  --r-md:   6px;
+  --r-lg:   10px;
+  --r-xl:   16px;
+  --r-2xl:  22px;
+  --r-full: 9999px;
+
+  /* Transiciones */
+  --t-fast:   140ms ease;
+  --t-base:   260ms ease;
+  --t-slow:   400ms ease;
+  --t-spring: 380ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Layout */
+  --max-w:  1240px;
+  --nav-h:  68px;
 }
 
-:root[data-theme="light"] {
-  --ink: #faf7f2;
-  --ink-2: #f0ebe0;
-  --ink-3: #e5dece;
-  --ink-4: #d5ccb8;
-  --cream: #1a1916;
-  --cream-2: #252320;
-  --cream-3: #3a3730;
-  --text-1: #1a1916;
-  --text-2: #5c5648;
-  --text-3: #a09880;
-
-  --br-1: rgba(26, 25, 22, 0.06);
-  --br-2: rgba(26, 25, 22, 0.14);
-
-  --bg: var(--ink);
-  --panel: var(--cream);
-  --panel-soft: var(--cream-2);
-  --text: var(--text-1);
-  --muted: var(--text-2);
-  --muted-strong: var(--text-3);
-  --line: rgba(26, 25, 22, 0.18);
-  --shadow-sm: 0 12px 30px rgba(26, 25, 22, 0.15);
-  --shadow-glow: 0 10px 26px rgba(74, 124, 89, 0.2);
-  --focus-ring: 0 0 0 3px rgba(74, 124, 89, 0.3);
+/* ─── TEMA CLARO ─────────────────────────────────────────────── */
+[data-theme="light"] {
+  --ink:          #faf7f2;
+  --ink-2:        #f0ebe0;
+  --ink-3:        #e5dece;
+  --ink-4:        #d5ccb8;
+  --card-bg:      var(--ink-2);
+  --card-bg-strong: rgba(0, 0, 0, 0.06);
+  --text-1:       #1a1916;
+  --text-2:       #5c5648;
+  --text-3:       #a09880;
+  --br-1:         rgba(26, 25, 22, 0.07);
+  --br-2:         rgba(26, 25, 22, 0.14);
+  --br-strong:    rgba(26, 25, 22, 0.24);
+  --sh-sm:        0 2px 8px  rgba(0, 0, 0, 0.08);
+  --sh-md:        0 6px 24px rgba(0, 0, 0, 0.12);
+  --sh-lg:        0 12px 48px rgba(0, 0, 0, 0.16);
+  --sh-card:      0 4px 20px rgba(0, 0, 0, 0.10), 0 0 0 1px var(--br-strong);
 }

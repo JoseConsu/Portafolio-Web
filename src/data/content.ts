@@ -1,79 +1,152 @@
-import { programasTemporales } from "../programas-temporales/programas";
+import { programas } from "../programas-temporales/programas";
 import { parciales } from "../parciales/parciales";
 
-export const perfil = {
+export interface ExperienciaLaboral {
+  empresa: string;
+  cargo: string;
+  periodo: string;
+  detalle: string;
+  tecnologias?: string[];
+}
+
+export interface Estudio {
+  titulo: string;
+  institucion: string;
+  periodo?: string;
+  detalle?: string;
+}
+
+export interface Certificacion {
+  titulo: string;
+  emisor: string;
+  fecha?: string;
+  detalle?: string;
+  enlace?: string;
+}
+
+export interface Proyecto {
+  titulo: string;
+  categoria: string;
+  descripcion: string;
+  tecnologias: string[];
+  enlaceDemo?: string;
+  enlaceRepo?: string;
+}
+
+export interface SkillGroup {
+  grupo: "dominadas" | "en proceso" | "por aprender";
+  habilidades: string[];
+}
+
+export interface Perfil {
+  nombre: string;
+  enfoque: string;
+  correo: string;
+  whatsapp: string;
+  linkedIn?: string;
+  github?: string;
+  rol?: string;
+  foto?: string;
+}
+
+export interface SobreMi {
+  perfilLaboral: string[];
+  experienciaLaboral: ExperienciaLaboral[];
+  estudios: Estudio[];
+  certificaciones: Certificacion[];
+}
+
+export const perfil: Perfil & { rol?: string; foto?: string } = {
   nombre: "Jose David Consuegra Medina",
-  rol: "Ingeniero de sistemas",
-  enfoque:
-    "Enfoque en ciberseguridad • gestión de redes • manejo y diseño de servidores y centros de datos",
+  enfoque: "Infraestructura · SecOps · Narrativa académica",
   correo: "mailto:josedconsuegram@gmail.com",
   whatsapp: "https://wa.me/573012052740",
+  linkedIn: "https://www.linkedin.com/in/jose-david-consuegra-medina-00b14535b/?locale=en",
+  github: "https://github.com/JoseConsu",
+  rol: "Ingeniero de Sistemas",
   foto: "/imagenes/yo.jpg",
 };
 
-export const sobreMi = {
+export const sobreMi: SobreMi = {
   perfilLaboral: [
     "Soy una persona disciplinada, curiosa y orientada al aprendizaje continuo. Destaco por resolver problemas con enfoque analítico, trabajar en equipo y mantener constancia en objetivos técnicos.",
     "Mi ruta de crecimiento profesional está enfocada en ciberseguridad e infraestructura, asumiendo progresivamente más responsabilidades y aportando en proyectos de seguridad y estabilidad tecnológica.",
+    "Complemento los laboratorios universitarios con proyectos personales que documentan métricas, visualizaciones y comparativas para transferir conocimiento a otros estudiantes.",
+  ],
+  experienciaLaboral: [
+    {
+      empresa: "Laboratorios académicos UIS",
+      cargo: "Desarrollador e investigador",
+      periodo: "2023 – Presente",
+      detalle:
+        "Produzco laboratorios de análisis de algoritmos y sistemas con documentación exhaustiva. Cada entrega incluye código comentado, evidencias visuales y mediciones reproducibles.",
+      tecnologias: ["Java", "Python", "Astro", "TypeScript"],
+    },
+    {
+      empresa: "Mentorías y soporte TI",
+      cargo: "Soporte técnico & SecOps",
+      periodo: "2021 – 2023",
+      detalle:
+        "Acompañé proyectos personales y de aula brindando soporte en redes, endurecimiento de servidores Linux y despliegues multi-plataforma, asegurando continuidad operativa.",
+      tecnologias: ["Linux", "Docker", "Redes", "Seguridad"],
+    },
   ],
   estudios: [
     {
       titulo: "Ingeniería de Sistemas (en curso)",
-      detalle: "Universidad Industrial de Santander (UIS).",
-    },
-  ],
-  experienciaLaboral: [
-    {
-      titulo: "Sin experiencia laboral formal aún",
-      detalle:
-        "Perfil laboral orientado a soporte técnico, redes y ciberseguridad con experiencia en proyectos académicos y personales.",
+      institucion: "Universidad Industrial de Santander (UIS)",
+      periodo: "2020 – Presente",
+      detalle: "Énfasis en estructuras de datos, redes, ciberseguridad e ingeniería de software.",
     },
   ],
   certificaciones: [
     {
-      titulo: "Certificaciones por definir",
-      detalle: "Aquí se agregarán cursos, certificaciones y logros verificables.",
+      titulo: "Formaciones en curso",
+      emisor: "Cisco Networking Academy",
+      fecha: "2024",
+      detalle: "Diplomados en redes, automatización y fundamentos de ciberseguridad.",
+    },
+    {
+      titulo: "Laboratorios autodidactas",
+      emisor: "Proyecto personal",
+      detalle: "Colección de laboratorios documentados que miden tiempo, memoria y estabilidad de algoritmos.",
     },
   ],
 };
 
-export const proyectos = [
+export const proyectos: Proyecto[] = [
   {
     titulo: "Portafolio base",
-    descripcion:
-      "Proyecto principal para consolidar identidad profesional, arquitectura web y despliegue continuo en Vercel.",
-    etiquetas: ["Astro", "UI", "Deploy"],
-    categoria: "web",
+    categoria: "Web / Storytelling",
+    descripcion: "Sitio principal donde consolido identidad profesional, arquitectura Astro y despliegue continuo en Vercel.",
+    tecnologias: ["Astro", "TypeScript", "CSS", "Vercel"],
+    enlaceRepo: "https://github.com/Jose-d-c/Portafolio-Web",
   },
   {
     titulo: "Laboratorio de redes",
-    descripcion:
-      "Espacio de pruebas para prácticas de direccionamiento, simulación de topologías y documentación técnica.",
-    etiquetas: ["Redes", "Práctica"],
-    categoria: "infraestructura",
+    categoria: "Infraestructura",
+    descripcion: "Espacio de pruebas para direccionamiento, simulación de topologías y documentación técnica recurrente.",
+    tecnologias: ["Packet Tracer", "Linux", "Bash", "Markdown"],
   },
 ];
 
-export const proyectosTemporales = programasTemporales.map((programa) => ({
-  id: programa.id,
-  slug: programa.slug,
-  titulo: programa.titulo,
-  descripcion: programa.descripcion,
-  enlace: programa.enlaceExterno,
-}));
-
-
-export const parcialesAcademicos = parciales.map((parcial) => ({
-  id: parcial.id,
-  slug: parcial.slug,
-  titulo: parcial.titulo,
-  descripcion: parcial.descripcion,
-  enlace: parcial.enlaceExterno,
-}));
-
-export const habilidades = [
-  { nombre: "Linux", estado: "Dominado", icono: "/icons/linux.svg", tono: "skill-linux", porcentaje: 92 },
-  { nombre: "Redes", estado: "En proceso", icono: "/icons/network.svg", tono: "skill-redes", porcentaje: 48 },
-  { nombre: "Servidores", estado: "En proceso", icono: "/icons/server.svg", tono: "skill-servidores", porcentaje: 36 },
-  { nombre: "Ciberseguridad", estado: "Por aprender", icono: "/icons/shield.svg", tono: "skill-ciber", porcentaje: 4 },
+export const skillGroups: SkillGroup[] = [
+  {
+    grupo: "dominadas",
+    habilidades: ["Linux", "Redes", "Servidores", "HTML", "CSS", "Astro", "Git"],
+  },
+  {
+    grupo: "en proceso",
+    habilidades: ["TypeScript", "Docker", "Ciberseguridad", "Automatización"],
+  },
+  {
+    grupo: "por aprender",
+    habilidades: ["Kubernetes", "AWS", "Go"],
+  },
 ];
+
+export const metricas = {
+  skillsActivas: skillGroups[0].habilidades.length + skillGroups[1].habilidades.length,
+  proyectos: proyectos.length,
+  piezasAcademicas: parciales.length + programas.length,
+};

@@ -20,19 +20,19 @@ Se auditó la base del proyecto Astro desde un enfoque de equipo de desarrollo w
 ---
 
 ### 2) Deuda técnica por componentes vacíos/no usados (Media)
-Se detectaron componentes vacíos que pueden confundir al equipo y elevar costo de mantenimiento:
-- `src/componentes/navegacion/BarraSuperior.astro`
-- `src/componentes/portada/MarcoFoto.astro`
-- `src/componentes/ui/Boton.astro`
-- `src/componentes/ui/Icono.astro`
+Se detectaron componentes históricos que ahora viven en `src/legacy/componentes/`:
+- `navegacion/BarraSuperior.astro`
+- `portada/MarcoFoto.astro`
+- `ui/Boton.astro`
+- `ui/Icono.astro`
 
 **Impacto**
 - Señales ambiguas sobre arquitectura real del sistema.
 - Mayor fricción para onboarding y evolución del proyecto.
 
 **Recomendación**
-- Eliminar archivos vacíos o implementar su contenido.
-- Si son placeholders intencionales, documentarlo explícitamente.
+- Mantenerlos sólo como referencia en `legacy/` y documentar que no forman parte del flujo actual.
+- En caso de reactivarlos, moverlos nuevamente a `src/componentes` con funcionalidad real.
 
 ---
 
@@ -52,4 +52,3 @@ Se detectaron componentes vacíos que pueden confundir al equipo y elevar costo 
 ## Comprobaciones ejecutadas
 - `npm run build` ✅
 - `npm test` ✅
-

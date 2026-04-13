@@ -6,38 +6,54 @@ export type ProgramaTemporal = {
   enlaceExterno: string;
   rutaCodigoPlantilla: string;
   rutaImagenPlantilla: string;
+  categoria?: string;
+  tags?: string[];
 };
 
-const configuracionesPersonalizadas: Record<number, Pick<ProgramaTemporal, "titulo" | "descripcion">> = {
+type ConfiguracionPersonalizada = Pick<ProgramaTemporal, "titulo" | "descripcion" | "categoria" | "tags">;
+
+const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> = {
   1: {
     titulo: "Ordenamiento Burbuja simple en C++ (String)",
     descripcion:
       "Implementacion de burbuja en C++ usando 10 palabras. Incluye trazabilidad del algoritmo, comparaciones paso a paso y salida final ordenada alfabeticamente.",
+    categoria: "ordenamiento",
+    tags: ["C++", "Bubble", "Strings"],
   },
   2: {
     titulo: "Ordenamiento Burbuja simple en Python (int)",
     descripcion:
       "Implementacion de burbuja en Python con 10 numeros enteros. Muestra el arreglo inicial, las pasadas y el resultado final en orden ascendente.",
+    categoria: "ordenamiento",
+    tags: ["Python", "Bubble", "Enteros"],
   },
   3: {
     titulo: "Actividad: Ordenamiento Burbuja Simple en Java (int)",
     descripcion:
       "Programa en Java con 10 enteros para practicar el ordenamiento burbuja clasico, con comentarios detallados para explicar cada bloque de codigo.",
+    categoria: "ordenamiento",
+    tags: ["Java", "Bubble"],
   },
   4: {
     titulo: "Actividad: Ordenamiento Burbuja Simple en Java (String)",
     descripcion:
       "Programa en Java con 10 cadenas para reforzar comparacion lexicografica en burbuja, incluyendo explicacion comentada y evidencia de salida.",
+    categoria: "ordenamiento",
+    tags: ["Java", "Bubble", "Strings"],
   },
   5: {
     titulo: "Actividad: Burbuja mejorado en Java (arreglo de enteros)",
     descripcion:
       "Ordenamiento burbuja mejorado en Java usando arrays de enteros, con bandera de corte temprano y comentarios detallados para cada bloque.",
+    categoria: "ordenamiento",
+    tags: ["Java", "Optimización"],
   },
   6: {
     titulo: "Actividad: Burbuja mejorado en Java (String)",
     descripcion:
       "Version de burbuja mejorado para cadenas en Java, explicando compareTo, intercambio y optimizacion cuando no hay cambios en una pasada.",
+    categoria: "ordenamiento",
+    tags: ["Java", "Strings"],
   },
   7: {
     titulo: "Actividad: Quicksort en Java (enteros)",
@@ -123,6 +139,7 @@ const configuracionesPersonalizadas: Record<number, Pick<ProgramaTemporal, "titu
     titulo: "Programa temporal 23: Comparativa interactiva Merge Sort vs Quick Sort",
     descripcion:
       "Comparativa visual e interactiva entre Merge Sort y Quick Sort con accesos directos a sus implementaciones, tablas dinamicas por tamano/tipo/escenario, definiciones detalladas y grafica de tiempo de ejecucion basada en Big-O.",
+    categoria: "comparativa",
   },
   24: {
     titulo: "Programa temporal 24: Heap Sort con enteros y metricas completas",
@@ -153,10 +170,49 @@ const configuracionesPersonalizadas: Record<number, Pick<ProgramaTemporal, "titu
     titulo: "Programa temporal 29: Counting Sort en Java (int)",
     descripcion:
       "Implementacion de Counting Sort con enteros no negativos, incluyendo trazas en consola y explicacion por pasos sobre conteo, acumulacion y construccion estable del arreglo ordenado.",
+    categoria: "ordenamiento",
+  },
+  30: {
+    titulo: "Simulador interactivo de algoritmos de ordenamiento",
+    descripcion:
+      "Laboratorio visual que anima en tiempo real 12 algoritmos de ordenamiento con métricas de tiempo, memoria y estabilidad configurables.",
+    categoria: "simulador",
+    tags: ["Visual", "Interactivo", "Comparativa"],
   },
 };
 
-const ordenProgramasTemporales = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
+const ordenProgramasTemporales = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {
   const numeroFormateado = numero.toString().padStart(2, "0");
@@ -190,5 +246,37 @@ export const programasTemporales: ProgramaTemporal[] = ordenProgramasTemporales.
     enlaceExterno: `/programas-temporales/programa-${idFuente}`,
     rutaCodigoPlantilla: `/programas-temporales/codigos/programa-${idFuente}.txt`,
     rutaImagenPlantilla: `/proyectos-temporales/imagenes/programa-${idFuente}.svg`,
+    categoria: configuracion?.categoria,
+    tags: configuracion?.tags,
   };
 });
+
+export type ProgramaResumen = {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  enlaceExterno: string;
+  categoria?: string;
+  tags?: string[];
+};
+
+export function formatIndex(id: string) {
+  const match = id.match(/(\d{1,2})$/);
+  const numero = match ? match[1] : "00";
+  return `#${numero.padStart(2, "0")}`;
+}
+
+export const programas: ProgramaResumen[] = programasTemporales.map((programa) => ({
+  id: programa.slug,
+  titulo: programa.titulo,
+  descripcion: programa.descripcion,
+  enlaceExterno: programa.enlaceExterno,
+  categoria: programa.categoria,
+  tags: programa.tags,
+}));
+
+export const algoritmosPrograms = programas
+  .filter((programa) => programa.id !== "programa-30")
+  .slice(0, 6);
+
+export const simuladorProgram = programas.find((programa) => programa.id === "programa-30") ?? programas[0];

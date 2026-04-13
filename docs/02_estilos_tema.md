@@ -9,17 +9,17 @@ Ahi se define:
 - glow, focus ring y sombras
 - superficies para tema oscuro y claro
 
-## Fondo cyberpunk limpio
+## Fondo editorial
 Archivo activo: `src/styles/app.css`
-- `body` mete gradientes atmosfericos
-- `body::before` mete micro-textura de puntos
-- `cover` agrega orbes y grid visual en la portada
+- `body` aplica gradientes sutiles y una textura diagonal para dar profundidad.
+- `.hero-grid-lines` dibuja el patrón cuadriculado del hero principal.
+- Las tarjetas (`.program-card`, `.ds-card`, `.tarjeta-punto`) comparten bordes redondeados (`var(--r-2xl)`) y sombras `var(--sh-card)`.
 
-Si se quiere menos textura:
-- bajar `opacity` en `body::before`
-- suavizar `.hero__grid-dots`
+Si necesitas un look más minimalista, baja la opacidad de `body::before` o elimina la textura en `.hero-grid-lines`.
 
 ## Tipografias activas
-- display: `Syne`
-- cuerpo: `DM Sans`
-- mono: `DM Mono`
+- display: `Playfair Display`
+- cuerpo: `Outfit`
+- mono: `JetBrains Mono`
+
+Estas fuentes se cargan en `src/layouts/BaseLayout.astro`. Usa las variables `var(--ff-display)`, `var(--ff-body)` y `var(--ff-mono)` en lugar de declarar familias manualmente.

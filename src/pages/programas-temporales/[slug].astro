@@ -40,20 +40,25 @@ const tipoDatoLabels: Record<string, string> = {
 <BaseLayout title={`${programa.titulo} | Programas temporales`}>
   <main class="programa-shell">
     <section class="program-hero">
-      <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" />
+      <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" />
       <div>
         <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p>
         <h1>{programa.titulo}</h1>
         <p>{programa.descripcion}</p>
       </div>
-      <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
-        <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" />
-      </a>
+      <div class="program-hero__actions">
+        <div class="program-hero__icon" aria-hidden="true">
+          <img src="/icons/folder.svg" alt="" />
+        </div>
+        <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+          Volver
+        </a>
+      </div>
     </section>
 
     {metricasPrograma && !esSimuladorOrdenamientos && (
       <section class="ds-card-grid info-programa">
-        <article class="ds-card">
+        <article class="ds-card autor-card">
           <p class="ds-eyebrow">Autor del laboratorio</p>
           <h2>Jose David Consuegra Medina</h2>
           <p class="identidad-codigo">Código 2250167</p>
@@ -121,7 +126,12 @@ const tipoDatoLabels: Record<string, string> = {
     {!esSimuladorOrdenamientos && (
       <section class="ds-panel zona-codigo">
         <div class="encabezado-cuadro">
-          <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" />Código del programa</h2>
+          <h2>
+            <span class="heading-icon">
+              <img src="/icons/rocket.svg" alt="" aria-hidden="true" />
+            </span>
+            Código del programa
+          </h2>
           <button class="boton-copiar" type="button" aria-label="Copiar codigo">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
               <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" />
@@ -327,6 +337,36 @@ const tipoDatoLabels: Record<string, string> = {
           <div class="viz-tags" id="simInfoComplexity"></div>
         </div>
       </section>
+
+      <section class="ds-card ejecuciones-card" aria-labelledby="tabla-ejecuciones">
+        <div class="ejecuciones-card__header">
+          <div>
+            <p class="section-tag">Resumen</p>
+            <h3 id="tabla-ejecuciones">Tabla comparativa de ejecuciones</h3>
+            <p>Registro de las últimas simulaciones realizadas con sus métricas agregadas para referencia rápida.</p>
+          </div>
+          <button class="btn btn-ghost" type="button">Exportar</button>
+        </div>
+        <div class="tabla-contenedor tabla-ejecuciones">
+          <table>
+            <thead>
+              <tr>
+                <th>Algoritmo</th>
+                <th>Escenario</th>
+                <th>Datos</th>
+                <th>Tiempo (ms)</th>
+                <th>Comparaciones</th>
+                <th>Intercambios</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-ejecuciones-body">
+              <tr>
+                <td colspan="6">Aún no hay ejecuciones registradas en esta sesión.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     )}
 
     {esSimuladorOrdenamientos && (
@@ -499,19 +539,26 @@ const tipoDatoLabels: Record<string, string> = {
       </section>
     )}
 
-    <section class="panel subpanel zona-imagen">
-      <h2><img src="/icons/flask.svg" alt="" class="ui-icon" aria-hidden="true" />Imagen de salida</h2>
+    {!esSimuladorOrdenamientos && (
+      <section class="panel subpanel zona-imagen">
+        <h2>
+          <span class="heading-icon">
+            <img src="/icons/flask.svg" alt="" aria-hidden="true" />
+          </span>
+          Imagen de salida
+        </h2>
 
-      <div class="marco-imagen">
-        <img
-          id="imagen-salida-programa"
-          src={programa.rutaImagenPlantilla}
-          alt={`Imagen de salida de ${programa.titulo}`}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    </section>
+        <div class="marco-imagen">
+          <img
+            id="imagen-salida-programa"
+            src={programa.rutaImagenPlantilla}
+            alt={`Imagen de salida de ${programa.titulo}`}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </section>
+    )}
   </main>
 
   <script is:inline>
