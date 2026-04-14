@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.DQX_XCpT.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 24: Heap Sort con enteros y metricas completas</h1> <p>Programa Java con Heap Sort para enteros en tamanos 10, 50 y 200, evaluando casos totalmente desorganizados, parcialmente organizados e invertidos con tiempo, memoria, comparaciones, intercambios e iteraciones.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.NrwSWopL.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 24: Heap Sort con enteros y metricas completas</h1> <p>Programa Java con Heap Sort para enteros en tamanos 10, 50 y 200, evaluando casos totalmente desorganizados, parcialmente organizados e invertidos con tiempo, memoria, comparaciones, intercambios e iteraciones.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
 Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo números enteros.
@@ -542,22 +542,22 @@ Imagen de salida
       };
 
       const tipoEtiqueta = { int: "Enteros", string: "Strings" };
-      const stringPalette = ["#f472b6", "#fb7185", "#facc15", "#34d399", "#22d3ee", "#60a5fa", "#a78bfa", "#fbbf24", "#4ade80", "#f87171"];
+      const stringPalette = ["#22d3ee", "#f97316", "#fde047", "#34d399", "#60a5fa", "#c084fc", "#fb7185", "#f59e0b", "#4ade80", "#f43f5e"];
       const colorCache = new Map();
 
       const ALGORITMOS = {
-        bubble: { nombre: "Bubble Sort", descripcion: "Versión clásica que compara vecinos y empuja el mayor al final.", estable: true, usaRecursion: false, color: "#8b5cf6", ejecutar: instrumentarBurbuja, visual: "Barras dinámicas" },
-        bubblePlus: { nombre: "Bubble Sort optimizado", descripcion: "Reduce pasadas al recordar el ultimo intercambio.", estable: true, usaRecursion: false, color: "#a855f7", ejecutar: instrumentarBurbujaPlus, visual: "Barras con cortes anticipados" },
-        selection: { nombre: "Selection Sort", descripcion: "Encuentra el minimo restante y lo coloca en su sitio.", estable: false, usaRecursion: false, color: "#f97316", ejecutar: instrumentarSeleccion, visual: "Barras" },
-        insertion: { nombre: "Insertion Sort", descripcion: "Inserta cada elemento en la zona ordenada desplazándolo.", estable: true, usaRecursion: false, color: "#10b981", ejecutar: instrumentarInsercion, visual: "Barras" },
-        shell: { nombre: "Shell Sort", descripcion: "Ordena usando gaps decrecientes para acelerar Inserción.", estable: false, usaRecursion: false, color: "#06b6d4", ejecutar: instrumentarShell, visual: "Barras" },
-        shaker: { nombre: "Shaker Sort", descripcion: "Burbuja bidireccional que recorre ida y vuelta.", estable: true, usaRecursion: false, color: "#f59e0b", ejecutar: instrumentarShaker, visual: "Barras" },
-        merge: { nombre: "Merge Sort", descripcion: "Divide y conquista mezclando subarreglos ordenados.", estable: true, usaRecursion: true, color: "#0ea5e9", ejecutar: instrumentarMerge, visual: "Barras + árbol de fusiones" },
-        quick: { nombre: "Quick Sort", descripcion: "Particiona alrededor de pivotes y resuelve recursivamente.", estable: false, usaRecursion: true, color: "#ec4899", ejecutar: instrumentarQuick, visual: "Barras" },
-        heap: { nombre: "Heap Sort", descripcion: "Construye un montículo y extrae máximos.", estable: false, usaRecursion: false, color: "#facc15", ejecutar: instrumentarHeap, visual: "Árbol binario" },
-        bucket: { nombre: "Bucket Sort", descripcion: "Distribuye elementos en cubetas y las ordena por separado.", estable: true, usaRecursion: false, color: "#2dd4bf", ejecutar: instrumentarBucket, visual: "Árbol de buckets" },
-        radix: { nombre: "Radix Sort", descripcion: "Ordena por dígitos desde el menos significativo.", estable: true, usaRecursion: false, color: "#f472b6", ejecutar: instrumentarRadix, visual: "Árbol de dígitos" },
-        counting: { nombre: "Counting Sort", descripcion: "Cuenta apariciones y reconstruye el arreglo ordenado.", estable: true, usaRecursion: false, color: "#94a3b8", ejecutar: instrumentarCounting, visual: "Árbol de frecuencias" }
+        bubble: { nombre: "Bubble Sort", descripcion: "Versión clásica que compara vecinos y empuja el mayor al final.", estable: true, usaRecursion: false, color: "#22c55e", ejecutar: instrumentarBurbuja, visual: "Barras dinámicas" },
+        bubblePlus: { nombre: "Bubble Sort optimizado", descripcion: "Reduce pasadas al recordar el ultimo intercambio.", estable: true, usaRecursion: false, color: "#38bdf8", ejecutar: instrumentarBurbujaPlus, visual: "Barras con cortes anticipados" },
+        selection: { nombre: "Selection Sort", descripcion: "Encuentra el minimo restante y lo coloca en su sitio.", estable: false, usaRecursion: false, color: "#fb7185", ejecutar: instrumentarSeleccion, visual: "Barras" },
+        insertion: { nombre: "Insertion Sort", descripcion: "Inserta cada elemento en la zona ordenada desplazándolo.", estable: true, usaRecursion: false, color: "#facc15", ejecutar: instrumentarInsercion, visual: "Barras" },
+        shell: { nombre: "Shell Sort", descripcion: "Ordena usando gaps decrecientes para acelerar Inserción.", estable: false, usaRecursion: false, color: "#c084fc", ejecutar: instrumentarShell, visual: "Barras" },
+        shaker: { nombre: "Shaker Sort", descripcion: "Burbuja bidireccional que recorre ida y vuelta.", estable: true, usaRecursion: false, color: "#f97316", ejecutar: instrumentarShaker, visual: "Barras" },
+        merge: { nombre: "Merge Sort", descripcion: "Divide y conquista mezclando subarreglos ordenados.", estable: true, usaRecursion: true, color: "#14b8a6", ejecutar: instrumentarMerge, visual: "Barras + árbol de fusiones" },
+        quick: { nombre: "Quick Sort", descripcion: "Particiona alrededor de pivotes y resuelve recursivamente.", estable: false, usaRecursion: true, color: "#f472b6", ejecutar: instrumentarQuick, visual: "Barras" },
+        heap: { nombre: "Heap Sort", descripcion: "Construye un montículo y extrae máximos.", estable: false, usaRecursion: false, color: "#60a5fa", ejecutar: instrumentarHeap, visual: "Árbol binario" },
+        bucket: { nombre: "Bucket Sort", descripcion: "Distribuye elementos en cubetas y las ordena por separado.", estable: true, usaRecursion: false, color: "#34d399", ejecutar: instrumentarBucket, visual: "Árbol de buckets" },
+        radix: { nombre: "Radix Sort", descripcion: "Ordena por dígitos desde el menos significativo.", estable: true, usaRecursion: false, color: "#f59e0b", ejecutar: instrumentarRadix, visual: "Árbol de dígitos" },
+        counting: { nombre: "Counting Sort", descripcion: "Cuenta apariciones y reconstruye el arreglo ordenado.", estable: true, usaRecursion: false, color: "#e879f9", ejecutar: instrumentarCounting, visual: "Árbol de frecuencias" }
       };
 
       const enlacesProgramas = {
@@ -722,6 +722,12 @@ Imagen de salida
             const programaCell = enlacePrograma
               ? `<a class="tabla-link" href="${enlacePrograma}" target="_blank" rel="noreferrer">Abrir</a>`
               : '<span class="tabla-link disabled">No encontrado</span>';
+            const recursividadTag = resultado.usaRecursion
+              ? '<span class="sim-tag sim-tag--recursion sim-tag--si">Sí</span>'
+              : '<span class="sim-tag sim-tag--recursion sim-tag--no">No</span>';
+            const estabilidadTag = resultado.estable
+              ? '<span class="sim-tag sim-tag--estabilidad sim-tag--estable">Estable</span>'
+              : '<span class="sim-tag sim-tag--estabilidad sim-tag--inestable">Inestable</span>';
             return `
               <tr class="sim-row ${resultado.id === state.algoritmoActivo ? "activo" : ""}" style="--alg-color:${resultado.color}">
                 <td>${resultado.nombre}</td>
@@ -731,8 +737,8 @@ Imagen de salida
                 <td>${paso?.iteraciones ?? 0}</td>
                 <td>${resultado.tiempoMs.toFixed(2)}</td>
                 <td>${resultado.memoria.toFixed(1)}</td>
-                <td>${resultado.usaRecursion ? "Sí" : "No"}</td>
-                <td>${resultado.estable ? "Estable" : "Inestable"}</td>
+                <td>${recursividadTag}</td>
+                <td>${estabilidadTag}</td>
                 <td>${programaCell}</td>
               </tr>
             `;
