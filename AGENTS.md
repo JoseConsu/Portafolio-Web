@@ -1,39 +1,37 @@
 # AGENTS
 
-## Alcance y superficies vivas
-- Solo hay tres rutas productivas: landing `src/pages/index.astro`, programas temporales `src/pages/programas-temporales/[slug].astro` y parciales académicos `src/pages/parciales/[slug].astro` + `/[punto].astro`.
-- Carpetas como `src/componentes`, `src/datos` o `src/estilos` son legado; léelas solo si confirmas que siguen enlazadas.
+## Entry points que importan
+- Rutas productivas: `src/pages/index.astro`, `src/pages/programas-temporales/[slug].astro`, `src/pages/programas-temporales/catalogo.astro`, `src/pages/parciales/[slug].astro` y `src/pages/parciales/[slug]/[punto].astro`.
+- `dist/` es salida de build, no fuente de verdad.
 
-## Arquitectura y fuentes de verdad
-- `src/layouts/BaseLayout.astro` define tipografías, `data-theme`, CSS global y monta `src/scripts/main.ts`; cualquier cambio transversal pasa aquí.
-- La home usa un `nav` superior (`.app-nav`) cuyos botones `.nav-btn[data-target]` sincronizan el scroll con secciones marcadas como `[data-section]`. El copy sigue viviendo en `src/data/content.ts`; evita duplicar texto en el markup.
-- `src/scripts/main.ts` controla foco, scroll suave, `aria-*`, etiquetas `.details-state` y el tema (usa `localStorage` + `IntersectionObserver`); al modificar navegación respeta esos selectores.
-- Datos estructurados viven en `src/programas-temporales/programas.ts` y `src/parciales/parciales.ts`; cada entrada apunta a archivos bajo `public/` que se leen en build via `readFile`, así que cualquier ruta rota quiebra `astro build`.
+## Home: wiring fácil de romper
+- `src/layouts/BaseLayout.astro` monta `src/styles/theme.css`, `src/styles/app.css` y `src/scripts/main.ts`.
+- La interacción real de la home (nav, menú móvil, reveal, typewriter, validación de formulario y toggle de tema) vive inline en `src/pages/index.astro`; revisa ahí antes de tocar `main.ts`.
+- Persistencia de tema partida: `BaseLayout.astro` lee `localStorage["theme"]` y `index.astro` usa `localStorage["jdc-theme"]`. Si ajustas tema, mantén ambos flujos consistentes.
 
-## Assets y validación
-- `npm run check:content` (alias `check:workspace`) ejecuta `tools/validate-content-paths.mjs`, que exige `public/imagenes/yo.jpg`, `public/cv.pdf`, `public/programas-temporales/uis-logo.svg`, los 14 iconos en `public/icons/`, los 27 códigos/SVGs de programas temporales y los 7 códigos/SVGs del `parcial-01`.
-- Si agregas nuevos programas, parciales o iconos, crea los archivos en `public/` **y** amplía el validador para que CI no marque falsos positivos.
-- Mantén alineados `slug`, `enlaceExterno`, `rutaCodigo*` y los archivos físicos; mover o renombrar assets sin actualizar data y validador deja la build rota.
-- `JDC_Portfolio_Complete/` es solo laboratorio visual; no lo uses como fuente de verdad.
+## Showcase académico (fuente de verdad)
+- Datos de programas: `src/programas-temporales/programas.ts`.
+- Datos de parciales: `src/parciales/parciales.ts`.
+- `src/pages/programas-temporales/[slug].astro` y `src/pages/parciales/[slug]/[punto].astro` leen `.txt` desde `public/` con `readFile` durante build; una ruta inválida rompe `astro build`.
+- `getStaticPaths` de programas depende de `ordenProgramasTemporales`; conserva el patrón `programa-XX`.
+- `programa-23` y `programa-30` tienen ramas especiales en `src/pages/programas-temporales/[slug].astro`.
+- `parcial-02` tiene UI especial en `src/pages/parciales/[slug].astro` y lógica en `src/scripts/simulador-parcial.ts`.
+- En `parcial-02`, los arreglos reales están en `DATOS_PARCIAL_02` de `src/scripts/simulador-parcial.ts`; los `arregloA/arregloB` vacíos en `src/parciales/parciales.ts` no gobiernan el simulador.
+- Métricas de programas: `src/programas-temporales/metricas.generated.json` consumido por `src/programas-temporales/metricas.ts`; no existe script de generación en `package.json`.
 
-## Comandos y entorno
-- Node 20+ (ver `.nvmrc`). `npm run dev` levanta Astro Dev.
-- Usa `npm run check:content` tras tocar `public/` o los archivos de datos.
-- `npm run build` = `npm test` = `astro build`; ejecútalo después de cambios estructurales para detectar fallos de `readFile`/ruta.
+## Comandos y verificación
+- Usa Node 20 (`.nvmrc`; `engines.node >=20.x`).
+- `npm run dev` inicia Astro.
+- `npm run build` y `npm test` ejecutan lo mismo: `astro build`.
+- `npm run check:content` (alias `check:workspace`) ejecuta `tools/validate-content-paths.mjs`.
+- Corre `npm run check:content` tras tocar `public/`, `src/programas-temporales/programas.ts` o `src/parciales/parciales.ts`.
+- Corre `npm run build` tras cambios de rutas, `getStaticPaths`, o vistas académicas que leen archivos en build.
 
-- `getStaticPaths` depende del orden en `ordenProgramasTemporales`; respeta el formato `programa-XX` (01–30) para evitar huecos.
-- Cada programa necesita: entrada en data, `.txt` en `public/programas-temporales/codigos/` y `.svg` en `public/proyectos-temporales/imagenes/`. El `programa-23` activa una vista comparativa especial, así que no elimines su wiring.
-- Cada parcial se define en `src/parciales/parciales.ts`; cada `punto` debe tener carpeta `public/parciales/<slug>/codigos|imagenes/punto-XX.*`. Replica el patrón `parcial-XX` / `punto-YY` cuando crees nuevos.
+## Assets: reglas de consistencia
+- El validador hardcodea assets base (`public/imagenes/yo.jpg`, `public/cv.pdf`, `public/programas-temporales/uis-logo.svg`), 15 iconos, 30 códigos de programas, 30 imágenes de programas y 7 pares código/imagen de `parcial-01` (`tools/validate-content-paths.mjs`).
+- Si agregas o renombras programas, parciales, iconos o media, actualiza datos, archivos físicos y validador en el mismo cambio.
+- Mantén alineados `slug`, `enlaceExterno`, `rutaCodigo*`, `rutaImagen*` y archivos físicos.
 
-## UI, tema y accesibilidad
-- `main.ts` gestiona teclado (flechas, Home/End), scroll suave, observer de secciones y estados `aria`; conserva listeners y clases al modificar botones o navegación.
-- Los `<details>` muestran etiquetas vía `.details-state`; usa la misma clase en cualquier bloque plegable nuevo.
-- Nuevas variables de estilo deben declararse en ambos modos dentro de `src/styles/theme.css`; aplica los tokens desde `src/styles/app.css` o vistas específicas.
- - En `programa-23` existe una comparativa + simulador interactivo nuevo (`.simulator-lab`); cualquier ajuste debe respetar ids/clases actuales porque el script inline depende de ellos.
-
-## Build y deploy
-- Vercel espera `npm run build` y artefactos en `dist/` según `vercel.json`; no cambies la carpeta de salida.
-- No edites `dist/` ni `docs/` como fuente; los `docs/*.md` son referencia útil pero el código y los data files mandan.
-
-## Skills locales
-- Usa las skills bajo `skills/` (por ejemplo `astro-portfolio-maintainer` o `academic-showcase-maintainer`) cuando el trabajo coincida; traen mapas de archivos y checklists hechos para este repo.
+## Estilos
+- Tokens globales en `src/styles/theme.css`; cualquier token nuevo debe existir en `:root` y `[data-theme="light"]`.
+- `src/styles/app.css` define base global, pero hay CSS inline grande en `index.astro` y rutas académicas; identifica primero el bloque activo antes de editar.

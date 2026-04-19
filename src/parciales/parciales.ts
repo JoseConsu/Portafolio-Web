@@ -5,9 +5,11 @@ export type PuntoParcial = {
   slug: string;
   nombre: string;
   descripcion: string;
-  rutaCodigo: string;
-  rutaImagen: string;
+  rutaCodigo?: string;
+  rutaImagen?: string;
   valor?: number;
+  arregloA?: number[];
+  arregloB?: string[];
 };
 
 export type Parcial = {
@@ -105,6 +107,92 @@ export const parciales: Parcial[] = [
         rutaCodigo: "/parciales/parcial-01/codigos/punto-07.txt",
         rutaImagen: "/parciales/parcial-01/imagenes/punto-07.svg",
         valor: 10,
+      },
+    ],
+  },
+  {
+    id: 2,
+    slug: "parcial-02",
+    titulo: "Parcial 02: Simulador de ordenamiento",
+    materia: "Análisis de algoritmos",
+    descripcion:
+      "Simulador interactivo con 5 escenarios de ordenamiento para comparar 12 algoritmos.",
+    enlaceExterno: "/parciales/parcial-02",
+    puntos: [
+      {
+        id: "punto-01",
+        slug: "punto-01",
+        nombre: "Punto 1: Arreglos totalmente desordenados",
+        descripcion: "Arreglos sin ningún orden previo.",
+        valor: 20,
+        // ═══════════════════════════════════════════════════════════
+        // DATOS DE ARREGLOS - REEMPLAZAR DESPUÉS DEL PROFESOR
+        // ═══════════════════════════════════════════════════════════
+        // arregloA: array de enteros (ej: [45, 12, 89, 3, 67, 23, 56, 9, 78, 34])
+        // arregloB: array de strings (ej: ["zebra", "apple", "mango", "banana"])
+        // ═══════════════════════════════════════════════════════════
+        arregloA: [],
+        arregloB: [],
+      },
+      {
+        id: "punto-02",
+        slug: "punto-02",
+        nombre: "Punto 2: Arreglos casi ordenados",
+        descripcion: "Arreglos con pocos elementos fuera de lugar.",
+        valor: 20,
+        // ═══════════════════════════════════════════════════════════
+        // DATOS DE ARREGLOS - REEMPLAZAR DESPUÉS DEL PROFESOR
+        // ═══════════════════════════════════════════════════════════
+        // arregloA: array de enteros
+        // arregloB: array de strings
+        // ═══════════════════════════════════════════════════════════
+        arregloA: [],
+        arregloB: [],
+      },
+      {
+        id: "punto-03",
+        slug: "punto-03",
+        nombre: "Punto 3: Arreglos ordenados invertidamente",
+        descripcion: "Arreglos en orden inverso (mayor a menor).",
+        valor: 20,
+        // ═══════════════════════════════════════════════════════════
+        // DATOS DE ARREGLOS - REEMPLAZAR DESPUÉS DEL PROFESOR
+        // ═══════════════════════════════════════════════════════════
+        // arregloA: array de enteros
+        // arregloB: array de strings
+        // ═══════════════════════════════════════════════════════════
+        arregloA: [],
+        arregloB: [],
+      },
+      {
+        id: "punto-04",
+        slug: "punto-04",
+        nombre: "Punto 4: Arreglos con elementos repetidos",
+        descripcion: "Arreglos con múltiples elementos duplicados.",
+        valor: 20,
+        // ═══════════════════════════════════════════════════════════
+        // DATOS DE ARREGLOS - REEMPLAZAR DESPUÉS DEL PROFESOR
+        // ═══════════════════════════════════════════════════════════
+        // arregloA: array de enteros
+        // arregloB: array de strings
+        // ═══════════════════════════════════════════════════════════
+        arregloA: [],
+        arregloB: [],
+      },
+      {
+        id: "punto-05",
+        slug: "punto-05",
+        nombre: "Punto 5: Arreglos mitad ordenados",
+        descripcion: "Primera mitad ordenada, segunda mitad desordenada.",
+        valor: 20,
+        // ═══════════════════════════════════════════════════════════
+        // DATOS DE ARREGLOS - REEMPLAZAR DESPUÉS DEL PROFESOR
+        // ═══════════════════════════════════════════════════════════
+        // arregloA: array de enteros
+        // arregloB: array de strings
+        // ═══════════════════════════════════════════════════════════
+        arregloA: [],
+        arregloB: [],
       },
     ],
   },
