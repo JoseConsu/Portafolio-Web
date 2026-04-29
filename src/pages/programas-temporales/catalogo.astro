@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { programasTemporales } from "../../programas-temporales/programas";
-import { formatIndex } from "../../programas-temporales/programas";
+import { programas, formatIndex } from "../../programas-temporales/programas";
 ---
 
 <BaseLayout title="Catálogo de programas temporales">
@@ -16,12 +15,28 @@ import { formatIndex } from "../../programas-temporales/programas";
     </section>
 
     <section>
+      <div class="catalogo-esquemas" aria-label="Esquemas de contenidos">
+        <span class="program-card__scheme-badge program-card__scheme-badge--algoritmos">Algoritmos</span>
+        <span class="program-card__scheme-badge program-card__scheme-badge--estructuras">Estructuras de datos</span>
+      </div>
       <div class="catalogo-grid">
-        {programasTemporales.map((programa) => (
-          <a class="program-card" href={programa.enlaceExterno} aria-label={`Abrir ${programa.titulo}`}>
-            <div class="program-card__index">{formatIndex(programa.slug)}</div>
+        {programas.map((programa) => (
+          <a class={`program-card program-card--${programa.esquema}`} href={programa.enlaceExterno} aria-label={`Abrir ${programa.titulo}`}>
+            <div class="program-card__head">
+              <div class="program-card__index">{formatIndex(programa.id)}</div>
+              <span class={`program-card__scheme-badge program-card__scheme-badge--${programa.esquema}`}>
+                {programa.esquema === "estructuras" ? "ESTRUCTURAS" : "ALGORITMOS"}
+              </span>
+            </div>
             <div class="program-card__title">{programa.titulo}</div>
             <p class="program-card__desc">{programa.descripcion}</p>
+            {programa.tags && (
+              <div class="program-card__tags">
+                {programa.tags.slice(0, 3).map((tag) => (
+                  <span class="pill">{tag}</span>
+                ))}
+              </div>
+            )}
             <div class="program-card__cta">Ver programa →</div>
           </a>
         ))}

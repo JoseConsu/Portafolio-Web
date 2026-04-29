@@ -1,0 +1,73 @@
+import java.util.*;
+
+/*
+ * Programa temporal 31: Insercion en lista vacia (Lista enlazada simple)
+ *
+ * Objetivo:
+ * Insertar el primer nodo en una lista enlazada inicialmente vacia
+ * y mostrar el estado antes y despues de la insercion.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+public class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    // Inserta el primer nodo cuando la lista esta vacia.
+    void insertarEnListaVacia(int dato) {
+        if (inicio != null) {
+            System.out.println("La lista no esta vacia. Operacion cancelada.");
+            return;
+        }
+
+        Nodo nuevoNodo = new Nodo(dato);
+        inicio = nuevoNodo;
+    }
+
+    // Recorre la lista desde inicio hasta null.
+    void mostrarLista() {
+        Nodo temp = inicio;
+
+        while (temp != null) {
+            System.out.print(temp.dato + " -> ");
+            temp = temp.siguiente;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        System.out.println("Lista inicial:");
+        lista.mostrarLista();
+        System.out.println();
+
+        lista.insertarEnListaVacia(42);
+
+        System.out.println("Lista despues de anadir primer dato en lista vacia:");
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+null
+
+Lista despues de anadir primer dato en lista vacia:
+42 -> null
+*/

@@ -484,6 +484,62 @@ img, video, svg { display: block; max-width: 100%; }
   letter-spacing: 0.06em;
 }
 
+.program-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.program-card__scheme-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--r-full);
+  padding: 3px 10px;
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.program-card__scheme-badge--algoritmos {
+  color: #acd995;
+  background: rgba(89, 136, 73, 0.18);
+  border-color: rgba(127, 183, 105, 0.45);
+}
+
+.program-card__scheme-badge--estructuras {
+  color: #8ce9de;
+  background: rgba(20, 128, 118, 0.2);
+  border-color: rgba(76, 190, 177, 0.45);
+}
+
+.program-card--algoritmos:hover {
+  border-color: rgba(127, 183, 105, 0.65);
+}
+
+.program-card--algoritmos:hover::before {
+  opacity: 1;
+}
+
+.program-card--estructuras::before {
+  background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
+}
+
+.program-card--estructuras:hover {
+  border-color: rgba(45, 212, 191, 0.65);
+  box-shadow: var(--sh-lg), 0 0 0 1px rgba(45, 212, 191, 0.22);
+}
+
+.catalogo-esquemas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+}
+
 .program-card__title {
   font-family: var(--ff-display);
   font-size: 0.95rem;

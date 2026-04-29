@@ -337,10 +337,15 @@ const heroPhrases = JSON.stringify([
             {algoritmosPrograms.map((programa, index) => (
               <a
                 href={programa.enlaceExterno}
-                class={`program-card reveal delay-${(index % 3) + 1}`}
+                class={`program-card program-card--${programa.esquema} reveal delay-${(index % 3) + 1}`}
                 aria-label={`${programa.titulo} — ${formatIndex(programa.id)}`}
               >
-                <div class="program-card__index">{formatIndex(programa.id)}</div>
+                <div class="program-card__head">
+                  <div class="program-card__index">{formatIndex(programa.id)}</div>
+                  <span class={`program-card__scheme-badge program-card__scheme-badge--${programa.esquema}`}>
+                    {programa.esquema === "estructuras" ? "ESTRUCTURAS" : "ALGORITMOS"}
+                  </span>
+                </div>
                 <div class="program-card__title">{programa.titulo}</div>
                 <p class="program-card__desc">{programa.descripcion}</p>
                 {programa.tags && (

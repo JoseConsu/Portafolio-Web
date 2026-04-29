@@ -10,6 +10,8 @@ export type ProgramaTemporal = {
   tags?: string[];
 };
 
+export type EsquemaPrograma = "algoritmos" | "estructuras";
+
 type ConfiguracionPersonalizada = Pick<ProgramaTemporal, "titulo" | "descripcion" | "categoria" | "tags">;
 
 const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> = {
@@ -179,6 +181,13 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
     categoria: "simulador",
     tags: ["Visual", "Interactivo", "Comparativa"],
   },
+  31: {
+    titulo: "Insercion en lista vacia con lista enlazada simple en Java",
+    descripcion:
+      "Programa base de estructuras de datos que muestra la insercion del primer nodo en una lista enlazada vacia, con recorrido visual del puntero inicio, estado null y salida explicada en consola.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "Nodos"],
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -212,6 +221,7 @@ const ordenProgramasTemporales = [
   28,
   29,
   30,
+  31,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {
@@ -232,9 +242,14 @@ const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) =>
   return `${prefijo} ${tituloNormalizado}`;
 };
 
+const obtenerEsquemaPrograma = (numero: number): EsquemaPrograma => (numero >= 31 ? "estructuras" : "algoritmos");
+
 export const programasTemporales: ProgramaTemporal[] = ordenProgramasTemporales.map((numero, indice) => {
   const idFuente = numero.toString().padStart(2, "0");
   const configuracion = configuracionesPersonalizadas[numero];
+  const esEstructuras = numero >= 31;
+  const categoriaPorDefecto = esEstructuras ? "estructuras de datos" : undefined;
+  const tagsPorDefecto = esEstructuras ? ["Estructuras", "Java"] : undefined;
 
   return {
     id: indice + 1,
@@ -246,8 +261,8 @@ export const programasTemporales: ProgramaTemporal[] = ordenProgramasTemporales.
     enlaceExterno: `/programas-temporales/programa-${idFuente}`,
     rutaCodigoPlantilla: `/programas-temporales/codigos/programa-${idFuente}.txt`,
     rutaImagenPlantilla: `/proyectos-temporales/imagenes/programa-${idFuente}.svg`,
-    categoria: configuracion?.categoria,
-    tags: configuracion?.tags,
+    categoria: configuracion?.categoria ?? categoriaPorDefecto,
+    tags: configuracion?.tags ?? tagsPorDefecto,
   };
 });
 
@@ -256,6 +271,7 @@ export type ProgramaResumen = {
   titulo: string;
   descripcion: string;
   enlaceExterno: string;
+  esquema: EsquemaPrograma;
   categoria?: string;
   tags?: string[];
 };
@@ -266,14 +282,19 @@ export function formatIndex(id: string) {
   return `#${numero.padStart(2, "0")}`;
 }
 
-export const programas: ProgramaResumen[] = programasTemporales.map((programa) => ({
-  id: programa.slug,
-  titulo: programa.titulo,
-  descripcion: programa.descripcion,
-  enlaceExterno: programa.enlaceExterno,
-  categoria: programa.categoria,
-  tags: programa.tags,
-}));
+export const programas: ProgramaResumen[] = programasTemporales.map((programa) => {
+  const numero = Number(programa.slug.split("-").pop() ?? "0");
+
+  return {
+    id: programa.slug,
+    titulo: programa.titulo,
+    descripcion: programa.descripcion,
+    enlaceExterno: programa.enlaceExterno,
+    esquema: obtenerEsquemaPrograma(numero),
+    categoria: programa.categoria,
+    tags: programa.tags,
+  };
+});
 
 export const algoritmosPrograms = programas
   .filter((programa) => programa.id !== "programa-30")
