@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 32 - Insercion al inicio en lista enlazada</title>
+  <desc id="desc">Lamina visual con inserciones al inicio de una lista enlazada simple y salida de consola final.</desc>
+
+  <defs>
+    <linearGradient id="fondo32" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f8ff" />
+      <stop offset="100%" stop-color="#eefcf5" />
+    </linearGradient>
+    <linearGradient id="cabecera32" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14532d" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <marker id="flecha32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo32)" />
+  <rect x="0" y="0" width="1439" height="118" fill="url(#cabecera32)" />
+
+  <text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#ffffff">
+    Programa temporal 32: Insercion de datos al inicio de lista enlazada simple
+  </text>
+
+  <text x="70" y="176" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Estado inicial</text>
+  <rect x="70" y="198" width="1296" height="118" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+  <text x="112" y="270" font-family="Courier New, monospace" font-size="32" fill="#111827">inicio -&gt; null</text>
+
+  <text x="70" y="388" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Insertando al inicio: 42, 50, 12, 32</text>
+  <rect x="70" y="410" width="1296" height="268" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+
+  <text x="110" y="530" font-family="Courier New, monospace" font-size="30" fill="#0f172a">inicio</text>
+  <line x1="190" y1="518" x2="270" y2="518" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha32)" />
+
+  <rect x="286" y="468" width="180" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <line x1="376" y1="468" x2="376" y2="566" stroke="#334155" stroke-width="2" />
+  <text x="340" y="530" font-family="Courier New, monospace" font-size="32" fill="#0f172a">32</text>
+  <text x="388" y="530" font-family="Courier New, monospace" font-size="26" fill="#0f172a">*</text>
+
+  <line x1="468" y1="518" x2="542" y2="518" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha32)" />
+
+  <rect x="556" y="468" width="180" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <line x1="646" y1="468" x2="646" y2="566" stroke="#334155" stroke-width="2" />
+  <text x="610" y="530" font-family="Courier New, monospace" font-size="32" fill="#0f172a">12</text>
+  <text x="658" y="530" font-family="Courier New, monospace" font-size="26" fill="#0f172a">*</text>
+
+  <line x1="738" y1="518" x2="812" y2="518" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha32)" />
+
+  <rect x="826" y="468" width="180" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <line x1="916" y1="468" x2="916" y2="566" stroke="#334155" stroke-width="2" />
+  <text x="878" y="530" font-family="Courier New, monospace" font-size="32" fill="#0f172a">50</text>
+  <text x="928" y="530" font-family="Courier New, monospace" font-size="26" fill="#0f172a">*</text>
+
+  <line x1="1008" y1="518" x2="1082" y2="518" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha32)" />
+
+  <rect x="1096" y="468" width="180" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <line x1="1186" y1="468" x2="1186" y2="566" stroke="#334155" stroke-width="2" />
+  <text x="1148" y="530" font-family="Courier New, monospace" font-size="32" fill="#0f172a">42</text>
+  <text x="1198" y="530" font-family="Courier New, monospace" font-size="24" fill="#0f172a">null</text>
+
+  <text x="70" y="752" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Salida final en consola</text>
+  <rect x="70" y="774" width="1296" height="252" rx="16" fill="#0b1220" />
+  <text x="110" y="842" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">null</text>
+  <text x="110" y="888" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">42-&gt;null</text>
+  <text x="110" y="934" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">50-&gt;42-&gt;null</text>
+  <text x="110" y="980" font-family="Courier New, monospace" font-size="29" fill="#34d399">32-&gt;12-&gt;50-&gt;42-&gt;null</text>
+</svg>

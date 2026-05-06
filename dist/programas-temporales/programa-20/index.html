@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.bhBAXCkL.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 20: Radix Sort en Java comentado</h1> <p>Implementacion de Radix Sort para enteros positivos en Java, completando los comentarios del ejercicio para explicar encontrarMaximo, las pasadas por digito y el uso de Counting Sort estable.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 20: Radix Sort en Java comentado</h1> <p>Implementacion de Radix Sort para enteros positivos en Java, completando los comentarios del ejercicio para explicar encontrarMaximo, las pasadas por digito y el uso de Counting Sort estable.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
 Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo números enteros.
@@ -155,7 +155,7 @@ Escenario: ORDEN INVERTIDO
     Entrada: Arreglo de enteros orden invertido (1000 elementos)
     Salida: Valores ordenados de menor a mayor (total 1000)
 === FIN_ESCENARIOS_AUTOGENERADOS === */
-</code></pre> </section>   <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
 </h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-20.svg" alt="Imagen de salida de Programa temporal 20: Radix Sort en Java comentado" loading="lazy" decoding="async"> </div> </section> </main> <script>
     (function setupClipboard() {
@@ -1912,5 +1912,106 @@ Imagen de salida
       pauseBtn?.addEventListener("click", togglePause);
       stepBtn?.addEventListener("click", stepOnce);
       resetBtn?.addEventListener("click", resetAll);
+    })();
+
+    (function setupListaEnlazadaSimulador() {
+      const root = document.querySelector("[data-lista-simulador]");
+      if (!root) return;
+
+      const inputValor = root.querySelector("#lista-valor");
+      const insertarBtn = root.querySelector("#lista-insertar");
+      const autoBtn = root.querySelector("#lista-auto");
+      const reiniciarBtn = root.querySelector("#lista-reiniciar");
+      const estado = root.querySelector("#lista-estado");
+      const total = root.querySelector("#lista-total");
+      const lienzo = root.querySelector("#lista-lienzo");
+      const salida = root.querySelector("#lista-salida");
+      const log = root.querySelector("#lista-log");
+
+      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
+        return;
+      }
+
+      const state = {
+        datos: [],
+        reproduciendo: false
+      };
+
+      const logStep = (texto) => {
+        const p = document.createElement("p");
+        p.textContent = texto;
+        log.prepend(p);
+        const entradas = log.querySelectorAll("p");
+        if (entradas.length > 12) {
+          entradas[entradas.length - 1].remove();
+        }
+      };
+
+      const render = () => {
+        total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
+        salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
+        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
+
+        if (state.datos.length === 0) {
+          lienzo.innerHTML = '<p class="sim-placeholder">Aun no hay nodos. Inserta un valor para comenzar.</p>';
+          return;
+        }
+
+        const html = state.datos
+          .map(
+            (valor, idx) => `
+              <div class="lista-nodo ${idx === 0 ? "lista-nodo-activo" : ""}">
+                <span class="lista-nodo-dato">${valor}</span>
+                <span class="lista-nodo-next">${idx < state.datos.length - 1 ? "siguiente" : "null"}</span>
+              </div>
+              ${idx < state.datos.length - 1 ? '<span class="lista-flecha" aria-hidden="true">→</span>' : ""}
+            `
+          )
+          .join("");
+
+        lienzo.innerHTML = `
+          <div class="lista-inicio-tag">inicio</div>
+          <span class="lista-flecha" aria-hidden="true">→</span>
+          ${html}
+        `;
+      };
+
+      const insertar = (valor) => {
+        const dato = Number(valor);
+        if (!Number.isFinite(dato)) return;
+        state.datos.unshift(dato);
+        logStep(`Nodo nuevo (${dato}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
+        render();
+      };
+
+      const demoAutomatica = async () => {
+        if (state.reproduciendo) return;
+        state.reproduciendo = true;
+        autoBtn.disabled = true;
+        insertarBtn.disabled = true;
+        const serie = [42, 50, 12, 32];
+        for (const numero of serie) {
+          inputValor.value = String(numero);
+          insertar(numero);
+          await new Promise((resolve) => setTimeout(resolve, 700));
+        }
+        logStep("Demo completada: insercion al inicio aplicada a 42, 50, 12 y 32.");
+        state.reproduciendo = false;
+        autoBtn.disabled = false;
+        insertarBtn.disabled = false;
+      };
+
+      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
+      inputValor.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") insertar(inputValor.value);
+      });
+      autoBtn.addEventListener("click", demoAutomatica);
+      reiniciarBtn.addEventListener("click", () => {
+        state.datos = [];
+        log.innerHTML = "<p>Lista reiniciada. inicio vuelve a null.</p>";
+        render();
+      });
+
+      render();
     })();
   </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

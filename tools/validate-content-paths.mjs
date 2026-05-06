@@ -48,7 +48,7 @@ async function validateBaseAssets() {
 async function validateProgramasTemporales() {
   await ensureExists("public/programas-temporales/uis-logo.svg", "logo UIS");
 
-  for (let index = 1; index <= 31; index += 1) {
+  for (let index = 1; index <= 32; index += 1) {
     const suffix = String(index).padStart(2, "0");
     await ensureExists(`public/programas-temporales/codigos/programa-${suffix}.txt`, "codigo de programa temporal");
     await ensureExists(`public/proyectos-temporales/imagenes/programa-${suffix}.svg`, "imagen de programa temporal");

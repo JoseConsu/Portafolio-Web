@@ -1,0 +1,54 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    void insertarAlInicio(int dato) {
+        Nodo nodoNuevo = new Nodo(dato);
+        nodoNuevo.siguiente = inicio;
+        inicio = nodoNuevo;
+    }
+
+    void mostrarLista() {
+        Nodo temp = inicio;
+
+        while (temp != null) {
+            System.out.print(temp.dato + "->");
+            temp = temp.siguiente;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) throws java.lang.Exception {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        lista.mostrarLista();
+        lista.insertarAlInicio(42);
+        lista.mostrarLista();
+        lista.insertarAlInicio(50);
+        lista.mostrarLista();
+        lista.insertarAlInicio(12);
+        lista.mostrarLista();
+        lista.insertarAlInicio(32);
+
+        System.out.println("Lista despues de agregar al inicio");
+        lista.mostrarLista();
+    }
+}

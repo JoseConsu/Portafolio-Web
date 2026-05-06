@@ -2096,3 +2096,134 @@ img, video, svg { display: block; max-width: 100%; }
 .ejecuciones-card__header h3 {
   font-size: 1.3rem;
 }
+
+.lista-simulador-panel {
+  margin-top: var(--sp-8);
+}
+
+.lista-simulador-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+}
+
+.lista-simulador-grid {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-areas:
+    "config visual"
+    "log visual";
+  gap: var(--sp-4);
+}
+
+.lista-panel {
+  border-radius: var(--r-2xl);
+  border: 1px solid var(--br-strong);
+  background: var(--card-bg-strong);
+  padding: var(--sp-5);
+  box-shadow: var(--sh-card);
+}
+
+.lista-panel-config { grid-area: config; }
+.lista-panel-visual { grid-area: visual; }
+.lista-panel-log { grid-area: log; }
+
+.lista-campo {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: var(--sp-3);
+}
+
+.lista-campo input {
+  border-radius: var(--r-xl);
+  border: 1px solid var(--br-2);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-1);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--ff-mono);
+}
+
+.lista-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: var(--sp-4);
+}
+
+.lista-lienzo {
+  margin-top: var(--sp-3);
+  min-height: 230px;
+  border-radius: var(--r-2xl);
+  border: 1px solid var(--br-strong);
+  background: radial-gradient(circle at 20% 20%, rgba(74,124,89,0.16), transparent 58%), #050812;
+  padding: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.lista-inicio-tag {
+  border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  background: color-mix(in srgb, var(--gold) 20%, transparent);
+  color: #f4dd92;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-family: var(--ff-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lista-nodo {
+  min-width: 110px;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+  background: color-mix(in srgb, var(--panel-soft) 88%, transparent);
+  padding: 0.7rem;
+  display: grid;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.lista-nodo-activo {
+  border-color: var(--br-moss);
+  box-shadow: 0 0 0 2px var(--moss-dim);
+}
+
+.lista-nodo-dato {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  color: var(--text-1);
+}
+
+.lista-nodo-next {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  font-family: var(--ff-mono);
+}
+
+.lista-flecha {
+  color: var(--moss);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.lista-salida {
+  margin-top: var(--sp-3);
+  font-family: var(--ff-mono);
+  color: var(--moss);
+}
+
+@media (max-width: 960px) {
+  .lista-simulador-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "config"
+      "visual"
+      "log";
+  }
+}

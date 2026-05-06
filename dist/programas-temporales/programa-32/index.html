@@ -1,141 +1,74 @@
-<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 01: Ordenamiento Burbuja simple en C++ (String) | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 32: Insercion de datos al inicio de una lista enlazada simple en Java | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
       try {
         const theme = localStorage.getItem("theme");
         document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 01: Ordenamiento Burbuja simple en C++ (String)</h1> <p>Implementacion de burbuja en C++ usando 10 palabras. Incluye trazabilidad del algoritmo, comparaciones paso a paso y salida final ordenada alfabeticamente.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 32: Insercion de datos al inicio de una lista enlazada simple en Java</h1> <p>Implementacion de lista enlazada simple que inserta nodos al inicio y muestra la evolucion de la lista en consola, ideal para comprender la reasignacion del puntero inicio.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
-</a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
-Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo cadenas de texto.
-</p> </article> <article class="ds-card"> <h3>Ver simulador general</h3> <p>Explora el laboratorio visual con métricas en tiempo real para comparar algoritmos adicionales.</p> <a class="ds-button" href="/programas-temporales/programa-30">Abrir simulador</a> </article> </section> <section class="ds-card-grid" aria-live="polite"> <article class="ds-card" data-escenario="desordenado"> <header> <h3>TOTALMENTE DESORDENADOS</h3> <p>Entradas: Arreglo de cadenas totalmente desordenados (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>1.8</td> <td>1</td> <td>100</td> <td>100</td> <td>8</td> </tr><tr> <td>100</td> <td>180</td> <td>4</td> <td>10000</td> <td>10000</td> <td>80</td> </tr><tr> <td>1000</td> <td>18000</td> <td>40</td> <td>1000000</td> <td>1000000</td> <td>800</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Cadenas ordenadas alfabeticamente (total 10)</strong></p> </footer> </article><article class="ds-card" data-escenario="parcial"> <header> <h3>PARCIALMENTE ORDENADOS</h3> <p>Entradas: Arreglo de cadenas parcialmente ordenados (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>0.945</td> <td>1</td> <td>60</td> <td>70</td> <td>4</td> </tr><tr> <td>100</td> <td>94.5</td> <td>3.6</td> <td>6000</td> <td>7000</td> <td>40</td> </tr><tr> <td>1000</td> <td>9450</td> <td>36</td> <td>600000</td> <td>700000</td> <td>400</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Cadenas ordenadas alfabeticamente (total 10)</strong></p> </footer> </article><article class="ds-card" data-escenario="intercalado"> <header> <h3>ORDEN INTERCALADO</h3> <p>Entradas: Arreglo de cadenas orden intercalado (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>2.079</td> <td>1</td> <td>105</td> <td>105</td> <td>9</td> </tr><tr> <td>100</td> <td>207.9</td> <td>4.2</td> <td>10500</td> <td>10500</td> <td>88</td> </tr><tr> <td>1000</td> <td>20790</td> <td>42</td> <td>1050000</td> <td>1050000</td> <td>880</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Cadenas ordenadas alfabeticamente (total 10)</strong></p> </footer> </article><article class="ds-card" data-escenario="invertido"> <header> <h3>ORDEN INVERTIDO</h3> <p>Entradas: Arreglo de cadenas orden invertido (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>3.402</td> <td>1</td> <td>135</td> <td>140</td> <td>13</td> </tr><tr> <td>100</td> <td>340.2</td> <td>4.6</td> <td>13500</td> <td>14000</td> <td>128</td> </tr><tr> <td>1000</td> <td>34020</td> <td>46</td> <td>1350000</td> <td>1400000</td> <td>1280</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Cadenas ordenadas alfabeticamente (total 10)</strong></p> </footer> </article> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
+</a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
 Código del programa
-</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>// GUIA DE APRENDIZAJE (lectura recomendada antes del codigo)
-// 1) Primero se guarda una lista de palabras en desorden.
-// 2) El algoritmo Burbuja compara dos palabras vecinas en cada paso.
-// 3) Si estan en orden incorrecto alfabetico, se intercambian de lugar.
-// 4) Al terminar una pasada completa, la palabra &quot;mas grande&quot; queda al final.
-// 5) Se repiten pasadas hasta dejar todo el arreglo ordenado.
-// 6) Los comentarios dentro del codigo explican cada instruccion en lenguaje simple.
+</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-// Programa 01: Ordenamiento Burbuja simple en C++ (String)
-// Descripcion:
-// Este programa ordena alfabeticamente 10 palabras usando el algoritmo burbuja.
-// La explicacion esta comentada linea por linea para facilitar su exposicion.
+class Nodo {
+    int dato;
+    Nodo siguiente;
 
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-int main() {
-    // PASO 1: Declarar e inicializar los 10 datos de tipo string.
-    // Estos son los valores de entrada que vamos a ordenar.
-    string palabras[10] = {
-        &quot;zorro&quot;, &quot;manzana&quot;, &quot;luna&quot;, &quot;barco&quot;, &quot;nube&quot;,
-        &quot;guitarra&quot;, &quot;isla&quot;, &quot;avion&quot;, &quot;perro&quot;, &quot;casa&quot;
-    };
-
-    // PASO 2: Mostrar el arreglo original para comparar antes/despues.
-    cout &lt;&lt; &quot;Arreglo original:\n&quot;;
-    for (int i = 0; i &lt; 10; i++) {
-        cout &lt;&lt; palabras[i] &lt;&lt; (i &lt; 9 ? &quot;, &quot; : &quot;\n\n&quot;);
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
     }
-
-    // PASO 3: Aplicar el algoritmo burbuja.
-    // Recorremos varias pasadas. En cada pasada, la palabra &quot;mayor&quot;
-    // (lexicograficamente) va quedando al final.
-    for (int pasada = 0; pasada &lt; 9; pasada++) {
-        // Bandera para detectar si ya esta ordenado y salir antes.
-        bool huboIntercambio = false;
-
-        // Comparamos pares consecutivos: [j] y [j+1].
-        // El limite disminuye porque al final de cada pasada
-        // ya queda un elemento en su posicion definitiva.
-        for (int j = 0; j &lt; 9 - pasada; j++) {
-            // Si la palabra actual es &quot;mayor&quot; que la siguiente,
-            // las intercambiamos para avanzar hacia orden ascendente.
-            if (palabras[j] &gt; palabras[j + 1]) {
-                string temporal = palabras[j];
-                palabras[j] = palabras[j + 1];
-                palabras[j + 1] = temporal;
-                huboIntercambio = true;
-            }
-        }
-
-        // PASO 4: Mostrar estado del arreglo en cada pasada.
-        cout &lt;&lt; &quot;Pasada &quot; &lt;&lt; (pasada + 1) &lt;&lt; &quot;: &quot;;
-        for (int k = 0; k &lt; 10; k++) {
-            cout &lt;&lt; palabras[k] &lt;&lt; (k &lt; 9 ? &quot;, &quot; : &quot;\n&quot;);
-        }
-
-        // Si no hubo intercambio, significa que ya estaba ordenado.
-        if (!huboIntercambio) {
-            cout &lt;&lt; &quot;\nNo hubo intercambios; el arreglo ya esta ordenado.\n&quot;;
-            break;
-        }
-    }
-
-    // PASO 5: Mostrar el resultado final ordenado.
-    cout &lt;&lt; &quot;\nArreglo ordenado alfabeticamente:\n&quot;;
-    for (int i = 0; i &lt; 10; i++) {
-        cout &lt;&lt; palabras[i] &lt;&lt; (i &lt; 9 ? &quot;, &quot; : &quot;\n&quot;);
-    }
-
-    return 0;
 }
 
-/* === ESCENARIOS_AUTOGENERADOS ===
-Jose David Consuegra Medina - Codigo 2250167
-Resumen de ejecuciones automaticas (2026-04-12)
+class ListaEnlazada {
+    Nodo inicio;
 
-Escenario: TOTALMENTE DESORDENADOS
-  - 10 elementos -&gt; Tiempo: 1.8 ms | Memoria: 1 KB | Iteraciones: 100 | Comparaciones: 100 | Intercambios: 8
-    Entrada: Arreglo de cadenas totalmente desordenados (10 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 10)
-  - 100 elementos -&gt; Tiempo: 180 ms | Memoria: 4 KB | Iteraciones: 10000 | Comparaciones: 10000 | Intercambios: 80
-    Entrada: Arreglo de cadenas totalmente desordenados (100 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 100)
-  - 1000 elementos -&gt; Tiempo: 18000 ms | Memoria: 40 KB | Iteraciones: 1000000 | Comparaciones: 1000000 | Intercambios: 800
-    Entrada: Arreglo de cadenas totalmente desordenados (1000 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+    ListaEnlazada() {
+        inicio = null;
+    }
 
-Escenario: PARCIALMENTE ORDENADOS
-  - 10 elementos -&gt; Tiempo: 0.945 ms | Memoria: 1 KB | Iteraciones: 60 | Comparaciones: 70 | Intercambios: 4
-    Entrada: Arreglo de cadenas parcialmente ordenados (10 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 10)
-  - 100 elementos -&gt; Tiempo: 94.5 ms | Memoria: 3.6 KB | Iteraciones: 6000 | Comparaciones: 7000 | Intercambios: 40
-    Entrada: Arreglo de cadenas parcialmente ordenados (100 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 100)
-  - 1000 elementos -&gt; Tiempo: 9450 ms | Memoria: 36 KB | Iteraciones: 600000 | Comparaciones: 700000 | Intercambios: 400
-    Entrada: Arreglo de cadenas parcialmente ordenados (1000 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+    void insertarAlInicio(int dato) {
+        Nodo nodoNuevo = new Nodo(dato);
+        nodoNuevo.siguiente = inicio;
+        inicio = nodoNuevo;
+    }
 
-Escenario: ORDEN INTERCALADO
-  - 10 elementos -&gt; Tiempo: 2.079 ms | Memoria: 1 KB | Iteraciones: 105 | Comparaciones: 105 | Intercambios: 9
-    Entrada: Arreglo de cadenas orden intercalado (10 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 10)
-  - 100 elementos -&gt; Tiempo: 207.9 ms | Memoria: 4.2 KB | Iteraciones: 10500 | Comparaciones: 10500 | Intercambios: 88
-    Entrada: Arreglo de cadenas orden intercalado (100 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 100)
-  - 1000 elementos -&gt; Tiempo: 20790 ms | Memoria: 42 KB | Iteraciones: 1050000 | Comparaciones: 1050000 | Intercambios: 880
-    Entrada: Arreglo de cadenas orden intercalado (1000 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 1000)
+    void mostrarLista() {
+        Nodo temp = inicio;
 
-Escenario: ORDEN INVERTIDO
-  - 10 elementos -&gt; Tiempo: 3.402 ms | Memoria: 1 KB | Iteraciones: 135 | Comparaciones: 140 | Intercambios: 13
-    Entrada: Arreglo de cadenas orden invertido (10 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 10)
-  - 100 elementos -&gt; Tiempo: 340.2 ms | Memoria: 4.6 KB | Iteraciones: 13500 | Comparaciones: 14000 | Intercambios: 128
-    Entrada: Arreglo de cadenas orden invertido (100 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 100)
-  - 1000 elementos -&gt; Tiempo: 34020 ms | Memoria: 46 KB | Iteraciones: 1350000 | Comparaciones: 1400000 | Intercambios: 1280
-    Entrada: Arreglo de cadenas orden invertido (1000 elementos)
-    Salida: Cadenas ordenadas alfabeticamente (total 1000)
-=== FIN_ESCENARIOS_AUTOGENERADOS === */
-</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+        while (temp != null) {
+            System.out.print(temp.dato + &quot;-&gt;&quot;);
+            temp = temp.siguiente;
+        }
+
+        System.out.println(&quot;null&quot;);
+    }
+
+    public static void main(String[] args) throws java.lang.Exception {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        lista.mostrarLista();
+        lista.insertarAlInicio(42);
+        lista.mostrarLista();
+        lista.insertarAlInicio(50);
+        lista.mostrarLista();
+        lista.insertarAlInicio(12);
+        lista.mostrarLista();
+        lista.insertarAlInicio(32);
+
+        System.out.println(&quot;Lista despues de agregar al inicio&quot;);
+        lista.mostrarLista();
+    }
+}
+</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual: insertar al inicio</h2> <p>
+Inserta valores para observar la operacion paso a paso: creacion del nodo, enlace con la cabeza actual y
+              reasignacion del puntero <strong>inicio</strong>.
+</p> </div> <span class="sim-badge">Lista enlazada simple</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3> <label class="lista-campo" for="lista-valor"> <span>Dato a insertar</span> <input id="lista-valor" type="number" value="42" step="1"> </label> <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-insertar">Insertar al inicio</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button> <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -> null</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log"> <p>Esperando inserciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
-</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-01.svg" alt="Imagen de salida de Programa temporal 01: Ordenamiento Burbuja simple en C++ (String)" loading="lazy" decoding="async"> </div> </section> </main> <script>
+</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-32.svg" alt="Imagen de salida de Programa temporal 32: Insercion de datos al inicio de una lista enlazada simple en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>
     (function setupClipboard() {
       const trigger = document.querySelector(".boton-copiar");
       const codigo = document.querySelector(".cuadro-codigo");
