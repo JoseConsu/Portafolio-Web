@@ -195,6 +195,13 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
     categoria: "estructuras de datos",
     tags: ["Java", "Lista enlazada", "Insercion"],
   },
+  33: {
+    titulo: "Insercion al final de una lista enlazada simple en Java",
+    descripcion:
+      "Implementacion de lista enlazada simple que agrega nodos al final recorriendo desde inicio hasta el ultimo nodo para enlazar cada nuevo elemento en orden de llegada.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "Insercion final"],
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -230,6 +237,7 @@ const ordenProgramasTemporales = [
   30,
   31,
   32,
+  33,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {

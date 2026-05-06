@@ -44,11 +44,11 @@ const heroPhrases = JSON.stringify([
       </ul>
 
       <div class="nav-ctrl">
-        <button class="btn-theme" id="themeBtn" aria-label="Cambiar tema">
+        <button class="btn-theme" id="themeBtn" aria-label="Cambiar tema" aria-pressed="false">
           <span id="themeIco">🌙</span>
           <span id="themeTxt">Dark</span>
         </button>
-        <button class="hamburger" id="ham" aria-label="Abrir menú" aria-expanded="false">
+        <button class="hamburger" id="ham" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
           <span class="hamburger__line"></span>
           <span class="hamburger__line"></span>
           <span class="hamburger__line"></span>
@@ -57,7 +57,7 @@ const heroPhrases = JSON.stringify([
     </div>
   </nav>
 
-  <main id="main">
+  <main id="contenido-principal">
     <section id="home" class="hero" aria-labelledby="hero-heading">
       <div class="hero-grid-lines" aria-hidden="true"></div>
       <div class="hero-number" aria-hidden="true">01</div>
@@ -525,7 +525,7 @@ const heroPhrases = JSON.stringify([
   <script>
     'use strict';
     (function(){
-      const STORAGE_KEY = 'jdc-theme';
+      const STORAGE_KEY = 'theme';
       const html=document.documentElement;
       const btn=document.getElementById('themeBtn');
       const ico=document.getElementById('themeIco');
@@ -537,6 +537,7 @@ const heroPhrases = JSON.stringify([
         html.setAttribute('data-theme',isDark?'dark':'light');
         if(ico) ico.textContent=isDark?'🌙':'☀️';
         if(txt) txt.textContent=isDark?'Dark':'Light';
+        btn?.setAttribute('aria-pressed',String(isDark));
       }
       applyTheme(dark);
       btn?.addEventListener('click',() => {
@@ -555,12 +556,23 @@ const heroPhrases = JSON.stringify([
         const open=links.classList.toggle('open');
         ham.classList.toggle('open',open);
         ham.setAttribute('aria-expanded',String(open));
+        ham.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
       });
       document.addEventListener('click',(event) => {
         if(!event.target.closest('.nav') && links.classList.contains('open')){
           links.classList.remove('open');
           ham.classList.remove('open');
           ham.setAttribute('aria-expanded','false');
+          ham.setAttribute('aria-label','Abrir menú');
+        }
+      });
+      document.addEventListener('keydown',(event) => {
+        if(event.key==='Escape' && links.classList.contains('open')){
+          links.classList.remove('open');
+          ham.classList.remove('open');
+          ham.setAttribute('aria-expanded','false');
+          ham.setAttribute('aria-label','Abrir menú');
+          ham.focus();
         }
       });
       links.querySelectorAll('a').forEach((anchor) => {
@@ -568,13 +580,16 @@ const heroPhrases = JSON.stringify([
           links.classList.remove('open');
           ham.classList.remove('open');
           ham.setAttribute('aria-expanded','false');
+          ham.setAttribute('aria-label','Abrir menú');
         });
       });
     })();
 
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click',function(event){
-        const target=document.querySelector(this.getAttribute('href'));
+        const href=this.getAttribute('href');
+        if(!href || href==='#contenido-principal') return;
+        const target=document.querySelector(href);
         if(!target) return;
         event.preventDefault();
         const top=target.getBoundingClientRect().top+window.scrollY-80;
@@ -667,6 +682,15 @@ const heroPhrases = JSON.stringify([
     (function(){
       const form=document.getElementById('contactForm');
       if(!form) return;
+      let statusNode=form.querySelector('[data-form-status]');
+      if(!statusNode){
+        statusNode=document.createElement('span');
+        statusNode.setAttribute('data-form-status','true');
+        statusNode.setAttribute('aria-live','polite');
+        statusNode.setAttribute('role','status');
+        statusNode.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+        form.appendChild(statusNode);
+      }
       const validators={
         fName:(value) => value.trim().length>=2 ? null : 'Mínimo 2 caracteres.',
         fEmail:(value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? null : 'Email inválido.',
@@ -685,6 +709,7 @@ const heroPhrases = JSON.stringify([
         }
         errorNode.textContent=message ?? '';
         field.style.borderColor=message ? 'var(--terra)' : '';
+        field.setAttribute('aria-invalid',message ? 'true' : 'false');
       }
       form.addEventListener('submit',(event) => {
         event.preventDefault();
@@ -697,21 +722,30 @@ const heroPhrases = JSON.stringify([
           if(error) valid=false;
         });
         if(!valid){
+          statusNode.textContent='El formulario tiene errores. Revisa los campos marcados.';
           const firstInvalid=form.querySelector('[style*="var(--terra)"]');
           if(firstInvalid) firstInvalid.focus();
           return;
         }
         const button=form.querySelector('[type="submit"]');
-        const original=button.innerHTML;
-        button.innerHTML='✓ Enviado';
+        if(!button) return;
+        const original=button.textContent ?? 'Enviar mensaje →';
+        button.textContent='✓ Enviado';
         button.style.background='var(--moss)';
         button.disabled=true;
+        button.setAttribute('aria-busy','true');
+        statusNode.textContent='Formulario enviado correctamente.';
         setTimeout(() => {
-          button.innerHTML=original;
+          button.textContent=original;
           button.style.background='';
           button.disabled=false;
+          button.setAttribute('aria-busy','false');
           form.reset();
           form.querySelectorAll('.ferr').forEach((node) => (node.textContent=''));
+          ['fName','fEmail','fMsg'].forEach((key) => {
+            const field=document.getElementById(key);
+            field?.setAttribute('aria-invalid','false');
+          });
         },3200);
       });
     })();
