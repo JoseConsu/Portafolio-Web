@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 18: Shaker Sort con tiempo, memoria y metricas</h1> <p>Programa Java con Shaker Sort sobre enteros en cantidades pequenas, medianas y grandes, evaluando arreglos desordenados, casi ordenados e invertidos, con tiempo, memoria, comparaciones e intercambios.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 18: Shaker Sort con tiempo, memoria y metricas</h1> <p>Programa Java con Shaker Sort sobre enteros en cantidades pequenas, medianas y grandes, evaluando arreglos desordenados, casi ordenados e invertidos, con tiempo, memoria, comparaciones e intercambios.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
 Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo números enteros.
@@ -337,7 +337,7 @@ Escenario: ORDEN INVERTIDO
     Entrada: Arreglo de enteros orden invertido (1000 elementos)
     Salida: Valores ordenados de menor a mayor (total 1000)
 === FIN_ESCENARIOS_AUTOGENERADOS === */
-</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+</code></pre> </section>     <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
 </h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-18.svg" alt="Imagen de salida de Programa temporal 18: Shaker Sort con tiempo, memoria y metricas" loading="lazy" decoding="async"> </div> </section> </main> <script>
     (function setupClipboard() {
@@ -347,11 +347,15 @@ Imagen de salida
 
       trigger.addEventListener("click", async () => {
         const texto = codigo.textContent ?? "";
+        const iconoOriginal = trigger.querySelector("svg")?.cloneNode(true);
         try {
           await navigator.clipboard.writeText(texto);
-          trigger.innerHTML = "✅";
+          trigger.textContent = "✅";
           setTimeout(() => {
-            trigger.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" /><path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" /></svg>`;
+            trigger.replaceChildren();
+            if (iconoOriginal) {
+              trigger.appendChild(iconoOriginal.cloneNode(true));
+            }
           }, 1400);
         } catch {
           const seleccion = window.getSelection();
@@ -479,14 +483,28 @@ Imagen de salida
       const renderizarDefinicionAlgoritmo = (algoritmo) => {
         const datos = definicionesDetalladas[algoritmo];
         if (!datos) return;
-        const listaHtml = (titulo, items) =>
-          `<h4>${titulo}</h4><ol>${items.map((item) => `<li>${item}</li>`).join("")}</ol>`;
-        detalleAlgoritmo.innerHTML = `
-          <h3>${datos.titulo}: definicion detallada</h3>
-          ${listaHtml("Funcionalidad del algoritmo", datos.funcionalidad)}
-          ${listaHtml("Ventajas", datos.ventajas)}
-          ${listaHtml("Desventajas", datos.desventajas)}
-        `;
+        const crearBloqueLista = (titulo, items) => {
+          const fragment = document.createDocumentFragment();
+          const subtitulo = document.createElement("h4");
+          subtitulo.textContent = titulo;
+          const lista = document.createElement("ol");
+          items.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            lista.appendChild(li);
+          });
+          fragment.appendChild(subtitulo);
+          fragment.appendChild(lista);
+          return fragment;
+        };
+
+        detalleAlgoritmo.replaceChildren();
+        const titulo = document.createElement("h3");
+        titulo.textContent = `${datos.titulo}: definicion detallada`;
+        detalleAlgoritmo.appendChild(titulo);
+        detalleAlgoritmo.appendChild(crearBloqueLista("Funcionalidad del algoritmo", datos.funcionalidad));
+        detalleAlgoritmo.appendChild(crearBloqueLista("Ventajas", datos.ventajas));
+        detalleAlgoritmo.appendChild(crearBloqueLista("Desventajas", datos.desventajas));
       };
 
       const renderizarComparativa = () => {
@@ -498,7 +516,7 @@ Imagen de salida
 
         const merge = datos.merge;
         const quick = datos.quick;
-        cuerpoTabla.innerHTML = "";
+        cuerpoTabla.replaceChildren();
         let puntosMerge = 0;
         let puntosQuick = 0;
         const ventajas = [];
@@ -511,49 +529,49 @@ Imagen de salida
           if (ganador === "Merge Sort") puntosMerge += 1;
           if (ganador === "Quick Sort") puntosQuick += 1;
           const fila = document.createElement("tr");
-          fila.innerHTML = `
-            <td>${metrica.etiqueta}</td>
-            <td>${mergeValor}</td>
-            <td>${quickValor}</td>
-            <td><span class="badge-ganador ${ganador === "Empate" ? "empate" : ganador === "Merge Sort" ? "merge" : "quick"}">${ganador}</span></td>
-          `;
+          const celdaMetrica = document.createElement("td");
+          celdaMetrica.textContent = metrica.etiqueta;
+          const celdaMerge = document.createElement("td");
+          celdaMerge.textContent = String(mergeValor);
+          const celdaQuick = document.createElement("td");
+          celdaQuick.textContent = String(quickValor);
+          const celdaGanador = document.createElement("td");
+          const badge = document.createElement("span");
+          badge.className = `badge-ganador ${ganador === "Empate" ? "empate" : ganador === "Merge Sort" ? "merge" : "quick"}`;
+          badge.textContent = ganador;
+          celdaGanador.appendChild(badge);
+          fila.append(celdaMetrica, celdaMerge, celdaQuick, celdaGanador);
           cuerpoTabla.appendChild(fila);
         });
 
         const factorEscenario = escenario === "invertido" ? "alto" : escenario === "parcial" ? "medio" : "normal";
         const factorTipo = tipo === "string" ? "Comparacion lexicografica (costo adicional por longitud de texto)." : "Comparacion numerica directa.";
-        cuerpoTablaComplejidad.innerHTML = `
-          <tr>
-            <td>Mejor caso</td>
-            <td>${complejidadesBase.merge.mejor}</td>
-            <td>${complejidadesBase.quick.mejor}</td>
-          </tr>
-          <tr>
-            <td>Promedio</td>
-            <td>${complejidadesBase.merge.promedio}</td>
-            <td>${complejidadesBase.quick.promedio}</td>
-          </tr>
-          <tr>
-            <td>Peor caso (situacion actual: ${escenario})</td>
-            <td>${complejidadesBase.merge.peor}</td>
-            <td>${escenario === "invertido" ? "Se aproxima a O(n²) con pivote simple." : complejidadesBase.quick.peor}</td>
-          </tr>
-          <tr>
-            <td>Memoria adicional</td>
-            <td>${complejidadesBase.merge.memoria}</td>
-            <td>${complejidadesBase.quick.memoria}</td>
-          </tr>
-          <tr>
-            <td>Contexto de ${longitud} elementos (${tipo})</td>
-            <td>Rendimiento estable con factor ${factorEscenario}.</td>
-            <td>${escenario === "invertido" ? "Particiones desfavorables elevan comparaciones." : "Buen rendimiento promedio con pivote favorable."}</td>
-          </tr>
-          <tr>
-            <td>Tipo de dato seleccionado</td>
-            <td>${factorTipo}</td>
-            <td>${factorTipo}</td>
-          </tr>
-        `;
+        const filasComplejidad = [
+          ["Mejor caso", complejidadesBase.merge.mejor, complejidadesBase.quick.mejor],
+          ["Promedio", complejidadesBase.merge.promedio, complejidadesBase.quick.promedio],
+          [
+            `Peor caso (situacion actual: ${escenario})`,
+            complejidadesBase.merge.peor,
+            escenario === "invertido" ? "Se aproxima a O(n²) con pivote simple." : complejidadesBase.quick.peor
+          ],
+          ["Memoria adicional", complejidadesBase.merge.memoria, complejidadesBase.quick.memoria],
+          [
+            `Contexto de ${longitud} elementos (${tipo})`,
+            `Rendimiento estable con factor ${factorEscenario}.`,
+            escenario === "invertido" ? "Particiones desfavorables elevan comparaciones." : "Buen rendimiento promedio con pivote favorable."
+          ],
+          ["Tipo de dato seleccionado", factorTipo, factorTipo]
+        ];
+        cuerpoTablaComplejidad.replaceChildren();
+        filasComplejidad.forEach((filaData) => {
+          const fila = document.createElement("tr");
+          filaData.forEach((valor) => {
+            const celda = document.createElement("td");
+            celda.textContent = valor;
+            fila.appendChild(celda);
+          });
+          cuerpoTablaComplejidad.appendChild(fila);
+        });
 
         if (quick.tiempo < merge.tiempo) {
           ventajas.push("Quick Sort domina en tiempo promedio en este escenario.");
@@ -576,8 +594,16 @@ Imagen de salida
 
         ventajas.push(`En ${tipo}, ambas soluciones escalan mejor en 50 y 200 elementos que algoritmos cuadraticos.`);
 
-        listaVentajas.innerHTML = ventajas.map((item) => `<li>${item}</li>`).join("");
-        listaDesventajas.innerHTML = desventajas.map((item) => `<li>${item}</li>`).join("");
+        listaVentajas.replaceChildren(...ventajas.map((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          return li;
+        }));
+        listaDesventajas.replaceChildren(...desventajas.map((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          return li;
+        }));
 
         if (puntosMerge > puntosQuick) {
           textoRecomendacion.textContent = "Recomendacion: Merge Sort. En esta combinacion ofrece mejor balance global y mas estabilidad frente al peor caso.";
@@ -732,12 +758,17 @@ Imagen de salida
 
       const renderLog = (descripcionPaso, pasoActual, totalPasos) => {
         const mensaje = descripcionPaso ?? "Sin cambios visibles en este paso.";
-        logArea.innerHTML = `<p><strong>Paso ${Math.min(pasoActual + 1, totalPasos)}</strong> · ${mensaje}</p>`;
+        const parrafo = document.createElement("p");
+        const strong = document.createElement("strong");
+        strong.textContent = `Paso ${Math.min(pasoActual + 1, totalPasos)}`;
+        parrafo.appendChild(strong);
+        parrafo.append(` · ${mensaje}`);
+        logArea.replaceChildren(parrafo);
       };
 
       const renderTreeView = (tree) => {
         visualStage.dataset.view = "tree";
-        visualStage.innerHTML = "";
+        visualStage.replaceChildren();
         const wrapper = document.createElement("div");
         wrapper.className = "sim-tree";
         const niveles = tree?.niveles ?? [];
@@ -765,9 +796,12 @@ Imagen de salida
 
       const renderBarsView = (paso, algoritmo) => {
         visualStage.dataset.view = "bars";
-        visualStage.innerHTML = "";
+        visualStage.replaceChildren();
         if (!paso.items?.length) {
-          visualStage.innerHTML = '<p class="sim-placeholder">Inicia la simulación para ver las barras en movimiento.</p>';
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Inicia la simulación para ver las barras en movimiento.";
+          visualStage.appendChild(placeholder);
           return;
         }
         const fragment = document.createDocumentFragment();
@@ -780,7 +814,9 @@ Imagen de salida
           barra.style.setProperty("--bar-color", obtenerColorBarra(item, algoritmo.color));
           if (paso.resaltados?.includes(indice)) barra.classList.add("activo");
           if (mostrarEtiquetas) {
-            barra.innerHTML = `<span>${item.label}</span>`;
+            const etiqueta = document.createElement("span");
+            etiqueta.textContent = String(item.label);
+            barra.appendChild(etiqueta);
           }
           fragment.appendChild(barra);
         });
@@ -810,44 +846,81 @@ Imagen de salida
 
       const renderTabla = () => {
         if (!state.resultados.length) {
-          tablaBody.innerHTML = '<tr><td colspan="10">Aún no hay datos procesados.</td></tr>';
+          const filaVacia = document.createElement("tr");
+          const celdaVacia = document.createElement("td");
+          celdaVacia.colSpan = 10;
+          celdaVacia.textContent = "Aún no hay datos procesados.";
+          filaVacia.appendChild(celdaVacia);
+          tablaBody.replaceChildren(filaVacia);
           return;
         }
-        tablaBody.innerHTML = state.resultados
-          .map((resultado) => {
-            const pasoIndice = Math.min(state.pasoActual, resultado.steps.length - 1);
-            const paso = resultado.steps[pasoIndice] ?? resultado.steps[resultado.steps.length - 1];
-            const enlacePrograma = enlacesProgramas[resultado.id]?.[state.tipoDato];
-            const programaCell = enlacePrograma
-              ? `<a class="tabla-link" href="${enlacePrograma}" target="_blank" rel="noreferrer">Abrir</a>`
-              : '<span class="tabla-link disabled">No encontrado</span>';
-            const recursividadTag = resultado.usaRecursion
-              ? '<span class="sim-tag sim-tag--recursion sim-tag--si">Sí</span>'
-              : '<span class="sim-tag sim-tag--recursion sim-tag--no">No</span>';
-            const estabilidadTag = resultado.estable
-              ? '<span class="sim-tag sim-tag--estabilidad sim-tag--estable">Estable</span>'
-              : '<span class="sim-tag sim-tag--estabilidad sim-tag--inestable">Inestable</span>';
-            return `
-              <tr class="sim-row ${resultado.id === state.algoritmoActivo ? "activo" : ""}" style="--alg-color:${resultado.color}">
-                <td>${resultado.nombre}</td>
-                <td>${Math.min(state.pasoActual + 1, resultado.steps.length)}</td>
-                <td>${paso?.comparaciones ?? 0}</td>
-                <td>${paso?.intercambios ?? 0}</td>
-                <td>${paso?.iteraciones ?? 0}</td>
-                <td>${resultado.tiempoMs.toFixed(2)}</td>
-                <td>${resultado.memoria.toFixed(1)}</td>
-                <td>${recursividadTag}</td>
-                <td>${estabilidadTag}</td>
-                <td>${programaCell}</td>
-              </tr>
-            `;
-          })
-          .join("");
+        const filas = state.resultados.map((resultado) => {
+          const pasoIndice = Math.min(state.pasoActual, resultado.steps.length - 1);
+          const paso = resultado.steps[pasoIndice] ?? resultado.steps[resultado.steps.length - 1];
+          const fila = document.createElement("tr");
+          fila.className = `sim-row ${resultado.id === state.algoritmoActivo ? "activo" : ""}`;
+          fila.style.setProperty("--alg-color", resultado.color);
+
+          const celdas = [
+            resultado.nombre,
+            String(Math.min(state.pasoActual + 1, resultado.steps.length)),
+            String(paso?.comparaciones ?? 0),
+            String(paso?.intercambios ?? 0),
+            String(paso?.iteraciones ?? 0),
+            resultado.tiempoMs.toFixed(2),
+            resultado.memoria.toFixed(1)
+          ];
+
+          celdas.forEach((valor) => {
+            const celda = document.createElement("td");
+            celda.textContent = valor;
+            fila.appendChild(celda);
+          });
+
+          const celdaRecursivo = document.createElement("td");
+          const tagRecursivo = document.createElement("span");
+          tagRecursivo.className = `sim-tag sim-tag--recursion ${resultado.usaRecursion ? "sim-tag--si" : "sim-tag--no"}`;
+          tagRecursivo.textContent = resultado.usaRecursion ? "Sí" : "No";
+          celdaRecursivo.appendChild(tagRecursivo);
+          fila.appendChild(celdaRecursivo);
+
+          const celdaEstable = document.createElement("td");
+          const tagEstable = document.createElement("span");
+          tagEstable.className = `sim-tag sim-tag--estabilidad ${resultado.estable ? "sim-tag--estable" : "sim-tag--inestable"}`;
+          tagEstable.textContent = resultado.estable ? "Estable" : "Inestable";
+          celdaEstable.appendChild(tagEstable);
+          fila.appendChild(celdaEstable);
+
+          const celdaPrograma = document.createElement("td");
+          const enlacePrograma = enlacesProgramas[resultado.id]?.[state.tipoDato];
+          if (enlacePrograma) {
+            const enlace = document.createElement("a");
+            enlace.className = "tabla-link";
+            enlace.href = enlacePrograma;
+            enlace.target = "_blank";
+            enlace.rel = "noreferrer";
+            enlace.textContent = "Abrir";
+            celdaPrograma.appendChild(enlace);
+          } else {
+            const span = document.createElement("span");
+            span.className = "tabla-link disabled";
+            span.textContent = "No encontrado";
+            celdaPrograma.appendChild(span);
+          }
+          fila.appendChild(celdaPrograma);
+
+          return fila;
+        });
+
+        tablaBody.replaceChildren(...filas);
       };
 
       const renderVisual = () => {
         if (!state.resultados.length) {
-          visualStage.innerHTML = '<p class="sim-placeholder">Inicia la simulación para ver las barras en movimiento.</p>';
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Inicia la simulación para ver las barras en movimiento.";
+          visualStage.replaceChildren(placeholder);
           visualStage.dataset.view = "bars";
           return;
         }
@@ -855,7 +928,10 @@ Imagen de salida
         const pasoIndice = Math.min(state.pasoActual, activo.steps.length - 1);
         const paso = activo.steps[pasoIndice];
         if (!paso) {
-          visualStage.innerHTML = '<p class="sim-placeholder">Crea una nueva simulación para ver resultados.</p>';
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Crea una nueva simulación para ver resultados.";
+          visualStage.replaceChildren(placeholder);
           visualStage.dataset.view = "bars";
           return;
         }
@@ -1441,7 +1517,9 @@ Imagen de salida
         state.maxPasos = 0;
         setStatus("En espera");
         updateUi();
-        logArea.innerHTML = '<p>El registro mostrará el evento más reciente de la animación.</p>';
+        const logInicial = document.createElement("p");
+        logInicial.textContent = "El registro mostrará el evento más reciente de la animación.";
+        logArea.replaceChildren(logInicial);
         configEstado.textContent = 'Configura y presiona "Simular" para generar los datos.';
       };
 
@@ -1580,7 +1658,7 @@ Imagen de salida
       resizeCanvas();
 
       function buildTabs() {
-        tabsContainer.innerHTML = "";
+        tabsContainer.replaceChildren();
         ALGO_KEYS.forEach((key) => {
           const button = document.createElement("button");
           button.textContent = ALGOS[key].name;
@@ -1605,13 +1683,18 @@ Imagen de salida
         if (infoTitle) infoTitle.textContent = data.full;
         if (infoDesc) infoDesc.textContent = data.desc;
         if (infoTags) {
-          infoTags.innerHTML = `
-            <span>Mejor: ${data.best}</span>
-            <span>Promedio: ${data.avg}</span>
-            <span>Peor: ${data.worst}</span>
-            <span>Espacio: ${data.space}</span>
-            <span>Estable: ${data.stable ? "sí" : "no"}</span>
-          `;
+          const tags = [
+            `Mejor: ${data.best}`,
+            `Promedio: ${data.avg}`,
+            `Peor: ${data.worst}`,
+            `Espacio: ${data.space}`,
+            `Estable: ${data.stable ? "sí" : "no"}`
+          ].map((texto) => {
+            const span = document.createElement("span");
+            span.textContent = texto;
+            return span;
+          });
+          infoTags.replaceChildren(...tags);
         }
       }
 
@@ -2135,27 +2218,46 @@ Imagen de salida
         estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
 
         if (state.datos.length === 0) {
-          lienzo.innerHTML = '<p class="sim-placeholder">Aun no hay nodos. Inserta un valor para comenzar.</p>';
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
+          lienzo.replaceChildren(placeholder);
           return;
         }
 
-        const html = state.datos
-          .map(
-            (valor, idx) => `
-              <div class="lista-nodo ${idx === 0 ? "lista-nodo-activo" : ""}">
-                <span class="lista-nodo-dato">${valor}</span>
-                <span class="lista-nodo-next">${idx < state.datos.length - 1 ? "siguiente" : "null"}</span>
-              </div>
-              ${idx < state.datos.length - 1 ? '<span class="lista-flecha" aria-hidden="true">→</span>' : ""}
-            `
-          )
-          .join("");
+        const elementos = [];
+        const inicioTag = document.createElement("div");
+        inicioTag.className = "lista-inicio-tag";
+        inicioTag.textContent = "inicio";
+        elementos.push(inicioTag);
+        const inicioFlecha = document.createElement("span");
+        inicioFlecha.className = "lista-flecha";
+        inicioFlecha.setAttribute("aria-hidden", "true");
+        inicioFlecha.textContent = "→";
+        elementos.push(inicioFlecha);
 
-        lienzo.innerHTML = `
-          <div class="lista-inicio-tag">inicio</div>
-          <span class="lista-flecha" aria-hidden="true">→</span>
-          ${html}
-        `;
+        state.datos.forEach((valor, idx) => {
+          const nodo = document.createElement("div");
+          nodo.className = `lista-nodo ${idx === 0 ? "lista-nodo-activo" : ""}`;
+          const dato = document.createElement("span");
+          dato.className = "lista-nodo-dato";
+          dato.textContent = String(valor);
+          const next = document.createElement("span");
+          next.className = "lista-nodo-next";
+          next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
+          nodo.append(dato, next);
+          elementos.push(nodo);
+
+          if (idx < state.datos.length - 1) {
+            const flecha = document.createElement("span");
+            flecha.className = "lista-flecha";
+            flecha.setAttribute("aria-hidden", "true");
+            flecha.textContent = "→";
+            elementos.push(flecha);
+          }
+        });
+
+        lienzo.replaceChildren(...elementos);
       };
 
       const insertar = (valor) => {
@@ -2190,8 +2292,149 @@ Imagen de salida
       autoBtn.addEventListener("click", demoAutomatica);
       reiniciarBtn.addEventListener("click", () => {
         state.datos = [];
-        log.innerHTML = "<p>Lista reiniciada. inicio vuelve a null.</p>";
+        const reinicio = document.createElement("p");
+        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
+        log.replaceChildren(reinicio);
         render();
+      });
+
+      render();
+    })();
+
+    (function setupListaEnlazadaFinalSimulador() {
+      const root = document.querySelector("[data-lista-simulador-final]");
+      if (!root) return;
+
+      const inputValor = root.querySelector("#lista-final-valor");
+      const insertarBtn = root.querySelector("#lista-final-insertar");
+      const autoBtn = root.querySelector("#lista-final-auto");
+      const reiniciarBtn = root.querySelector("#lista-final-reiniciar");
+      const estado = root.querySelector("#lista-final-estado");
+      const total = root.querySelector("#lista-final-total");
+      const lienzo = root.querySelector("#lista-final-lienzo");
+      const salida = root.querySelector("#lista-final-salida");
+      const log = root.querySelector("#lista-final-log");
+
+      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
+        return;
+      }
+
+      const state = {
+        datos: [],
+        reproduciendo: false
+      };
+
+      const logStep = (texto) => {
+        const p = document.createElement("p");
+        p.textContent = texto;
+        log.prepend(p);
+        const entradas = log.querySelectorAll("p");
+        if (entradas.length > 12) {
+          entradas[entradas.length - 1].remove();
+        }
+      };
+
+      const render = () => {
+        total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
+        salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
+        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
+
+        if (state.datos.length === 0) {
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
+          lienzo.replaceChildren(placeholder);
+          return;
+        }
+
+        const elementos = [];
+        const inicioTag = document.createElement("div");
+        inicioTag.className = "lista-inicio-tag";
+        inicioTag.textContent = "inicio";
+        elementos.push(inicioTag);
+        const inicioFlecha = document.createElement("span");
+        inicioFlecha.className = "lista-flecha";
+        inicioFlecha.setAttribute("aria-hidden", "true");
+        inicioFlecha.textContent = "→";
+        elementos.push(inicioFlecha);
+
+        state.datos.forEach((valor, idx) => {
+          const nodo = document.createElement("div");
+          nodo.className = `lista-nodo ${idx === state.datos.length - 1 ? "lista-nodo-activo" : ""}`;
+          nodo.setAttribute("role", "listitem");
+          const dato = document.createElement("span");
+          dato.className = "lista-nodo-dato";
+          dato.textContent = String(valor);
+          const next = document.createElement("span");
+          next.className = "lista-nodo-next";
+          next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
+          nodo.append(dato, next);
+          elementos.push(nodo);
+
+          if (idx < state.datos.length - 1) {
+            const flecha = document.createElement("span");
+            flecha.className = "lista-flecha";
+            flecha.setAttribute("aria-hidden", "true");
+            flecha.textContent = "→";
+            elementos.push(flecha);
+          }
+        });
+
+        lienzo.replaceChildren(...elementos);
+      };
+
+      const insertar = (valor) => {
+        const dato = Number(valor);
+        if (!Number.isFinite(dato)) {
+          logStep("Entrada invalida: solo se permiten numeros.");
+          return;
+        }
+
+        if (state.datos.length === 0) {
+          state.datos.push(dato);
+          logStep(`Lista vacia: inicio = nuevoNodo(${dato}).`);
+        } else {
+          const ultimoActual = state.datos[state.datos.length - 1];
+          state.datos.push(dato);
+          logStep(`Recorrido completado hasta ${ultimoActual}. Enlace final: ultimo.siguiente = nuevoNodo(${dato}).`);
+        }
+
+        render();
+        inputValor.focus();
+        if (typeof inputValor.select === "function") {
+          inputValor.select();
+        }
+      };
+
+      const demoAutomatica = async () => {
+        if (state.reproduciendo) return;
+        state.reproduciendo = true;
+        autoBtn.disabled = true;
+        insertarBtn.disabled = true;
+        const serie = [12, 24, 10, 8, 42];
+        for (const numero of serie) {
+          inputValor.value = String(numero);
+          insertar(numero);
+          await new Promise((resolve) => setTimeout(resolve, 700));
+        }
+        logStep("Demo completada: insercion al final aplicada a 12, 24, 10, 8 y 42.");
+        state.reproduciendo = false;
+        autoBtn.disabled = false;
+        insertarBtn.disabled = false;
+      };
+
+      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
+      inputValor.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") insertar(inputValor.value);
+      });
+      autoBtn.addEventListener("click", demoAutomatica);
+      reiniciarBtn.addEventListener("click", () => {
+        state.datos = [];
+        const reinicio = document.createElement("p");
+        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
+        log.replaceChildren(reinicio);
+        render();
+        inputValor.focus();
       });
 
       render();

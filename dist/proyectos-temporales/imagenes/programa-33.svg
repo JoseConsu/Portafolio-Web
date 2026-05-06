@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 33 - Insercion al final en lista enlazada</title>
+  <desc id="desc">Lamina visual con inserciones al final de una lista enlazada simple y salida final en consola.</desc>
+
+  <defs>
+    <linearGradient id="fondo33" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3f7ff" />
+      <stop offset="100%" stop-color="#eefaf5" />
+    </linearGradient>
+    <linearGradient id="cabecera33" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14532d" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <marker id="flecha33" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo33)" />
+  <rect x="0" y="0" width="1439" height="118" fill="url(#cabecera33)" />
+
+  <text x="62" y="74" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="700" fill="#ffffff">
+    Programa temporal 33: Insercion de datos al final de lista enlazada simple
+  </text>
+
+  <text x="68" y="170" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Estado inicial</text>
+  <rect x="68" y="192" width="1298" height="108" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+  <text x="108" y="258" font-family="Courier New, monospace" font-size="31" fill="#111827">inicio -&gt; null</text>
+
+  <text x="68" y="366" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Inserciones al final: 12, 24, 10, 8, 42</text>
+  <rect x="68" y="388" width="1298" height="284" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+
+  <text x="106" y="532" font-family="Courier New, monospace" font-size="30" fill="#0f172a">inicio</text>
+  <line x1="186" y1="520" x2="268" y2="520" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha33)" />
+
+  <rect x="282" y="470" width="162" height="96" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="339" y="526" font-family="Courier New, monospace" font-size="31" fill="#0f172a">12</text>
+  <text x="320" y="590" font-family="Courier New, monospace" font-size="23" fill="#0f172a">siguiente</text>
+  <line x1="446" y1="520" x2="518" y2="520" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha33)" />
+
+  <rect x="532" y="470" width="162" height="96" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="589" y="526" font-family="Courier New, monospace" font-size="31" fill="#0f172a">24</text>
+  <text x="570" y="590" font-family="Courier New, monospace" font-size="23" fill="#0f172a">siguiente</text>
+  <line x1="696" y1="520" x2="768" y2="520" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha33)" />
+
+  <rect x="782" y="470" width="162" height="96" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="839" y="526" font-family="Courier New, monospace" font-size="31" fill="#0f172a">10</text>
+  <text x="820" y="590" font-family="Courier New, monospace" font-size="23" fill="#0f172a">siguiente</text>
+  <line x1="946" y1="520" x2="1018" y2="520" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha33)" />
+
+  <rect x="1032" y="470" width="162" height="96" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="1097" y="526" font-family="Courier New, monospace" font-size="31" fill="#0f172a">8</text>
+  <text x="1070" y="590" font-family="Courier New, monospace" font-size="23" fill="#0f172a">siguiente</text>
+  <line x1="1196" y1="520" x2="1262" y2="520" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha33)" />
+
+  <rect x="1272" y="470" width="88" height="96" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="1288" y="526" font-family="Courier New, monospace" font-size="31" fill="#0f172a">42</text>
+  <text x="1280" y="590" font-family="Courier New, monospace" font-size="23" fill="#0f172a">null</text>
+
+  <text x="68" y="750" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Salida final en consola</text>
+  <rect x="68" y="772" width="1298" height="254" rx="16" fill="#0b1220" />
+  <text x="108" y="838" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Creamos la lista y agregamos elementos al final</text>
+  <text x="108" y="884" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">null</text>
+  <text x="108" y="930" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">12-&gt;24-&gt;10-&gt;8-&gt;42-&gt;null</text>
+  <text x="108" y="976" font-family="Courier New, monospace" font-size="29" fill="#34d399">Orden preservado por insercion al final</text>
+</svg>
