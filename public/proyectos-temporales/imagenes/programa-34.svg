@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 34 - Insercion en posicion deseada</title>
+  <desc id="desc">Lamina visual con insercion en una posicion especifica dentro de una lista enlazada simple y salida de consola.</desc>
+
+  <defs>
+    <linearGradient id="fondo34" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f8ff" />
+      <stop offset="100%" stop-color="#eefcf5" />
+    </linearGradient>
+    <linearGradient id="cabecera34" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14532d" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <marker id="flecha34" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo34)" />
+  <rect x="0" y="0" width="1439" height="118" fill="url(#cabecera34)" />
+
+  <text x="62" y="74" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#ffffff">
+    Programa temporal 34: Insercion en posicion deseada en lista enlazada simple
+  </text>
+
+  <text x="68" y="172" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Estado inicial</text>
+  <rect x="68" y="194" width="1298" height="110" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+  <text x="110" y="260" font-family="Courier New, monospace" font-size="31" fill="#111827">inicio -&gt; null</text>
+
+  <text x="68" y="366" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Lista base: 10, 20, 40</text>
+  <rect x="68" y="388" width="1298" height="252" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+
+  <text x="104" y="516" font-family="Courier New, monospace" font-size="30" fill="#0f172a">inicio</text>
+  <line x1="184" y1="504" x2="260" y2="504" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha34)" />
+
+  <rect x="276" y="454" width="170" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="342" y="514" font-family="Courier New, monospace" font-size="31" fill="#0f172a">10</text>
+  <line x1="446" y1="504" x2="522" y2="504" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha34)" />
+
+  <rect x="538" y="454" width="170" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="604" y="514" font-family="Courier New, monospace" font-size="31" fill="#0f172a">20</text>
+  <line x1="708" y1="504" x2="784" y2="504" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha34)" />
+
+  <rect x="800" y="454" width="170" height="98" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="866" y="514" font-family="Courier New, monospace" font-size="31" fill="#0f172a">40</text>
+  <text x="832" y="578" font-family="Courier New, monospace" font-size="22" fill="#0f172a">null</text>
+
+  <rect x="570" y="586" width="210" height="70" rx="12" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="592" y="630" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#166534">Insertar 30 en posicion 3</text>
+  <line x1="675" y1="586" x2="675" y2="552" stroke="#22c55e" stroke-width="3" stroke-dasharray="8 6" />
+
+  <text x="68" y="716" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Estado final esperado</text>
+  <rect x="68" y="738" width="1298" height="280" rx="16" fill="#0b1220" />
+  <text x="108" y="804" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Lista inicial:</text>
+  <text x="108" y="850" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">10-&gt;20-&gt;40-&gt;null</text>
+  <text x="108" y="896" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Insertando 30 en la posicion 3</text>
+  <text x="108" y="942" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">10-&gt;20-&gt;30-&gt;40-&gt;null</text>
+  <text x="108" y="988" font-family="Courier New, monospace" font-size="29" fill="#34d399">5-&gt;10-&gt;20-&gt;30-&gt;40-&gt;50-&gt;null</text>
+</svg>

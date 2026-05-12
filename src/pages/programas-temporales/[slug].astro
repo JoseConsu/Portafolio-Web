@@ -13,6 +13,7 @@ export function getStaticPaths() {
 }
 
 const { programa } = Astro.props;
+const programaCompleto = programasTemporales.find((item) => item.slug === programa.slug) ?? programa;
 
 async function leerArchivoPublico(rutaPublica: string, contexto: string) {
   const rutaRelativa = normalize(rutaPublica.replace(/^\/+/, ""));
@@ -37,8 +38,11 @@ const codigoPlantilla = await leerArchivoPublico(programa.rutaCodigoPlantilla, `
 
 const esComparativaMergeVsQuick = programa.slug === "programa-23";
 const esSimuladorOrdenamientos = programa.slug === "programa-30";
-const esSimuladorListaEnlazada = programa.slug === "programa-32";
-const esSimuladorListaEnlazadaFinal = programa.slug === "programa-33";
+const simuladorEstructura = programaCompleto.simulador?.tipo === "lista-enlazada-simple" ? programaCompleto.simulador : null;
+const simuladorCRUD = programaCompleto.simulador?.tipo === "lista-enlazada-crud" ? programaCompleto.simulador : null;
+const simuladorLista = simuladorEstructura ?? simuladorCRUD;
+const requiereValor = simuladorEstructura ? ["insertar-vacia", "insertar-inicio", "insertar-final", "insertar-posicion"].includes(simuladorEstructura.operacion) : false;
+const requierePosicion = simuladorEstructura ? ["insertar-posicion", "eliminar-posicion"].includes(simuladorEstructura.operacion) : false;
 const metricasPrograma = metricasProgramas[programa.slug];
 const escenariosOrdenados: ["desordenado", "parcial", "intercalado", "invertido"] = [
   "desordenado",
@@ -558,15 +562,12 @@ const tipoDatoLabels: Record<string, string> = {
       </section>
     )}
 
-    {esSimuladorListaEnlazada && (
+    {simuladorLista && (
       <section class="ds-panel lista-simulador-panel" data-lista-simulador>
         <div class="lista-simulador-head">
           <div>
-            <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true" />Simulador visual: insertar al inicio</h2>
-            <p>
-              Inserta valores para observar la operacion paso a paso: creacion del nodo, enlace con la cabeza actual y
-              reasignacion del puntero <strong>inicio</strong>.
-            </p>
+            <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true" />{simuladorLista.titulo}</h2>
+            <p>{simuladorLista.descripcion}</p>
           </div>
           <span class="sim-badge">Lista enlazada simple</span>
         </div>
@@ -574,16 +575,34 @@ const tipoDatoLabels: Record<string, string> = {
         <div class="lista-simulador-grid">
           <section class="lista-panel lista-panel-config">
             <h3>Controles</h3>
-            <label class="lista-campo" for="lista-valor">
-              <span>Dato a insertar</span>
-              <input id="lista-valor" type="number" value="42" step="1" />
-            </label>
+            {simuladorCRUD && (
+              <label class="lista-campo" for="lista-operacion">
+                <span>Operación</span>
+                <select id="lista-operacion">
+                  {simuladorCRUD.accionesDisponibles?.map((accion) => <option value={accion.valor}>{accion.etiqueta}</option>)}
+                </select>
+              </label>
+            )}
+            {(requiereValor || simuladorCRUD) && (
+              <label class="lista-campo" for="lista-valor">
+                <span>{simuladorCRUD ? "Dato (si aplica)" : simuladorEstructura?.operacion === "insertar-posicion" ? "Dato a insertar" : "Dato"}</span>
+                <input id="lista-valor" type="number" value={simuladorLista.listaInicial[0] ?? 42} step="1" />
+              </label>
+            )}
+            {(requierePosicion || simuladorCRUD) && (
+              <label class="lista-campo" for="lista-posicion">
+                <span>Posicion</span>
+                <input id="lista-posicion" type="number" value={simuladorCRUD ? 2 : simuladorEstructura?.operacion === "eliminar-posicion" ? 3 : 2} step="1" min="1" />
+              </label>
+            )}
             <div class="lista-actions">
-              <button type="button" class="sim-btn primario" id="lista-insertar">Insertar al inicio</button>
-              <button type="button" class="sim-btn" id="lista-auto">Auto demo</button>
+              <button type="button" class="sim-btn primario" id="lista-accion">{simuladorLista.etiquetaBoton}</button>
+              <button type="button" class="sim-btn" id="lista-auto">{simuladorLista.etiquetaAuto}</button>
+              {simuladorCRUD && <button type="button" class="sim-btn" id="lista-vacia">Lista vacía</button>}
+              {simuladorCRUD && <button type="button" class="sim-btn" id="lista-ejemplo">Cargar ejemplo</button>}
               <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button>
             </div>
-            <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -> null</p>
+            <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -&gt; null</p>
           </section>
 
           <section class="lista-panel lista-panel-visual" aria-live="polite">
@@ -591,61 +610,14 @@ const tipoDatoLabels: Record<string, string> = {
               <h3>Estado actual de la lista</h3>
               <span class="sim-tag" id="lista-total">0 nodos</span>
             </div>
-            <div class="lista-lienzo" id="lista-lienzo"></div>
+            <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista enlazada"></div>
             <p class="lista-salida" id="lista-salida">null</p>
           </section>
 
           <section class="lista-panel lista-panel-log">
             <h3>Registro de ejecucion</h3>
-            <div class="sim-log" id="lista-log">
-              <p>Esperando inserciones...</p>
-            </div>
-          </section>
-        </div>
-      </section>
-    )}
-
-    {esSimuladorListaEnlazadaFinal && (
-      <section class="ds-panel lista-simulador-panel" data-lista-simulador-final>
-        <div class="lista-simulador-head">
-          <div>
-            <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true" />Simulador visual: insertar al final</h2>
-            <p>
-              Inserta valores para observar la operacion paso a paso: creacion del nodo, recorrido desde
-              <strong>inicio</strong> hasta el ultimo nodo y enlace final del nuevo elemento.
-            </p>
-          </div>
-          <span class="sim-badge">Lista enlazada simple</span>
-        </div>
-
-        <div class="lista-simulador-grid">
-          <section class="lista-panel lista-panel-config">
-            <h3>Controles</h3>
-            <label class="lista-campo" for="lista-final-valor">
-              <span>Dato a insertar</span>
-              <input id="lista-final-valor" type="number" value="12" step="1" />
-            </label>
-            <div class="lista-actions" role="group" aria-label="Acciones del simulador de insercion al final">
-              <button type="button" class="sim-btn primario" id="lista-final-insertar">Insertar al final</button>
-              <button type="button" class="sim-btn" id="lista-final-auto">Auto demo</button>
-              <button type="button" class="sim-btn fantasma" id="lista-final-reiniciar">Reiniciar</button>
-            </div>
-            <p class="sim-config-note" id="lista-final-estado" aria-live="polite">Lista inicial: inicio -> null</p>
-          </section>
-
-          <section class="lista-panel lista-panel-visual" aria-live="polite">
-            <div class="sim-table-head">
-              <h3>Estado actual de la lista</h3>
-              <span class="sim-tag" id="lista-final-total">0 nodos</span>
-            </div>
-            <div class="lista-lienzo" id="lista-final-lienzo" role="list" aria-label="Visualizacion de lista enlazada"></div>
-            <p class="lista-salida" id="lista-final-salida">null</p>
-          </section>
-
-          <section class="lista-panel lista-panel-log">
-            <h3>Registro de ejecucion</h3>
-            <div class="sim-log" id="lista-final-log" aria-live="polite">
-              <p>Esperando inserciones...</p>
+            <div class="sim-log" id="lista-log" aria-live="polite">
+              <p>Esperando acciones...</p>
             </div>
           </section>
         </div>
@@ -674,7 +646,7 @@ const tipoDatoLabels: Record<string, string> = {
     )}
   </main>
 
-  <script is:inline>
+  <script is:inline define:vars={{ simuladorLista }}>
     (function setupClipboard() {
       const trigger = document.querySelector(".boton-copiar");
       const codigo = document.querySelector(".cuadro-codigo");
@@ -702,7 +674,7 @@ const tipoDatoLabels: Record<string, string> = {
       });
     })();
 
-    (function setupComparativa() {
+    function initComparativaMergeQuick() {
       const tabla = document.querySelector("#tabla-comparativa");
       if (!tabla) return;
 
@@ -962,9 +934,11 @@ const tipoDatoLabels: Record<string, string> = {
 
       renderizarDefinicionAlgoritmo("merge");
       renderizarComparativa();
-    })();
+    }
 
-    (function setupSimulador() {
+    initComparativaMergeQuick();
+
+    function initSimuladorOrdenamientos() {
       const root = document.querySelector("[data-simulador]");
       if (!root) return;
 
@@ -1922,7 +1896,9 @@ const tipoDatoLabels: Record<string, string> = {
       actualizarEtiquetaEscenario();
       renderDescripcion();
       resetVista();
-    })();
+    }
+
+    initSimuladorOrdenamientos();
 
     (function setupSortingPlayground() {
       const lab = document.querySelector(".simulator-lab");
@@ -2514,27 +2490,35 @@ const tipoDatoLabels: Record<string, string> = {
       resetBtn?.addEventListener("click", resetAll);
     })();
 
-    (function setupListaEnlazadaSimulador() {
-      const root = document.querySelector("[data-lista-simulador]");
+    function initListaEnlazadaSimulador(config) {
+      const root = document.querySelector(config.rootSelector);
       if (!root) return;
 
-      const inputValor = root.querySelector("#lista-valor");
-      const insertarBtn = root.querySelector("#lista-insertar");
-      const autoBtn = root.querySelector("#lista-auto");
-      const reiniciarBtn = root.querySelector("#lista-reiniciar");
-      const estado = root.querySelector("#lista-estado");
-      const total = root.querySelector("#lista-total");
-      const lienzo = root.querySelector("#lista-lienzo");
-      const salida = root.querySelector("#lista-salida");
-      const log = root.querySelector("#lista-log");
+      const inputValor = root.querySelector(config.selectors.valor);
+      const inputPosicion = root.querySelector(config.selectors.posicion);
+      const operacionSelect = root.querySelector(config.selectors.operacion);
+      const vaciarBtn = root.querySelector(config.selectors.vaciar);
+      const ejemploBtn = root.querySelector(config.selectors.ejemplo);
+      const accionBtn = root.querySelector(config.selectors.accion);
+      const autoBtn = root.querySelector(config.selectors.auto);
+      const reiniciarBtn = root.querySelector(config.selectors.reiniciar);
+      const estado = root.querySelector(config.selectors.estado);
+      const total = root.querySelector(config.selectors.total);
+      const lienzo = root.querySelector(config.selectors.lienzo);
+      const salida = root.querySelector(config.selectors.salida);
+      const log = root.querySelector(config.selectors.log);
 
-      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
+      if (!accionBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
         return;
       }
 
       const state = {
-        datos: [],
-        reproduciendo: false
+        datos: [...(config.listaInicial ?? [])],
+        reproduciendo: false,
+        ejecutandoAccion: false,
+        indiceActivo: 0,
+        indiceEnProceso: null,
+        indiceEliminado: null,
       };
 
       const logStep = (texto) => {
@@ -2547,15 +2531,21 @@ const tipoDatoLabels: Record<string, string> = {
         }
       };
 
+      const refrescarEstado = () => {
+        estado.textContent = state.datos.length > 0
+          ? `Lista actual: ${state.datos.join(" -> ")} -> null`
+          : "Lista inicial: inicio -> null";
+      };
+
       const render = () => {
         total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
         salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
-        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
+        refrescarEstado();
 
         if (state.datos.length === 0) {
           const placeholder = document.createElement("p");
           placeholder.className = "sim-placeholder";
-          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
+          placeholder.textContent = "Aun no hay nodos. Ejecuta una accion para comenzar.";
           lienzo.replaceChildren(placeholder);
           return;
         }
@@ -2565,6 +2555,7 @@ const tipoDatoLabels: Record<string, string> = {
         inicioTag.className = "lista-inicio-tag";
         inicioTag.textContent = "inicio";
         elementos.push(inicioTag);
+
         const inicioFlecha = document.createElement("span");
         inicioFlecha.className = "lista-flecha";
         inicioFlecha.setAttribute("aria-hidden", "true");
@@ -2573,137 +2564,40 @@ const tipoDatoLabels: Record<string, string> = {
 
         state.datos.forEach((valor, idx) => {
           const nodo = document.createElement("div");
-          nodo.className = `lista-nodo ${idx === 0 ? "lista-nodo-activo" : ""}`;
-          const dato = document.createElement("span");
-          dato.className = "lista-nodo-dato";
-          dato.textContent = String(valor);
-          const next = document.createElement("span");
-          next.className = "lista-nodo-next";
-          next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
-          nodo.append(dato, next);
-          elementos.push(nodo);
-
-          if (idx < state.datos.length - 1) {
-            const flecha = document.createElement("span");
-            flecha.className = "lista-flecha";
-            flecha.setAttribute("aria-hidden", "true");
-            flecha.textContent = "→";
-            elementos.push(flecha);
-          }
-        });
-
-        lienzo.replaceChildren(...elementos);
-      };
-
-      const insertar = (valor) => {
-        const dato = Number(valor);
-        if (!Number.isFinite(dato)) return;
-        state.datos.unshift(dato);
-        logStep(`Nodo nuevo (${dato}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
-        render();
-      };
-
-      const demoAutomatica = async () => {
-        if (state.reproduciendo) return;
-        state.reproduciendo = true;
-        autoBtn.disabled = true;
-        insertarBtn.disabled = true;
-        const serie = [42, 50, 12, 32];
-        for (const numero of serie) {
-          inputValor.value = String(numero);
-          insertar(numero);
-          await new Promise((resolve) => setTimeout(resolve, 700));
-        }
-        logStep("Demo completada: insercion al inicio aplicada a 42, 50, 12 y 32.");
-        state.reproduciendo = false;
-        autoBtn.disabled = false;
-        insertarBtn.disabled = false;
-      };
-
-      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
-      inputValor.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") insertar(inputValor.value);
-      });
-      autoBtn.addEventListener("click", demoAutomatica);
-      reiniciarBtn.addEventListener("click", () => {
-        state.datos = [];
-        const reinicio = document.createElement("p");
-        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
-        log.replaceChildren(reinicio);
-        render();
-      });
-
-      render();
-    })();
-
-    (function setupListaEnlazadaFinalSimulador() {
-      const root = document.querySelector("[data-lista-simulador-final]");
-      if (!root) return;
-
-      const inputValor = root.querySelector("#lista-final-valor");
-      const insertarBtn = root.querySelector("#lista-final-insertar");
-      const autoBtn = root.querySelector("#lista-final-auto");
-      const reiniciarBtn = root.querySelector("#lista-final-reiniciar");
-      const estado = root.querySelector("#lista-final-estado");
-      const total = root.querySelector("#lista-final-total");
-      const lienzo = root.querySelector("#lista-final-lienzo");
-      const salida = root.querySelector("#lista-final-salida");
-      const log = root.querySelector("#lista-final-log");
-
-      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
-        return;
-      }
-
-      const state = {
-        datos: [],
-        reproduciendo: false
-      };
-
-      const logStep = (texto) => {
-        const p = document.createElement("p");
-        p.textContent = texto;
-        log.prepend(p);
-        const entradas = log.querySelectorAll("p");
-        if (entradas.length > 12) {
-          entradas[entradas.length - 1].remove();
-        }
-      };
-
-      const render = () => {
-        total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
-        salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
-        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
-
-        if (state.datos.length === 0) {
-          const placeholder = document.createElement("p");
-          placeholder.className = "sim-placeholder";
-          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
-          lienzo.replaceChildren(placeholder);
-          return;
-        }
-
-        const elementos = [];
-        const inicioTag = document.createElement("div");
-        inicioTag.className = "lista-inicio-tag";
-        inicioTag.textContent = "inicio";
-        elementos.push(inicioTag);
-        const inicioFlecha = document.createElement("span");
-        inicioFlecha.className = "lista-flecha";
-        inicioFlecha.setAttribute("aria-hidden", "true");
-        inicioFlecha.textContent = "→";
-        elementos.push(inicioFlecha);
-
-        state.datos.forEach((valor, idx) => {
-          const nodo = document.createElement("div");
-          nodo.className = `lista-nodo ${idx === state.datos.length - 1 ? "lista-nodo-activo" : ""}`;
+          const clases = ["lista-nodo"];
+          if (idx === state.indiceActivo) clases.push("lista-nodo-activo");
+          if (idx === state.indiceEnProceso) clases.push("lista-nodo-en-proceso");
+          if (idx === state.indiceEliminado) clases.push("lista-nodo-eliminado");
+          nodo.className = clases.join(" ");
           nodo.setAttribute("role", "listitem");
+          if (idx === state.indiceEnProceso) {
+            nodo.setAttribute("aria-current", "true");
+          }
+
+          if (idx === state.indiceEnProceso) {
+            const marca = document.createElement("span");
+            marca.className = "lista-nodo-marca";
+            marca.textContent = "actual";
+            nodo.append(marca);
+          }
+
           const dato = document.createElement("span");
           dato.className = "lista-nodo-dato";
           dato.textContent = String(valor);
+
           const next = document.createElement("span");
           next.className = "lista-nodo-next";
           next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
+
           nodo.append(dato, next);
+
+          if (idx === state.indiceEliminado) {
+            const marcaEliminado = document.createElement("span");
+            marcaEliminado.className = "lista-nodo-marca lista-nodo-marca--danger";
+            marcaEliminado.textContent = "eliminado";
+            nodo.append(marcaEliminado);
+          }
+
           elementos.push(nodo);
 
           if (idx < state.datos.length - 1) {
@@ -2718,26 +2612,225 @@ const tipoDatoLabels: Record<string, string> = {
         lienzo.replaceChildren(...elementos);
       };
 
-      const insertar = (valor) => {
-        const dato = Number(valor);
-        if (!Number.isFinite(dato)) {
-          logStep("Entrada invalida: solo se permiten numeros.");
-          return;
-        }
+      const normalizarNumero = (valor) => {
+        const numero = Number(valor);
+        return Number.isFinite(numero) ? Math.trunc(numero) : null;
+      };
 
-        if (state.datos.length === 0) {
-          state.datos.push(dato);
-          logStep(`Lista vacia: inicio = nuevoNodo(${dato}).`);
-        } else {
-          const ultimoActual = state.datos[state.datos.length - 1];
-          state.datos.push(dato);
-          logStep(`Recorrido completado hasta ${ultimoActual}. Enlace final: ultimo.siguiente = nuevoNodo(${dato}).`);
-        }
+      const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+      const limpiarMarcadores = () => {
+        state.indiceEnProceso = null;
+        state.indiceEliminado = null;
+      };
+
+      const establecerLista = (datos) => {
+        state.datos = [...datos];
+        state.indiceActivo = state.datos.length > 0 ? 0 : 0;
+        limpiarMarcadores();
         render();
-        inputValor.focus();
-        if (typeof inputValor.select === "function") {
-          inputValor.select();
+      };
+
+      const ejecutarAccion = async (accion = {}) => {
+        if (state.ejecutandoAccion) return;
+        state.ejecutandoAccion = true;
+        accionBtn.disabled = true;
+        autoBtn.disabled = true;
+
+        const valor = normalizarNumero(accion.valor ?? inputValor?.value);
+        const posicion = normalizarNumero(accion.posicion ?? inputPosicion?.value);
+        const operacionActual = config.tipo === "lista-enlazada-crud"
+          ? (accion.operacion ?? operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
+          : (config.operacion ?? "insertar-inicio");
+
+        try {
+          switch (operacionActual) {
+            case "insertar-vacia": {
+              if (state.datos.length > 0) {
+                logStep("La lista ya tiene un nodo. Reinicia para volver a insertar en una lista vacia.");
+                return;
+              }
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-inicio": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              logStep(accion.mensaje ?? `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-final": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.push(valor);
+              state.indiceActivo = state.datos.length - 1;
+              state.indiceEnProceso = state.indiceActivo;
+              logStep(accion.mensaje ?? `El nodo ${valor} se enlaza al final.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-posicion": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (state.datos.length === 0 || destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.unshift(valor);
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                logStep(accion.mensaje ?? `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.push(valor);
+                state.indiceActivo = state.datos.length - 1;
+                state.indiceEnProceso = state.indiceActivo;
+                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.splice(destino - 1, 0, valor);
+              state.indiceActivo = destino - 1;
+              state.indiceEnProceso = destino - 1;
+              logStep(accion.mensaje ?? `El nodo ${valor} se inserta en la posicion ${destino}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-inicio": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = 0;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.shift();
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} del inicio.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-final": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = state.datos.length - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.pop();
+              state.indiceActivo = Math.max(0, state.datos.length - 1);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el ultimo nodo ${eliminado}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-posicion": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = 0;
+                render();
+                await esperar(450);
+                const eliminado = state.datos.shift();
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                logStep(accion.mensaje ?? `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, no se realiza eliminacion.`);
+                return;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = destino - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.splice(destino - 1, 1)[0];
+              state.indiceActivo = Math.max(0, destino - 2);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} de la posicion ${destino}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            default:
+              return;
+          }
+
+          render();
+          if (inputValor) {
+            inputValor.focus();
+            if (typeof inputValor.select === "function") {
+              inputValor.select();
+            }
+          }
+        } finally {
+          state.ejecutandoAccion = false;
+          if (!state.reproduciendo) {
+            accionBtn.disabled = false;
+            autoBtn.disabled = false;
+          }
         }
       };
 
@@ -2745,35 +2838,68 @@ const tipoDatoLabels: Record<string, string> = {
         if (state.reproduciendo) return;
         state.reproduciendo = true;
         autoBtn.disabled = true;
-        insertarBtn.disabled = true;
-        const serie = [12, 24, 10, 8, 42];
-        for (const numero of serie) {
-          inputValor.value = String(numero);
-          insertar(numero);
+        accionBtn.disabled = true;
+        for (const accion of config.demoAcciones) {
+          if (inputValor && accion.valor !== undefined) {
+            inputValor.value = String(accion.valor);
+          }
+          if (inputPosicion && accion.posicion !== undefined) {
+            inputPosicion.value = String(accion.posicion);
+          }
+          await ejecutarAccion(accion);
           await new Promise((resolve) => setTimeout(resolve, 700));
         }
-        logStep("Demo completada: insercion al final aplicada a 12, 24, 10, 8 y 42.");
+        logStep("Demo completada.");
         state.reproduciendo = false;
         autoBtn.disabled = false;
-        insertarBtn.disabled = false;
+        accionBtn.disabled = false;
       };
 
-      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
-      inputValor.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") insertar(inputValor.value);
+      accionBtn.addEventListener("click", () => ejecutarAccion());
+      inputValor?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
+      });
+      inputPosicion?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
       });
       autoBtn.addEventListener("click", demoAutomatica);
+      vaciarBtn?.addEventListener("click", () => establecerLista([]));
+      ejemploBtn?.addEventListener("click", () => establecerLista(config.listaInicial ?? []));
       reiniciarBtn.addEventListener("click", () => {
-        state.datos = [];
+        establecerLista(config.listaInicial ?? []);
         const reinicio = document.createElement("p");
-        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
+        reinicio.textContent = "Lista reiniciada.";
         log.replaceChildren(reinicio);
         render();
-        inputValor.focus();
       });
 
       render();
-    })();
+    }
+
+    if (simuladorLista) {
+      initListaEnlazadaSimulador({
+        rootSelector: "[data-lista-simulador]",
+        selectors: {
+          valor: "#lista-valor",
+          posicion: "#lista-posicion",
+          operacion: "#lista-operacion",
+          vaciar: "#lista-vacia",
+          ejemplo: "#lista-ejemplo",
+          accion: "#lista-accion",
+          auto: "#lista-auto",
+          reiniciar: "#lista-reiniciar",
+          estado: "#lista-estado",
+          total: "#lista-total",
+          lienzo: "#lista-lienzo",
+          salida: "#lista-salida",
+          log: "#lista-log"
+        },
+        tipo: simuladorLista.tipo,
+        operacion: simuladorLista.operacion,
+        listaInicial: simuladorLista.listaInicial,
+        demoAcciones: simuladorLista.demoAcciones
+      });
+    }
   </script>
 
 </BaseLayout>

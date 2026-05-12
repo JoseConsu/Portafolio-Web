@@ -1,0 +1,101 @@
+import java.util.*;
+
+/*
+ * Programa temporal 35: Eliminacion al inicio en lista enlazada simple
+ *
+ * Objetivo:
+ * Eliminar el primer nodo de una lista enlazada simple y mostrar
+ * como cambia el puntero inicio despues de cada operacion.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    void insertarAlFinal(int dato) {
+        Nodo nodoNuevo = new Nodo(dato);
+
+        if (inicio == null) {
+            inicio = nodoNuevo;
+            return;
+        }
+
+        Nodo temp = inicio;
+        while (temp.siguiente != null) {
+            temp = temp.siguiente;
+        }
+
+        temp.siguiente = nodoNuevo;
+    }
+
+    void eliminarAlInicio() {
+        if (inicio == null) {
+            System.out.println("La lista esta vacia. No se puede eliminar.");
+            return;
+        }
+
+        inicio = inicio.siguiente;
+    }
+
+    void mostrarLista() {
+        Nodo temp = inicio;
+
+        while (temp != null) {
+            System.out.print(temp.dato + "->");
+            temp = temp.siguiente;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) throws Exception {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        lista.insertarAlFinal(11);
+        lista.insertarAlFinal(22);
+        lista.insertarAlFinal(33);
+        lista.insertarAlFinal(44);
+
+        System.out.println("Lista inicial:");
+        lista.mostrarLista();
+
+        System.out.println("Eliminando el primer nodo");
+        lista.eliminarAlInicio();
+        lista.mostrarLista();
+
+        System.out.println("Eliminando nuevamente al inicio");
+        lista.eliminarAlInicio();
+        lista.mostrarLista();
+
+        System.out.println("Eliminando hasta vaciar la lista");
+        lista.eliminarAlInicio();
+        lista.eliminarAlInicio();
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+11->22->33->44->null
+Eliminando el primer nodo
+22->33->44->null
+Eliminando nuevamente al inicio
+33->44->null
+Eliminando hasta vaciar la lista
+null
+*/

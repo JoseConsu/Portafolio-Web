@@ -1,0 +1,129 @@
+import java.util.*;
+
+/*
+ * Programa temporal 36: Eliminacion en posicion deseada en lista enlazada simple
+ *
+ * Objetivo:
+ * Eliminar el nodo ubicado en una posicion indicada y mostrar
+ * como se ajustan los enlaces de la lista.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    void insertarAlFinal(int dato) {
+        Nodo nodoNuevo = new Nodo(dato);
+
+        if (inicio == null) {
+            inicio = nodoNuevo;
+            return;
+        }
+
+        Nodo temp = inicio;
+        while (temp.siguiente != null) {
+            temp = temp.siguiente;
+        }
+
+        temp.siguiente = nodoNuevo;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (inicio == null) {
+            System.out.println("La lista esta vacia. No se puede eliminar.");
+            return;
+        }
+
+        if (posicion <= 1) {
+            System.out.println("La posicion es 1, se elimina el inicio.");
+            inicio = inicio.siguiente;
+            return;
+        }
+
+        int tamano = 0;
+        Nodo contador = inicio;
+        while (contador != null) {
+            tamano++;
+            contador = contador.siguiente;
+        }
+
+        if (posicion > tamano) {
+            System.out.println("La posicion supera el tamano de la lista. No se realiza eliminacion.");
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        Nodo eliminado = actual.siguiente;
+        actual.siguiente = eliminado.siguiente;
+        System.out.println("Eliminado: " + eliminado.dato + " en la posicion " + posicion);
+    }
+
+    void mostrarLista() {
+        Nodo temp = inicio;
+
+        while (temp != null) {
+            System.out.print(temp.dato + "->");
+            temp = temp.siguiente;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) throws Exception {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        lista.insertarAlFinal(9);
+        lista.insertarAlFinal(18);
+        lista.insertarAlFinal(27);
+        lista.insertarAlFinal(36);
+        lista.insertarAlFinal(45);
+
+        System.out.println("Lista inicial:");
+        lista.mostrarLista();
+
+        System.out.println("Eliminando en posicion 3");
+        lista.eliminarEnPosicion(3);
+        lista.mostrarLista();
+
+        System.out.println("Eliminando en posicion 1");
+        lista.eliminarEnPosicion(1);
+        lista.mostrarLista();
+
+        System.out.println("Intentando eliminar en posicion 9");
+        lista.eliminarEnPosicion(9);
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+9->18->27->36->45->null
+Eliminando en posicion 3
+Eliminado: 27 en la posicion 3
+9->18->36->45->null
+Eliminando en posicion 1
+La posicion es 1, se elimina el inicio.
+18->36->45->null
+Intentando eliminar en posicion 9
+La posicion supera el tamano de la lista. No se realiza eliminacion.
+18->36->45->null
+*/

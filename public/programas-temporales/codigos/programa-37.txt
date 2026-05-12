@@ -1,0 +1,163 @@
+import java.util.*;
+
+/*
+ * Programa temporal 37: Lista enlazada CRUD en Java
+ *
+ * Objetivo:
+ * Crear una lista desde cero o con datos precargados y permitir inserciones
+ * y eliminaciones al inicio, al final y en una posicion deseada.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    void insertarAlInicio(int dato) {
+        Nodo nuevo = new Nodo(dato);
+        nuevo.siguiente = inicio;
+        inicio = nuevo;
+    }
+
+    void insertarAlFinal(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (inicio == null) {
+            inicio = nuevo;
+            return;
+        }
+
+        Nodo actual = inicio;
+        while (actual.siguiente != null) {
+            actual = actual.siguiente;
+        }
+        actual.siguiente = nuevo;
+    }
+
+    void insertarEnPosicion(int dato, int posicion) {
+        if (posicion <= 1 || inicio == null) {
+            insertarAlInicio(dato);
+            return;
+        }
+
+        int indice = 1;
+        Nodo actual = inicio;
+        while (actual.siguiente != null && indice < posicion - 1) {
+            actual = actual.siguiente;
+            indice++;
+        }
+
+        Nodo nuevo = new Nodo(dato);
+        nuevo.siguiente = actual.siguiente;
+        actual.siguiente = nuevo;
+    }
+
+    void eliminarAlInicio() {
+        if (inicio != null) {
+            inicio = inicio.siguiente;
+        }
+    }
+
+    void eliminarAlFinal() {
+        if (inicio == null) return;
+        if (inicio.siguiente == null) {
+            inicio = null;
+            return;
+        }
+
+        Nodo actual = inicio;
+        while (actual.siguiente != null && actual.siguiente.siguiente != null) {
+            actual = actual.siguiente;
+        }
+        actual.siguiente = null;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (inicio == null) return;
+        if (posicion <= 1) {
+            inicio = inicio.siguiente;
+            return;
+        }
+
+        int tamano = 0;
+        Nodo contador = inicio;
+        while (contador != null) {
+            tamano++;
+            contador = contador.siguiente;
+        }
+
+        if (posicion > tamano) {
+            System.out.println("Posicion invalida: no se realiza eliminacion.");
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        actual.siguiente = actual.siguiente.siguiente;
+    }
+
+    void mostrarLista() {
+        Nodo actual = inicio;
+        while (actual != null) {
+            System.out.print(actual.dato + "->");
+            actual = actual.siguiente;
+        }
+        System.out.println("null");
+    }
+}
+
+public class ListaCRUD {
+    static ListaEnlazada crearListaEjemplo() {
+        ListaEnlazada lista = new ListaEnlazada();
+        lista.insertarAlFinal(15);
+        lista.insertarAlFinal(30);
+        lista.insertarAlFinal(45);
+        return lista;
+    }
+
+    public static void main(String[] args) {
+        ListaEnlazada vacia = new ListaEnlazada();
+        System.out.println("Lista vacia:");
+        vacia.mostrarLista();
+
+        ListaEnlazada lista = crearListaEjemplo();
+        System.out.println("Lista precargada:");
+        lista.mostrarLista();
+
+        lista.insertarAlInicio(10);
+        lista.insertarAlFinal(60);
+        lista.insertarEnPosicion(25, 3);
+        lista.eliminarAlInicio();
+        lista.eliminarAlFinal();
+        lista.eliminarEnPosicion(2);
+
+        System.out.println("Lista final:");
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista vacia:
+null
+Lista precargada:
+15->30->45->null
+Lista final:
+30->45->null
+*/

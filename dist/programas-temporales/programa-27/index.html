@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.FAbGvvfh.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 27: Bucket Sort con strings y metricas completas</h1> <p>Programa Java con Bucket Sort para cadenas en tamanos 10, 50 y 200, evaluando casos desorganizados, parcialmente organizados e invertidos con tiempo, memoria, comparaciones, movimientos e iteraciones.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 27: Bucket Sort con strings y metricas completas</h1> <p>Programa Java con Bucket Sort para cadenas en tamanos 10, 50 y 200, evaluando casos desorganizados, parcialmente organizados e invertidos con tiempo, memoria, comparaciones, movimientos e iteraciones.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
 Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo cadenas de texto.
@@ -240,9 +240,10 @@ Escenario: ORDEN INVERTIDO
     Entrada: Arreglo de cadenas orden invertido (1000 elementos)
     Salida: Cadenas ordenadas alfabeticamente (total 1000)
 === FIN_ESCENARIOS_AUTOGENERADOS === */
-</code></pre> </section>     <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
-</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-27.svg" alt="Imagen de salida de Programa temporal 27: Bucket Sort con strings y metricas completas" loading="lazy" decoding="async"> </div> </section> </main> <script>
+</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-27.svg" alt="Imagen de salida de Programa temporal 27: Bucket Sort con strings y metricas completas" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = null;
+
     (function setupClipboard() {
       const trigger = document.querySelector(".boton-copiar");
       const codigo = document.querySelector(".cuadro-codigo");
@@ -270,7 +271,7 @@ Imagen de salida
       });
     })();
 
-    (function setupComparativa() {
+    function initComparativaMergeQuick() {
       const tabla = document.querySelector("#tabla-comparativa");
       if (!tabla) return;
 
@@ -530,9 +531,11 @@ Imagen de salida
 
       renderizarDefinicionAlgoritmo("merge");
       renderizarComparativa();
-    })();
+    }
 
-    (function setupSimulador() {
+    initComparativaMergeQuick();
+
+    function initSimuladorOrdenamientos() {
       const root = document.querySelector("[data-simulador]");
       if (!root) return;
 
@@ -1490,7 +1493,9 @@ Imagen de salida
       actualizarEtiquetaEscenario();
       renderDescripcion();
       resetVista();
-    })();
+    }
+
+    initSimuladorOrdenamientos();
 
     (function setupSortingPlayground() {
       const lab = document.querySelector(".simulator-lab");
@@ -2082,27 +2087,35 @@ Imagen de salida
       resetBtn?.addEventListener("click", resetAll);
     })();
 
-    (function setupListaEnlazadaSimulador() {
-      const root = document.querySelector("[data-lista-simulador]");
+    function initListaEnlazadaSimulador(config) {
+      const root = document.querySelector(config.rootSelector);
       if (!root) return;
 
-      const inputValor = root.querySelector("#lista-valor");
-      const insertarBtn = root.querySelector("#lista-insertar");
-      const autoBtn = root.querySelector("#lista-auto");
-      const reiniciarBtn = root.querySelector("#lista-reiniciar");
-      const estado = root.querySelector("#lista-estado");
-      const total = root.querySelector("#lista-total");
-      const lienzo = root.querySelector("#lista-lienzo");
-      const salida = root.querySelector("#lista-salida");
-      const log = root.querySelector("#lista-log");
+      const inputValor = root.querySelector(config.selectors.valor);
+      const inputPosicion = root.querySelector(config.selectors.posicion);
+      const operacionSelect = root.querySelector(config.selectors.operacion);
+      const vaciarBtn = root.querySelector(config.selectors.vaciar);
+      const ejemploBtn = root.querySelector(config.selectors.ejemplo);
+      const accionBtn = root.querySelector(config.selectors.accion);
+      const autoBtn = root.querySelector(config.selectors.auto);
+      const reiniciarBtn = root.querySelector(config.selectors.reiniciar);
+      const estado = root.querySelector(config.selectors.estado);
+      const total = root.querySelector(config.selectors.total);
+      const lienzo = root.querySelector(config.selectors.lienzo);
+      const salida = root.querySelector(config.selectors.salida);
+      const log = root.querySelector(config.selectors.log);
 
-      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
+      if (!accionBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
         return;
       }
 
       const state = {
-        datos: [],
-        reproduciendo: false
+        datos: [...(config.listaInicial ?? [])],
+        reproduciendo: false,
+        ejecutandoAccion: false,
+        indiceActivo: 0,
+        indiceEnProceso: null,
+        indiceEliminado: null,
       };
 
       const logStep = (texto) => {
@@ -2115,15 +2128,21 @@ Imagen de salida
         }
       };
 
+      const refrescarEstado = () => {
+        estado.textContent = state.datos.length > 0
+          ? `Lista actual: ${state.datos.join(" -> ")} -> null`
+          : "Lista inicial: inicio -> null";
+      };
+
       const render = () => {
         total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
         salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
-        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
+        refrescarEstado();
 
         if (state.datos.length === 0) {
           const placeholder = document.createElement("p");
           placeholder.className = "sim-placeholder";
-          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
+          placeholder.textContent = "Aun no hay nodos. Ejecuta una accion para comenzar.";
           lienzo.replaceChildren(placeholder);
           return;
         }
@@ -2133,6 +2152,7 @@ Imagen de salida
         inicioTag.className = "lista-inicio-tag";
         inicioTag.textContent = "inicio";
         elementos.push(inicioTag);
+
         const inicioFlecha = document.createElement("span");
         inicioFlecha.className = "lista-flecha";
         inicioFlecha.setAttribute("aria-hidden", "true");
@@ -2141,137 +2161,40 @@ Imagen de salida
 
         state.datos.forEach((valor, idx) => {
           const nodo = document.createElement("div");
-          nodo.className = `lista-nodo ${idx === 0 ? "lista-nodo-activo" : ""}`;
-          const dato = document.createElement("span");
-          dato.className = "lista-nodo-dato";
-          dato.textContent = String(valor);
-          const next = document.createElement("span");
-          next.className = "lista-nodo-next";
-          next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
-          nodo.append(dato, next);
-          elementos.push(nodo);
-
-          if (idx < state.datos.length - 1) {
-            const flecha = document.createElement("span");
-            flecha.className = "lista-flecha";
-            flecha.setAttribute("aria-hidden", "true");
-            flecha.textContent = "→";
-            elementos.push(flecha);
-          }
-        });
-
-        lienzo.replaceChildren(...elementos);
-      };
-
-      const insertar = (valor) => {
-        const dato = Number(valor);
-        if (!Number.isFinite(dato)) return;
-        state.datos.unshift(dato);
-        logStep(`Nodo nuevo (${dato}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
-        render();
-      };
-
-      const demoAutomatica = async () => {
-        if (state.reproduciendo) return;
-        state.reproduciendo = true;
-        autoBtn.disabled = true;
-        insertarBtn.disabled = true;
-        const serie = [42, 50, 12, 32];
-        for (const numero of serie) {
-          inputValor.value = String(numero);
-          insertar(numero);
-          await new Promise((resolve) => setTimeout(resolve, 700));
-        }
-        logStep("Demo completada: insercion al inicio aplicada a 42, 50, 12 y 32.");
-        state.reproduciendo = false;
-        autoBtn.disabled = false;
-        insertarBtn.disabled = false;
-      };
-
-      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
-      inputValor.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") insertar(inputValor.value);
-      });
-      autoBtn.addEventListener("click", demoAutomatica);
-      reiniciarBtn.addEventListener("click", () => {
-        state.datos = [];
-        const reinicio = document.createElement("p");
-        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
-        log.replaceChildren(reinicio);
-        render();
-      });
-
-      render();
-    })();
-
-    (function setupListaEnlazadaFinalSimulador() {
-      const root = document.querySelector("[data-lista-simulador-final]");
-      if (!root) return;
-
-      const inputValor = root.querySelector("#lista-final-valor");
-      const insertarBtn = root.querySelector("#lista-final-insertar");
-      const autoBtn = root.querySelector("#lista-final-auto");
-      const reiniciarBtn = root.querySelector("#lista-final-reiniciar");
-      const estado = root.querySelector("#lista-final-estado");
-      const total = root.querySelector("#lista-final-total");
-      const lienzo = root.querySelector("#lista-final-lienzo");
-      const salida = root.querySelector("#lista-final-salida");
-      const log = root.querySelector("#lista-final-log");
-
-      if (!inputValor || !insertarBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
-        return;
-      }
-
-      const state = {
-        datos: [],
-        reproduciendo: false
-      };
-
-      const logStep = (texto) => {
-        const p = document.createElement("p");
-        p.textContent = texto;
-        log.prepend(p);
-        const entradas = log.querySelectorAll("p");
-        if (entradas.length > 12) {
-          entradas[entradas.length - 1].remove();
-        }
-      };
-
-      const render = () => {
-        total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
-        salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
-        estado.textContent = state.datos.length > 0 ? `inicio -> ${state.datos[0]}` : "Lista inicial: inicio -> null";
-
-        if (state.datos.length === 0) {
-          const placeholder = document.createElement("p");
-          placeholder.className = "sim-placeholder";
-          placeholder.textContent = "Aun no hay nodos. Inserta un valor para comenzar.";
-          lienzo.replaceChildren(placeholder);
-          return;
-        }
-
-        const elementos = [];
-        const inicioTag = document.createElement("div");
-        inicioTag.className = "lista-inicio-tag";
-        inicioTag.textContent = "inicio";
-        elementos.push(inicioTag);
-        const inicioFlecha = document.createElement("span");
-        inicioFlecha.className = "lista-flecha";
-        inicioFlecha.setAttribute("aria-hidden", "true");
-        inicioFlecha.textContent = "→";
-        elementos.push(inicioFlecha);
-
-        state.datos.forEach((valor, idx) => {
-          const nodo = document.createElement("div");
-          nodo.className = `lista-nodo ${idx === state.datos.length - 1 ? "lista-nodo-activo" : ""}`;
+          const clases = ["lista-nodo"];
+          if (idx === state.indiceActivo) clases.push("lista-nodo-activo");
+          if (idx === state.indiceEnProceso) clases.push("lista-nodo-en-proceso");
+          if (idx === state.indiceEliminado) clases.push("lista-nodo-eliminado");
+          nodo.className = clases.join(" ");
           nodo.setAttribute("role", "listitem");
+          if (idx === state.indiceEnProceso) {
+            nodo.setAttribute("aria-current", "true");
+          }
+
+          if (idx === state.indiceEnProceso) {
+            const marca = document.createElement("span");
+            marca.className = "lista-nodo-marca";
+            marca.textContent = "actual";
+            nodo.append(marca);
+          }
+
           const dato = document.createElement("span");
           dato.className = "lista-nodo-dato";
           dato.textContent = String(valor);
+
           const next = document.createElement("span");
           next.className = "lista-nodo-next";
           next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
+
           nodo.append(dato, next);
+
+          if (idx === state.indiceEliminado) {
+            const marcaEliminado = document.createElement("span");
+            marcaEliminado.className = "lista-nodo-marca lista-nodo-marca--danger";
+            marcaEliminado.textContent = "eliminado";
+            nodo.append(marcaEliminado);
+          }
+
           elementos.push(nodo);
 
           if (idx < state.datos.length - 1) {
@@ -2286,26 +2209,225 @@ Imagen de salida
         lienzo.replaceChildren(...elementos);
       };
 
-      const insertar = (valor) => {
-        const dato = Number(valor);
-        if (!Number.isFinite(dato)) {
-          logStep("Entrada invalida: solo se permiten numeros.");
-          return;
-        }
+      const normalizarNumero = (valor) => {
+        const numero = Number(valor);
+        return Number.isFinite(numero) ? Math.trunc(numero) : null;
+      };
 
-        if (state.datos.length === 0) {
-          state.datos.push(dato);
-          logStep(`Lista vacia: inicio = nuevoNodo(${dato}).`);
-        } else {
-          const ultimoActual = state.datos[state.datos.length - 1];
-          state.datos.push(dato);
-          logStep(`Recorrido completado hasta ${ultimoActual}. Enlace final: ultimo.siguiente = nuevoNodo(${dato}).`);
-        }
+      const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+      const limpiarMarcadores = () => {
+        state.indiceEnProceso = null;
+        state.indiceEliminado = null;
+      };
+
+      const establecerLista = (datos) => {
+        state.datos = [...datos];
+        state.indiceActivo = state.datos.length > 0 ? 0 : 0;
+        limpiarMarcadores();
         render();
-        inputValor.focus();
-        if (typeof inputValor.select === "function") {
-          inputValor.select();
+      };
+
+      const ejecutarAccion = async (accion = {}) => {
+        if (state.ejecutandoAccion) return;
+        state.ejecutandoAccion = true;
+        accionBtn.disabled = true;
+        autoBtn.disabled = true;
+
+        const valor = normalizarNumero(accion.valor ?? inputValor?.value);
+        const posicion = normalizarNumero(accion.posicion ?? inputPosicion?.value);
+        const operacionActual = config.tipo === "lista-enlazada-crud"
+          ? (accion.operacion ?? operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
+          : (config.operacion ?? "insertar-inicio");
+
+        try {
+          switch (operacionActual) {
+            case "insertar-vacia": {
+              if (state.datos.length > 0) {
+                logStep("La lista ya tiene un nodo. Reinicia para volver a insertar en una lista vacia.");
+                return;
+              }
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-inicio": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              logStep(accion.mensaje ?? `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-final": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.push(valor);
+              state.indiceActivo = state.datos.length - 1;
+              state.indiceEnProceso = state.indiceActivo;
+              logStep(accion.mensaje ?? `El nodo ${valor} se enlaza al final.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "insertar-posicion": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (state.datos.length === 0 || destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.unshift(valor);
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                logStep(accion.mensaje ?? `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.push(valor);
+                state.indiceActivo = state.datos.length - 1;
+                state.indiceEnProceso = state.indiceActivo;
+                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.splice(destino - 1, 0, valor);
+              state.indiceActivo = destino - 1;
+              state.indiceEnProceso = destino - 1;
+              logStep(accion.mensaje ?? `El nodo ${valor} se inserta en la posicion ${destino}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-inicio": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = 0;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.shift();
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} del inicio.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-final": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = state.datos.length - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.pop();
+              state.indiceActivo = Math.max(0, state.datos.length - 1);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el ultimo nodo ${eliminado}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-posicion": {
+              if (state.datos.length === 0) {
+                logStep("La lista esta vacia. No se puede eliminar.");
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = 0;
+                render();
+                await esperar(450);
+                const eliminado = state.datos.shift();
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                logStep(accion.mensaje ?? `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`);
+                render();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, no se realiza eliminacion.`);
+                return;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = destino - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.splice(destino - 1, 1)[0];
+              state.indiceActivo = Math.max(0, destino - 2);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} de la posicion ${destino}.`);
+              render();
+              await esperar(450);
+              break;
+            }
+            default:
+              return;
+          }
+
+          render();
+          if (inputValor) {
+            inputValor.focus();
+            if (typeof inputValor.select === "function") {
+              inputValor.select();
+            }
+          }
+        } finally {
+          state.ejecutandoAccion = false;
+          if (!state.reproduciendo) {
+            accionBtn.disabled = false;
+            autoBtn.disabled = false;
+          }
         }
       };
 
@@ -2313,33 +2435,66 @@ Imagen de salida
         if (state.reproduciendo) return;
         state.reproduciendo = true;
         autoBtn.disabled = true;
-        insertarBtn.disabled = true;
-        const serie = [12, 24, 10, 8, 42];
-        for (const numero of serie) {
-          inputValor.value = String(numero);
-          insertar(numero);
+        accionBtn.disabled = true;
+        for (const accion of config.demoAcciones) {
+          if (inputValor && accion.valor !== undefined) {
+            inputValor.value = String(accion.valor);
+          }
+          if (inputPosicion && accion.posicion !== undefined) {
+            inputPosicion.value = String(accion.posicion);
+          }
+          await ejecutarAccion(accion);
           await new Promise((resolve) => setTimeout(resolve, 700));
         }
-        logStep("Demo completada: insercion al final aplicada a 12, 24, 10, 8 y 42.");
+        logStep("Demo completada.");
         state.reproduciendo = false;
         autoBtn.disabled = false;
-        insertarBtn.disabled = false;
+        accionBtn.disabled = false;
       };
 
-      insertarBtn.addEventListener("click", () => insertar(inputValor.value));
-      inputValor.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") insertar(inputValor.value);
+      accionBtn.addEventListener("click", () => ejecutarAccion());
+      inputValor?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
+      });
+      inputPosicion?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
       });
       autoBtn.addEventListener("click", demoAutomatica);
+      vaciarBtn?.addEventListener("click", () => establecerLista([]));
+      ejemploBtn?.addEventListener("click", () => establecerLista(config.listaInicial ?? []));
       reiniciarBtn.addEventListener("click", () => {
-        state.datos = [];
+        establecerLista(config.listaInicial ?? []);
         const reinicio = document.createElement("p");
-        reinicio.textContent = "Lista reiniciada. inicio vuelve a null.";
+        reinicio.textContent = "Lista reiniciada.";
         log.replaceChildren(reinicio);
         render();
-        inputValor.focus();
       });
 
       render();
-    })();
-  </script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>
+    }
+
+    if (simuladorLista) {
+      initListaEnlazadaSimulador({
+        rootSelector: "[data-lista-simulador]",
+        selectors: {
+          valor: "#lista-valor",
+          posicion: "#lista-posicion",
+          operacion: "#lista-operacion",
+          vaciar: "#lista-vacia",
+          ejemplo: "#lista-ejemplo",
+          accion: "#lista-accion",
+          auto: "#lista-auto",
+          reiniciar: "#lista-reiniciar",
+          estado: "#lista-estado",
+          total: "#lista-total",
+          lienzo: "#lista-lienzo",
+          salida: "#lista-salida",
+          log: "#lista-log"
+        },
+        tipo: simuladorLista.tipo,
+        operacion: simuladorLista.operacion,
+        listaInicial: simuladorLista.listaInicial,
+        demoAcciones: simuladorLista.demoAcciones
+      });
+    }
+  })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

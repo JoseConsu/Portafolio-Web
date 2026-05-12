@@ -8,11 +8,46 @@ export type ProgramaTemporal = {
   rutaImagenPlantilla: string;
   categoria?: string;
   tags?: string[];
+  simulador?: SimuladorEstructura;
+};
+
+export type SimuladorEstructura = {
+  tipo: "lista-enlazada-simple" | "lista-enlazada-crud";
+  operacion?:
+    | "insertar-vacia"
+    | "insertar-inicio"
+    | "insertar-final"
+    | "insertar-posicion"
+    | "eliminar-inicio"
+    | "eliminar-final"
+    | "eliminar-posicion";
+  titulo: string;
+  descripcion: string;
+  etiquetaBoton: string;
+  etiquetaAuto: string;
+  listaInicial: number[];
+  demoAcciones: Array<{
+    operacion?:
+      | "insertar-vacia"
+      | "insertar-inicio"
+      | "insertar-final"
+      | "insertar-posicion"
+      | "eliminar-inicio"
+      | "eliminar-final"
+      | "eliminar-posicion";
+    valor?: number;
+    posicion?: number;
+    mensaje?: string;
+  }>;
+  accionesDisponibles?: Array<{
+    valor: string;
+    etiqueta: string;
+  }>;
 };
 
 export type EsquemaPrograma = "algoritmos" | "estructuras";
 
-type ConfiguracionPersonalizada = Pick<ProgramaTemporal, "titulo" | "descripcion" | "categoria" | "tags">;
+type ConfiguracionPersonalizada = Pick<ProgramaTemporal, "titulo" | "descripcion" | "categoria" | "tags" | "simulador">;
 
 const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> = {
   1: {
@@ -187,6 +222,16 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       "Programa base de estructuras de datos que muestra la insercion del primer nodo en una lista enlazada vacia, con recorrido visual del puntero inicio, estado null y salida explicada en consola.",
     categoria: "estructuras de datos",
     tags: ["Java", "Lista enlazada", "Nodos"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "insertar-vacia",
+      titulo: "Simulador visual: inserción en lista vacía",
+      descripcion: "Crea el primer nodo y observa como inicio pasa de null a apuntar al nuevo elemento.",
+      etiquetaBoton: "Insertar primer nodo",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [],
+      demoAcciones: [{ valor: 42, mensaje: "La lista estaba vacía, por eso inicio apunta al nuevo nodo 42." }],
+    },
   },
   32: {
     titulo: "Insercion de datos al inicio de una lista enlazada simple en Java",
@@ -194,6 +239,21 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       "Implementacion de lista enlazada simple que inserta nodos al inicio y muestra la evolucion de la lista en consola, ideal para comprender la reasignacion del puntero inicio.",
     categoria: "estructuras de datos",
     tags: ["Java", "Lista enlazada", "Insercion"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "insertar-inicio",
+      titulo: "Simulador visual: insertar al inicio",
+      descripcion: "Agrega un dato al frente de la lista y resalta como el puntero inicio cambia en cada paso.",
+      etiquetaBoton: "Insertar al inicio",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [],
+      demoAcciones: [
+        { valor: 42, mensaje: "42 entra primero y se convierte en la cabeza de la lista." },
+        { valor: 50, mensaje: "50 se enlaza antes de 42." },
+        { valor: 12, mensaje: "12 pasa a ser el nuevo inicio." },
+        { valor: 32, mensaje: "32 queda al frente de toda la estructura." },
+      ],
+    },
   },
   33: {
     titulo: "Insercion al final de una lista enlazada simple en Java",
@@ -201,6 +261,118 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       "Implementacion de lista enlazada simple que agrega nodos al final recorriendo desde inicio hasta el ultimo nodo para enlazar cada nuevo elemento en orden de llegada.",
     categoria: "estructuras de datos",
     tags: ["Java", "Lista enlazada", "Insercion final"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "insertar-final",
+      titulo: "Simulador visual: insertar al final",
+      descripcion: "Recorre la lista desde inicio hasta el ultimo nodo para anexar el nuevo elemento al final.",
+      etiquetaBoton: "Insertar al final",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [],
+      demoAcciones: [
+        { valor: 12, mensaje: "La lista estaba vacía, 12 se convierte en inicio." },
+        { valor: 24, mensaje: "24 se enlaza al final de 12." },
+        { valor: 10, mensaje: "10 queda al final de la lista." },
+        { valor: 8, mensaje: "8 se agrega como ultimo nodo." },
+        { valor: 42, mensaje: "42 cierra la secuencia al final." },
+      ],
+    },
+  },
+  34: {
+    titulo: "Insercion en posicion deseada en lista enlazada simple en Java",
+    descripcion:
+      "Programa Java que inserta nodos en la posicion solicitada dentro de una lista enlazada simple, validando extremos, recorrido del puntero y ajuste de referencias.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "Posicion deseada"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "insertar-posicion",
+      titulo: "Simulador visual: inserción en posición deseada",
+      descripcion: "Inserta un valor en la posición elegida y muestra el recorrido del puntero hasta el punto correcto.",
+      etiquetaBoton: "Insertar en posición",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [10, 20, 40],
+      demoAcciones: [
+        { valor: 30, posicion: 3, mensaje: "30 se inserta entre 20 y 40." },
+        { valor: 5, posicion: 1, mensaje: "5 entra al inicio porque la posición es 1." },
+        { valor: 50, posicion: 20, mensaje: "La posición supera el tamaño, así que el nodo se agrega al final." },
+      ],
+    },
+  },
+  35: {
+    titulo: "Eliminacion al inicio en lista enlazada simple en Java",
+    descripcion:
+      "Programa Java que elimina el primer nodo de una lista enlazada simple, mostrando el cambio del puntero inicio y el estado final de la estructura.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "Eliminacion inicio"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "eliminar-inicio",
+      titulo: "Simulador visual: eliminación al inicio",
+      descripcion: "Retira el primer nodo y hace que el segundo elemento pase a ser el nuevo inicio.",
+      etiquetaBoton: "Eliminar primer nodo",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [11, 22, 33, 44],
+      demoAcciones: [
+        { mensaje: "Se elimina el nodo 11 y 22 pasa a ser inicio." },
+        { mensaje: "Se elimina el nodo 22 y 33 pasa a ser inicio." },
+        { mensaje: "Se elimina el nodo 33 y 44 pasa a ser inicio." },
+        { mensaje: "Se elimina el último nodo y la lista queda vacía." },
+      ],
+    },
+  },
+  36: {
+    titulo: "Eliminacion en posicion deseada en lista enlazada simple en Java",
+    descripcion:
+      "Programa Java que elimina un nodo en la posicion elegida dentro de una lista enlazada simple, validando limites y reencadenando referencias.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "Eliminacion posicion"],
+    simulador: {
+      tipo: "lista-enlazada-simple",
+      operacion: "eliminar-posicion",
+      titulo: "Simulador visual: eliminación en posición deseada",
+      descripcion: "Selecciona una posición y observa cómo el enlace del nodo anterior salta el elemento eliminado.",
+      etiquetaBoton: "Eliminar en posición",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [9, 18, 27, 36, 45],
+      demoAcciones: [
+        { posicion: 3, mensaje: "Se elimina el nodo de la posición 3." },
+        { posicion: 1, mensaje: "La posición 1 elimina el inicio de la lista." },
+        { posicion: 9, mensaje: "La posición supera el tamaño, no se realiza eliminación." },
+      ],
+    },
+  },
+  37: {
+    titulo: "Lista enlazada CRUD en Java",
+    descripcion:
+      "Programa Java interactivo para crear una lista desde cero o precargada, agregar y eliminar nodos al inicio, al final y en posicion, con avisos si la posicion es invalida.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista enlazada", "CRUD"],
+    simulador: {
+      tipo: "lista-enlazada-crud",
+      titulo: "Simulador visual CRUD de lista enlazada",
+      descripcion:
+        "Crea la lista desde cero o carga un ejemplo y luego agrega o elimina nodos al inicio, al final o en una posicion concreta.",
+      etiquetaBoton: "Ejecutar operación",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [15, 30, 45],
+      accionesDisponibles: [
+        { valor: "insertar-inicio", etiqueta: "Insertar al inicio" },
+        { valor: "insertar-final", etiqueta: "Insertar al final" },
+        { valor: "insertar-posicion", etiqueta: "Insertar en posición" },
+        { valor: "eliminar-inicio", etiqueta: "Eliminar al inicio" },
+        { valor: "eliminar-final", etiqueta: "Eliminar al final" },
+        { valor: "eliminar-posicion", etiqueta: "Eliminar en posición" },
+      ],
+      demoAcciones: [
+        { operacion: "insertar-inicio", valor: 10, mensaje: "10 se inserta al inicio." },
+        { operacion: "insertar-final", valor: 60, mensaje: "60 se agrega al final." },
+        { operacion: "insertar-posicion", valor: 25, posicion: 3, mensaje: "25 se inserta en la posición 3." },
+        { operacion: "eliminar-inicio", mensaje: "Se elimina el primer nodo." },
+        { operacion: "eliminar-final", mensaje: "Se elimina el último nodo." },
+        { operacion: "eliminar-posicion", posicion: 2, mensaje: "Se elimina el nodo de la posición 2." },
+      ],
+    },
   },
 };
 
@@ -238,6 +410,10 @@ const ordenProgramasTemporales = [
   31,
   32,
   33,
+  34,
+  35,
+  36,
+  37,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {
@@ -279,6 +455,7 @@ export const programasTemporales: ProgramaTemporal[] = ordenProgramasTemporales.
     rutaImagenPlantilla: `/proyectos-temporales/imagenes/programa-${idFuente}.svg`,
     categoria: configuracion?.categoria ?? categoriaPorDefecto,
     tags: configuracion?.tags ?? tagsPorDefecto,
+    simulador: configuracion?.simulador,
   };
 });
 

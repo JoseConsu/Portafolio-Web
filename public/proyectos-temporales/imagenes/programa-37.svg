@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 37 - Lista enlazada CRUD</title>
+  <desc id="desc">Lamina visual con creación, inserción y eliminación sobre una lista enlazada simple CRUD.</desc>
+
+  <defs>
+    <linearGradient id="fondo37" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f8ff" />
+      <stop offset="100%" stop-color="#eefcf5" />
+    </linearGradient>
+    <linearGradient id="cabecera37" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14532d" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <marker id="flecha37" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo37)" />
+  <rect x="0" y="0" width="1439" height="118" fill="url(#cabecera37)" />
+
+  <text x="62" y="74" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#ffffff">
+    Programa temporal 37: Lista enlazada CRUD en Java
+  </text>
+
+  <text x="68" y="176" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">1) Crear desde cero o cargar ejemplo</text>
+  <rect x="68" y="198" width="1298" height="150" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+  <text x="108" y="256" font-family="Courier New, monospace" font-size="30" fill="#111827">Lista vacia: null</text>
+  <text x="108" y="304" font-family="Courier New, monospace" font-size="30" fill="#111827">Lista precargada: 15 -&gt; 30 -&gt; 45 -&gt; null</text>
+
+  <text x="68" y="416" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">2) Operaciones CRUD</text>
+  <rect x="68" y="438" width="1298" height="246" rx="16" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+  <text x="104" y="526" font-family="Courier New, monospace" font-size="28" fill="#0f172a">inicio</text>
+  <line x1="184" y1="514" x2="260" y2="514" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha37)" />
+
+  <rect x="276" y="464" width="150" height="92" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="332" y="522" font-family="Courier New, monospace" font-size="31" fill="#0f172a">15</text>
+  <line x1="426" y1="510" x2="500" y2="510" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha37)" />
+
+  <rect x="514" y="464" width="150" height="92" rx="12" fill="#dcfce7" stroke="#22c55e" stroke-width="2" />
+  <text x="564" y="522" font-family="Courier New, monospace" font-size="31" fill="#166534">30</text>
+  <line x1="664" y1="510" x2="738" y2="510" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha37)" />
+
+  <rect x="752" y="464" width="150" height="92" rx="12" fill="#e2e8f0" stroke="#334155" stroke-width="2" />
+  <text x="808" y="522" font-family="Courier New, monospace" font-size="31" fill="#0f172a">45</text>
+  <line x1="902" y1="510" x2="976" y2="510" stroke="#0f766e" stroke-width="4" marker-end="url(#flecha37)" />
+
+  <rect x="990" y="464" width="150" height="92" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="1032" y="522" font-family="Courier New, monospace" font-size="31" fill="#92400e">CRUD</text>
+  <text x="998" y="588" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#92400e">inserta y elimina</text>
+
+  <text x="68" y="744" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#0f172a" font-weight="700">3) Salida final</text>
+  <rect x="68" y="766" width="1298" height="248" rx="16" fill="#0b1220" />
+  <text x="108" y="834" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Lista vacia: null</text>
+  <text x="108" y="880" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Lista precargada: 15-&gt;30-&gt;45-&gt;null</text>
+  <text x="108" y="926" font-family="Courier New, monospace" font-size="29" fill="#e5e7eb">Operaciones CRUD aplicadas</text>
+  <text x="108" y="972" font-family="Courier New, monospace" font-size="29" fill="#34d399">30-&gt;45-&gt;null</text>
+</svg>

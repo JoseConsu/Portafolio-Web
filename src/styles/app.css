@@ -2146,6 +2146,15 @@ img, video, svg { display: block; max-width: 100%; }
   font-family: var(--ff-mono);
 }
 
+.lista-campo select {
+  border-radius: var(--r-xl);
+  border: 1px solid var(--br-2);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-1);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--ff-mono);
+}
+
 .lista-actions {
   display: flex;
   flex-wrap: wrap;
@@ -2187,11 +2196,44 @@ img, video, svg { display: block; max-width: 100%; }
   display: grid;
   gap: 0.35rem;
   text-align: center;
+  position: relative;
 }
 
 .lista-nodo-activo {
   border-color: var(--br-moss);
   box-shadow: 0 0 0 2px var(--moss-dim);
+}
+
+.lista-nodo-en-proceso {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 55%, transparent);
+}
+
+.lista-nodo-eliminado {
+  border-color: color-mix(in srgb, var(--danger) 60%, transparent);
+  background: color-mix(in srgb, var(--danger) 12%, var(--panel-soft));
+  opacity: 0.88;
+}
+
+.lista-nodo-marca {
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  padding: 0.18rem 0.45rem;
+  font-family: var(--ff-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--gold) 22%, transparent);
+  color: #f4dd92;
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+}
+
+.lista-nodo-marca--danger {
+  background: color-mix(in srgb, var(--danger) 20%, transparent);
+  color: #fecaca;
+  border-color: color-mix(in srgb, var(--danger) 45%, transparent);
 }
 
 .lista-nodo-dato {

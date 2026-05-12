@@ -1,0 +1,98 @@
+import java.util.*;
+
+/*
+ * Programa temporal 34: Insercion en posicion deseada en lista enlazada simple
+ *
+ * Objetivo:
+ * Insertar nodos en una posicion indicada por el usuario y mostrar
+ * como cambia el encadenamiento de la lista enlazada.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaEnlazada {
+    Nodo inicio;
+
+    ListaEnlazada() {
+        inicio = null;
+    }
+
+    // Inserta en la posicion solicitada usando recorrido lineal.
+    void insertarEnPosicion(int dato, int posicion) {
+        Nodo nuevoNodo = new Nodo(dato);
+
+        if (posicion <= 1 || inicio == null) {
+            nuevoNodo.siguiente = inicio;
+            inicio = nuevoNodo;
+            return;
+        }
+
+        Nodo actual = inicio;
+        int indice = 1;
+
+        while (actual.siguiente != null && indice < posicion - 1) {
+            actual = actual.siguiente;
+            indice++;
+        }
+
+        nuevoNodo.siguiente = actual.siguiente;
+        actual.siguiente = nuevoNodo;
+    }
+
+    void mostrarLista() {
+        Nodo temp = inicio;
+
+        while (temp != null) {
+            System.out.print(temp.dato + "->");
+            temp = temp.siguiente;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) throws Exception {
+        ListaEnlazada lista = new ListaEnlazada();
+
+        System.out.println("Lista inicial:");
+        lista.mostrarLista();
+
+        lista.insertarEnPosicion(10, 1);
+        lista.insertarEnPosicion(20, 2);
+        lista.insertarEnPosicion(40, 3);
+        lista.mostrarLista();
+
+        System.out.println("Insertando 30 en la posicion 3");
+        lista.insertarEnPosicion(30, 3);
+        lista.mostrarLista();
+
+        System.out.println("Insertando 5 en la posicion 1");
+        lista.insertarEnPosicion(5, 1);
+        lista.mostrarLista();
+
+        System.out.println("Insertando 50 en una posicion mayor al tamano actual");
+        lista.insertarEnPosicion(50, 20);
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+null
+10->20->40->null
+Insertando 30 en la posicion 3
+10->20->30->40->null
+Insertando 5 en la posicion 1
+5->10->20->30->40->null
+Insertando 50 en una posicion mayor al tamano actual
+5->10->20->30->40->50->null
+*/
