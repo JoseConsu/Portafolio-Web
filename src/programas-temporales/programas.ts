@@ -12,7 +12,7 @@ export type ProgramaTemporal = {
 };
 
 export type SimuladorEstructura = {
-  tipo: "lista-enlazada-simple" | "lista-enlazada-crud";
+  tipo: "lista-enlazada-simple" | "lista-enlazada-crud" | "lista-circular-crud";
   operacion?:
     | "insertar-vacia"
     | "insertar-inicio"
@@ -374,6 +374,38 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       ],
     },
   },
+  38: {
+    titulo: "Lista circular simple CRUD en Java",
+    descripcion:
+      "Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, explicando como se mantiene el enlace circular entre el ultimo y el primer nodo.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista circular", "CRUD"],
+    simulador: {
+      tipo: "lista-circular-crud",
+      titulo: "Simulador visual CRUD de lista circular",
+      descripcion:
+        "Inserta o elimina nodos y observa como el ultimo nodo vuelve a apuntar al inicio. Cada accion explica que referencias cambian y cuando una operacion no se puede realizar.",
+      etiquetaBoton: "Ejecutar operación",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [20, 40, 60],
+      accionesDisponibles: [
+        { valor: "insertar-inicio", etiqueta: "Insertar al inicio" },
+        { valor: "insertar-final", etiqueta: "Insertar al final" },
+        { valor: "insertar-posicion", etiqueta: "Insertar en posición" },
+        { valor: "eliminar-inicio", etiqueta: "Eliminar al inicio" },
+        { valor: "eliminar-final", etiqueta: "Eliminar al final" },
+        { valor: "eliminar-posicion", etiqueta: "Eliminar en posición" },
+      ],
+      demoAcciones: [
+        { operacion: "insertar-inicio", valor: 10, mensaje: "10 entra al inicio y el ultimo nodo ahora apunta al nuevo inicio." },
+        { operacion: "insertar-final", valor: 80, mensaje: "80 se agrega al final y su siguiente vuelve a apuntar al nodo inicial." },
+        { operacion: "insertar-posicion", valor: 50, posicion: 4, mensaje: "50 se inserta en la posición 4 conservando la vuelta circular." },
+        { operacion: "eliminar-inicio", mensaje: "Se elimina el inicio y el ultimo nodo se reconecta con el nuevo primer nodo." },
+        { operacion: "eliminar-final", mensaje: "Se elimina el ultimo nodo y el nuevo ultimo vuelve a apuntar al inicio." },
+        { operacion: "eliminar-posicion", posicion: 3, mensaje: "Se elimina el nodo de la posición 3 y el enlace anterior salta directamente al siguiente." },
+      ],
+    },
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -414,6 +446,7 @@ const ordenProgramasTemporales = [
   35,
   36,
   37,
+  38,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {

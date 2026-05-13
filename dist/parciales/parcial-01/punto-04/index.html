@@ -5,8 +5,8 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css">
-<link rel="stylesheet" href="/_astro/_punto_.BZ7e64CL.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 4: Ordenamiento con valores repetidos</h1> <p data-astro-cid-trhlygpa>Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
+    </script><link rel="stylesheet" href="/_astro/index.QBWsV2bd.css">
+<link rel="stylesheet" href="/_astro/_punto_.C5jPzoGj.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 4: Ordenamiento con valores repetidos</h1> <p data-astro-cid-trhlygpa>Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
 PARCIAL 1 - PUNTO 4
 
 Ordenamiento de valores repetidos:
@@ -443,7 +443,7 @@ public class Parcial01Punto04 {
       let nextId = initialQueue.length + 1;
       let operationTitle = "Estado inicial";
       let operationDetail = "La cola comienza con tres nodos enlazados. `front` apunta a A001 y `rear` apunta a A003.";
-      let operationCode = "queue-fields, node-class y enqueue-link.";
+      let operationCode = "Atributos de la cola, definición del nodo y enlace del final.";
       let activeCodeBlocks = ["queue-fields", "node-class", "enqueue-link"];
       let animationState = {
         type: "idle",
@@ -676,7 +676,7 @@ public class Parcial01Punto04 {
             {
               operationTitle: `enqueue(${codigo}, ${nombre})`,
               operationDetail: `Se crea el nodo ${codigo} para ${nombre}, pero todavía no está enlazado al final de la cola.`,
-              operationCode: "Bloque activo: enqueue-create.",
+              operationCode: "Se activa la creación del nuevo nodo dentro de `encolar`.",
               animationState: {
                 type: "enqueue",
                 phase: "start",
@@ -690,7 +690,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `Ahora ${previousRear.codigo}.next apunta a ${codigo} y el puntero rear se prepara para avanzar.`,
-              operationCode: "Bloques activos: enqueue-link y queue-fields.",
+              operationCode: "Se activa la parte donde `fin.next` enlaza el nodo y `fin` avanza al nuevo final.",
               animationState: {
                 type: "enqueue",
                 phase: "link",
@@ -705,7 +705,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `La operación termina con rear = ${codigo} y size = ${queue.length}. La cola mantiene FIFO intacto.`,
-              operationCode: "Bloques activos: enqueue-size, enqueue-link y queue-fields.",
+              operationCode: "Se activa el cierre de `encolar`, donde la cola ya enlazó el nodo y actualiza su tamaño.",
               animationState: {
                 type: "enqueue",
                 phase: "complete",
@@ -729,7 +729,7 @@ public class Parcial01Punto04 {
             {
               operationTitle: `enqueue(${codigo}, ${nombre})`,
               operationDetail: `Se crea el nodo ${codigo} para ${nombre} sobre una cola vacía.`,
-              operationCode: "Bloques activos: enqueue-create y node-class.",
+              operationCode: "Se activa la creación del nodo nuevo a partir de la estructura `Nodo`.",
               animationState: {
                 type: "enqueue",
                 phase: "start",
@@ -742,7 +742,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `Como no había nodos, ${codigo} pasa a ser simultáneamente front y rear.`,
-              operationCode: "Bloques activos: enqueue-empty y queue-fields.",
+              operationCode: "Se activa la rama de cola vacía, donde el mismo nodo pasa a ser `frente` y `fin`.",
               animationState: {
                 type: "enqueue",
                 phase: "link",
@@ -757,7 +757,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `La cola queda inicializada con un solo nodo y size = 1.`,
-              operationCode: "Bloques activos: enqueue-size, enqueue-empty y queue-fields.",
+              operationCode: "Se activa el cierre de `encolar` con la cola ya inicializada y el tamaño actualizado.",
               animationState: {
                 type: "enqueue",
                 phase: "complete",
@@ -784,7 +784,7 @@ public class Parcial01Punto04 {
         if (queue.length === 0) {
           operationTitle = "dequeue() sobre cola vacía";
           operationDetail = "No se puede atender un cliente porque front y rear ya están en null.";
-          operationCode = "Bloques activos: dequeue-guard e is-empty.";
+          operationCode = "Se activa la validación que protege `desencolar` cuando no hay nodos en la cola.";
           registrarTrazas("dequeue() abortado", "La cola está vacía: front = null, rear = null");
           if (feedbackNode) {
             feedbackNode.textContent = "No hay clientes en espera. Agrega un nuevo turno para continuar.";
@@ -820,10 +820,10 @@ public class Parcial01Punto04 {
         operationTitle = `dequeue() -> ${atendido.codigo}`;
         if (queue[0]) {
           operationDetail = `El nodo ${atendido.codigo} abandona el frente. El nuevo front será ${queue[0].codigo} y rear permanece en ${previousRear.codigo}.`;
-          operationCode = "Bloques activos: dequeue-front y queue-fields.";
+          operationCode = "Se activa la parte donde `frente` avanza a `frente.next` sin mover el puntero `fin`.";
         } else {
           operationDetail = `El nodo ${atendido.codigo} era el único elemento, por eso después de atenderlo front y rear quedan en null.`;
-          operationCode = "Bloques activos: dequeue-empty-tail y dequeue-front.";
+          operationCode = "Se activa la parte donde el último nodo sale y tanto `frente` como `fin` quedan en `null`.";
         }
 
         if (feedbackNode) {
@@ -847,7 +847,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `Tras retirar ${atendido.codigo}, la cola ya no tiene nodos enlazados. front = null y rear = null.`,
-              operationCode: "Bloques activos: dequeue-empty-tail, dequeue-front y queue-fields.",
+              operationCode: "Se activa la parte donde el último nodo sale y tanto `frente` como `fin` quedan en `null`.",
               animationState: {
                 type: "dequeue",
                 phase: "shift",
@@ -859,7 +859,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `La operación termina con size = 0 y la cola lista para recibir un nuevo primer nodo.`,
-              operationCode: "Bloques activos: dequeue-size, dequeue-empty-tail y queue-fields.",
+              operationCode: "Se activa el cierre de `desencolar`, dejando la cola vacía y el tamaño en cero.",
               animationState: {
                 type: "dequeue",
                 phase: "complete",
@@ -886,7 +886,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `El nodo ${atendido.codigo} se retira y front avanza a ${nextFront.codigo}. El puntero rear no cambia.`,
-              operationCode: "Bloques activos: dequeue-front y queue-fields.",
+              operationCode: "Se mantiene activa la parte de avance del frente mientras el siguiente nodo pasa a ocupar esa referencia.",
               animationState: {
                 type: "dequeue",
                 phase: "shift",
@@ -900,7 +900,7 @@ public class Parcial01Punto04 {
             },
             {
               operationDetail: `La cola queda con size = ${queue.length}. FIFO se conserva porque el nuevo frente es el siguiente nodo enlazado.`,
-              operationCode: "Bloques activos: dequeue-size, dequeue-front y queue-fields.",
+              operationCode: "Se activa el cierre de `desencolar`, con el nuevo frente ya definido y el tamaño reducido.",
               animationState: {
                 type: "dequeue",
                 phase: "complete",
@@ -927,7 +927,7 @@ public class Parcial01Punto04 {
         nextId = initialQueue.length + 1;
         operationTitle = "Reset de simulación";
         operationDetail = "La cola volvió a su configuración original con tres nodos enlazados y sin historial de atención.";
-        operationCode = "Bloques activos: queue-fields, node-class y enqueue-link.";
+        operationCode = "Se restauran las referencias base de la cola y vuelve la estructura enlazada inicial.";
         if (inputNode instanceof HTMLInputElement) {
           inputNode.value = "";
         }

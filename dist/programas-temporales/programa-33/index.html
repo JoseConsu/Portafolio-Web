@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 33: Insercion al final de una lista enlazada simple en Java</h1> <p>Implementacion de lista enlazada simple que agrega nodos al final recorriendo desde inicio hasta el ultimo nodo para enlazar cada nuevo elemento en orden de llegada.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.QBWsV2bd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 33: Insercion al final de una lista enlazada simple en Java</h1> <p>Implementacion de lista enlazada simple que agrega nodos al final recorriendo desde inicio hasta el ultimo nodo para enlazar cada nuevo elemento en orden de llegada.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
 Código del programa
@@ -74,7 +74,7 @@ class ListaEnlazada {
         lista.mostrarLista();
     }
 }
-</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual: insertar al final</h2> <p>Recorre la lista desde inicio hasta el ultimo nodo para anexar el nuevo elemento al final.</p> </div> <span class="sim-badge">Lista enlazada simple</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3>  <label class="lista-campo" for="lista-valor"> <span>Dato</span> <input id="lista-valor" type="number" value="42" step="1"> </label>  <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-accion">Insertar al final</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button>   <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -&gt; null</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista enlazada"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log" aria-live="polite"> <p>Esperando acciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual: insertar al final</h2> <p>Recorre la lista desde inicio hasta el ultimo nodo para anexar el nuevo elemento al final.</p> </div> <span class="sim-badge">Lista enlazada simple</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3>  <label class="lista-campo" for="lista-valor"> <span>Dato</span> <input id="lista-valor" type="number" value="42" step="1"> </label>  <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-accion">Insertar al final</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button>   <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <div class="lista-explicacion" aria-live="polite"> <h3>Guía rápida</h3> <p id="lista-explicacion-texto"> En una lista enlazada simple, cada nodo apunta al siguiente y el ultimo termina en null. </p> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -&amp;gt; null</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista enlazada"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log" aria-live="polite"> <p>Esperando acciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
 </h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-33.svg" alt="Imagen de salida de Programa temporal 33: Insercion al final de una lista enlazada simple en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = {"tipo":"lista-enlazada-simple","operacion":"insertar-final","titulo":"Simulador visual: insertar al final","descripcion":"Recorre la lista desde inicio hasta el ultimo nodo para anexar el nuevo elemento al final.","etiquetaBoton":"Insertar al final","etiquetaAuto":"Auto demo","listaInicial":[],"demoAcciones":[{"valor":12,"mensaje":"La lista estaba vacía, 12 se convierte en inicio."},{"valor":24,"mensaje":"24 se enlaza al final de 12."},{"valor":10,"mensaje":"10 queda al final de la lista."},{"valor":8,"mensaje":"8 se agrega como ultimo nodo."},{"valor":42,"mensaje":"42 cierra la secuencia al final."}]};
 
@@ -1938,6 +1938,7 @@ Imagen de salida
       const lienzo = root.querySelector(config.selectors.lienzo);
       const salida = root.querySelector(config.selectors.salida);
       const log = root.querySelector(config.selectors.log);
+      const explicacion = root.querySelector(config.selectors.explicacion);
 
       if (!accionBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
         return;
@@ -1950,6 +1951,69 @@ Imagen de salida
         indiceActivo: 0,
         indiceEnProceso: null,
         indiceEliminado: null,
+      };
+      const esCircular = config.tipo === "lista-circular-crud";
+
+      const describirLista = (datos = state.datos) => {
+        if (datos.length === 0) {
+          return esCircular ? "lista vacia (sin ciclo)" : "null";
+        }
+
+        return esCircular
+          ? `inicio -> ${datos.join(" -> ")} -> vuelve a ${datos[0]}`
+          : `${datos.join(" -> ")} -> null`;
+      };
+
+      const mensajeOperacionNoDisponible = (operacion, posicion) => {
+        const posicionValida = posicion === null || posicion < 1 ? 1 : posicion;
+
+        switch (operacion) {
+          case "eliminar-inicio":
+          case "eliminar-final":
+            return esCircular
+              ? "La lista circular esta vacia. No se puede eliminar porque no existe ningun nodo que reconectar al inicio."
+              : "La lista esta vacia. No se puede eliminar.";
+          case "eliminar-posicion":
+            return esCircular
+              ? `La posicion ${posicionValida} supera el tamano actual. No se elimina ningun nodo porque no existe ese enlace dentro del ciclo.`
+              : `La posicion ${posicionValida} supera el tamano, no se realiza eliminacion.`;
+          default:
+            return "Operacion no disponible.";
+        }
+      };
+
+      const explicacionesOperacion = {
+        "insertar-vacia": esCircular
+          ? "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y su enlace siguiente vuelve a si mismo para formar el ciclo base."
+          : "Solo se usa cuando no hay nodos. El primer nodo pasa a ser inicio y su siguiente queda en null.",
+        "insertar-inicio": esCircular
+          ? "Se crea un nuevo nodo antes del actual inicio. Luego el ultimo nodo actualiza su enlace para volver al nuevo inicio."
+          : "Se crea un nuevo nodo, su siguiente apunta al inicio actual y luego inicio cambia al nuevo nodo.",
+        "insertar-final": esCircular
+          ? "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y ese nuevo nodo vuelve a apuntar al inicio."
+          : "Se recorre hasta el ultimo nodo y su siguiente pasa a apuntar al nuevo nodo.",
+        "insertar-posicion": esCircular
+          ? "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final sin romper el ciclo."
+          : "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final.",
+        "eliminar-inicio": esCircular
+          ? "Si hay un solo nodo, la lista queda vacia. Si hay varios, inicio avanza al siguiente y el ultimo nodo se reconecta con el nuevo inicio."
+          : "Inicio deja de apuntar al primer nodo y pasa al segundo. Si no hay nodos, no se puede eliminar.",
+        "eliminar-final": esCircular
+          ? "Se busca el penultimo nodo para que ahora apunte de nuevo al inicio. Si solo hay un nodo, la lista queda vacia."
+          : "Se busca el penultimo nodo para que su siguiente quede en null. Si solo hay un nodo, la lista queda vacia.",
+        "eliminar-posicion": esCircular
+          ? "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, se explica por que no se puede eliminar dentro del ciclo."
+          : "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, no se realiza la eliminacion.",
+      };
+
+      const actualizarExplicacion = () => {
+        if (!explicacion) return;
+        const operacion = config.tipo === "lista-enlazada-crud" || config.tipo === "lista-circular-crud"
+          ? (operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
+          : (config.operacion ?? "insertar-inicio");
+        explicacion.textContent = explicacionesOperacion[operacion] ?? (esCircular
+          ? "El ultimo nodo siempre debe volver a apuntar al inicio para conservar la circularidad."
+          : "El ultimo nodo termina en null y cada enlace debe mantenerse consistente.");
       };
 
       const logStep = (texto) => {
@@ -1964,13 +2028,15 @@ Imagen de salida
 
       const refrescarEstado = () => {
         estado.textContent = state.datos.length > 0
-          ? `Lista actual: ${state.datos.join(" -> ")} -> null`
-          : "Lista inicial: inicio -> null";
+          ? `Lista actual: ${describirLista()}`
+          : esCircular
+            ? "Lista inicial: inicio sin nodos y sin enlace circular"
+            : "Lista inicial: inicio -> null";
       };
 
       const render = () => {
         total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
-        salida.textContent = state.datos.length > 0 ? `${state.datos.join(" -> ")} -> null` : "null";
+        salida.textContent = describirLista();
         refrescarEstado();
 
         if (state.datos.length === 0) {
@@ -2018,7 +2084,7 @@ Imagen de salida
 
           const next = document.createElement("span");
           next.className = "lista-nodo-next";
-          next.textContent = idx < state.datos.length - 1 ? "siguiente" : "null";
+          next.textContent = idx < state.datos.length - 1 ? "siguiente" : esCircular ? `vuelve a ${state.datos[0]}` : "null";
 
           nodo.append(dato, next);
 
@@ -2039,6 +2105,13 @@ Imagen de salida
             elementos.push(flecha);
           }
         });
+
+        if (esCircular && state.datos.length > 0) {
+          const regreso = document.createElement("div");
+          regreso.className = "lista-circular-enlace";
+          regreso.textContent = `ultimo.siguiente -> ${state.datos[0]} (inicio)`;
+          elementos.push(regreso);
+        }
 
         lienzo.replaceChildren(...elementos);
       };
@@ -2071,6 +2144,7 @@ Imagen de salida
         const valor = normalizarNumero(accion.valor ?? inputValor?.value);
         const posicion = normalizarNumero(accion.posicion ?? inputPosicion?.value);
         const operacionActual = config.tipo === "lista-enlazada-crud"
+          || config.tipo === "lista-circular-crud"
           ? (accion.operacion ?? operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
           : (config.operacion ?? "insertar-inicio");
 
@@ -2078,7 +2152,9 @@ Imagen de salida
           switch (operacionActual) {
             case "insertar-vacia": {
               if (state.datos.length > 0) {
-                logStep("La lista ya tiene un nodo. Reinicia para volver a insertar en una lista vacia.");
+                logStep(esCircular
+                  ? "La lista circular ya tiene nodos. Reinicia o vaciala antes de usar la insercion sobre lista vacia."
+                  : "La lista ya tiene un nodo. Reinicia para volver a insertar en una lista vacia.");
                 return;
               }
               if (valor === null) {
@@ -2089,7 +2165,9 @@ Imagen de salida
               state.indiceActivo = 0;
               state.indiceEnProceso = 0;
               state.indiceEliminado = null;
-              logStep(accion.mensaje ?? `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? `inicio = nuevoNodo(${valor}) y, como es el unico nodo, tambien apunta de regreso a si mismo.`
+                : `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`));
               render();
               await esperar(450);
               break;
@@ -2106,7 +2184,11 @@ Imagen de salida
               state.datos.unshift(valor);
               state.indiceActivo = 0;
               state.indiceEnProceso = 0;
-              logStep(accion.mensaje ?? `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? state.datos.length === 1
+                  ? `Se crea el primer nodo ${valor}. Como la lista circular solo tiene un nodo, su siguiente vuelve a si mismo.`
+                  : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza su enlace para volver al nuevo inicio.`
+                : `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`));
               render();
               await esperar(450);
               break;
@@ -2123,7 +2205,11 @@ Imagen de salida
               state.datos.push(valor);
               state.indiceActivo = state.datos.length - 1;
               state.indiceEnProceso = state.indiceActivo;
-              logStep(accion.mensaje ?? `El nodo ${valor} se enlaza al final.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? state.datos.length === 1
+                  ? `Se crea el primer nodo ${valor}; al ser circular, su siguiente apunta al mismo nodo.`
+                  : `El nodo ${valor} se agrega al final y su enlace siguiente regresa al nodo inicial ${state.datos[0]}.`
+                : `El nodo ${valor} se enlaza al final.`));
               render();
               await esperar(450);
               break;
@@ -2142,7 +2228,9 @@ Imagen de salida
                 state.datos.unshift(valor);
                 state.indiceActivo = 0;
                 state.indiceEnProceso = 0;
-                logStep(accion.mensaje ?? `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`);
+                logStep(accion.mensaje ?? (esCircular
+                  ? `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y el ultimo nodo vuelve a apuntar al nuevo inicio.`
+                  : `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`));
                 render();
                 await esperar(450);
                 break;
@@ -2155,7 +2243,9 @@ Imagen de salida
                 state.datos.push(valor);
                 state.indiceActivo = state.datos.length - 1;
                 state.indiceEnProceso = state.indiceActivo;
-                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`);
+                logStep(accion.mensaje ?? (esCircular
+                  ? `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo nodo conserva el enlace circular hacia ${state.datos[0]}.`
+                  : `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`));
                 render();
                 await esperar(450);
                 break;
@@ -2167,14 +2257,16 @@ Imagen de salida
               state.datos.splice(destino - 1, 0, valor);
               state.indiceActivo = destino - 1;
               state.indiceEnProceso = destino - 1;
-              logStep(accion.mensaje ?? `El nodo ${valor} se inserta en la posicion ${destino}.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? `El nodo ${valor} se inserta en la posicion ${destino}. Solo cambian los enlaces locales y el ciclo principal sigue cerrado.`
+                : `El nodo ${valor} se inserta en la posicion ${destino}.`));
               render();
               await esperar(450);
               break;
             }
             case "eliminar-inicio": {
               if (state.datos.length === 0) {
-                logStep("La lista esta vacia. No se puede eliminar.");
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
                 return;
               }
               state.indiceEnProceso = 0;
@@ -2185,14 +2277,18 @@ Imagen de salida
               state.indiceActivo = 0;
               state.indiceEnProceso = 0;
               state.indiceEliminado = null;
-              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} del inicio.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? state.datos.length === 0
+                  ? `Se elimina el unico nodo ${eliminado}. La lista circular queda vacia y ya no existe ciclo.`
+                  : `Se elimina el nodo ${eliminado} del inicio y el ultimo nodo se reconecta con el nuevo inicio ${state.datos[0]}.`
+                : `Se elimina el nodo ${eliminado} del inicio.`));
               render();
               await esperar(450);
               break;
             }
             case "eliminar-final": {
               if (state.datos.length === 0) {
-                logStep("La lista esta vacia. No se puede eliminar.");
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
                 return;
               }
               state.indiceEnProceso = Math.max(0, state.datos.length - 1);
@@ -2203,14 +2299,18 @@ Imagen de salida
               state.indiceActivo = Math.max(0, state.datos.length - 1);
               state.indiceEnProceso = state.indiceActivo;
               state.indiceEliminado = null;
-              logStep(accion.mensaje ?? `Se elimina el ultimo nodo ${eliminado}.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? state.datos.length === 0
+                  ? `Se elimina el unico nodo ${eliminado}. La estructura deja de ser circular porque queda vacia.`
+                  : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo vuelve a enlazarse con ${state.datos[0]}.`
+                : `Se elimina el ultimo nodo ${eliminado}.`));
               render();
               await esperar(450);
               break;
             }
             case "eliminar-posicion": {
               if (state.datos.length === 0) {
-                logStep("La lista esta vacia. No se puede eliminar.");
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
                 return;
               }
               const destino = posicion === null || posicion < 1 ? 1 : posicion;
@@ -2223,13 +2323,17 @@ Imagen de salida
                 state.indiceActivo = 0;
                 state.indiceEnProceso = 0;
                 state.indiceEliminado = null;
-                logStep(accion.mensaje ?? `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`);
+                logStep(accion.mensaje ?? (esCircular
+                  ? state.datos.length === 0
+                    ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista queda vacia y el ciclo desaparece.`
+                    : `La posicion ${destino} elimina el inicio ${eliminado}. El ultimo nodo vuelve a conectarse con ${state.datos[0]}.`
+                  : `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`));
                 render();
                 await esperar(450);
                 break;
               }
               if (destino > state.datos.length) {
-                logStep(accion.mensaje ?? `La posicion ${destino} supera el tamano, no se realiza eliminacion.`);
+                logStep(accion.mensaje ?? mensajeOperacionNoDisponible(operacionActual, destino));
                 return;
               }
               state.indiceEnProceso = destino - 2;
@@ -2240,7 +2344,13 @@ Imagen de salida
               state.indiceActivo = Math.max(0, destino - 2);
               state.indiceEnProceso = state.indiceActivo;
               state.indiceEliminado = null;
-              logStep(accion.mensaje ?? `Se elimina el nodo ${eliminado} de la posicion ${destino}.`);
+              logStep(accion.mensaje ?? (esCircular
+                ? state.datos.length === 0
+                  ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista queda vacia.`
+                  : destino > state.datos.length
+                    ? `Se elimina el nodo ${eliminado} y el nuevo ultimo nodo mantiene el ciclo hacia ${state.datos[0]}.`
+                    : `Se elimina el nodo ${eliminado} de la posicion ${destino} y el nodo anterior ahora apunta directamente al siguiente dentro del ciclo.`
+                : `Se elimina el nodo ${eliminado} de la posicion ${destino}.`));
               render();
               await esperar(450);
               break;
@@ -2294,6 +2404,7 @@ Imagen de salida
         if (event.key === "Enter") ejecutarAccion();
       });
       autoBtn.addEventListener("click", demoAutomatica);
+      operacionSelect?.addEventListener("change", actualizarExplicacion);
       vaciarBtn?.addEventListener("click", () => establecerLista([]));
       ejemploBtn?.addEventListener("click", () => establecerLista(config.listaInicial ?? []));
       reiniciarBtn.addEventListener("click", () => {
@@ -2305,6 +2416,7 @@ Imagen de salida
       });
 
       render();
+      actualizarExplicacion();
     }
 
     if (simuladorLista) {
@@ -2323,7 +2435,8 @@ Imagen de salida
           total: "#lista-total",
           lienzo: "#lista-lienzo",
           salida: "#lista-salida",
-          log: "#lista-log"
+          log: "#lista-log",
+          explicacion: "#lista-explicacion-texto"
         },
         tipo: simuladorLista.tipo,
         operacion: simuladorLista.operacion,

@@ -2162,6 +2162,25 @@ img, video, svg { display: block; max-width: 100%; }
   margin-top: var(--sp-4);
 }
 
+.lista-explicacion {
+  margin-top: var(--sp-4);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--br-strong);
+  background: color-mix(in srgb, var(--panel-soft) 82%, transparent);
+  padding: 0.9rem 1rem;
+}
+
+.lista-explicacion h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.lista-explicacion p {
+  margin: 0;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
 .lista-lienzo {
   margin-top: var(--sp-3);
   min-height: 230px;
@@ -2252,6 +2271,17 @@ img, video, svg { display: block; max-width: 100%; }
   color: var(--moss);
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.lista-circular-enlace {
+  border: 1px dashed color-mix(in srgb, var(--moss) 55%, transparent);
+  color: var(--moss-soft);
+  background: color-mix(in srgb, var(--moss) 10%, transparent);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--ff-mono);
+  font-size: 0.76rem;
+  white-space: nowrap;
 }
 
 .lista-salida {

@@ -1,93 +1,230 @@
-<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 28: Búsqueda Binaria en Java | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 38: Lista circular simple CRUD en Java | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
       try {
         const theme = localStorage.getItem("theme");
         document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.QBWsV2bd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 28: Búsqueda Binaria en Java</h1> <p>Se utiliza cuando el vector está previamente ordenado y reduce exponencialmente el número de iteraciones necesarias; por ejemplo, en 50.000.000 de elementos requiere como máximo 26 comparaciones en el peor caso.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.QBWsV2bd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 38: Lista circular simple CRUD en Java</h1> <p>Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, explicando como se mantiene el enlace circular entre el ultimo y el primer nodo.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
-</a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
-Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo colecciones ordenadas para búsqueda.
-</p> </article> <article class="ds-card"> <h3>Ver simulador general</h3> <p>Explora el laboratorio visual con métricas en tiempo real para comparar algoritmos adicionales.</p> <a class="ds-button" href="/programas-temporales/programa-30">Abrir simulador</a> </article> </section> <section class="ds-card-grid" aria-live="polite"> <article class="ds-card" data-escenario="desordenado"> <header> <h3>TOTALMENTE DESORDENADOS</h3> <p>Entradas: Arreglo de enteros ordenados totalmente desordenados (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>0.1</td> <td>1</td> <td>3</td> <td>33</td> <td>0</td> </tr><tr> <td>100</td> <td>0.199</td> <td>1.5</td> <td>7</td> <td>66</td> <td>0</td> </tr><tr> <td>1000</td> <td>0.299</td> <td>15</td> <td>10</td> <td>100</td> <td>0</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Posicion encontrada o -1 tras evaluar hasta 3 mitades (n=10)</strong></p> </footer> </article><article class="ds-card" data-escenario="parcial"> <header> <h3>PARCIALMENTE ORDENADOS</h3> <p>Entradas: Arreglo de enteros ordenados parcialmente ordenados (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>0.052</td> <td>1</td> <td>2</td> <td>23</td> <td>0</td> </tr><tr> <td>100</td> <td>0.105</td> <td>1.35</td> <td>4</td> <td>47</td> <td>0</td> </tr><tr> <td>1000</td> <td>0.157</td> <td>13.5</td> <td>6</td> <td>70</td> <td>0</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Posicion encontrada o -1 tras evaluar hasta 3 mitades (n=10)</strong></p> </footer> </article><article class="ds-card" data-escenario="intercalado"> <header> <h3>ORDEN INTERCALADO</h3> <p>Entradas: Arreglo de enteros ordenados orden intercalado (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>0.115</td> <td>1</td> <td>3</td> <td>35</td> <td>0</td> </tr><tr> <td>100</td> <td>0.23</td> <td>1.58</td> <td>7</td> <td>70</td> <td>0</td> </tr><tr> <td>1000</td> <td>0.345</td> <td>15.75</td> <td>10</td> <td>105</td> <td>0</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Posicion encontrada o -1 tras evaluar hasta 3 mitades (n=10)</strong></p> </footer> </article><article class="ds-card" data-escenario="invertido"> <header> <h3>ORDEN INVERTIDO</h3> <p>Entradas: Arreglo de enteros ordenados orden invertido (10, 100 y 1000)</p> </header> <div class="tabla-contenedor"> <table class="tabla-comparativa"> <thead> <tr> <th>Datos</th> <th>Tiempo (ms)</th> <th>Memoria (KB)</th> <th>Iteraciones</th> <th>Comparaciones</th> <th>Intercambios</th> </tr> </thead> <tbody> <tr> <td>10</td> <td>0.188</td> <td>1</td> <td>4</td> <td>47</td> <td>0</td> </tr><tr> <td>100</td> <td>0.377</td> <td>1.72</td> <td>9</td> <td>93</td> <td>0</td> </tr><tr> <td>1000</td> <td>0.565</td> <td>17.25</td> <td>13</td> <td>140</td> <td>0</td> </tr> </tbody> </table> </div> <footer> <p>Ejemplo de salida: <strong>Posicion encontrada o -1 tras evaluar hasta 3 mitades (n=10)</strong></p> </footer> </article> </section> <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
+</a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
 Código del programa
-</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>public class Programa28BusquedaBinaria {
+</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+ * Programa temporal 38: Lista circular simple CRUD en Java
+ *
+ * Objetivo:
+ * Simular inserciones y eliminaciones al inicio, al final y en una
+ * posicion deseada, explicando como el ultimo nodo siempre vuelve a
+ * apuntar al inicio para conservar la circularidad.
+ */
 
-    // Funcion principal del algoritmo de busqueda binaria.
-    // Recibe un arreglo ordenado y el valor objetivo.
-    // Devuelve el indice donde se encontro el elemento o -1 si no existe.
-    public static int busquedaBinaria(int[] datos, int objetivo) {
-        // Limites iniciales del espacio de busqueda.
-        int izquierda = 0;
-        int derecha = datos.length - 1;
+class Nodo {
+    int dato;
+    Nodo siguiente;
 
-        // Repetimos mientras exista una ventana valida [izquierda, derecha].
-        while (izquierda &lt;= derecha) {
-            // Punto medio calculado de forma segura para evitar overflow.
-            int medio = izquierda + (derecha - izquierda) / 2;
-
-            // Caso 1: el elemento del centro es exactamente el objetivo.
-            if (datos[medio] == objetivo) {
-                return medio;
-            }
-
-            // Caso 2: el valor central es menor, se descarta la mitad izquierda.
-            if (datos[medio] &lt; objetivo) {
-                izquierda = medio + 1;
-            } else {
-                // Caso 3: el valor central es mayor, se descarta la mitad derecha.
-                derecha = medio - 1;
-            }
-        }
-
-        // Si salimos del bucle, el elemento no se encuentra en el arreglo.
-        return -1;
-    }
-
-    // Crea un arreglo ordenado de 1..tamano para simular un caso grande de prueba.
-    public static int[] crearArregloOrdenado(int tamano) {
-        int[] arreglo = new int[tamano];
-
-        // Llenado secuencial para garantizar orden ascendente.
-        for (int i = 0; i &lt; tamano; i++) {
-            arreglo[i] = i + 1;
-        }
-
-        return arreglo;
-    }
-
-    // Calcula el numero maximo teorico de comparaciones en el peor caso.
-    // Para busqueda binaria, ese limite es ceil(log2(n)).
-    public static int calcularMaximoComparaciones(int tamano) {
-        return (int) Math.ceil(Math.log(tamano) / Math.log(2));
-    }
-
-    public static void main(String[] args) {
-        // Cantidad exacta pedida en la consigna.
-        final int CANTIDAD_ELEMENTOS = 50_000_000;
-
-        // 1) Se construye el vector ordenado con 50 millones de elementos.
-        int[] vector = crearArregloOrdenado(CANTIDAD_ELEMENTOS);
-
-        // 2) Se define un valor a buscar dentro del arreglo.
-        int numeroBuscado = 49_999_991;
-
-        // 3) Se ejecuta la busqueda binaria para obtener su posicion.
-        int posicion = busquedaBinaria(vector, numeroBuscado);
-
-        // 4) Se calcula la cota maxima de comparaciones del peor escenario.
-        int maxComparaciones = calcularMaximoComparaciones(CANTIDAD_ELEMENTOS);
-
-        // 5) Se imprimen resultados para documentar la evidencia del programa.
-        System.out.println(&quot;Cantidad exacta de elementos: &quot; + CANTIDAD_ELEMENTOS);
-        System.out.println(&quot;Numero buscado: &quot; + numeroBuscado);
-        System.out.println(&quot;Indice encontrado: &quot; + posicion);
-        System.out.println(&quot;Comparaciones maximas en el peor caso: &quot; + maxComparaciones);
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
     }
 }
-</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+
+class ListaCircular {
+    Nodo inicio;
+
+    ListaCircular() {
+        inicio = null;
+    }
+
+    boolean estaVacia() {
+        return inicio == null;
+    }
+
+    void insertarAlInicio(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = inicio;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        nuevo.siguiente = inicio;
+        inicio = nuevo;
+        ultimo.siguiente = inicio;
+    }
+
+    void insertarAlFinal(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = inicio;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        ultimo.siguiente = nuevo;
+        nuevo.siguiente = inicio;
+    }
+
+    void insertarEnPosicion(int dato, int posicion) {
+        if (posicion &lt;= 1 || estaVacia()) {
+            insertarAlInicio(dato);
+            return;
+        }
+
+        int tamano = contarNodos();
+        if (posicion &gt; tamano) {
+            insertarAlFinal(dato);
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i &lt; posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        Nodo nuevo = new Nodo(dato);
+        nuevo.siguiente = actual.siguiente;
+        actual.siguiente = nuevo;
+    }
+
+    void eliminarAlInicio() {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista circular esta vacia.&quot;);
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        inicio = inicio.siguiente;
+        ultimo.siguiente = inicio;
+    }
+
+    void eliminarAlFinal() {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista circular esta vacia.&quot;);
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo actual = inicio;
+        while (actual.siguiente.siguiente != inicio) {
+            actual = actual.siguiente;
+        }
+
+        actual.siguiente = inicio;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista circular esta vacia.&quot;);
+            return;
+        }
+
+        if (posicion &lt;= 1) {
+            eliminarAlInicio();
+            return;
+        }
+
+        int tamano = contarNodos();
+        if (posicion &gt; tamano) {
+            System.out.println(&quot;Posicion invalida: no existe ese nodo dentro del ciclo.&quot;);
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i &lt; posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        actual.siguiente = actual.siguiente.siguiente;
+    }
+
+    Nodo obtenerUltimo() {
+        Nodo actual = inicio;
+        while (actual.siguiente != inicio) {
+            actual = actual.siguiente;
+        }
+        return actual;
+    }
+
+    int contarNodos() {
+        if (estaVacia()) {
+            return 0;
+        }
+
+        int contador = 1;
+        Nodo actual = inicio.siguiente;
+        while (actual != inicio) {
+            contador++;
+            actual = actual.siguiente;
+        }
+        return contador;
+    }
+
+    void mostrarLista() {
+        if (estaVacia()) {
+            System.out.println(&quot;Lista vacia (sin ciclo)&quot;);
+            return;
+        }
+
+        Nodo actual = inicio;
+        do {
+            System.out.print(actual.dato + &quot; -&gt; &quot;);
+            actual = actual.siguiente;
+        } while (actual != inicio);
+
+        System.out.println(&quot;vuelve a &quot; + inicio.dato);
+    }
+}
+
+public class ListaCircularCRUD {
+    public static void main(String[] args) {
+        ListaCircular lista = new ListaCircular();
+
+        System.out.println(&quot;Lista inicial:&quot;);
+        lista.mostrarLista();
+
+        lista.insertarAlInicio(40);
+        lista.insertarAlFinal(60);
+        lista.insertarAlInicio(20);
+        lista.insertarEnPosicion(50, 3);
+
+        System.out.println(&quot;Despues de inserciones:&quot;);
+        lista.mostrarLista();
+
+        lista.eliminarAlInicio();
+        lista.eliminarAlFinal();
+        lista.eliminarEnPosicion(2);
+
+        System.out.println(&quot;Despues de eliminaciones:&quot;);
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+Lista vacia (sin ciclo)
+Despues de inserciones:
+20 -&gt; 40 -&gt; 50 -&gt; 60 -&gt; vuelve a 20
+Despues de eliminaciones:
+40 -&gt; vuelve a 40
+*/
+</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual CRUD de lista circular</h2> <p>Inserta o elimina nodos y observa como el ultimo nodo vuelve a apuntar al inicio. Cada accion explica que referencias cambian y cuando una operacion no se puede realizar.</p> </div> <span class="sim-badge">Lista circular simple</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3> <label class="lista-campo" for="lista-operacion"> <span>Operación</span> <select id="lista-operacion"> <option value="insertar-inicio">Insertar al inicio</option><option value="insertar-final">Insertar al final</option><option value="insertar-posicion">Insertar en posición</option><option value="eliminar-inicio">Eliminar al inicio</option><option value="eliminar-final">Eliminar al final</option><option value="eliminar-posicion">Eliminar en posición</option> </select> </label> <label class="lista-campo" for="lista-valor"> <span>Dato (si aplica)</span> <input id="lista-valor" type="number" value="20" step="1"> </label> <label class="lista-campo" for="lista-posicion"> <span>Posicion</span> <input id="lista-posicion" type="number" value="2" step="1" min="1"> </label> <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-accion">Ejecutar operación</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button> <button type="button" class="sim-btn" id="lista-vacia">Lista vacía</button> <button type="button" class="sim-btn" id="lista-ejemplo">Cargar ejemplo</button> <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <div class="lista-explicacion" aria-live="polite"> <h3>Guía rápida</h3> <p id="lista-explicacion-texto"> En una lista circular, el ultimo nodo no termina en null: siempre vuelve a apuntar al inicio. </p> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio sin nodos y sin enlace circular</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista circular"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log" aria-live="polite"> <p>Esperando acciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
-</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-28.svg" alt="Imagen de salida de Programa temporal 28: Búsqueda Binaria en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = null;
+</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-38.svg" alt="Imagen de salida de Programa temporal 38: Lista circular simple CRUD en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = {"tipo":"lista-circular-crud","titulo":"Simulador visual CRUD de lista circular","descripcion":"Inserta o elimina nodos y observa como el ultimo nodo vuelve a apuntar al inicio. Cada accion explica que referencias cambian y cuando una operacion no se puede realizar.","etiquetaBoton":"Ejecutar operación","etiquetaAuto":"Auto demo","listaInicial":[20,40,60],"accionesDisponibles":[{"valor":"insertar-inicio","etiqueta":"Insertar al inicio"},{"valor":"insertar-final","etiqueta":"Insertar al final"},{"valor":"insertar-posicion","etiqueta":"Insertar en posición"},{"valor":"eliminar-inicio","etiqueta":"Eliminar al inicio"},{"valor":"eliminar-final","etiqueta":"Eliminar al final"},{"valor":"eliminar-posicion","etiqueta":"Eliminar en posición"}],"demoAcciones":[{"operacion":"insertar-inicio","valor":10,"mensaje":"10 entra al inicio y el ultimo nodo ahora apunta al nuevo inicio."},{"operacion":"insertar-final","valor":80,"mensaje":"80 se agrega al final y su siguiente vuelve a apuntar al nodo inicial."},{"operacion":"insertar-posicion","valor":50,"posicion":4,"mensaje":"50 se inserta en la posición 4 conservando la vuelta circular."},{"operacion":"eliminar-inicio","mensaje":"Se elimina el inicio y el ultimo nodo se reconecta con el nuevo primer nodo."},{"operacion":"eliminar-final","mensaje":"Se elimina el ultimo nodo y el nuevo ultimo vuelve a apuntar al inicio."},{"operacion":"eliminar-posicion","posicion":3,"mensaje":"Se elimina el nodo de la posición 3 y el enlace anterior salta directamente al siguiente."}]};
 
     (function setupClipboard() {
       const trigger = document.querySelector(".boton-copiar");

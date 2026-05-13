@@ -1,0 +1,213 @@
+/*
+ * Programa temporal 38: Lista circular simple CRUD en Java
+ *
+ * Objetivo:
+ * Simular inserciones y eliminaciones al inicio, al final y en una
+ * posicion deseada, explicando como el ultimo nodo siempre vuelve a
+ * apuntar al inicio para conservar la circularidad.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+    }
+}
+
+class ListaCircular {
+    Nodo inicio;
+
+    ListaCircular() {
+        inicio = null;
+    }
+
+    boolean estaVacia() {
+        return inicio == null;
+    }
+
+    void insertarAlInicio(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = inicio;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        nuevo.siguiente = inicio;
+        inicio = nuevo;
+        ultimo.siguiente = inicio;
+    }
+
+    void insertarAlFinal(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = inicio;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        ultimo.siguiente = nuevo;
+        nuevo.siguiente = inicio;
+    }
+
+    void insertarEnPosicion(int dato, int posicion) {
+        if (posicion <= 1 || estaVacia()) {
+            insertarAlInicio(dato);
+            return;
+        }
+
+        int tamano = contarNodos();
+        if (posicion > tamano) {
+            insertarAlFinal(dato);
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        Nodo nuevo = new Nodo(dato);
+        nuevo.siguiente = actual.siguiente;
+        actual.siguiente = nuevo;
+    }
+
+    void eliminarAlInicio() {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista circular esta vacia.");
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = obtenerUltimo();
+        inicio = inicio.siguiente;
+        ultimo.siguiente = inicio;
+    }
+
+    void eliminarAlFinal() {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista circular esta vacia.");
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo actual = inicio;
+        while (actual.siguiente.siguiente != inicio) {
+            actual = actual.siguiente;
+        }
+
+        actual.siguiente = inicio;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista circular esta vacia.");
+            return;
+        }
+
+        if (posicion <= 1) {
+            eliminarAlInicio();
+            return;
+        }
+
+        int tamano = contarNodos();
+        if (posicion > tamano) {
+            System.out.println("Posicion invalida: no existe ese nodo dentro del ciclo.");
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        actual.siguiente = actual.siguiente.siguiente;
+    }
+
+    Nodo obtenerUltimo() {
+        Nodo actual = inicio;
+        while (actual.siguiente != inicio) {
+            actual = actual.siguiente;
+        }
+        return actual;
+    }
+
+    int contarNodos() {
+        if (estaVacia()) {
+            return 0;
+        }
+
+        int contador = 1;
+        Nodo actual = inicio.siguiente;
+        while (actual != inicio) {
+            contador++;
+            actual = actual.siguiente;
+        }
+        return contador;
+    }
+
+    void mostrarLista() {
+        if (estaVacia()) {
+            System.out.println("Lista vacia (sin ciclo)");
+            return;
+        }
+
+        Nodo actual = inicio;
+        do {
+            System.out.print(actual.dato + " -> ");
+            actual = actual.siguiente;
+        } while (actual != inicio);
+
+        System.out.println("vuelve a " + inicio.dato);
+    }
+}
+
+public class ListaCircularCRUD {
+    public static void main(String[] args) {
+        ListaCircular lista = new ListaCircular();
+
+        System.out.println("Lista inicial:");
+        lista.mostrarLista();
+
+        lista.insertarAlInicio(40);
+        lista.insertarAlFinal(60);
+        lista.insertarAlInicio(20);
+        lista.insertarEnPosicion(50, 3);
+
+        System.out.println("Despues de inserciones:");
+        lista.mostrarLista();
+
+        lista.eliminarAlInicio();
+        lista.eliminarAlFinal();
+        lista.eliminarEnPosicion(2);
+
+        System.out.println("Despues de eliminaciones:");
+        lista.mostrarLista();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Lista inicial:
+Lista vacia (sin ciclo)
+Despues de inserciones:
+20 -> 40 -> 50 -> 60 -> vuelve a 20
+Despues de eliminaciones:
+40 -> vuelve a 40
+*/

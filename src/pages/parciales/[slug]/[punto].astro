@@ -46,60 +46,6 @@ const turnosIniciales = [
   { codigo: "A002", nombre: "Carlos Mejia" },
   { codigo: "A003", nombre: "Sofia Rojas" },
 ];
-const codigoJavaFifo1 = `public class ColaTurnosBanco {
-  private Nodo frente;
-  private Nodo fin;
-  private int size;
-
-  private static class Nodo {
-    String codigo;
-    String nombre;
-    Nodo next;
-
-    Nodo(String codigo, String nombre) {
-      this.codigo = codigo;
-      this.nombre = nombre;
-    }
-  }
-
-  public void encolar(String codigo, String nombre) {
-    Nodo nuevo = new Nodo(codigo, nombre);
-
-    if (estaVacia()) {
-      frente = nuevo;
-      fin = nuevo;
-    } else {
-      fin.next = nuevo;
-      fin = nuevo;
-    }
-
-    size++;
-  }
-
-  public String desencolar() {
-    if (estaVacia()) {
-      return null;
-    }
-
-    Nodo atendido = frente;
-    frente = frente.next;
-
-    if (frente == null) {
-      fin = null;
-    }
-
-    size--;
-    return atendido.codigo + " - " + atendido.nombre;
-  }
-
-  public String verFrente() {
-    return estaVacia() ? null : frente.codigo + " - " + frente.nombre;
-  }
-
-  public boolean estaVacia() {
-    return frente == null;
-  }
-}`;
 ---
 
 <BaseLayout title={`${punto.nombre} | ${parcial.titulo}`}>
@@ -298,8 +244,8 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             <p id="fifo-op-detail">`front` apunta a A001, `rear` apunta a A003 y cada nodo intermedio conserva la referencia `next` hacia el siguiente.</p>
           </article>
           <article>
-            <span>Bloques Java activos</span>
-            <p id="fifo-op-code">queue-fields, enqueue-link y dequeue-front.</p>
+            <span>Sección del código activa</span>
+            <p id="fifo-op-code">Atributos de la cola, creación de nodos y avance del frente.</p>
           </article>
         </div>
 
@@ -345,94 +291,118 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
           <h2><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" />Lógica Java de la cola</h2>
           <span class="codigo-badge">Referencia conceptual</span>
         </div>
-        <div class="fifo-java-grid">
-          <article class="fifo-java-note">
-            <h3>Clase `Nodo`</h3>
-            <p>Representa una unidad de la cola. Guarda los datos del cliente y la referencia `next` al siguiente nodo.</p>
-          </article>
-          <article class="fifo-java-note">
-            <h3>Clase `ColaTurnosBanco`</h3>
-            <p>Conserva `front`, `rear` y `size` para resolver las operaciones sin recorrer toda la lista.</p>
-          </article>
-          <article class="fifo-java-note">
-            <h3>Relación con la demo</h3>
-            <p>Cada vez que agregas o atiendes un turno, el simulador visual reproduce exactamente las asignaciones del código Java.</p>
-          </article>
+        <div class="fifo-java-intro">
+          <p>
+            El siguiente bloque presenta la clase completa en una sola vista. Los comentarios separan cada parte de la lógica,
+            mientras el simulador resalta la sección activa cuando cambian `front`, `rear` o la referencia `next`.
+          </p>
         </div>
-        <div class="fifo-code-view" id="fifo-code-view" aria-label="Bloques de código Java">
-          <div class="fifo-code-block" data-code-block="queue-fields">
-            <div class="fifo-code-title">Atributos de la cola</div>
-            <span class="fifo-code-line">private Nodo frente;</span>
-            <span class="fifo-code-line">private Nodo fin;</span>
-            <span class="fifo-code-line">private int size;</span>
+        <div class="fifo-code-editor" aria-label="Código Java completo del turnero bancario">
+          <div class="fifo-code-editor__bar">
+            <span></span><span></span><span></span>
           </div>
+          <div class="fifo-code-view" id="fifo-code-view">
+            <div class="fifo-code-block" data-code-block="queue-fields">
+              <span class="fifo-code-line">public class ColaTurnosBanco {'{'}</span>
+              <span class="fifo-code-line fifo-code-comment">  // Referencias principales de la cola</span>
+              <span class="fifo-code-line">  private Nodo frente;</span>
+              <span class="fifo-code-line">  private Nodo fin;</span>
+              <span class="fifo-code-line">  private int size;</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="node-class">
-            <div class="fifo-code-title">Clase Nodo</div>
-            <span class="fifo-code-line">private static class Nodo {'{'}</span>
-            <span class="fifo-code-line">  String codigo;</span>
-            <span class="fifo-code-line">  String nombre;</span>
-            <span class="fifo-code-line">  Nodo next;</span>
-            <span class="fifo-code-line">{'}'}</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="node-class">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">  // Nodo enlazado que representa un turno del banco</span>
+              <span class="fifo-code-line">  private static class Nodo {'{'}</span>
+              <span class="fifo-code-line">    String codigo;</span>
+              <span class="fifo-code-line">    String nombre;</span>
+              <span class="fifo-code-line">    Nodo next;</span>
+              <span class="fifo-code-line">&nbsp;</span>
+              <span class="fifo-code-line">    Nodo(String codigo, String nombre) {'{'}</span>
+              <span class="fifo-code-line">      this.codigo = codigo;</span>
+              <span class="fifo-code-line">      this.nombre = nombre;</span>
+              <span class="fifo-code-line">    {'}'}</span>
+              <span class="fifo-code-line">  {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="enqueue-create">
-            <div class="fifo-code-title">enqueue: crear nodo</div>
-            <span class="fifo-code-line">Nodo nuevo = new Nodo(codigo, nombre);</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="enqueue-create">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">  // Agrega un nuevo cliente al final de la cola</span>
+              <span class="fifo-code-line">  public void encolar(String codigo, String nombre) {'{'}</span>
+              <span class="fifo-code-line">    Nodo nuevo = new Nodo(codigo, nombre);</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="enqueue-empty">
-            <div class="fifo-code-title">enqueue: cola vacía</div>
-            <span class="fifo-code-line">if (estaVacia()) {'{'}</span>
-            <span class="fifo-code-line">  frente = nuevo;</span>
-            <span class="fifo-code-line">  fin = nuevo;</span>
-            <span class="fifo-code-line">{'}'}</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="enqueue-empty">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">    // Si la cola está vacía, el nuevo nodo será frente y fin</span>
+              <span class="fifo-code-line">    if (estaVacia()) {'{'}</span>
+              <span class="fifo-code-line">      frente = nuevo;</span>
+              <span class="fifo-code-line">      fin = nuevo;</span>
+              <span class="fifo-code-line">    {'}'} else {'{'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="enqueue-link">
-            <div class="fifo-code-title">enqueue: enlazar al final</div>
-            <span class="fifo-code-line">fin.next = nuevo;</span>
-            <span class="fifo-code-line">fin = nuevo;</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="enqueue-link">
+              <span class="fifo-code-line fifo-code-comment">      // Enlaza el nodo desde el final actual y mueve el puntero fin</span>
+              <span class="fifo-code-line">      fin.next = nuevo;</span>
+              <span class="fifo-code-line">      fin = nuevo;</span>
+              <span class="fifo-code-line">    {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="enqueue-size">
-            <div class="fifo-code-title">enqueue: actualizar tamaño</div>
-            <span class="fifo-code-line">size++;</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="enqueue-size">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">    // La cola gana un elemento</span>
+              <span class="fifo-code-line">    size++;</span>
+              <span class="fifo-code-line">  {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="dequeue-guard">
-            <div class="fifo-code-title">dequeue: protección</div>
-            <span class="fifo-code-line">if (estaVacia()) {'{'}</span>
-            <span class="fifo-code-line">  return null;</span>
-            <span class="fifo-code-line">{'}'}</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="dequeue-guard">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">  // Atiende al cliente del frente y protege el caso de cola vacía</span>
+              <span class="fifo-code-line">  public String desencolar() {'{'}</span>
+              <span class="fifo-code-line">    if (estaVacia()) {'{'}</span>
+              <span class="fifo-code-line">      return null;</span>
+              <span class="fifo-code-line">    {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="dequeue-front">
-            <div class="fifo-code-title">dequeue: avanzar frente</div>
-            <span class="fifo-code-line">Nodo atendido = frente;</span>
-            <span class="fifo-code-line">frente = frente.next;</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="dequeue-front">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">    // Guarda el turno atendido y mueve frente al siguiente nodo</span>
+              <span class="fifo-code-line">    Nodo atendido = frente;</span>
+              <span class="fifo-code-line">    frente = frente.next;</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="dequeue-empty-tail">
-            <div class="fifo-code-title">dequeue: cola queda vacía</div>
-            <span class="fifo-code-line">if (frente == null) {'{'}</span>
-            <span class="fifo-code-line">  fin = null;</span>
-            <span class="fifo-code-line">{'}'}</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="dequeue-empty-tail">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">    // Si ya no queda frente, la cola también pierde el fin</span>
+              <span class="fifo-code-line">    if (frente == null) {'{'}</span>
+              <span class="fifo-code-line">      fin = null;</span>
+              <span class="fifo-code-line">    {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="dequeue-size">
-            <div class="fifo-code-title">dequeue: actualizar tamaño</div>
-            <span class="fifo-code-line">size--;</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="dequeue-size">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">    // La cola pierde un elemento y devuelve el turno atendido</span>
+              <span class="fifo-code-line">    size--;</span>
+              <span class="fifo-code-line">    return atendido.codigo + " - " + atendido.nombre;</span>
+              <span class="fifo-code-line">  {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="peek">
-            <div class="fifo-code-title">peek / verFrente</div>
-            <span class="fifo-code-line">return estaVacia() ? null : frente.codigo + " - " + frente.nombre;</span>
-          </div>
+            <div class="fifo-code-block" data-code-block="peek">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">  // Consulta el cliente actual del frente sin retirarlo</span>
+              <span class="fifo-code-line">  public String verFrente() {'{'}</span>
+              <span class="fifo-code-line">    return estaVacia() ? null : frente.codigo + " - " + frente.nombre;</span>
+              <span class="fifo-code-line">  {'}'}</span>
+            </div>
 
-          <div class="fifo-code-block" data-code-block="is-empty">
-            <div class="fifo-code-title">isEmpty</div>
-            <span class="fifo-code-line">return frente == null;</span>
+            <div class="fifo-code-block" data-code-block="is-empty">
+              <span class="fifo-code-line fifo-code-comment">&nbsp;</span>
+              <span class="fifo-code-line fifo-code-comment">  // Valida si no existe ningún nodo enlazado</span>
+              <span class="fifo-code-line">  public boolean estaVacia() {'{'}</span>
+              <span class="fifo-code-line">    return frente == null;</span>
+              <span class="fifo-code-line">  {'}'}</span>
+              <span class="fifo-code-line">{'}'}</span>
+            </div>
           </div>
         </div>
       </section>
@@ -578,7 +548,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
       let nextId = initialQueue.length + 1;
       let operationTitle = "Estado inicial";
       let operationDetail = "La cola comienza con tres nodos enlazados. `front` apunta a A001 y `rear` apunta a A003.";
-      let operationCode = "queue-fields, node-class y enqueue-link.";
+      let operationCode = "Atributos de la cola, definición del nodo y enlace del final.";
       let activeCodeBlocks = ["queue-fields", "node-class", "enqueue-link"];
       let animationState = {
         type: "idle",
@@ -811,7 +781,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             {
               operationTitle: `enqueue(${codigo}, ${nombre})`,
               operationDetail: `Se crea el nodo ${codigo} para ${nombre}, pero todavía no está enlazado al final de la cola.`,
-              operationCode: "Bloque activo: enqueue-create.",
+              operationCode: "Se activa la creación del nuevo nodo dentro de `encolar`.",
               animationState: {
                 type: "enqueue",
                 phase: "start",
@@ -825,7 +795,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `Ahora ${previousRear.codigo}.next apunta a ${codigo} y el puntero rear se prepara para avanzar.`,
-              operationCode: "Bloques activos: enqueue-link y queue-fields.",
+              operationCode: "Se activa la parte donde `fin.next` enlaza el nodo y `fin` avanza al nuevo final.",
               animationState: {
                 type: "enqueue",
                 phase: "link",
@@ -840,7 +810,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `La operación termina con rear = ${codigo} y size = ${queue.length}. La cola mantiene FIFO intacto.`,
-              operationCode: "Bloques activos: enqueue-size, enqueue-link y queue-fields.",
+              operationCode: "Se activa el cierre de `encolar`, donde la cola ya enlazó el nodo y actualiza su tamaño.",
               animationState: {
                 type: "enqueue",
                 phase: "complete",
@@ -864,7 +834,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             {
               operationTitle: `enqueue(${codigo}, ${nombre})`,
               operationDetail: `Se crea el nodo ${codigo} para ${nombre} sobre una cola vacía.`,
-              operationCode: "Bloques activos: enqueue-create y node-class.",
+              operationCode: "Se activa la creación del nodo nuevo a partir de la estructura `Nodo`.",
               animationState: {
                 type: "enqueue",
                 phase: "start",
@@ -877,7 +847,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `Como no había nodos, ${codigo} pasa a ser simultáneamente front y rear.`,
-              operationCode: "Bloques activos: enqueue-empty y queue-fields.",
+              operationCode: "Se activa la rama de cola vacía, donde el mismo nodo pasa a ser `frente` y `fin`.",
               animationState: {
                 type: "enqueue",
                 phase: "link",
@@ -892,7 +862,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `La cola queda inicializada con un solo nodo y size = 1.`,
-              operationCode: "Bloques activos: enqueue-size, enqueue-empty y queue-fields.",
+              operationCode: "Se activa el cierre de `encolar` con la cola ya inicializada y el tamaño actualizado.",
               animationState: {
                 type: "enqueue",
                 phase: "complete",
@@ -919,7 +889,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
         if (queue.length === 0) {
           operationTitle = "dequeue() sobre cola vacía";
           operationDetail = "No se puede atender un cliente porque front y rear ya están en null.";
-          operationCode = "Bloques activos: dequeue-guard e is-empty.";
+          operationCode = "Se activa la validación que protege `desencolar` cuando no hay nodos en la cola.";
           registrarTrazas("dequeue() abortado", "La cola está vacía: front = null, rear = null");
           if (feedbackNode) {
             feedbackNode.textContent = "No hay clientes en espera. Agrega un nuevo turno para continuar.";
@@ -955,10 +925,10 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
         operationTitle = `dequeue() -> ${atendido.codigo}`;
         if (queue[0]) {
           operationDetail = `El nodo ${atendido.codigo} abandona el frente. El nuevo front será ${queue[0].codigo} y rear permanece en ${previousRear.codigo}.`;
-          operationCode = "Bloques activos: dequeue-front y queue-fields.";
+          operationCode = "Se activa la parte donde `frente` avanza a `frente.next` sin mover el puntero `fin`.";
         } else {
           operationDetail = `El nodo ${atendido.codigo} era el único elemento, por eso después de atenderlo front y rear quedan en null.`;
-          operationCode = "Bloques activos: dequeue-empty-tail y dequeue-front.";
+          operationCode = "Se activa la parte donde el último nodo sale y tanto `frente` como `fin` quedan en `null`.";
         }
 
         if (feedbackNode) {
@@ -982,7 +952,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `Tras retirar ${atendido.codigo}, la cola ya no tiene nodos enlazados. front = null y rear = null.`,
-              operationCode: "Bloques activos: dequeue-empty-tail, dequeue-front y queue-fields.",
+              operationCode: "Se activa la parte donde el último nodo sale y tanto `frente` como `fin` quedan en `null`.",
               animationState: {
                 type: "dequeue",
                 phase: "shift",
@@ -994,7 +964,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `La operación termina con size = 0 y la cola lista para recibir un nuevo primer nodo.`,
-              operationCode: "Bloques activos: dequeue-size, dequeue-empty-tail y queue-fields.",
+              operationCode: "Se activa el cierre de `desencolar`, dejando la cola vacía y el tamaño en cero.",
               animationState: {
                 type: "dequeue",
                 phase: "complete",
@@ -1021,7 +991,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `El nodo ${atendido.codigo} se retira y front avanza a ${nextFront.codigo}. El puntero rear no cambia.`,
-              operationCode: "Bloques activos: dequeue-front y queue-fields.",
+              operationCode: "Se mantiene activa la parte de avance del frente mientras el siguiente nodo pasa a ocupar esa referencia.",
               animationState: {
                 type: "dequeue",
                 phase: "shift",
@@ -1035,7 +1005,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
             },
             {
               operationDetail: `La cola queda con size = ${queue.length}. FIFO se conserva porque el nuevo frente es el siguiente nodo enlazado.`,
-              operationCode: "Bloques activos: dequeue-size, dequeue-front y queue-fields.",
+              operationCode: "Se activa el cierre de `desencolar`, con el nuevo frente ya definido y el tamaño reducido.",
               animationState: {
                 type: "dequeue",
                 phase: "complete",
@@ -1062,7 +1032,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
         nextId = initialQueue.length + 1;
         operationTitle = "Reset de simulación";
         operationDetail = "La cola volvió a su configuración original con tres nodos enlazados y sin historial de atención.";
-        operationCode = "Bloques activos: queue-fields, node-class y enqueue-link.";
+        operationCode = "Se restauran las referencias base de la cola y vuelve la estructura enlazada inicial.";
         if (inputNode instanceof HTMLInputElement) {
           inputNode.value = "";
         }
@@ -1306,6 +1276,19 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
     gap: var(--sp-4);
   }
 
+  .fifo-info-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fifo-info-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--terra) 38%, transparent), transparent);
+  }
+
   .fifo-demo__content--wide {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1411,6 +1394,10 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
   .fifo-demo {
     display: grid;
     gap: var(--sp-4);
+    padding: var(--sp-6);
+    background:
+      radial-gradient(circle at top right, rgba(231, 160, 94, 0.12), transparent 30%),
+      linear-gradient(180deg, rgba(12, 20, 36, 0.96), rgba(12, 20, 36, 0.82));
   }
 
   .fifo-demo__head,
@@ -1431,6 +1418,10 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
   .fifo-form {
     display: grid;
     gap: var(--sp-2);
+    padding: var(--sp-4);
+    border-radius: 20px;
+    border: 1px solid var(--br-1);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .fifo-form label {
@@ -1460,7 +1451,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
 
   .fifo-op-state {
     display: grid;
-    grid-template-columns: minmax(260px, 0.45fr) minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--sp-3);
   }
 
@@ -1476,6 +1467,8 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
     padding: var(--sp-5);
     border: 1px solid var(--br-1);
     background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.78));
+    border-radius: 24px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
   .fifo-queue {
@@ -1492,6 +1485,7 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
     margin-top: var(--sp-4);
     overflow-x: auto;
     padding-bottom: var(--sp-2);
+    scrollbar-width: thin;
   }
 
   .fifo-structure {
@@ -1691,44 +1685,89 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
     margin-bottom: var(--sp-4);
   }
 
-  .fifo-code-view {
-    display: grid;
-    gap: var(--sp-3);
-  }
-
-  .fifo-code-block {
+  .fifo-java-intro {
+    margin-bottom: var(--sp-4);
     padding: var(--sp-4);
     border-radius: 18px;
     border: 1px solid var(--br-1);
-    background: rgba(8, 14, 24, 0.72);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .fifo-java-intro p {
+    color: var(--text-2);
+    line-height: 1.75;
+  }
+
+  .fifo-code-editor {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--br-1);
+    background: linear-gradient(180deg, rgba(7, 11, 20, 0.98), rgba(11, 18, 32, 0.98));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .fifo-code-editor__bar {
+    display: flex;
+    gap: 0.45rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--br-1);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .fifo-code-editor__bar span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: var(--text-3);
+  }
+
+  .fifo-code-editor__bar span:first-child {
+    background: #ff5f57;
+  }
+
+  .fifo-code-editor__bar span:nth-child(2) {
+    background: #febc2e;
+  }
+
+  .fifo-code-editor__bar span:nth-child(3) {
+    background: #28c840;
+  }
+
+  .fifo-code-view {
+    display: grid;
+    gap: 0;
+    padding: var(--sp-4) 0;
+  }
+
+  .fifo-code-block {
+    padding: 0.15rem var(--sp-5);
+    border-left: 3px solid transparent;
     transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   }
 
   .fifo-code-block--active {
-    border-color: color-mix(in srgb, var(--terra) 45%, transparent);
-    background: color-mix(in srgb, var(--terra) 10%, rgba(8, 14, 24, 0.8));
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--terra) 20%, transparent), 0 16px 28px rgba(0, 0, 0, 0.22);
-    transform: translateY(-2px);
+    border-left-color: color-mix(in srgb, var(--terra) 70%, transparent);
+    background: linear-gradient(90deg, rgba(231, 160, 94, 0.12), transparent 72%);
     animation: fifoCodeGlow 380ms ease;
   }
 
   .fifo-code-block--related {
-    border-color: color-mix(in srgb, var(--success) 25%, transparent);
-    background: color-mix(in srgb, var(--success) 7%, rgba(8, 14, 24, 0.78));
-  }
-
-  .fifo-code-title {
-    margin-bottom: var(--sp-3);
-    color: var(--text-1);
-    font-weight: 700;
+    border-left-color: color-mix(in srgb, var(--success) 45%, transparent);
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.08), transparent 72%);
   }
 
   .fifo-code-line {
     display: block;
     font-family: var(--ff-mono);
     font-size: 0.88rem;
-    line-height: 1.8;
-    color: var(--text-2);
+    line-height: 1.72;
+    color: #d6dde8;
+    white-space: pre-wrap;
+  }
+
+  .fifo-code-comment {
+    color: #7fb18a;
   }
 
   @keyframes fifoNodeEnter {
@@ -1801,15 +1840,15 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
 
   @keyframes fifoCodeGlow {
     0% {
-      box-shadow: 0 0 0 0 rgba(231, 160, 94, 0);
+      opacity: 0.86;
     }
 
     50% {
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--terra) 20%, transparent), 0 0 26px rgba(231, 160, 94, 0.14);
+      opacity: 1;
     }
 
     100% {
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--terra) 20%, transparent), 0 16px 28px rgba(0, 0, 0, 0.22);
+      opacity: 1;
     }
   }
 
@@ -1856,6 +1895,10 @@ const codigoJavaFifo1 = `public class ColaTurnosBanco {
     .fifo-demo__head,
     .fifo-section-head {
       flex-direction: column;
+    }
+
+    .fifo-op-state {
+      grid-template-columns: 1fr;
     }
   }
 
