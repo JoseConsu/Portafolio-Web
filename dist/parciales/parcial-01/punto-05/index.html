@@ -6,7 +6,7 @@
         document.documentElement.setAttribute("data-theme", "dark");
       }
     </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css">
-<link rel="stylesheet" href="/_astro/_punto_.kaoJ0PL6.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 5: Arreglos parcialmente ordenados</h1> <p data-astro-cid-trhlygpa>Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos donde una mitad esta ordenada y la otra desordenada.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
+<link rel="stylesheet" href="/_astro/_punto_.BZ7e64CL.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 5: Arreglos parcialmente ordenados</h1> <p data-astro-cid-trhlygpa>Comparar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos donde una mitad esta ordenada y la otra desordenada.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
 PARCIAL 1 - PUNTO 5
 
 Arreglos parcialmente ordenados:
@@ -178,21 +178,111 @@ public class Parcial01Punto05 {
     const queueRoot = document.querySelector("#fifo-queue");
     if (queueRoot) {
       const historyRoot = document.querySelector("#fifo-history");
+      const structureRoot = document.querySelector("#fifo-structure");
+      const traceRoot = document.querySelector("#fifo-trace");
       const feedbackNode = document.querySelector("#fifo-feedback");
       const inputNode = document.querySelector("#fifo-name");
       const currentNode = document.querySelector("#fifo-current");
       const countNode = document.querySelector("#fifo-count");
       const lastNode = document.querySelector("#fifo-last");
+      const frontNode = document.querySelector("#fifo-front");
+      const rearNode = document.querySelector("#fifo-rear");
+      const sizeNode = document.querySelector("#fifo-size");
+      const opNameNode = document.querySelector("#fifo-op-name");
+      const opDetailNode = document.querySelector("#fifo-op-detail");
+      const opCodeNode = document.querySelector("#fifo-op-code");
       const addButton = document.querySelector("#fifo-add");
       const nextButton = document.querySelector("#fifo-next");
       const resetButton = document.querySelector("#fifo-reset");
+      const codeBlocks = Array.from(document.querySelectorAll("[data-code-block]"));
+      const metricNodes = {
+        current: currentNode?.closest("article") ?? null,
+        count: countNode?.closest("article") ?? null,
+        last: lastNode?.closest("article") ?? null,
+        front: frontNode?.closest("article") ?? null,
+        rear: rearNode?.closest("article") ?? null,
+        size: sizeNode?.closest("article") ?? null,
+      };
 
       const initialQueue = turnosIniciales.map((turno) => ({ ...turno }));
       let queue = initialQueue.map((turno) => ({ ...turno }));
       let history = [];
+      let trace = [
+        "Estado inicial: front = A001, rear = A003 y A001.next apunta a A002.",
+        "Los nodos intermedios mantienen el enlace next hasta llegar al final de la cola.",
+      ];
       let nextId = initialQueue.length + 1;
+      let operationTitle = "Estado inicial";
+      let operationDetail = "La cola comienza con tres nodos enlazados. `front` apunta a A001 y `rear` apunta a A003.";
+      let operationCode = "queue-fields, node-class y enqueue-link.";
+      let activeCodeBlocks = ["queue-fields", "node-class", "enqueue-link"];
+      let animationState = {
+        type: "idle",
+        phase: "complete",
+        focusCode: null,
+        frontCode: queue[0]?.codigo ?? null,
+        rearCode: queue[queue.length - 1]?.codigo ?? null,
+        activeArrowFrom: null,
+        exitingCode: null,
+        incomingCode: null,
+        metricKeys: ["front", "rear", "size"],
+      };
+      let animationStepTimeouts = [];
 
       const formatoTurno = (turno) => `${turno.codigo} · ${turno.nombre}`;
+      const formatoRef = (turno) => (turno ? turno.codigo : "null");
+
+      const registrarTrazas = (...lineas) => {
+        trace = [...lineas, ...trace].slice(0, 7);
+      };
+
+      const clearAnimationTimers = () => {
+        animationStepTimeouts.forEach((timer) => window.clearTimeout(timer));
+        animationStepTimeouts = [];
+      };
+
+      const setCodeHighlights = (blocks = []) => {
+        activeCodeBlocks = blocks;
+        codeBlocks.forEach((block) => {
+          const key = block.getAttribute("data-code-block") ?? "";
+          const stateIndex = blocks.indexOf(key);
+          block.classList.toggle("fifo-code-block--active", stateIndex === 0);
+          block.classList.toggle("fifo-code-block--related", stateIndex > 0);
+        });
+      };
+
+      const setAnimationState = (state = {}) => {
+        animationState = {
+          type: state.type ?? animationState.type,
+          phase: state.phase ?? animationState.phase,
+          focusCode: state.focusCode ?? null,
+          frontCode: state.frontCode ?? queue[0]?.codigo ?? null,
+          rearCode: state.rearCode ?? queue[queue.length - 1]?.codigo ?? null,
+          activeArrowFrom: state.activeArrowFrom ?? null,
+          exitingCode: state.exitingCode ?? null,
+          incomingCode: state.incomingCode ?? null,
+          metricKeys: state.metricKeys ?? [],
+        };
+        if (state.codeBlocks) {
+          setCodeHighlights(state.codeBlocks);
+        }
+        render();
+      };
+
+      const runSequence = (steps) => {
+        clearAnimationTimers();
+        let delay = 0;
+        for (const step of steps) {
+          const timer = window.setTimeout(() => {
+            if (step.operationTitle) operationTitle = step.operationTitle;
+            if (step.operationDetail) operationDetail = step.operationDetail;
+            if (step.operationCode) operationCode = step.operationCode;
+            setAnimationState(step.animationState ?? {});
+          }, delay);
+          animationStepTimeouts.push(timer);
+          delay += step.duration ?? 220;
+        }
+      };
 
       const render = () => {
         if (currentNode) {
@@ -208,6 +298,34 @@ public class Parcial01Punto05 {
           lastNode.textContent = history[0] ? formatoTurno(history[0]) : "Aun no hay registros";
         }
 
+        if (frontNode) {
+          frontNode.textContent = formatoRef(queue[0]);
+        }
+
+        if (rearNode) {
+          rearNode.textContent = formatoRef(queue[queue.length - 1]);
+        }
+
+        if (sizeNode) {
+          sizeNode.textContent = `${queue.length} ${queue.length === 1 ? "nodo" : "nodos"}`;
+        }
+
+        if (opNameNode) {
+          opNameNode.textContent = operationTitle;
+        }
+
+        if (opDetailNode) {
+          opDetailNode.textContent = operationDetail;
+        }
+
+        if (opCodeNode) {
+          opCodeNode.textContent = operationCode;
+        }
+
+        Object.entries(metricNodes).forEach(([key, article]) => {
+          article?.classList.toggle("fifo-metric--active", animationState.metricKeys.includes(key));
+        });
+
         queueRoot.replaceChildren();
 
         if (queue.length === 0) {
@@ -218,9 +336,65 @@ public class Parcial01Punto05 {
         } else {
           queue.forEach((turno, index) => {
             const card = document.createElement("article");
-            card.className = `fifo-turno ${index === 0 ? "fifo-turno--front" : ""}`;
+            const clases = ["fifo-turno"];
+            if (index === 0) clases.push("fifo-turno--front");
+            if (animationState.focusCode === turno.codigo) clases.push("fifo-turno--focus");
+            if (animationState.incomingCode === turno.codigo) clases.push("fifo-turno--anim-enter");
+            if (animationState.exitingCode === turno.codigo) clases.push("fifo-turno--anim-exit");
+            card.className = clases.join(" ");
             card.innerHTML = `<span>${index === 0 ? "En frente" : `Posición ${index + 1}`}</span><strong>${turno.codigo}</strong><p>${turno.nombre}</p>`;
             queueRoot.appendChild(card);
+          });
+        }
+
+        structureRoot?.replaceChildren();
+
+        if (queue.length === 0) {
+          const emptyStructure = document.createElement("div");
+          emptyStructure.className = "fifo-structure-empty";
+          emptyStructure.innerHTML = "<strong>Front = null</strong><span>Rear = null</span><p>No existen nodos enlazados en este momento.</p>";
+          structureRoot?.appendChild(emptyStructure);
+        } else {
+          queue.forEach((turno, index) => {
+            const piece = document.createElement("div");
+            piece.className = "fifo-structure-piece";
+
+            const pointerTop = [];
+            if (index === 0) pointerTop.push(`<span class="fifo-pointer fifo-pointer--front ${animationState.frontCode === turno.codigo ? "fifo-pointer--active" : ""}">Front</span>`);
+            if (index === queue.length - 1) pointerTop.push(`<span class="fifo-pointer fifo-pointer--rear ${animationState.rearCode === turno.codigo ? "fifo-pointer--active" : ""}">Rear</span>`);
+
+            const nodeClasses = ["fifo-node"];
+            if (index === 0) nodeClasses.push("fifo-node--front");
+            if (index === queue.length - 1) nodeClasses.push("fifo-node--rear");
+            if (animationState.focusCode === turno.codigo) nodeClasses.push("fifo-node--focus");
+            if (animationState.incomingCode === turno.codigo) nodeClasses.push("fifo-node--incoming");
+            if (animationState.exitingCode === turno.codigo) nodeClasses.push("fifo-node--outgoing");
+            if (animationState.frontCode === turno.codigo) nodeClasses.push("fifo-node--front-active");
+            if (animationState.rearCode === turno.codigo) nodeClasses.push("fifo-node--rear-active");
+
+            piece.innerHTML = `
+              <div class="fifo-pointer-row">${pointerTop.join("")}</div>
+              <article class="${nodeClasses.join(" ")}">
+                <span class="fifo-node__label">Nodo ${index + 1}</span>
+                <strong>${turno.codigo}</strong>
+                <p>${turno.nombre}</p>
+                <small>next: ${queue[index + 1] ? queue[index + 1].codigo : "null"}</small>
+              </article>
+            `;
+
+            structureRoot?.appendChild(piece);
+
+            if (index < queue.length - 1) {
+              const arrow = document.createElement("div");
+              arrow.className = `fifo-arrow ${animationState.activeArrowFrom === turno.codigo ? "fifo-arrow--active" : ""}`;
+              arrow.innerHTML = '<span>next</span><strong>→</strong>';
+              structureRoot?.appendChild(arrow);
+            } else {
+              const nullArrow = document.createElement("div");
+              nullArrow.className = `fifo-arrow fifo-arrow--null ${animationState.activeArrowFrom === turno.codigo ? "fifo-arrow--active" : ""}`;
+              nullArrow.innerHTML = '<span>next</span><strong>null</strong>';
+              structureRoot?.appendChild(nullArrow);
+            }
           });
         }
 
@@ -238,6 +412,13 @@ public class Parcial01Punto05 {
             historyRoot?.appendChild(item);
           });
         }
+
+        traceRoot?.replaceChildren();
+        trace.forEach((linea) => {
+          const item = document.createElement("li");
+          item.textContent = linea;
+          traceRoot?.appendChild(item);
+        });
       };
 
       addButton?.addEventListener("click", () => {
@@ -251,8 +432,116 @@ public class Parcial01Punto05 {
         }
 
         const codigo = `A${String(nextId).padStart(3, "0")}`;
+        const previousRear = queue[queue.length - 1] ?? null;
         nextId += 1;
         queue.push({ codigo, nombre });
+        if (previousRear) {
+          registrarTrazas(
+            `enqueue(${codigo}, ${nombre})`,
+            `Se crea el nodo ${codigo}`,
+            `${previousRear.codigo}.next = ${codigo}`,
+            `rear = ${codigo}`,
+            `size = ${queue.length}`
+          );
+          runSequence([
+            {
+              operationTitle: `enqueue(${codigo}, ${nombre})`,
+              operationDetail: `Se crea el nodo ${codigo} para ${nombre}, pero todavía no está enlazado al final de la cola.`,
+              operationCode: "Bloque activo: enqueue-create.",
+              animationState: {
+                type: "enqueue",
+                phase: "start",
+                focusCode: codigo,
+                incomingCode: codigo,
+                rearCode: previousRear.codigo,
+                metricKeys: ["rear", "size"],
+                codeBlocks: ["enqueue-create", "node-class"],
+              },
+              duration: 180,
+            },
+            {
+              operationDetail: `Ahora ${previousRear.codigo}.next apunta a ${codigo} y el puntero rear se prepara para avanzar.`,
+              operationCode: "Bloques activos: enqueue-link y queue-fields.",
+              animationState: {
+                type: "enqueue",
+                phase: "link",
+                focusCode: codigo,
+                incomingCode: codigo,
+                rearCode: codigo,
+                activeArrowFrom: previousRear.codigo,
+                metricKeys: ["rear"],
+                codeBlocks: ["enqueue-link", "queue-fields"],
+              },
+              duration: 280,
+            },
+            {
+              operationDetail: `La operación termina con rear = ${codigo} y size = ${queue.length}. La cola mantiene FIFO intacto.`,
+              operationCode: "Bloques activos: enqueue-size, enqueue-link y queue-fields.",
+              animationState: {
+                type: "enqueue",
+                phase: "complete",
+                focusCode: codigo,
+                rearCode: codigo,
+                metricKeys: ["rear", "size", "count"],
+                codeBlocks: ["enqueue-size", "enqueue-link", "queue-fields"],
+              },
+              duration: 220,
+            },
+          ]);
+        } else {
+          registrarTrazas(
+            `enqueue(${codigo}, ${nombre})`,
+            `Se crea el nodo ${codigo}`,
+            `front = ${codigo}`,
+            `rear = ${codigo}`,
+            `size = ${queue.length}`
+          );
+          runSequence([
+            {
+              operationTitle: `enqueue(${codigo}, ${nombre})`,
+              operationDetail: `Se crea el nodo ${codigo} para ${nombre} sobre una cola vacía.`,
+              operationCode: "Bloques activos: enqueue-create y node-class.",
+              animationState: {
+                type: "enqueue",
+                phase: "start",
+                focusCode: codigo,
+                incomingCode: codigo,
+                metricKeys: ["front", "rear", "size"],
+                codeBlocks: ["enqueue-create", "node-class"],
+              },
+              duration: 180,
+            },
+            {
+              operationDetail: `Como no había nodos, ${codigo} pasa a ser simultáneamente front y rear.`,
+              operationCode: "Bloques activos: enqueue-empty y queue-fields.",
+              animationState: {
+                type: "enqueue",
+                phase: "link",
+                focusCode: codigo,
+                incomingCode: codigo,
+                frontCode: codigo,
+                rearCode: codigo,
+                metricKeys: ["front", "rear"],
+                codeBlocks: ["enqueue-empty", "queue-fields"],
+              },
+              duration: 280,
+            },
+            {
+              operationDetail: `La cola queda inicializada con un solo nodo y size = 1.`,
+              operationCode: "Bloques activos: enqueue-size, enqueue-empty y queue-fields.",
+              animationState: {
+                type: "enqueue",
+                phase: "complete",
+                focusCode: codigo,
+                frontCode: codigo,
+                rearCode: codigo,
+                metricKeys: ["front", "rear", "size", "count"],
+                codeBlocks: ["enqueue-size", "enqueue-empty", "queue-fields"],
+              },
+              duration: 220,
+            },
+          ]);
+        }
         if (feedbackNode) {
           feedbackNode.textContent = `Se agregó ${codigo} para ${nombre} al final de la cola.`;
         }
@@ -260,41 +549,178 @@ public class Parcial01Punto05 {
           inputNode.value = "";
           inputNode.focus();
         }
-        render();
       });
 
       nextButton?.addEventListener("click", () => {
         if (queue.length === 0) {
+          operationTitle = "dequeue() sobre cola vacía";
+          operationDetail = "No se puede atender un cliente porque front y rear ya están en null.";
+          operationCode = "Bloques activos: dequeue-guard e is-empty.";
+          registrarTrazas("dequeue() abortado", "La cola está vacía: front = null, rear = null");
           if (feedbackNode) {
             feedbackNode.textContent = "No hay clientes en espera. Agrega un nuevo turno para continuar.";
           }
-          render();
+          runSequence([
+            {
+              animationState: {
+                type: "empty",
+                phase: "start",
+                metricKeys: ["front", "rear"],
+                codeBlocks: ["dequeue-guard", "is-empty"],
+              },
+              duration: 260,
+            },
+          ]);
           return;
         }
 
-        const atendido = queue.shift();
-        if (atendido) {
-          history.unshift(atendido);
-          if (feedbackNode) {
-            feedbackNode.textContent = `${atendido.codigo} de ${atendido.nombre} fue atendido correctamente.`;
-          }
+        const atendido = queue[0];
+        const previousRear = queue[queue.length - 1];
+        const nextFront = queue[1] ?? null;
+        const queueWillBeEmpty = queue.length === 1;
+        history.unshift(atendido);
+        queue = queue.slice(1);
+
+        registrarTrazas(
+          `dequeue() -> ${atendido.codigo}`,
+          queue[0] ? `front = ${queue[0].codigo}` : "front = null",
+          queueWillBeEmpty ? "rear = null" : `rear = ${previousRear.codigo}`,
+          `size = ${queue.length}`
+        );
+
+        operationTitle = `dequeue() -> ${atendido.codigo}`;
+        if (queue[0]) {
+          operationDetail = `El nodo ${atendido.codigo} abandona el frente. El nuevo front será ${queue[0].codigo} y rear permanece en ${previousRear.codigo}.`;
+          operationCode = "Bloques activos: dequeue-front y queue-fields.";
+        } else {
+          operationDetail = `El nodo ${atendido.codigo} era el único elemento, por eso después de atenderlo front y rear quedan en null.`;
+          operationCode = "Bloques activos: dequeue-empty-tail y dequeue-front.";
         }
-        render();
+
+        if (feedbackNode) {
+          feedbackNode.textContent = `${atendido.codigo} de ${atendido.nombre} fue atendido correctamente.`;
+        }
+
+        if (queueWillBeEmpty) {
+          runSequence([
+            {
+              animationState: {
+                type: "dequeue",
+                phase: "start",
+                focusCode: atendido.codigo,
+                exitingCode: atendido.codigo,
+                frontCode: atendido.codigo,
+                rearCode: atendido.codigo,
+                metricKeys: ["front", "rear", "current"],
+                codeBlocks: ["dequeue-front", "queue-fields"],
+              },
+              duration: 180,
+            },
+            {
+              operationDetail: `Tras retirar ${atendido.codigo}, la cola ya no tiene nodos enlazados. front = null y rear = null.`,
+              operationCode: "Bloques activos: dequeue-empty-tail, dequeue-front y queue-fields.",
+              animationState: {
+                type: "dequeue",
+                phase: "shift",
+                exitingCode: atendido.codigo,
+                metricKeys: ["front", "rear", "size", "count"],
+                codeBlocks: ["dequeue-empty-tail", "dequeue-front", "queue-fields"],
+              },
+              duration: 300,
+            },
+            {
+              operationDetail: `La operación termina con size = 0 y la cola lista para recibir un nuevo primer nodo.`,
+              operationCode: "Bloques activos: dequeue-size, dequeue-empty-tail y queue-fields.",
+              animationState: {
+                type: "dequeue",
+                phase: "complete",
+                metricKeys: ["size", "count"],
+                codeBlocks: ["dequeue-size", "dequeue-empty-tail", "queue-fields"],
+              },
+              duration: 220,
+            },
+          ]);
+        } else {
+          runSequence([
+            {
+              animationState: {
+                type: "dequeue",
+                phase: "start",
+                focusCode: atendido.codigo,
+                exitingCode: atendido.codigo,
+                frontCode: atendido.codigo,
+                rearCode: previousRear.codigo,
+                metricKeys: ["front", "current"],
+                codeBlocks: ["dequeue-front", "queue-fields"],
+              },
+              duration: 180,
+            },
+            {
+              operationDetail: `El nodo ${atendido.codigo} se retira y front avanza a ${nextFront.codigo}. El puntero rear no cambia.`,
+              operationCode: "Bloques activos: dequeue-front y queue-fields.",
+              animationState: {
+                type: "dequeue",
+                phase: "shift",
+                focusCode: nextFront.codigo,
+                frontCode: nextFront.codigo,
+                rearCode: previousRear.codigo,
+                metricKeys: ["front", "rear", "current"],
+                codeBlocks: ["dequeue-front", "queue-fields"],
+              },
+              duration: 300,
+            },
+            {
+              operationDetail: `La cola queda con size = ${queue.length}. FIFO se conserva porque el nuevo frente es el siguiente nodo enlazado.`,
+              operationCode: "Bloques activos: dequeue-size, dequeue-front y queue-fields.",
+              animationState: {
+                type: "dequeue",
+                phase: "complete",
+                focusCode: nextFront.codigo,
+                frontCode: nextFront.codigo,
+                rearCode: previousRear.codigo,
+                metricKeys: ["front", "rear", "size", "count"],
+                codeBlocks: ["dequeue-size", "dequeue-front", "queue-fields"],
+              },
+              duration: 220,
+            },
+          ]);
+        }
       });
 
       resetButton?.addEventListener("click", () => {
+        clearAnimationTimers();
         queue = initialQueue.map((turno) => ({ ...turno }));
         history = [];
+        trace = [
+          "Reset: front = A001 y rear = A003 restaurados.",
+          "La estructura vuelve a enlazar los turnos iniciales con referencias next consecutivas.",
+        ];
         nextId = initialQueue.length + 1;
+        operationTitle = "Reset de simulación";
+        operationDetail = "La cola volvió a su configuración original con tres nodos enlazados y sin historial de atención.";
+        operationCode = "Bloques activos: queue-fields, node-class y enqueue-link.";
         if (inputNode instanceof HTMLInputElement) {
           inputNode.value = "";
         }
         if (feedbackNode) {
           feedbackNode.textContent = "La simulación volvió al estado inicial con los turnos de ejemplo.";
         }
-        render();
+        runSequence([
+          {
+            animationState: {
+              type: "reset",
+              phase: "start",
+              frontCode: queue[0]?.codigo ?? null,
+              rearCode: queue[queue.length - 1]?.codigo ?? null,
+              metricKeys: ["front", "rear", "size", "count"],
+              codeBlocks: ["queue-fields", "node-class", "enqueue-link"],
+            },
+            duration: 260,
+          },
+        ]);
       });
 
+      setCodeHighlights(activeCodeBlocks);
       render();
     }
   })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html> 
