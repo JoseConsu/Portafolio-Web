@@ -10,6 +10,8 @@ export type PuntoParcial = {
   valor?: number;
   arregloA?: number[];
   arregloB?: string[];
+  estado?: "disponible" | "proximamente";
+  tipoVista?: "detalle" | "demo" | "placeholder";
 };
 
 export type Parcial = {
@@ -20,6 +22,9 @@ export type Parcial = {
   descripcion: string;
   enlaceExterno: string;
   puntos: PuntoParcial[];
+  etiquetaHome?: string;
+  ocultarPuntajeHome?: boolean;
+  tipoVista?: "detalle" | "simulador" | "catalogo-apps";
 };
 
 export const parciales: Parcial[] = [
@@ -193,6 +198,56 @@ export const parciales: Parcial[] = [
         // ═══════════════════════════════════════════════════════════
         arregloA: [],
         arregloB: [],
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: "proyecto-final",
+    titulo: "Proyecto final",
+    materia: "Estructuras de datos",
+    descripcion:
+      "Catálogo de aplicativos web que aplican estructuras lineales a escenarios reales, comenzando con un turnero bancario basado en colas FIFO.",
+    enlaceExterno: "/parciales/proyecto-final",
+    etiquetaHome: "Proyecto final",
+    ocultarPuntajeHome: true,
+    tipoVista: "catalogo-apps",
+    puntos: [
+      {
+        id: "fifo-1",
+        slug: "fifo-1",
+        nombre: "FIFO 1: Turnero bancario",
+        descripcion:
+          "Aplicacion web que simula la atencion de clientes en un banco respetando el orden de llegada con una cola FIFO.",
+        estado: "disponible",
+        tipoVista: "demo",
+      },
+      {
+        id: "fifo-2",
+        slug: "fifo-2",
+        nombre: "FIFO 2: Cola de impresion",
+        descripcion:
+          "Segundo aplicativo FIFO orientado a la administracion de trabajos enviados a una impresora compartida.",
+        estado: "proximamente",
+        tipoVista: "placeholder",
+      },
+      {
+        id: "filo-1",
+        slug: "filo-1",
+        nombre: "FILO 1: Historial de acciones",
+        descripcion:
+          "Aplicativo tipo pila para registrar y revertir acciones recientes dentro de una interfaz de usuario.",
+        estado: "proximamente",
+        tipoVista: "placeholder",
+      },
+      {
+        id: "filo-2",
+        slug: "filo-2",
+        nombre: "FILO 2: Bandeja de procesos",
+        descripcion:
+          "Aplicativo tipo pila enfocado en procesos de soporte donde la ultima solicitud preparada es la primera en resolverse.",
+        estado: "proximamente",
+        tipoVista: "placeholder",
       },
     ],
   },

@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FIFO 1: Turnero bancario | Proyecto final</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css">
+<link rel="stylesheet" href="/_astro/_punto_.kaoJ0PL6.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="fifo-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="fifo-hero" data-astro-cid-trhlygpa> <div class="fifo-hero__copy" data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Proyecto final · Aplicativo disponible</p> <h1 data-astro-cid-trhlygpa>FIFO 1: Turnero bancario</h1> <p class="fifo-hero__lead" data-astro-cid-trhlygpa>
+Sistema web de turnos bancarios que aplica una cola FIFO para atender clientes exactamente en el orden en el que llegan.
+</p> <div class="fifo-hero__actions" data-astro-cid-trhlygpa> <a class="btn btn-primary" href="#demo-fifo" data-astro-cid-trhlygpa>Probar demo</a> <a class="btn btn-ghost" href="/parciales/proyecto-final" data-astro-cid-trhlygpa>Volver al catálogo</a> </div> </div> <div class="fifo-hero__panel ds-panel" data-astro-cid-trhlygpa> <div class="hero-kpis" data-astro-cid-trhlygpa> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>Estructura</span> <strong data-astro-cid-trhlygpa>FIFO</strong> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>Contexto</span> <strong data-astro-cid-trhlygpa>Atención bancaria</strong> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>Stack lógico</span> <strong data-astro-cid-trhlygpa>Java</strong> </article> </div> <div class="turno-preview" aria-label="Vista previa de turnos" data-astro-cid-trhlygpa> <div class="turno-preview__item turno-preview__item--front" data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>A001</span> <strong data-astro-cid-trhlygpa>Laura Diaz</strong> </div><div class="turno-preview__item " data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>A002</span> <strong data-astro-cid-trhlygpa>Carlos Mejia</strong> </div><div class="turno-preview__item " data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>A003</span> <strong data-astro-cid-trhlygpa>Sofia Rojas</strong> </div> </div> </div> </section> <section class="fifo-grid-info" data-astro-cid-trhlygpa> <article class="ds-panel fifo-info-card" data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Problema</p> <h2 data-astro-cid-trhlygpa>Orden y trazabilidad en cajas</h2> <p data-astro-cid-trhlygpa>
+En un banco, cada cliente espera que el sistema respete su llegada. Una cola FIFO permite registrar turnos,
+            mantener el frente visible y garantizar una atencion justa sin saltos manuales.
+</p> </article> <article class="ds-panel fifo-info-card" data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Aplicación al desarrollo</p> <h2 data-astro-cid-trhlygpa>De estructura a producto web</h2> <p data-astro-cid-trhlygpa>
+La misma estructura sirve para un modulo de recepcion, ventanillas, kioscos de autogestion y tableros de seguimiento.
+            En esta version el frontend ilustra el flujo y la logica Java modela la cola del sistema.
+</p> </article> </section> <section class="fifo-flow ds-panel" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Funcionamiento</p> <h2 data-astro-cid-trhlygpa>Secuencia operativa de la cola</h2> </div> <div class="fifo-flow__steps" data-astro-cid-trhlygpa> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>01</span> <h3 data-astro-cid-trhlygpa>Tomar turno</h3> <p data-astro-cid-trhlygpa>El cliente ingresa al sistema y recibe un codigo consecutivo junto con su nombre.</p> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>02</span> <h3 data-astro-cid-trhlygpa>Encolar</h3> <p data-astro-cid-trhlygpa>El turno se agrega al final de la cola manteniendo intacto el orden de llegada.</p> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>03</span> <h3 data-astro-cid-trhlygpa>Atender</h3> <p data-astro-cid-trhlygpa>La caja siempre toma el primer turno disponible y lo mueve al historial.</p> </article> </div> </section> <section class="fifo-demo ds-panel" id="demo-fifo" data-astro-cid-trhlygpa> <div class="fifo-demo__head" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Demo interactiva</p> <h2 data-astro-cid-trhlygpa>Simulación del turnero bancario</h2> <p data-astro-cid-trhlygpa>Agrega clientes, atiende el siguiente turno y observa cómo la cola respeta FIFO en tiempo real.</p> </div> <div class="fifo-demo__actions" data-astro-cid-trhlygpa> <button class="btn btn-primary" id="fifo-add" type="button" data-astro-cid-trhlygpa>Agregar turno</button> <button class="btn btn-secondary" id="fifo-next" type="button" data-astro-cid-trhlygpa>Atender siguiente</button> <button class="btn btn-ghost" id="fifo-reset" type="button" data-astro-cid-trhlygpa>Reiniciar</button> </div> </div> <div class="fifo-form" data-astro-cid-trhlygpa> <label for="fifo-name" data-astro-cid-trhlygpa>Nombre del cliente</label> <input id="fifo-name" name="fifo-name" type="text" placeholder="Ej. Mariana Torres" autocomplete="off" data-astro-cid-trhlygpa> <p id="fifo-feedback" class="fifo-feedback" aria-live="polite" data-astro-cid-trhlygpa>La cola inicia con tres turnos de ejemplo para mostrar el comportamiento base.</p> </div> <div class="fifo-dashboard" data-astro-cid-trhlygpa> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>Turno en atención</span> <strong id="fifo-current" data-astro-cid-trhlygpa>A001 · Laura Diaz</strong> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>En espera</span> <strong id="fifo-count" data-astro-cid-trhlygpa>3 clientes</strong> </article> <article data-astro-cid-trhlygpa> <span data-astro-cid-trhlygpa>Último atendido</span> <strong id="fifo-last" data-astro-cid-trhlygpa>Aun no hay registros</strong> </article> </div> <div class="fifo-demo__content" data-astro-cid-trhlygpa> <div class="fifo-queue-panel" data-astro-cid-trhlygpa> <div class="fifo-section-head" data-astro-cid-trhlygpa> <h3 data-astro-cid-trhlygpa>Cola actual</h3> <span data-astro-cid-trhlygpa>Primer turno visible al frente</span> </div> <div class="fifo-queue" id="fifo-queue" aria-live="polite" data-astro-cid-trhlygpa></div> </div> <div class="fifo-history-panel" data-astro-cid-trhlygpa> <div class="fifo-section-head" data-astro-cid-trhlygpa> <h3 data-astro-cid-trhlygpa>Historial de atención</h3> <span data-astro-cid-trhlygpa>Salida en orden de servicio</span> </div> <ul id="fifo-history" class="fifo-history" data-astro-cid-trhlygpa></ul> </div> </div> </section> <section class="ds-panel zona-codigo zona-codigo--java" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Lógica Java de la cola</h2> <span class="codigo-badge" data-astro-cid-trhlygpa>Referencia conceptual</span> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>import java.util.LinkedList;
+import java.util.Queue;
+
+public class ColaTurnosBanco {
+  private final Queue&lt;Turno&gt; cola = new LinkedList&lt;&gt;();
+
+  public void encolar(String codigo, String nombre) {
+    cola.offer(new Turno(codigo, nombre));
+  }
+
+  public Turno atenderSiguiente() {
+    return cola.poll();
+  }
+
+  public Turno verFrente() {
+    return cola.peek();
+  }
+
+  public boolean estaVacia() {
+    return cola.isEmpty();
+  }
+
+  record Turno(String codigo, String nombre) {}
+}</code></pre> </section> </main><script>(function(){const turnosIniciales = [{"codigo":"A001","nombre":"Laura Diaz"},{"codigo":"A002","nombre":"Carlos Mejia"},{"codigo":"A003","nombre":"Sofia Rojas"}];
+
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+      const iconoOriginal = botonCopiar?.querySelector("svg")?.cloneNode(true);
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.textContent = "✅";
+        setTimeout(() => {
+          botonCopiar?.replaceChildren();
+          if (iconoOriginal) {
+            botonCopiar?.appendChild(iconoOriginal.cloneNode(true));
+          }
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+
+    const queueRoot = document.querySelector("#fifo-queue");
+    if (queueRoot) {
+      const historyRoot = document.querySelector("#fifo-history");
+      const feedbackNode = document.querySelector("#fifo-feedback");
+      const inputNode = document.querySelector("#fifo-name");
+      const currentNode = document.querySelector("#fifo-current");
+      const countNode = document.querySelector("#fifo-count");
+      const lastNode = document.querySelector("#fifo-last");
+      const addButton = document.querySelector("#fifo-add");
+      const nextButton = document.querySelector("#fifo-next");
+      const resetButton = document.querySelector("#fifo-reset");
+
+      const initialQueue = turnosIniciales.map((turno) => ({ ...turno }));
+      let queue = initialQueue.map((turno) => ({ ...turno }));
+      let history = [];
+      let nextId = initialQueue.length + 1;
+
+      const formatoTurno = (turno) => `${turno.codigo} · ${turno.nombre}`;
+
+      const render = () => {
+        if (currentNode) {
+          currentNode.textContent = queue[0] ? formatoTurno(queue[0]) : "Sin clientes en espera";
+        }
+
+        if (countNode) {
+          const total = queue.length;
+          countNode.textContent = `${total} ${total === 1 ? "cliente" : "clientes"}`;
+        }
+
+        if (lastNode) {
+          lastNode.textContent = history[0] ? formatoTurno(history[0]) : "Aun no hay registros";
+        }
+
+        queueRoot.replaceChildren();
+
+        if (queue.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "fifo-queue__empty";
+          empty.textContent = "La cola está vacía. Agrega un nuevo turno para continuar la simulación.";
+          queueRoot.appendChild(empty);
+        } else {
+          queue.forEach((turno, index) => {
+            const card = document.createElement("article");
+            card.className = `fifo-turno ${index === 0 ? "fifo-turno--front" : ""}`;
+            card.innerHTML = `<span>${index === 0 ? "En frente" : `Posición ${index + 1}`}</span><strong>${turno.codigo}</strong><p>${turno.nombre}</p>`;
+            queueRoot.appendChild(card);
+          });
+        }
+
+        historyRoot?.replaceChildren();
+
+        if (history.length === 0) {
+          const item = document.createElement("li");
+          item.className = "fifo-history__empty";
+          item.textContent = "Todavía no se ha atendido ningún cliente.";
+          historyRoot?.appendChild(item);
+        } else {
+          history.forEach((turno) => {
+            const item = document.createElement("li");
+            item.textContent = formatoTurno(turno);
+            historyRoot?.appendChild(item);
+          });
+        }
+      };
+
+      addButton?.addEventListener("click", () => {
+        const nombre = inputNode instanceof HTMLInputElement ? inputNode.value.trim() : "";
+        if (!nombre) {
+          if (feedbackNode) {
+            feedbackNode.textContent = "Ingresa el nombre del cliente antes de generar un nuevo turno.";
+          }
+          inputNode?.focus();
+          return;
+        }
+
+        const codigo = `A${String(nextId).padStart(3, "0")}`;
+        nextId += 1;
+        queue.push({ codigo, nombre });
+        if (feedbackNode) {
+          feedbackNode.textContent = `Se agregó ${codigo} para ${nombre} al final de la cola.`;
+        }
+        if (inputNode instanceof HTMLInputElement) {
+          inputNode.value = "";
+          inputNode.focus();
+        }
+        render();
+      });
+
+      nextButton?.addEventListener("click", () => {
+        if (queue.length === 0) {
+          if (feedbackNode) {
+            feedbackNode.textContent = "No hay clientes en espera. Agrega un nuevo turno para continuar.";
+          }
+          render();
+          return;
+        }
+
+        const atendido = queue.shift();
+        if (atendido) {
+          history.unshift(atendido);
+          if (feedbackNode) {
+            feedbackNode.textContent = `${atendido.codigo} de ${atendido.nombre} fue atendido correctamente.`;
+          }
+        }
+        render();
+      });
+
+      resetButton?.addEventListener("click", () => {
+        queue = initialQueue.map((turno) => ({ ...turno }));
+        history = [];
+        nextId = initialQueue.length + 1;
+        if (inputNode instanceof HTMLInputElement) {
+          inputNode.value = "";
+        }
+        if (feedbackNode) {
+          feedbackNode.textContent = "La simulación volvió al estado inicial con los turnos de ejemplo.";
+        }
+        render();
+      });
+
+      render();
+    }
+  })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html> 

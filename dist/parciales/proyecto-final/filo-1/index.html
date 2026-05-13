@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FILO 1: Historial de acciones | Proyecto final</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.r6zjD-Wg.css">
+<link rel="stylesheet" href="/_astro/_punto_.kaoJ0PL6.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="placeholder-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Proyecto final</p> <h1 data-astro-cid-trhlygpa>FILO 1: Historial de acciones</h1> <p data-astro-cid-trhlygpa>Aplicativo tipo pila para registrar y revertir acciones recientes dentro de una interfaz de usuario.</p> </div> <a class="icono-volver" href="/parciales/proyecto-final" aria-label="Volver al catálogo de aplicativos" title="Volver al catálogo de aplicativos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel placeholder-card" data-astro-cid-trhlygpa> <span class="placeholder-pill" data-astro-cid-trhlygpa>Próximamente</span> <h2 data-astro-cid-trhlygpa>Este aplicativo forma parte del roadmap del proyecto final</h2> <p data-astro-cid-trhlygpa>
+La estructura base ya quedó preparada para recibir esta nueva experiencia. Cuando se implemente,
+          conservará el mismo patrón de navegación, detalle y demo usado en FIFO 1.
+</p> <div class="placeholder-actions" data-astro-cid-trhlygpa> <a class="btn btn-primary" href="/parciales/proyecto-final" data-astro-cid-trhlygpa>Volver al catálogo</a> <a class="btn btn-ghost" href="/parciales/proyecto-final/fifo-1" data-astro-cid-trhlygpa>Ver FIFO 1</a> </div> </section> </main><script>(function(){const turnosIniciales = [{"codigo":"A001","nombre":"Laura Diaz"},{"codigo":"A002","nombre":"Carlos Mejia"},{"codigo":"A003","nombre":"Sofia Rojas"}];
+
+    const botonCopiar = document.querySelector(".boton-copiar");
+    const nodoCodigo = document.querySelector(".cuadro-codigo");
+
+    botonCopiar?.addEventListener("click", async () => {
+      if (!nodoCodigo) return;
+
+      const texto = nodoCodigo.textContent ?? "";
+      const iconoOriginal = botonCopiar?.querySelector("svg")?.cloneNode(true);
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        botonCopiar.textContent = "✅";
+        setTimeout(() => {
+          botonCopiar?.replaceChildren();
+          if (iconoOriginal) {
+            botonCopiar?.appendChild(iconoOriginal.cloneNode(true));
+          }
+        }, 1400);
+      } catch {
+        const seleccion = window.getSelection();
+        const rango = document.createRange();
+        rango.selectNodeContents(nodoCodigo);
+        seleccion?.removeAllRanges();
+        seleccion?.addRange(rango);
+      }
+    });
+
+    const queueRoot = document.querySelector("#fifo-queue");
+    if (queueRoot) {
+      const historyRoot = document.querySelector("#fifo-history");
+      const feedbackNode = document.querySelector("#fifo-feedback");
+      const inputNode = document.querySelector("#fifo-name");
+      const currentNode = document.querySelector("#fifo-current");
+      const countNode = document.querySelector("#fifo-count");
+      const lastNode = document.querySelector("#fifo-last");
+      const addButton = document.querySelector("#fifo-add");
+      const nextButton = document.querySelector("#fifo-next");
+      const resetButton = document.querySelector("#fifo-reset");
+
+      const initialQueue = turnosIniciales.map((turno) => ({ ...turno }));
+      let queue = initialQueue.map((turno) => ({ ...turno }));
+      let history = [];
+      let nextId = initialQueue.length + 1;
+
+      const formatoTurno = (turno) => `${turno.codigo} · ${turno.nombre}`;
+
+      const render = () => {
+        if (currentNode) {
+          currentNode.textContent = queue[0] ? formatoTurno(queue[0]) : "Sin clientes en espera";
+        }
+
+        if (countNode) {
+          const total = queue.length;
+          countNode.textContent = `${total} ${total === 1 ? "cliente" : "clientes"}`;
+        }
+
+        if (lastNode) {
+          lastNode.textContent = history[0] ? formatoTurno(history[0]) : "Aun no hay registros";
+        }
+
+        queueRoot.replaceChildren();
+
+        if (queue.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "fifo-queue__empty";
+          empty.textContent = "La cola está vacía. Agrega un nuevo turno para continuar la simulación.";
+          queueRoot.appendChild(empty);
+        } else {
+          queue.forEach((turno, index) => {
+            const card = document.createElement("article");
+            card.className = `fifo-turno ${index === 0 ? "fifo-turno--front" : ""}`;
+            card.innerHTML = `<span>${index === 0 ? "En frente" : `Posición ${index + 1}`}</span><strong>${turno.codigo}</strong><p>${turno.nombre}</p>`;
+            queueRoot.appendChild(card);
+          });
+        }
+
+        historyRoot?.replaceChildren();
+
+        if (history.length === 0) {
+          const item = document.createElement("li");
+          item.className = "fifo-history__empty";
+          item.textContent = "Todavía no se ha atendido ningún cliente.";
+          historyRoot?.appendChild(item);
+        } else {
+          history.forEach((turno) => {
+            const item = document.createElement("li");
+            item.textContent = formatoTurno(turno);
+            historyRoot?.appendChild(item);
+          });
+        }
+      };
+
+      addButton?.addEventListener("click", () => {
+        const nombre = inputNode instanceof HTMLInputElement ? inputNode.value.trim() : "";
+        if (!nombre) {
+          if (feedbackNode) {
+            feedbackNode.textContent = "Ingresa el nombre del cliente antes de generar un nuevo turno.";
+          }
+          inputNode?.focus();
+          return;
+        }
+
+        const codigo = `A${String(nextId).padStart(3, "0")}`;
+        nextId += 1;
+        queue.push({ codigo, nombre });
+        if (feedbackNode) {
+          feedbackNode.textContent = `Se agregó ${codigo} para ${nombre} al final de la cola.`;
+        }
+        if (inputNode instanceof HTMLInputElement) {
+          inputNode.value = "";
+          inputNode.focus();
+        }
+        render();
+      });
+
+      nextButton?.addEventListener("click", () => {
+        if (queue.length === 0) {
+          if (feedbackNode) {
+            feedbackNode.textContent = "No hay clientes en espera. Agrega un nuevo turno para continuar.";
+          }
+          render();
+          return;
+        }
+
+        const atendido = queue.shift();
+        if (atendido) {
+          history.unshift(atendido);
+          if (feedbackNode) {
+            feedbackNode.textContent = `${atendido.codigo} de ${atendido.nombre} fue atendido correctamente.`;
+          }
+        }
+        render();
+      });
+
+      resetButton?.addEventListener("click", () => {
+        queue = initialQueue.map((turno) => ({ ...turno }));
+        history = [];
+        nextId = initialQueue.length + 1;
+        if (inputNode instanceof HTMLInputElement) {
+          inputNode.value = "";
+        }
+        if (feedbackNode) {
+          feedbackNode.textContent = "La simulación volvió al estado inicial con los turnos de ejemplo.";
+        }
+        render();
+      });
+
+      render();
+    }
+  })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html> 

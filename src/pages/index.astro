@@ -370,14 +370,14 @@ const heroPhrases = JSON.stringify([
               <a
                 href={parcial.enlaceExterno}
                 class={`parcial-card reveal delay-${(index % 4) + 1}`}
-                aria-label={`${formatParcialIndex(parcial.slug)} — ${parcial.titulo}`}
+                aria-label={`${parcial.etiquetaHome ?? formatParcialIndex(parcial.slug)} — ${parcial.titulo}`}
               >
-                <div class="parcial-card__index">{formatParcialIndex(parcial.slug)}</div>
+                <div class="parcial-card__index">{parcial.etiquetaHome ?? formatParcialIndex(parcial.slug)}</div>
                 <div class="parcial-card__title">{parcial.titulo}</div>
                 <div class="parcial-card__materia">{parcial.materia}</div>
                 <p class="parcial-card__desc">{parcial.descripcion}</p>
                 <div class="parcial-card__footer">
-                  <span class="parcial-card__points-badge">{totalPuntos(parcial)} pts</span>
+                  {!parcial.ocultarPuntajeHome && <span class="parcial-card__points-badge">{totalPuntos(parcial)} pts</span>}
                   <span class="parcial-card__cta">Ver parcial →</span>
                 </div>
               </a>

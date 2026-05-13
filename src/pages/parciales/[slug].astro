@@ -11,6 +11,7 @@ export function getStaticPaths() {
 
 const { parcial } = Astro.props;
 const esParcial02 = parcial.slug === "parcial-02";
+const esProyectoFinal = parcial.slug === "proyecto-final";
 ---
 
 <BaseLayout title={`${parcial.titulo} | Parciales`}>
@@ -170,6 +171,46 @@ const esParcial02 = parcial.slug === "parcial-02";
               </div>
             </div>
           </div>
+        </div>
+      </section>
+    ) : esProyectoFinal ? (
+      <section class="catalogo-final-apps ds-panel">
+        <div class="catalogo-final-apps__head">
+          <div>
+            <p class="ds-eyebrow">Aplicativos web del proyecto</p>
+            <h2>Catálogo del proyecto final</h2>
+            <p>
+              Este bloque reúne cuatro aplicativos basados en estructuras lineales. El primero ya se encuentra
+              disponible como demo interactiva y los siguientes quedan listos para ampliarse en el mismo flujo.
+            </p>
+          </div>
+          <div class="catalogo-final-apps__legend" aria-label="Estados de aplicativos">
+            <span class="estado-pill estado-pill--disponible">Disponible</span>
+            <span class="estado-pill estado-pill--proximamente">Próximamente</span>
+          </div>
+        </div>
+
+        <div class="catalogo-final-grid">
+          {parcial.puntos.map((punto, index) => (
+            <a
+              class={`app-card app-card--${punto.estado ?? "disponible"}`}
+              href={`/parciales/${parcial.slug}/${punto.slug}`}
+              aria-label={`Abrir ${punto.nombre}`}
+            >
+              <div class="app-card__topline">
+                <span class="app-card__index">App {String(index + 1).padStart(2, "0")}</span>
+                <span class={`estado-pill estado-pill--${punto.estado ?? "disponible"}`}>
+                  {punto.estado === "proximamente" ? "Próximamente" : "Disponible"}
+                </span>
+              </div>
+              <h3>{punto.nombre}</h3>
+              <p>{punto.descripcion}</p>
+              <div class="app-card__footer">
+                <span>{punto.slug.toUpperCase()}</span>
+                <span>{punto.estado === "proximamente" ? "Ver roadmap" : "Abrir demo"} →</span>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
     ) : (
@@ -825,7 +866,138 @@ const esParcial02 = parcial.slug === "parcial-02";
     line-height: 1.5;
   }
 
+  .catalogo-final-apps {
+    display: grid;
+    gap: var(--sp-5);
+  }
+
+  .catalogo-final-apps__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--sp-4);
+  }
+
+  .catalogo-final-apps__head h2 {
+    margin-bottom: var(--sp-2);
+  }
+
+  .catalogo-final-apps__head p:last-child {
+    max-width: 68ch;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+
+  .catalogo-final-apps__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    justify-content: flex-end;
+  }
+
+  .catalogo-final-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-4);
+  }
+
+  .app-card {
+    display: grid;
+    gap: var(--sp-3);
+    padding: var(--sp-5);
+    border-radius: 24px;
+    border: 1px solid var(--br-1);
+    background:
+      radial-gradient(circle at top right, rgba(231, 160, 94, 0.18), transparent 40%),
+      linear-gradient(160deg, rgba(12, 22, 42, 0.92), rgba(12, 22, 42, 0.72));
+    box-shadow: var(--sh-card);
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .app-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--terra);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .app-card--proximamente {
+    background:
+      radial-gradient(circle at top right, rgba(113, 128, 150, 0.18), transparent 38%),
+      linear-gradient(160deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.7));
+  }
+
+  .app-card__topline,
+  .app-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+  }
+
+  .app-card__index,
+  .app-card__footer span:first-child {
+    font-family: var(--ff-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  .app-card h3 {
+    font-size: 1.3rem;
+    color: var(--text-1);
+  }
+
+  .app-card p {
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+
+  .app-card__footer span:last-child {
+    color: var(--terra-light);
+    font-weight: 600;
+  }
+
+  .estado-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+
+  .estado-pill--disponible {
+    color: var(--success);
+    border-color: color-mix(in srgb, var(--success) 35%, transparent);
+    background: color-mix(in srgb, var(--success) 12%, transparent);
+  }
+
+  .estado-pill--proximamente {
+    color: var(--text-2);
+    border-color: color-mix(in srgb, var(--text-3) 35%, transparent);
+    background: color-mix(in srgb, var(--text-3) 10%, transparent);
+  }
+
   @media (max-width: 768px) {
+    .catalogo-final-apps__head {
+      flex-direction: column;
+    }
+
+    .catalogo-final-apps__legend {
+      justify-content: flex-start;
+    }
+
+    .catalogo-final-grid {
+      grid-template-columns: 1fr;
+    }
+
     .puntos-grid {
       grid-template-columns: repeat(3, 1fr);
     }
