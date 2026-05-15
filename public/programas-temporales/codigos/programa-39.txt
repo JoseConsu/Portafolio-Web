@@ -1,0 +1,220 @@
+/*
+ * Programa temporal 39: Lista circular doblemente enlazada CRUD en Java
+ *
+ * Objetivo:
+ * Insertar y eliminar nodos al inicio, al final y en una posicion deseada
+ * manteniendo dos referencias por nodo: siguiente y anterior. La estructura
+ * es circular, por lo que puede recorrerse al derecho y al reves.
+ */
+
+class Nodo {
+    int dato;
+    Nodo siguiente;
+    Nodo anterior;
+
+    Nodo(int dato) {
+        this.dato = dato;
+        this.siguiente = null;
+        this.anterior = null;
+    }
+}
+
+class ListaCircularDoble {
+    Nodo inicio;
+
+    boolean estaVacia() {
+        return inicio == null;
+    }
+
+    void insertarAlInicio(int dato) {
+        Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = nuevo;
+            nuevo.anterior = nuevo;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
+        nuevo.siguiente = inicio;
+        nuevo.anterior = ultimo;
+        ultimo.siguiente = nuevo;
+        inicio.anterior = nuevo;
+        inicio = nuevo;
+    }
+
+    void insertarAlFinal(int dato) {
+        if (estaVacia()) {
+            insertarAlInicio(dato);
+            return;
+        }
+
+        Nodo nuevo = new Nodo(dato);
+        Nodo ultimo = inicio.anterior;
+        nuevo.siguiente = inicio;
+        nuevo.anterior = ultimo;
+        ultimo.siguiente = nuevo;
+        inicio.anterior = nuevo;
+    }
+
+    void insertarEnPosicion(int dato, int posicion) {
+        if (posicion <= 1 || estaVacia()) {
+            insertarAlInicio(dato);
+            return;
+        }
+
+        int tamano = contar();
+        if (posicion > tamano) {
+            insertarAlFinal(dato);
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion - 1; i++) {
+            actual = actual.siguiente;
+        }
+
+        Nodo nuevo = new Nodo(dato);
+        Nodo siguiente = actual.siguiente;
+        nuevo.siguiente = siguiente;
+        nuevo.anterior = actual;
+        actual.siguiente = nuevo;
+        siguiente.anterior = nuevo;
+    }
+
+    void eliminarAlInicio() {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista esta vacia.");
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
+        inicio = inicio.siguiente;
+        inicio.anterior = ultimo;
+        ultimo.siguiente = inicio;
+    }
+
+    void eliminarAlFinal() {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista esta vacia.");
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
+        Nodo nuevoUltimo = ultimo.anterior;
+        nuevoUltimo.siguiente = inicio;
+        inicio.anterior = nuevoUltimo;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (estaVacia()) {
+            System.out.println("No se puede eliminar: la lista esta vacia.");
+            return;
+        }
+
+        if (posicion <= 1) {
+            eliminarAlInicio();
+            return;
+        }
+
+        int tamano = contar();
+        if (posicion > tamano) {
+            System.out.println("Posicion invalida dentro del doble ciclo.");
+            return;
+        }
+
+        Nodo actual = inicio;
+        for (int i = 1; i < posicion; i++) {
+            actual = actual.siguiente;
+        }
+
+        actual.anterior.siguiente = actual.siguiente;
+        actual.siguiente.anterior = actual.anterior;
+    }
+
+    int contar() {
+        if (estaVacia()) return 0;
+        int total = 1;
+        Nodo actual = inicio.siguiente;
+        while (actual != inicio) {
+            total++;
+            actual = actual.siguiente;
+        }
+        return total;
+    }
+
+    void mostrarDerecha() {
+        if (estaVacia()) {
+            System.out.println("Lista vacia (sin ciclo)");
+            return;
+        }
+
+        Nodo actual = inicio;
+        do {
+            System.out.print(actual.dato + " -> ");
+            actual = actual.siguiente;
+        } while (actual != inicio);
+        System.out.println("vuelve a " + inicio.dato);
+    }
+
+    void mostrarReves() {
+        if (estaVacia()) {
+            System.out.println("Lista vacia (sin ciclo)");
+            return;
+        }
+
+        Nodo actual = inicio.anterior;
+        do {
+            System.out.print(actual.dato + " <- ");
+            actual = actual.anterior;
+        } while (actual != inicio.anterior);
+        System.out.println("vuelve a " + inicio.anterior.dato);
+    }
+}
+
+public class ListaCircularDobleCRUD {
+    public static void main(String[] args) {
+        ListaCircularDoble lista = new ListaCircularDoble();
+
+        lista.insertarAlInicio(40);
+        lista.insertarAlFinal(60);
+        lista.insertarAlInicio(20);
+        lista.insertarEnPosicion(50, 3);
+
+        System.out.println("Recorrido al derecho:");
+        lista.mostrarDerecha();
+        System.out.println("Recorrido al reves:");
+        lista.mostrarReves();
+
+        lista.eliminarAlInicio();
+        lista.eliminarAlFinal();
+        lista.eliminarEnPosicion(2);
+
+        System.out.println("Despues del CRUD:");
+        lista.mostrarDerecha();
+        lista.mostrarReves();
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+Recorrido al derecho:
+20 -> 40 -> 50 -> 60 -> vuelve a 20
+Recorrido al reves:
+60 <- 50 <- 40 <- 20 <- vuelve a 60
+Despues del CRUD:
+40 -> vuelve a 40
+40 <- vuelve a 40
+*/

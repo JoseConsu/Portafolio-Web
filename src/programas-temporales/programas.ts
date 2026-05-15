@@ -12,7 +12,7 @@ export type ProgramaTemporal = {
 };
 
 export type SimuladorEstructura = {
-  tipo: "lista-enlazada-simple" | "lista-enlazada-crud" | "lista-circular-crud";
+  tipo: "lista-enlazada-simple" | "lista-enlazada-crud" | "lista-circular-crud" | "lista-doble-circular-crud";
   operacion?:
     | "insertar-vacia"
     | "insertar-inicio"
@@ -406,6 +406,38 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       ],
     },
   },
+  39: {
+    titulo: "Lista circular doblemente enlazada CRUD en Java",
+    descripcion:
+      "Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, mostrando enlaces anterior/siguiente y recorridos al derecho y al reves dentro del mismo ciclo.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "Lista doble", "Lista circular", "CRUD"],
+    simulador: {
+      tipo: "lista-doble-circular-crud",
+      titulo: "Simulador visual CRUD de lista circular doblemente enlazada",
+      descripcion:
+        "Observa como cada nodo conserva dos referencias: siguiente y anterior. El ciclo puede recorrerse al derecho y al reves, y cada operacion explica que punteros cambian.",
+      etiquetaBoton: "Ejecutar operación",
+      etiquetaAuto: "Auto demo",
+      listaInicial: [20, 40, 60],
+      accionesDisponibles: [
+        { valor: "insertar-inicio", etiqueta: "Insertar al inicio" },
+        { valor: "insertar-final", etiqueta: "Insertar al final" },
+        { valor: "insertar-posicion", etiqueta: "Insertar en posición" },
+        { valor: "eliminar-inicio", etiqueta: "Eliminar al inicio" },
+        { valor: "eliminar-final", etiqueta: "Eliminar al final" },
+        { valor: "eliminar-posicion", etiqueta: "Eliminar en posición" },
+      ],
+      demoAcciones: [
+        { operacion: "insertar-inicio", valor: 10, mensaje: "10 entra al inicio y se actualizan los punteros anterior/siguiente de los extremos del ciclo." },
+        { operacion: "insertar-final", valor: 80, mensaje: "80 se agrega al final y queda enlazado en ambos sentidos con el inicio y el nodo previo." },
+        { operacion: "insertar-posicion", valor: 50, posicion: 4, mensaje: "50 se conecta entre sus dos vecinos sin romper el recorrido ida/vuelta." },
+        { operacion: "eliminar-inicio", mensaje: "Se elimina el inicio y el nuevo primer nodo actualiza su anterior mientras el ultimo actualiza su siguiente." },
+        { operacion: "eliminar-final", mensaje: "Se elimina el ultimo nodo y el nuevo ultimo vuelve a enlazar en ambos sentidos con el inicio." },
+        { operacion: "eliminar-posicion", posicion: 3, mensaje: "Se elimina el nodo de la posición 3 y los dos vecinos se reconectan por anterior y siguiente." },
+      ],
+    },
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -447,6 +479,7 @@ const ordenProgramasTemporales = [
   36,
   37,
   38,
+  39,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {

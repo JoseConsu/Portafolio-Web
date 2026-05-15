@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.DODqgMNM.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 16: Actividad: Insercion en Java (String)</h1> <p>Version de insercion para cadenas en Java con compareTo, reforzando insercion alfabetica y recorrido de la zona ya ordenada.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.Cor2BKzd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 16: Actividad: Insercion en Java (String)</h1> <p>Version de insercion para cadenas en Java con compareTo, reforzando insercion alfabetica y recorrido de la zona ya ordenada.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section> <section class="ds-card-grid info-programa"> <article class="ds-card autor-card"> <p class="ds-eyebrow">Autor del laboratorio</p> <h2>Jose David Consuegra Medina</h2> <p class="identidad-codigo">Código 2250167</p> <p>
 Cada ejecución cubre escenarios totalmente desordenados, parcialmente ordenados, intercalados e invertidos con 10, 100 y 1000 datos de tipo cadenas de texto.
@@ -1996,11 +1996,25 @@ Imagen de salida
         resaltarCiclo: false,
         resaltarInicio: false,
       };
-      const esCircular = config.tipo === "lista-circular-crud";
+      const esCircular = config.tipo === "lista-circular-crud" || config.tipo === "lista-doble-circular-crud";
+      const esDobleCircular = config.tipo === "lista-doble-circular-crud";
+
+      const describirListaReversa = (datos = state.datos) => {
+        if (datos.length === 0) {
+          return "lista vacia (sin ciclo)";
+        }
+
+        const reversa = [...datos].reverse();
+        return `inicio <- ${reversa.join(" <- ")} <- vuelve a ${datos[0]}`;
+      };
 
       const describirLista = (datos = state.datos) => {
         if (datos.length === 0) {
           return esCircular ? "lista vacia (sin ciclo)" : "null";
+        }
+
+        if (esDobleCircular) {
+          return `Ida: inicio -> ${datos.join(" -> ")} -> vuelve a ${datos[0]}\nVuelta: ${describirListaReversa(datos)}`;
         }
 
         return esCircular
@@ -2028,35 +2042,51 @@ Imagen de salida
 
       const explicacionesOperacion = {
         "insertar-vacia": esCircular
-          ? "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y su enlace siguiente vuelve a si mismo para formar el ciclo base."
+          ? esDobleCircular
+            ? "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y sus punteros siguiente/anterior vuelven a si mismo para formar el doble ciclo base."
+            : "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y su enlace siguiente vuelve a si mismo para formar el ciclo base."
           : "Solo se usa cuando no hay nodos. El primer nodo pasa a ser inicio y su siguiente queda en null.",
         "insertar-inicio": esCircular
-          ? "Se crea un nuevo nodo antes del actual inicio. Luego el ultimo nodo actualiza su enlace para volver al nuevo inicio."
+          ? esDobleCircular
+            ? "Se crea un nuevo nodo antes del inicio. Deben actualizarse inicio.anterior, ultimo.siguiente y también los punteros inversos para conservar el recorrido ida/vuelta."
+            : "Se crea un nuevo nodo antes del actual inicio. Luego el ultimo nodo actualiza su enlace para volver al nuevo inicio."
           : "Se crea un nuevo nodo, su siguiente apunta al inicio actual y luego inicio cambia al nuevo nodo.",
         "insertar-final": esCircular
-          ? "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y ese nuevo nodo vuelve a apuntar al inicio."
+          ? esDobleCircular
+            ? "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y se enlaza en dos sentidos con el inicio y con el nodo previo."
+            : "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y ese nuevo nodo vuelve a apuntar al inicio."
           : "Se recorre hasta el ultimo nodo y su siguiente pasa a apuntar al nuevo nodo.",
         "insertar-posicion": esCircular
-          ? "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final sin romper el ciclo."
+          ? esDobleCircular
+            ? "Se avanza hasta el nodo anterior a la posicion deseada. El nuevo nodo se conecta con su vecino previo y su vecino siguiente, actualizando anterior y siguiente en ambos lados."
+            : "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final sin romper el ciclo."
           : "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final.",
         "eliminar-inicio": esCircular
-          ? "Si hay un solo nodo, la lista queda vacia. Si hay varios, inicio avanza al siguiente y el ultimo nodo se reconecta con el nuevo inicio."
+          ? esDobleCircular
+            ? "Si hay un solo nodo, la lista queda vacia. Si hay varios, el nuevo inicio debe actualizar su anterior y el ultimo debe actualizar su siguiente."
+            : "Si hay un solo nodo, la lista queda vacia. Si hay varios, inicio avanza al siguiente y el ultimo nodo se reconecta con el nuevo inicio."
           : "Inicio deja de apuntar al primer nodo y pasa al segundo. Si no hay nodos, no se puede eliminar.",
         "eliminar-final": esCircular
-          ? "Se busca el penultimo nodo para que ahora apunte de nuevo al inicio. Si solo hay un nodo, la lista queda vacia."
+          ? esDobleCircular
+            ? "Se busca el penultimo nodo para que se vuelva el nuevo ultimo. Luego inicio.actualiza su anterior y el nuevo ultimo actualiza su siguiente."
+            : "Se busca el penultimo nodo para que ahora apunte de nuevo al inicio. Si solo hay un nodo, la lista queda vacia."
           : "Se busca el penultimo nodo para que su siguiente quede en null. Si solo hay un nodo, la lista queda vacia.",
         "eliminar-posicion": esCircular
-          ? "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, se explica por que no se puede eliminar dentro del ciclo."
+          ? esDobleCircular
+            ? "Se localiza el nodo anterior a la posicion y el siguiente al nodo eliminado. Ambos vecinos se reconectan actualizando anterior y siguiente."
+            : "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, se explica por que no se puede eliminar dentro del ciclo."
           : "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, no se realiza la eliminacion.",
       };
 
       const actualizarExplicacion = () => {
         if (!explicacion) return;
-        const operacion = config.tipo === "lista-enlazada-crud" || config.tipo === "lista-circular-crud"
+        const operacion = config.tipo === "lista-enlazada-crud" || config.tipo === "lista-circular-crud" || config.tipo === "lista-doble-circular-crud"
           ? (operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
           : (config.operacion ?? "insertar-inicio");
         explicacion.textContent = explicacionesOperacion[operacion] ?? (esCircular
-          ? "El ultimo nodo siempre debe volver a apuntar al inicio para conservar la circularidad."
+          ? esDobleCircular
+            ? "Cada nodo mantiene dos referencias activas: anterior y siguiente, y ambas deben cerrar el mismo ciclo."
+            : "El ultimo nodo siempre debe volver a apuntar al inicio para conservar la circularidad."
           : "El ultimo nodo termina en null y cada enlace debe mantenerse consistente.");
       };
 
@@ -2083,6 +2113,7 @@ Imagen de salida
         salida.textContent = describirLista();
         refrescarEstado();
         lienzo.classList.toggle("lista-lienzo--circular", esCircular);
+        lienzo.classList.toggle("lista-lienzo--doble", esDobleCircular);
 
         if (state.datos.length === 0) {
           const placeholder = document.createElement("p");
@@ -2124,6 +2155,19 @@ Imagen de salida
           markerPath.setAttribute("fill", "currentColor");
           marker.appendChild(markerPath);
           defs.appendChild(marker);
+
+          const markerBackward = document.createElementNS(svgNs, "marker");
+          markerBackward.setAttribute("id", "lista-circular-diagrama-arrowhead-backward");
+          markerBackward.setAttribute("markerWidth", "8");
+          markerBackward.setAttribute("markerHeight", "8");
+          markerBackward.setAttribute("refX", "7");
+          markerBackward.setAttribute("refY", "4");
+          markerBackward.setAttribute("orient", "auto");
+          const markerBackwardPath = document.createElementNS(svgNs, "path");
+          markerBackwardPath.setAttribute("d", "M0,0 L8,4 L0,8 Z");
+          markerBackwardPath.setAttribute("fill", "currentColor");
+          markerBackward.appendChild(markerBackwardPath);
+          defs.appendChild(markerBackward);
           svg.appendChild(defs);
 
           const posiciones = state.datos.map((_, idx) => {
@@ -2159,6 +2203,13 @@ Imagen de salida
             loop.setAttribute("d", `M ${centerX + 14} ${centerY - 46} C ${centerX + 108} ${centerY - 142}, ${centerX + 158} ${centerY + 28}, ${centerX + 28} ${centerY + 30}`);
             loop.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
             svg.appendChild(loop);
+            if (esDobleCircular) {
+              const reverseLoop = document.createElementNS(svgNs, "path");
+              reverseLoop.classList.add("lista-circular-ruta", "lista-circular-ruta--reversa", "lista-circular-ruta--cierre");
+              reverseLoop.setAttribute("d", `M ${centerX - 14} ${centerY - 46} C ${centerX - 108} ${centerY - 142}, ${centerX - 158} ${centerY + 28}, ${centerX - 28} ${centerY + 30}`);
+              reverseLoop.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead-backward)");
+              svg.appendChild(reverseLoop);
+            }
           } else {
             posiciones.forEach((posicion, idx) => {
               const siguiente = posiciones[(idx + 1) % posiciones.length];
@@ -2170,6 +2221,16 @@ Imagen de salida
               ruta.setAttribute("d", crearTrayecto(posicion, siguiente, esCierre));
               ruta.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
               svg.appendChild(ruta);
+
+              if (esDobleCircular) {
+                const anterior = posiciones[(idx - 1 + posiciones.length) % posiciones.length];
+                const rutaReversa = document.createElementNS(svgNs, "path");
+                rutaReversa.classList.add("lista-circular-ruta", "lista-circular-ruta--reversa");
+                if (idx === 0) rutaReversa.classList.add("lista-circular-ruta--cierre");
+                rutaReversa.setAttribute("d", crearTrayecto(posicion, anterior, idx === 0));
+                rutaReversa.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead-backward)");
+                svg.appendChild(rutaReversa);
+              }
             });
           }
 
@@ -2177,7 +2238,7 @@ Imagen de salida
 
           const nucleo = document.createElement("div");
           nucleo.className = "lista-circular-nucleo";
-          nucleo.textContent = state.datos.length === 1 ? "autoenlace" : "ciclo";
+          nucleo.textContent = state.datos.length === 1 ? "autoenlace" : esDobleCircular ? "doble ciclo" : "ciclo";
           diagrama.appendChild(nucleo);
 
           const inicioTag = document.createElement("div");
@@ -2219,7 +2280,9 @@ Imagen de salida
 
             const next = document.createElement("span");
             next.className = "lista-nodo-next";
-            next.textContent = idx < state.datos.length - 1 ? `→ ${state.datos[idx + 1]}` : `↺ ${state.datos[0]}`;
+            next.textContent = esDobleCircular
+              ? `→ ${state.datos[(idx + 1) % state.datos.length]} · ← ${state.datos[(idx - 1 + state.datos.length) % state.datos.length]}`
+              : idx < state.datos.length - 1 ? `→ ${state.datos[idx + 1]}` : `↺ ${state.datos[0]}`;
 
             nodo.append(dato, next);
 
@@ -2239,8 +2302,12 @@ Imagen de salida
             leyenda.classList.add("lista-circular-enlace--activa");
           }
           leyenda.textContent = state.datos.length === 1
-            ? `El nodo ${state.datos[0]} se apunta a si mismo.`
-            : `El ultimo nodo ${state.datos[state.datos.length - 1]} enlaza de regreso al inicio ${state.datos[0]}.`;
+            ? esDobleCircular
+              ? `El nodo ${state.datos[0]} se apunta a si mismo por anterior y siguiente.`
+              : `El nodo ${state.datos[0]} se apunta a si mismo.`
+            : esDobleCircular
+              ? `Linea continua = siguiente. Linea punteada = anterior. El ciclo se recorre al derecho y al reves.`
+              : `El ultimo nodo ${state.datos[state.datos.length - 1]} enlaza de regreso al inicio ${state.datos[0]}.`;
           diagrama.appendChild(leyenda);
 
           lienzo.replaceChildren(diagrama);
@@ -2352,6 +2419,7 @@ Imagen de salida
         const posicion = normalizarNumero(accion.posicion ?? inputPosicion?.value);
         const operacionActual = config.tipo === "lista-enlazada-crud"
           || config.tipo === "lista-circular-crud"
+          || config.tipo === "lista-doble-circular-crud"
           ? (accion.operacion ?? operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
           : (config.operacion ?? "insertar-inicio");
 
@@ -2372,9 +2440,11 @@ Imagen de salida
               state.indiceActivo = 0;
               state.indiceEnProceso = 0;
               state.indiceEliminado = null;
-              logStep(accion.mensaje ?? (esCircular
-                ? `inicio = nuevoNodo(${valor}) y, como es el unico nodo, tambien apunta de regreso a si mismo.`
-                : `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`));
+                logStep(accion.mensaje ?? (esCircular
+                  ? esDobleCircular
+                    ? `inicio = nuevoNodo(${valor}) y, como es el unico nodo, sus enlaces anterior y siguiente vuelven a si mismo.`
+                    : `inicio = nuevoNodo(${valor}) y, como es el unico nodo, tambien apunta de regreso a si mismo.`
+                  : `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`));
               render();
               await resaltarCiclo();
               await esperar(450);
@@ -2393,9 +2463,13 @@ Imagen de salida
               state.indiceActivo = 0;
               state.indiceEnProceso = 0;
               logStep(accion.mensaje ?? (esCircular
-                ? state.datos.length === 1
-                  ? `Se crea el primer nodo ${valor}. Como la lista circular solo tiene un nodo, su siguiente vuelve a si mismo.`
-                  : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza su enlace para volver al nuevo inicio.`
+                ? esDobleCircular
+                  ? state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}. Sus enlaces anterior y siguiente vuelven al mismo nodo.`
+                    : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza siguiente, el inicio previo actualiza anterior y el ciclo queda cerrado en ambos sentidos.`
+                  : state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}. Como la lista circular solo tiene un nodo, su siguiente vuelve a si mismo.`
+                    : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza su enlace para volver al nuevo inicio.`
                 : `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`));
               render();
               await resaltarCiclo();
@@ -2415,9 +2489,13 @@ Imagen de salida
               state.indiceActivo = state.datos.length - 1;
               state.indiceEnProceso = state.indiceActivo;
               logStep(accion.mensaje ?? (esCircular
-                ? state.datos.length === 1
-                  ? `Se crea el primer nodo ${valor}; al ser circular, su siguiente apunta al mismo nodo.`
-                  : `El nodo ${valor} se agrega al final y su enlace siguiente regresa al nodo inicial ${state.datos[0]}.`
+                ? esDobleCircular
+                  ? state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}; sus enlaces anterior y siguiente apuntan al mismo nodo.`
+                    : `El nodo ${valor} se agrega al final y queda enlazado por siguiente y anterior con el inicio ${state.datos[0]} y el nodo previo.`
+                  : state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}; al ser circular, su siguiente apunta al mismo nodo.`
+                    : `El nodo ${valor} se agrega al final y su enlace siguiente regresa al nodo inicial ${state.datos[0]}.`
                 : `El nodo ${valor} se enlaza al final.`));
               render();
               await resaltarCiclo();
@@ -2439,7 +2517,9 @@ Imagen de salida
                 state.indiceActivo = 0;
                 state.indiceEnProceso = 0;
                 logStep(accion.mensaje ?? (esCircular
-                  ? `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y el ultimo nodo vuelve a apuntar al nuevo inicio.`
+                  ? esDobleCircular
+                    ? `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y se actualizan anterior y siguiente entre el nuevo inicio y el ultimo.`
+                    : `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y el ultimo nodo vuelve a apuntar al nuevo inicio.`
                   : `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`));
                 render();
                 await resaltarCiclo();
@@ -2455,7 +2535,9 @@ Imagen de salida
                 state.indiceActivo = state.datos.length - 1;
                 state.indiceEnProceso = state.indiceActivo;
                 logStep(accion.mensaje ?? (esCircular
-                  ? `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo nodo conserva el enlace circular hacia ${state.datos[0]}.`
+                  ? esDobleCircular
+                    ? `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo conserva enlaces anterior/siguiente con el inicio y el nodo previo.`
+                    : `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo nodo conserva el enlace circular hacia ${state.datos[0]}.`
                   : `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`));
                 render();
                 await resaltarCiclo();
@@ -2470,7 +2552,9 @@ Imagen de salida
               state.indiceActivo = destino - 1;
               state.indiceEnProceso = destino - 1;
               logStep(accion.mensaje ?? (esCircular
-                ? `El nodo ${valor} se inserta en la posicion ${destino}. Solo cambian los enlaces locales y el ciclo principal sigue cerrado.`
+                ? esDobleCircular
+                  ? `El nodo ${valor} se inserta en la posicion ${destino}. Los dos vecinos actualizan anterior y siguiente para mantener el doble ciclo.`
+                  : `El nodo ${valor} se inserta en la posicion ${destino}. Solo cambian los enlaces locales y el ciclo principal sigue cerrado.`
                 : `El nodo ${valor} se inserta en la posicion ${destino}.`));
               render();
               await resaltarCiclo();
@@ -2491,9 +2575,13 @@ Imagen de salida
               state.indiceEnProceso = 0;
               state.indiceEliminado = null;
               logStep(accion.mensaje ?? (esCircular
-                ? state.datos.length === 0
-                  ? `Se elimina el unico nodo ${eliminado}. La lista circular queda vacia y ya no existe ciclo.`
-                  : `Se elimina el nodo ${eliminado} del inicio y el ultimo nodo se reconecta con el nuevo inicio ${state.datos[0]}.`
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La lista doble circular queda vacia y desaparecen ambos recorridos.`
+                    : `Se elimina el nodo ${eliminado} del inicio y se actualizan ultimo.siguiente y nuevoInicio.anterior hacia ${state.datos[0]}.`
+                  : state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La lista circular queda vacia y ya no existe ciclo.`
+                    : `Se elimina el nodo ${eliminado} del inicio y el ultimo nodo se reconecta con el nuevo inicio ${state.datos[0]}.`
                 : `Se elimina el nodo ${eliminado} del inicio.`));
               render();
               await resaltarCiclo();
@@ -2514,9 +2602,13 @@ Imagen de salida
               state.indiceEnProceso = state.indiceActivo;
               state.indiceEliminado = null;
               logStep(accion.mensaje ?? (esCircular
-                ? state.datos.length === 0
-                  ? `Se elimina el unico nodo ${eliminado}. La estructura deja de ser circular porque queda vacia.`
-                  : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo vuelve a enlazarse con ${state.datos[0]}.`
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La estructura doble circular queda vacia.`
+                    : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo y el inicio ${state.datos[0]} actualizan sus enlaces en ambos sentidos.`
+                  : state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La estructura deja de ser circular porque queda vacia.`
+                    : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo vuelve a enlazarse con ${state.datos[0]}.`
                 : `Se elimina el ultimo nodo ${eliminado}.`));
               render();
               await resaltarCiclo();
@@ -2539,9 +2631,13 @@ Imagen de salida
                 state.indiceEnProceso = 0;
                 state.indiceEliminado = null;
                 logStep(accion.mensaje ?? (esCircular
-                  ? state.datos.length === 0
-                    ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista queda vacia y el ciclo desaparece.`
-                    : `La posicion ${destino} elimina el inicio ${eliminado}. El ultimo nodo vuelve a conectarse con ${state.datos[0]}.`
+                  ? esDobleCircular
+                    ? state.datos.length === 0
+                      ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista doble circular queda vacia.`
+                      : `La posicion ${destino} elimina el inicio ${eliminado}. Se actualizan nuevoInicio.anterior y ultimo.siguiente.`
+                    : state.datos.length === 0
+                      ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista queda vacia y el ciclo desaparece.`
+                      : `La posicion ${destino} elimina el inicio ${eliminado}. El ultimo nodo vuelve a conectarse con ${state.datos[0]}.`
                   : `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`));
                 render();
                 await resaltarCiclo();
@@ -2561,11 +2657,15 @@ Imagen de salida
               state.indiceEnProceso = state.indiceActivo;
               state.indiceEliminado = null;
               logStep(accion.mensaje ?? (esCircular
-                ? state.datos.length === 0
-                  ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista queda vacia.`
-                  : destino > state.datos.length
-                    ? `Se elimina el nodo ${eliminado} y el nuevo ultimo nodo mantiene el ciclo hacia ${state.datos[0]}.`
-                    : `Se elimina el nodo ${eliminado} de la posicion ${destino} y el nodo anterior ahora apunta directamente al siguiente dentro del ciclo.`
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista doble circular queda vacia.`
+                    : `Se elimina el nodo ${eliminado} de la posicion ${destino} y sus dos vecinos se reconectan por anterior y siguiente.`
+                  : state.datos.length === 0
+                    ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista queda vacia.`
+                    : destino > state.datos.length
+                      ? `Se elimina el nodo ${eliminado} y el nuevo ultimo nodo mantiene el ciclo hacia ${state.datos[0]}.`
+                      : `Se elimina el nodo ${eliminado} de la posicion ${destino} y el nodo anterior ahora apunta directamente al siguiente dentro del ciclo.`
                 : `Se elimina el nodo ${eliminado} de la posicion ${destino}.`));
               render();
               await resaltarCiclo();

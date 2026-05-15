@@ -2269,6 +2269,14 @@ img, video, svg { display: block; max-width: 100%; }
   color: #6ee7b7;
 }
 
+.lista-circular-ruta--reversa {
+  stroke: #f4c86a;
+  color: #f4c86a;
+  stroke-width: 2.6;
+  stroke-dasharray: 7 6;
+  opacity: 0.86;
+}
+
 .lista-circular-ruta--activa {
   stroke-dasharray: 8 6;
   animation: lista-circular-dash 0.52s linear;
@@ -2353,6 +2361,11 @@ img, video, svg { display: block; max-width: 100%; }
   color: var(--moss);
   font-size: 0.72rem;
   letter-spacing: 0.03em;
+}
+
+.lista-lienzo--circular.lista-lienzo--doble .lista-nodo--circular .lista-nodo-next {
+  color: #f4c86a;
+  line-height: 1.35;
 }
 
 .lista-flecha {
@@ -2467,6 +2480,7 @@ img, video, svg { display: block; max-width: 100%; }
   margin-top: var(--sp-3);
   font-family: var(--ff-mono);
   color: var(--moss);
+  white-space: pre-wrap;
 }
 
 @media (max-width: 960px) {

@@ -1,116 +1,83 @@
-<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 37: Lista enlazada CRUD en Java | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 39: Lista circular doblemente enlazada CRUD en Java | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
       try {
         const theme = localStorage.getItem("theme");
         document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.Cor2BKzd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 37: Lista enlazada CRUD en Java</h1> <p>Programa Java interactivo para crear una lista desde cero o precargada, agregar y eliminar nodos al inicio, al final y en posicion, con avisos si la posicion es invalida.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.Cor2BKzd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 39: Lista circular doblemente enlazada CRUD en Java</h1> <p>Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, mostrando enlaces anterior/siguiente y recorridos al derecho y al reves dentro del mismo ciclo.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
 Código del programa
-</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>import java.util.*;
-
-/*
- * Programa temporal 37: Lista enlazada CRUD en Java
+</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+ * Programa temporal 39: Lista circular doblemente enlazada CRUD en Java
  *
  * Objetivo:
- * Crear una lista desde cero o con datos precargados y permitir inserciones
- * y eliminaciones al inicio, al final y en una posicion deseada.
+ * Insertar y eliminar nodos al inicio, al final y en una posicion deseada
+ * manteniendo dos referencias por nodo: siguiente y anterior. La estructura
+ * es circular, por lo que puede recorrerse al derecho y al reves.
  */
 
 class Nodo {
     int dato;
     Nodo siguiente;
+    Nodo anterior;
 
     Nodo(int dato) {
         this.dato = dato;
         this.siguiente = null;
+        this.anterior = null;
     }
 }
 
-class ListaEnlazada {
+class ListaCircularDoble {
     Nodo inicio;
 
-    ListaEnlazada() {
-        inicio = null;
+    boolean estaVacia() {
+        return inicio == null;
     }
 
     void insertarAlInicio(int dato) {
         Nodo nuevo = new Nodo(dato);
+
+        if (estaVacia()) {
+            inicio = nuevo;
+            nuevo.siguiente = nuevo;
+            nuevo.anterior = nuevo;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
         nuevo.siguiente = inicio;
+        nuevo.anterior = ultimo;
+        ultimo.siguiente = nuevo;
+        inicio.anterior = nuevo;
         inicio = nuevo;
     }
 
     void insertarAlFinal(int dato) {
-        Nodo nuevo = new Nodo(dato);
-
-        if (inicio == null) {
-            inicio = nuevo;
-            return;
-        }
-
-        Nodo actual = inicio;
-        while (actual.siguiente != null) {
-            actual = actual.siguiente;
-        }
-        actual.siguiente = nuevo;
-    }
-
-    void insertarEnPosicion(int dato, int posicion) {
-        if (posicion &lt;= 1 || inicio == null) {
+        if (estaVacia()) {
             insertarAlInicio(dato);
             return;
         }
 
-        int indice = 1;
-        Nodo actual = inicio;
-        while (actual.siguiente != null &amp;&amp; indice &lt; posicion - 1) {
-            actual = actual.siguiente;
-            indice++;
-        }
-
         Nodo nuevo = new Nodo(dato);
-        nuevo.siguiente = actual.siguiente;
-        actual.siguiente = nuevo;
+        Nodo ultimo = inicio.anterior;
+        nuevo.siguiente = inicio;
+        nuevo.anterior = ultimo;
+        ultimo.siguiente = nuevo;
+        inicio.anterior = nuevo;
     }
 
-    void eliminarAlInicio() {
-        if (inicio != null) {
-            inicio = inicio.siguiente;
-        }
-    }
-
-    void eliminarAlFinal() {
-        if (inicio == null) return;
-        if (inicio.siguiente == null) {
-            inicio = null;
+    void insertarEnPosicion(int dato, int posicion) {
+        if (posicion &lt;= 1 || estaVacia()) {
+            insertarAlInicio(dato);
             return;
         }
 
-        Nodo actual = inicio;
-        while (actual.siguiente != null &amp;&amp; actual.siguiente.siguiente != null) {
-            actual = actual.siguiente;
-        }
-        actual.siguiente = null;
-    }
-
-    void eliminarEnPosicion(int posicion) {
-        if (inicio == null) return;
-        if (posicion &lt;= 1) {
-            inicio = inicio.siguiente;
-            return;
-        }
-
-        int tamano = 0;
-        Nodo contador = inicio;
-        while (contador != null) {
-            tamano++;
-            contador = contador.siguiente;
-        }
-
+        int tamano = contar();
         if (posicion &gt; tamano) {
-            System.out.println(&quot;Posicion invalida: no se realiza eliminacion.&quot;);
+            insertarAlFinal(dato);
             return;
         }
 
@@ -119,62 +86,152 @@ class ListaEnlazada {
             actual = actual.siguiente;
         }
 
-        actual.siguiente = actual.siguiente.siguiente;
+        Nodo nuevo = new Nodo(dato);
+        Nodo siguiente = actual.siguiente;
+        nuevo.siguiente = siguiente;
+        nuevo.anterior = actual;
+        actual.siguiente = nuevo;
+        siguiente.anterior = nuevo;
     }
 
-    void mostrarLista() {
+    void eliminarAlInicio() {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista esta vacia.&quot;);
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
+        inicio = inicio.siguiente;
+        inicio.anterior = ultimo;
+        ultimo.siguiente = inicio;
+    }
+
+    void eliminarAlFinal() {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista esta vacia.&quot;);
+            return;
+        }
+
+        if (inicio.siguiente == inicio) {
+            inicio = null;
+            return;
+        }
+
+        Nodo ultimo = inicio.anterior;
+        Nodo nuevoUltimo = ultimo.anterior;
+        nuevoUltimo.siguiente = inicio;
+        inicio.anterior = nuevoUltimo;
+    }
+
+    void eliminarEnPosicion(int posicion) {
+        if (estaVacia()) {
+            System.out.println(&quot;No se puede eliminar: la lista esta vacia.&quot;);
+            return;
+        }
+
+        if (posicion &lt;= 1) {
+            eliminarAlInicio();
+            return;
+        }
+
+        int tamano = contar();
+        if (posicion &gt; tamano) {
+            System.out.println(&quot;Posicion invalida dentro del doble ciclo.&quot;);
+            return;
+        }
+
         Nodo actual = inicio;
-        while (actual != null) {
-            System.out.print(actual.dato + &quot;-&gt;&quot;);
+        for (int i = 1; i &lt; posicion; i++) {
             actual = actual.siguiente;
         }
-        System.out.println(&quot;null&quot;);
+
+        actual.anterior.siguiente = actual.siguiente;
+        actual.siguiente.anterior = actual.anterior;
+    }
+
+    int contar() {
+        if (estaVacia()) return 0;
+        int total = 1;
+        Nodo actual = inicio.siguiente;
+        while (actual != inicio) {
+            total++;
+            actual = actual.siguiente;
+        }
+        return total;
+    }
+
+    void mostrarDerecha() {
+        if (estaVacia()) {
+            System.out.println(&quot;Lista vacia (sin ciclo)&quot;);
+            return;
+        }
+
+        Nodo actual = inicio;
+        do {
+            System.out.print(actual.dato + &quot; -&gt; &quot;);
+            actual = actual.siguiente;
+        } while (actual != inicio);
+        System.out.println(&quot;vuelve a &quot; + inicio.dato);
+    }
+
+    void mostrarReves() {
+        if (estaVacia()) {
+            System.out.println(&quot;Lista vacia (sin ciclo)&quot;);
+            return;
+        }
+
+        Nodo actual = inicio.anterior;
+        do {
+            System.out.print(actual.dato + &quot; &lt;- &quot;);
+            actual = actual.anterior;
+        } while (actual != inicio.anterior);
+        System.out.println(&quot;vuelve a &quot; + inicio.anterior.dato);
     }
 }
 
-public class ListaCRUD {
-    static ListaEnlazada crearListaEjemplo() {
-        ListaEnlazada lista = new ListaEnlazada();
-        lista.insertarAlFinal(15);
-        lista.insertarAlFinal(30);
-        lista.insertarAlFinal(45);
-        return lista;
-    }
-
+public class ListaCircularDobleCRUD {
     public static void main(String[] args) {
-        ListaEnlazada vacia = new ListaEnlazada();
-        System.out.println(&quot;Lista vacia:&quot;);
-        vacia.mostrarLista();
+        ListaCircularDoble lista = new ListaCircularDoble();
 
-        ListaEnlazada lista = crearListaEjemplo();
-        System.out.println(&quot;Lista precargada:&quot;);
-        lista.mostrarLista();
-
-        lista.insertarAlInicio(10);
+        lista.insertarAlInicio(40);
         lista.insertarAlFinal(60);
-        lista.insertarEnPosicion(25, 3);
+        lista.insertarAlInicio(20);
+        lista.insertarEnPosicion(50, 3);
+
+        System.out.println(&quot;Recorrido al derecho:&quot;);
+        lista.mostrarDerecha();
+        System.out.println(&quot;Recorrido al reves:&quot;);
+        lista.mostrarReves();
+
         lista.eliminarAlInicio();
         lista.eliminarAlFinal();
         lista.eliminarEnPosicion(2);
 
-        System.out.println(&quot;Lista final:&quot;);
-        lista.mostrarLista();
+        System.out.println(&quot;Despues del CRUD:&quot;);
+        lista.mostrarDerecha();
+        lista.mostrarReves();
     }
 }
 
 /*
 SALIDA ESPERADA (referencial)
 
-Lista vacia:
-null
-Lista precargada:
-15-&gt;30-&gt;45-&gt;null
-Lista final:
-30-&gt;45-&gt;null
+Recorrido al derecho:
+20 -&gt; 40 -&gt; 50 -&gt; 60 -&gt; vuelve a 20
+Recorrido al reves:
+60 &lt;- 50 &lt;- 40 &lt;- 20 &lt;- vuelve a 60
+Despues del CRUD:
+40 -&gt; vuelve a 40
+40 &lt;- vuelve a 40
 */
-</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual CRUD de lista enlazada</h2> <p>Crea la lista desde cero o carga un ejemplo y luego agrega o elimina nodos al inicio, al final o en una posicion concreta.</p> </div> <span class="sim-badge">Lista enlazada simple</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3> <label class="lista-campo" for="lista-operacion"> <span>Operación</span> <select id="lista-operacion"> <option value="insertar-inicio">Insertar al inicio</option><option value="insertar-final">Insertar al final</option><option value="insertar-posicion">Insertar en posición</option><option value="eliminar-inicio">Eliminar al inicio</option><option value="eliminar-final">Eliminar al final</option><option value="eliminar-posicion">Eliminar en posición</option> </select> </label> <label class="lista-campo" for="lista-valor"> <span>Dato (si aplica)</span> <input id="lista-valor" type="number" value="15" step="1"> </label> <label class="lista-campo" for="lista-posicion"> <span>Posicion</span> <input id="lista-posicion" type="number" value="2" step="1" min="1"> </label> <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-accion">Ejecutar operación</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button> <button type="button" class="sim-btn" id="lista-vacia">Lista vacía</button> <button type="button" class="sim-btn" id="lista-ejemplo">Cargar ejemplo</button> <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <div class="lista-explicacion" aria-live="polite"> <h3>Guía rápida</h3> <p id="lista-explicacion-texto"> En una lista enlazada simple, cada nodo apunta al siguiente y el ultimo termina en null. </p> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio -&amp;gt; null</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista enlazada"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log" aria-live="polite"> <p>Esperando acciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+</code></pre> </section>   <section class="ds-panel lista-simulador-panel" data-lista-simulador> <div class="lista-simulador-head"> <div> <h2><img src="/icons/network.svg" alt="" class="ui-icon" aria-hidden="true">Simulador visual CRUD de lista circular doblemente enlazada</h2> <p>Observa como cada nodo conserva dos referencias: siguiente y anterior. El ciclo puede recorrerse al derecho y al reves, y cada operacion explica que punteros cambian.</p> </div> <span class="sim-badge">Lista circular doble</span> </div> <div class="lista-simulador-grid"> <section class="lista-panel lista-panel-config"> <h3>Controles</h3> <label class="lista-campo" for="lista-operacion"> <span>Operación</span> <select id="lista-operacion"> <option value="insertar-inicio">Insertar al inicio</option><option value="insertar-final">Insertar al final</option><option value="insertar-posicion">Insertar en posición</option><option value="eliminar-inicio">Eliminar al inicio</option><option value="eliminar-final">Eliminar al final</option><option value="eliminar-posicion">Eliminar en posición</option> </select> </label> <label class="lista-campo" for="lista-valor"> <span>Dato (si aplica)</span> <input id="lista-valor" type="number" value="20" step="1"> </label> <label class="lista-campo" for="lista-posicion"> <span>Posicion</span> <input id="lista-posicion" type="number" value="2" step="1" min="1"> </label> <div class="lista-actions"> <button type="button" class="sim-btn primario" id="lista-accion">Ejecutar operación</button> <button type="button" class="sim-btn" id="lista-auto">Auto demo</button> <button type="button" class="sim-btn" id="lista-vacia">Lista vacía</button> <button type="button" class="sim-btn" id="lista-ejemplo">Cargar ejemplo</button> <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button> </div> <div class="lista-explicacion" aria-live="polite"> <h3>Guía rápida</h3> <p id="lista-explicacion-texto"> En una lista circular doblemente enlazada, cada nodo conoce su siguiente y su anterior dentro del mismo ciclo. </p> </div> <p class="sim-config-note" id="lista-estado">Lista inicial: inicio sin nodos y sin enlace circular</p> </section> <section class="lista-panel lista-panel-visual" aria-live="polite"> <div class="sim-table-head"> <h3>Estado actual de la lista</h3> <span class="sim-tag" id="lista-total">0 nodos</span> </div> <div class="lista-lienzo" id="lista-lienzo" role="list" aria-label="Visualizacion de lista circular"></div> <p class="lista-salida" id="lista-salida">null</p> </section> <section class="lista-panel lista-panel-log"> <h3>Registro de ejecucion</h3> <div class="sim-log" id="lista-log" aria-live="polite"> <p>Esperando acciones...</p> </div> </section> </div> </section> <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
 Imagen de salida
-</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-37.svg" alt="Imagen de salida de Programa temporal 37: Lista enlazada CRUD en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = {"tipo":"lista-enlazada-crud","titulo":"Simulador visual CRUD de lista enlazada","descripcion":"Crea la lista desde cero o carga un ejemplo y luego agrega o elimina nodos al inicio, al final o en una posicion concreta.","etiquetaBoton":"Ejecutar operación","etiquetaAuto":"Auto demo","listaInicial":[15,30,45],"accionesDisponibles":[{"valor":"insertar-inicio","etiqueta":"Insertar al inicio"},{"valor":"insertar-final","etiqueta":"Insertar al final"},{"valor":"insertar-posicion","etiqueta":"Insertar en posición"},{"valor":"eliminar-inicio","etiqueta":"Eliminar al inicio"},{"valor":"eliminar-final","etiqueta":"Eliminar al final"},{"valor":"eliminar-posicion","etiqueta":"Eliminar en posición"}],"demoAcciones":[{"operacion":"insertar-inicio","valor":10,"mensaje":"10 se inserta al inicio."},{"operacion":"insertar-final","valor":60,"mensaje":"60 se agrega al final."},{"operacion":"insertar-posicion","valor":25,"posicion":3,"mensaje":"25 se inserta en la posición 3."},{"operacion":"eliminar-inicio","mensaje":"Se elimina el primer nodo."},{"operacion":"eliminar-final","mensaje":"Se elimina el último nodo."},{"operacion":"eliminar-posicion","posicion":2,"mensaje":"Se elimina el nodo de la posición 2."}]};
+</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-39.svg" alt="Imagen de salida de Programa temporal 39: Lista circular doblemente enlazada CRUD en Java" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = {"tipo":"lista-doble-circular-crud","titulo":"Simulador visual CRUD de lista circular doblemente enlazada","descripcion":"Observa como cada nodo conserva dos referencias: siguiente y anterior. El ciclo puede recorrerse al derecho y al reves, y cada operacion explica que punteros cambian.","etiquetaBoton":"Ejecutar operación","etiquetaAuto":"Auto demo","listaInicial":[20,40,60],"accionesDisponibles":[{"valor":"insertar-inicio","etiqueta":"Insertar al inicio"},{"valor":"insertar-final","etiqueta":"Insertar al final"},{"valor":"insertar-posicion","etiqueta":"Insertar en posición"},{"valor":"eliminar-inicio","etiqueta":"Eliminar al inicio"},{"valor":"eliminar-final","etiqueta":"Eliminar al final"},{"valor":"eliminar-posicion","etiqueta":"Eliminar en posición"}],"demoAcciones":[{"operacion":"insertar-inicio","valor":10,"mensaje":"10 entra al inicio y se actualizan los punteros anterior/siguiente de los extremos del ciclo."},{"operacion":"insertar-final","valor":80,"mensaje":"80 se agrega al final y queda enlazado en ambos sentidos con el inicio y el nodo previo."},{"operacion":"insertar-posicion","valor":50,"posicion":4,"mensaje":"50 se conecta entre sus dos vecinos sin romper el recorrido ida/vuelta."},{"operacion":"eliminar-inicio","mensaje":"Se elimina el inicio y el nuevo primer nodo actualiza su anterior mientras el ultimo actualiza su siguiente."},{"operacion":"eliminar-final","mensaje":"Se elimina el ultimo nodo y el nuevo ultimo vuelve a enlazar en ambos sentidos con el inicio."},{"operacion":"eliminar-posicion","posicion":3,"mensaje":"Se elimina el nodo de la posición 3 y los dos vecinos se reconectan por anterior y siguiente."}]};
 
     (function setupClipboard() {
       const trigger = document.querySelector(".boton-copiar");

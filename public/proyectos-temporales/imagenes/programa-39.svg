@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 39 - Lista circular doblemente enlazada CRUD</title>
+  <desc id="desc">Diagrama con recorrido en ambos sentidos para una lista circular doblemente enlazada.</desc>
+
+  <defs>
+    <linearGradient id="fondo39" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f6fbff" />
+      <stop offset="100%" stop-color="#effbf4" />
+    </linearGradient>
+    <linearGradient id="cab39" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#14532d" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <marker id="flecha39a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f766e" />
+    </marker>
+    <marker id="flecha39b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#d97706" />
+    </marker>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo39)" />
+  <rect x="0" y="0" width="1439" height="118" fill="url(#cab39)" />
+  <text x="58" y="74" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#fff">Programa temporal 39: Lista circular doblemente enlazada CRUD en Java</text>
+
+  <text x="76" y="180" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#0f172a">1) Doble ciclo</text>
+  <rect x="76" y="206" width="1288" height="504" rx="20" fill="#ffffff" stroke="#94a3b8" stroke-width="2" />
+
+  <text x="650" y="302" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#0f766e">inicio</text>
+  <rect x="612" y="326" width="160" height="92" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2" />
+  <text x="675" y="382" font-family="Courier New, monospace" font-size="32" fill="#166534">20</text>
+
+  <rect x="904" y="482" width="160" height="92" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2" />
+  <text x="968" y="538" font-family="Courier New, monospace" font-size="32" fill="#1d4ed8">40</text>
+
+  <rect x="320" y="482" width="160" height="92" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="384" y="538" font-family="Courier New, monospace" font-size="32" fill="#92400e">60</text>
+
+  <path d="M 772 374 C 878 384, 926 436, 956 480" fill="none" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha39a)" />
+  <path d="M 944 564 C 836 616, 600 620, 480 564" fill="none" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha39a)" />
+  <path d="M 386 480 C 448 396, 538 354, 612 352" fill="none" stroke="#0f766e" stroke-width="5" marker-end="url(#flecha39a)" />
+
+  <path d="M 612 344 C 540 344, 452 382, 388 474" fill="none" stroke="#d97706" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#flecha39b)" />
+  <path d="M 468 576 C 596 640, 838 636, 932 576" fill="none" stroke="#d97706" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#flecha39b)" />
+  <path d="M 1060 486 C 1018 434, 926 384, 772 362" fill="none" stroke="#d97706" stroke-width="4" stroke-dasharray="12 10" marker-end="url(#flecha39b)" />
+
+  <rect x="598" y="486" width="214" height="86" rx="43" fill="#0b1220" stroke="#4a7c59" stroke-dasharray="8 8" />
+  <text x="650" y="537" font-family="Courier New, monospace" font-size="28" fill="#7dd3a7">doble ciclo</text>
+
+  <text x="86" y="770" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#0f172a">2) Recorridos</text>
+  <rect x="76" y="796" width="1288" height="208" rx="18" fill="#0b1220" />
+  <text x="120" y="866" font-family="Courier New, monospace" font-size="29" fill="#6ee7b7">Ida: 20 -&gt; 40 -&gt; 60 -&gt; vuelve a 20</text>
+  <text x="120" y="922" font-family="Courier New, monospace" font-size="29" fill="#f4c86a">Vuelta: 20 &lt;- 60 &lt;- 40 &lt;- vuelve a 20</text>
+  <text x="120" y="978" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#cbd5e1">Linea continua = siguiente. Linea punteada = anterior.</text>
+</svg>
