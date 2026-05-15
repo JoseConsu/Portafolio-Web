@@ -5,7 +5,7 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.QBWsV2bd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 38: Lista circular simple CRUD en Java</h1> <p>Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, explicando como se mantiene el enlace circular entre el ultimo y el primer nodo.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+    </script><link rel="stylesheet" href="/_astro/index.DODqgMNM.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 38: Lista circular simple CRUD en Java</h1> <p>Simulador visual para insertar y eliminar nodos al inicio, al final y en una posicion deseada, explicando como se mantiene el enlace circular entre el ultimo y el primer nodo.</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
 Volver
 </a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
 Código del programa
@@ -2099,6 +2099,8 @@ Imagen de salida
         indiceActivo: 0,
         indiceEnProceso: null,
         indiceEliminado: null,
+        resaltarCiclo: false,
+        resaltarInicio: false,
       };
       const esCircular = config.tipo === "lista-circular-crud";
 
@@ -2186,6 +2188,7 @@ Imagen de salida
         total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
         salida.textContent = describirLista();
         refrescarEstado();
+        lienzo.classList.toggle("lista-lienzo--circular", esCircular);
 
         if (state.datos.length === 0) {
           const placeholder = document.createElement("p");
@@ -2195,9 +2198,167 @@ Imagen de salida
           return;
         }
 
+        if (esCircular) {
+          const width = 440;
+          const height = 360;
+          const centerX = width / 2;
+          const centerY = 176;
+          const radio = state.datos.length === 1 ? 0 : state.datos.length <= 3 ? 102 : state.datos.length <= 5 ? 118 : 132;
+          const nodeOffset = 56;
+          const svgNs = "http://www.w3.org/2000/svg";
+          const diagrama = document.createElement("div");
+          diagrama.className = "lista-circular-diagrama";
+          if (state.resaltarCiclo) {
+            diagrama.classList.add("lista-circular-diagrama--activa");
+          }
+
+          const svg = document.createElementNS(svgNs, "svg");
+          svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+          svg.setAttribute("aria-hidden", "true");
+          svg.classList.add("lista-circular-svg");
+
+          const defs = document.createElementNS(svgNs, "defs");
+          const marker = document.createElementNS(svgNs, "marker");
+          marker.setAttribute("id", "lista-circular-diagrama-arrowhead");
+          marker.setAttribute("markerWidth", "8");
+          marker.setAttribute("markerHeight", "8");
+          marker.setAttribute("refX", "7");
+          marker.setAttribute("refY", "4");
+          marker.setAttribute("orient", "auto");
+          const markerPath = document.createElementNS(svgNs, "path");
+          markerPath.setAttribute("d", "M0,0 L8,4 L0,8 Z");
+          markerPath.setAttribute("fill", "currentColor");
+          marker.appendChild(markerPath);
+          defs.appendChild(marker);
+          svg.appendChild(defs);
+
+          const posiciones = state.datos.map((_, idx) => {
+            const angulo = state.datos.length === 1
+              ? -Math.PI / 2
+              : (-Math.PI / 2) + ((Math.PI * 2 * idx) / state.datos.length);
+
+            return {
+              x: centerX + radio * Math.cos(angulo),
+              y: centerY + radio * Math.sin(angulo),
+              angulo,
+            };
+          });
+
+          const crearTrayecto = (desde, hacia, esCierre = false) => {
+            const dx = hacia.x - desde.x;
+            const dy = hacia.y - desde.y;
+            const longitud = Math.hypot(dx, dy) || 1;
+            const inicioX = desde.x + (dx / longitud) * nodeOffset;
+            const inicioY = desde.y + (dy / longitud) * nodeOffset;
+            const finX = hacia.x - (dx / longitud) * nodeOffset;
+            const finY = hacia.y - (dy / longitud) * nodeOffset;
+            const curvatura = esCierre ? 34 : 18;
+            const controlX = (inicioX + finX) / 2 + (-dy / longitud) * curvatura;
+            const controlY = (inicioY + finY) / 2 + (dx / longitud) * curvatura;
+            return `M ${inicioX} ${inicioY} Q ${controlX} ${controlY} ${finX} ${finY}`;
+          };
+
+          if (state.datos.length === 1) {
+            const loop = document.createElementNS(svgNs, "path");
+            loop.classList.add("lista-circular-ruta", "lista-circular-ruta--cierre");
+            if (state.resaltarCiclo) loop.classList.add("lista-circular-ruta--activa");
+            loop.setAttribute("d", `M ${centerX + 14} ${centerY - 46} C ${centerX + 108} ${centerY - 142}, ${centerX + 158} ${centerY + 28}, ${centerX + 28} ${centerY + 30}`);
+            loop.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
+            svg.appendChild(loop);
+          } else {
+            posiciones.forEach((posicion, idx) => {
+              const siguiente = posiciones[(idx + 1) % posiciones.length];
+              const ruta = document.createElementNS(svgNs, "path");
+              const esCierre = idx === posiciones.length - 1;
+              ruta.classList.add("lista-circular-ruta");
+              if (esCierre) ruta.classList.add("lista-circular-ruta--cierre");
+              if (state.resaltarCiclo && esCierre) ruta.classList.add("lista-circular-ruta--activa");
+              ruta.setAttribute("d", crearTrayecto(posicion, siguiente, esCierre));
+              ruta.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
+              svg.appendChild(ruta);
+            });
+          }
+
+          diagrama.appendChild(svg);
+
+          const nucleo = document.createElement("div");
+          nucleo.className = "lista-circular-nucleo";
+          nucleo.textContent = state.datos.length === 1 ? "autoenlace" : "ciclo";
+          diagrama.appendChild(nucleo);
+
+          const inicioTag = document.createElement("div");
+          inicioTag.className = "lista-inicio-tag lista-inicio-tag--circular";
+          if (state.resaltarInicio) {
+            inicioTag.classList.add("lista-inicio-tag--activo");
+          }
+          inicioTag.textContent = "inicio";
+          const inicioPosicion = posiciones[0];
+          inicioTag.style.left = `${inicioPosicion.x}px`;
+          inicioTag.style.top = `${Math.max(24, inicioPosicion.y - 94)}px`;
+          diagrama.appendChild(inicioTag);
+
+          state.datos.forEach((valor, idx) => {
+            const posicion = posiciones[idx];
+            const nodo = document.createElement("div");
+            const clases = ["lista-nodo", "lista-nodo--circular"];
+            if (idx === state.indiceActivo) clases.push("lista-nodo-activo");
+            if (idx === state.indiceEnProceso) clases.push("lista-nodo-en-proceso");
+            if (idx === state.indiceEliminado) clases.push("lista-nodo-eliminado");
+            nodo.className = clases.join(" ");
+            nodo.setAttribute("role", "listitem");
+            if (idx === state.indiceEnProceso) {
+              nodo.setAttribute("aria-current", "true");
+            }
+            nodo.style.left = `${posicion.x}px`;
+            nodo.style.top = `${posicion.y}px`;
+
+            if (idx === state.indiceEnProceso) {
+              const marca = document.createElement("span");
+              marca.className = "lista-nodo-marca";
+              marca.textContent = "actual";
+              nodo.append(marca);
+            }
+
+            const dato = document.createElement("span");
+            dato.className = "lista-nodo-dato";
+            dato.textContent = String(valor);
+
+            const next = document.createElement("span");
+            next.className = "lista-nodo-next";
+            next.textContent = idx < state.datos.length - 1 ? `→ ${state.datos[idx + 1]}` : `↺ ${state.datos[0]}`;
+
+            nodo.append(dato, next);
+
+            if (idx === state.indiceEliminado) {
+              const marcaEliminado = document.createElement("span");
+              marcaEliminado.className = "lista-nodo-marca lista-nodo-marca--danger";
+              marcaEliminado.textContent = "eliminado";
+              nodo.append(marcaEliminado);
+            }
+
+            diagrama.appendChild(nodo);
+          });
+
+          const leyenda = document.createElement("div");
+          leyenda.className = "lista-circular-enlace";
+          if (state.resaltarCiclo) {
+            leyenda.classList.add("lista-circular-enlace--activa");
+          }
+          leyenda.textContent = state.datos.length === 1
+            ? `El nodo ${state.datos[0]} se apunta a si mismo.`
+            : `El ultimo nodo ${state.datos[state.datos.length - 1]} enlaza de regreso al inicio ${state.datos[0]}.`;
+          diagrama.appendChild(leyenda);
+
+          lienzo.replaceChildren(diagrama);
+          return;
+        }
+
         const elementos = [];
         const inicioTag = document.createElement("div");
         inicioTag.className = "lista-inicio-tag";
+        if (state.resaltarInicio) {
+          inicioTag.classList.add("lista-inicio-tag--activo");
+        }
         inicioTag.textContent = "inicio";
         elementos.push(inicioTag);
 
@@ -2254,13 +2415,6 @@ Imagen de salida
           }
         });
 
-        if (esCircular && state.datos.length > 0) {
-          const regreso = document.createElement("div");
-          regreso.className = "lista-circular-enlace";
-          regreso.textContent = `ultimo.siguiente -> ${state.datos[0]} (inicio)`;
-          elementos.push(regreso);
-        }
-
         lienzo.replaceChildren(...elementos);
       };
 
@@ -2270,6 +2424,17 @@ Imagen de salida
       };
 
       const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      const resaltarCiclo = async () => {
+        if (!esCircular) return;
+        state.resaltarCiclo = true;
+        state.resaltarInicio = true;
+        render();
+        await esperar(520);
+        state.resaltarCiclo = false;
+        state.resaltarInicio = false;
+        render();
+      };
 
       const limpiarMarcadores = () => {
         state.indiceEnProceso = null;
@@ -2317,6 +2482,7 @@ Imagen de salida
                 ? `inicio = nuevoNodo(${valor}) y, como es el unico nodo, tambien apunta de regreso a si mismo.`
                 : `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2338,6 +2504,7 @@ Imagen de salida
                   : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza su enlace para volver al nuevo inicio.`
                 : `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2359,6 +2526,7 @@ Imagen de salida
                   : `El nodo ${valor} se agrega al final y su enlace siguiente regresa al nodo inicial ${state.datos[0]}.`
                 : `El nodo ${valor} se enlaza al final.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2380,6 +2548,7 @@ Imagen de salida
                   ? `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y el ultimo nodo vuelve a apuntar al nuevo inicio.`
                   : `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`));
                 render();
+                await resaltarCiclo();
                 await esperar(450);
                 break;
               }
@@ -2395,6 +2564,7 @@ Imagen de salida
                   ? `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo nodo conserva el enlace circular hacia ${state.datos[0]}.`
                   : `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`));
                 render();
+                await resaltarCiclo();
                 await esperar(450);
                 break;
               }
@@ -2409,6 +2579,7 @@ Imagen de salida
                 ? `El nodo ${valor} se inserta en la posicion ${destino}. Solo cambian los enlaces locales y el ciclo principal sigue cerrado.`
                 : `El nodo ${valor} se inserta en la posicion ${destino}.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2431,6 +2602,7 @@ Imagen de salida
                   : `Se elimina el nodo ${eliminado} del inicio y el ultimo nodo se reconecta con el nuevo inicio ${state.datos[0]}.`
                 : `Se elimina el nodo ${eliminado} del inicio.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2453,6 +2625,7 @@ Imagen de salida
                   : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo vuelve a enlazarse con ${state.datos[0]}.`
                 : `Se elimina el ultimo nodo ${eliminado}.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }
@@ -2477,6 +2650,7 @@ Imagen de salida
                     : `La posicion ${destino} elimina el inicio ${eliminado}. El ultimo nodo vuelve a conectarse con ${state.datos[0]}.`
                   : `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`));
                 render();
+                await resaltarCiclo();
                 await esperar(450);
                 break;
               }
@@ -2500,6 +2674,7 @@ Imagen de salida
                     : `Se elimina el nodo ${eliminado} de la posicion ${destino} y el nodo anterior ahora apunta directamente al siguiente dentro del ciclo.`
                 : `Se elimina el nodo ${eliminado} de la posicion ${destino}.`));
               render();
+              await resaltarCiclo();
               await esperar(450);
               break;
             }

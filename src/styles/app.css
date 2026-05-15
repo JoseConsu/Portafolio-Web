@@ -2194,6 +2194,11 @@ img, video, svg { display: block; max-width: 100%; }
   overflow-x: auto;
 }
 
+.lista-lienzo--circular {
+  display: block;
+  overflow: auto;
+}
+
 .lista-inicio-tag {
   border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
   background: color-mix(in srgb, var(--gold) 20%, transparent);
@@ -2206,6 +2211,73 @@ img, video, svg { display: block; max-width: 100%; }
   letter-spacing: 0.04em;
 }
 
+.lista-inicio-tag--activo {
+  animation: lista-inicio-pulse 0.52s ease;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+.lista-inicio-tag--circular {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.lista-circular-diagrama {
+  width: 440px;
+  height: 360px;
+  min-width: 440px;
+  margin-inline: auto;
+  position: relative;
+}
+
+.lista-circular-nucleo {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--moss) 50%, transparent);
+  background: color-mix(in srgb, var(--moss) 12%, transparent);
+  color: var(--moss);
+  font-family: var(--ff-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.8rem;
+}
+
+.lista-circular-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lista-circular-ruta {
+  fill: none;
+  stroke: var(--moss);
+  stroke-width: 4;
+  stroke-linecap: round;
+  color: var(--moss);
+  opacity: 0.98;
+}
+
+.lista-circular-ruta--cierre {
+  stroke-width: 5;
+  color: #6ee7b7;
+}
+
+.lista-circular-ruta--activa {
+  stroke-dasharray: 8 6;
+  animation: lista-circular-dash 0.52s linear;
+}
+
+.lista-circular-diagrama--activa .lista-circular-ruta--cierre {
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--moss) 32%, transparent));
+}
+
 .lista-nodo {
   min-width: 110px;
   border-radius: 0.9rem;
@@ -2216,6 +2288,16 @@ img, video, svg { display: block; max-width: 100%; }
   gap: 0.35rem;
   text-align: center;
   position: relative;
+}
+
+.lista-nodo--circular {
+  width: 96px;
+  min-width: 96px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  padding: 0.58rem 0.5rem;
 }
 
 .lista-nodo-activo {
@@ -2267,6 +2349,12 @@ img, video, svg { display: block; max-width: 100%; }
   font-family: var(--ff-mono);
 }
 
+.lista-nodo--circular .lista-nodo-next {
+  color: var(--moss);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
 .lista-flecha {
   color: var(--moss);
   font-size: 1.2rem;
@@ -2278,10 +2366,101 @@ img, video, svg { display: block; max-width: 100%; }
   color: var(--moss-soft);
   background: color-mix(in srgb, var(--moss) 10%, transparent);
   border-radius: 999px;
-  padding: 0.35rem 0.75rem;
+  padding: 0.45rem 0.75rem;
   font-family: var(--ff-mono);
   font-size: 0.76rem;
   white-space: nowrap;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+}
+
+.lista-circular-diagrama > .lista-circular-enlace {
+  position: absolute;
+  left: 50%;
+  bottom: 0.35rem;
+  transform: translateX(-50%);
+  max-width: calc(100% - 1rem);
+  text-align: center;
+  white-space: normal;
+}
+
+.lista-circular-enlace__svg {
+  width: 180px;
+  height: 70px;
+  overflow: visible;
+}
+
+.lista-circular-enlace__texto {
+  display: block;
+}
+
+.lista-circular-enlace--activa {
+  animation: lista-circular-pulse 0.52s ease;
+}
+
+.lista-circular-enlace--activa .lista-circular-enlace__svg {
+  animation: lista-circular-bounce 0.52s ease;
+}
+
+.lista-circular-enlace--activa .lista-circular-enlace__svg path {
+  stroke-dasharray: 8 6;
+  animation: lista-circular-dash 0.52s linear;
+}
+
+@keyframes lista-circular-pulse {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--moss) 0%, transparent);
+  }
+
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--moss) 18%, transparent);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--moss) 0%, transparent);
+  }
+}
+
+@keyframes lista-circular-bounce {
+  0% {
+    transform: translateY(2px);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes lista-circular-dash {
+  from {
+    stroke-dashoffset: 14;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lista-inicio-pulse {
+  0% {
+    transform: scale(0.96);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .lista-salida {
@@ -2297,5 +2476,23 @@ img, video, svg { display: block; max-width: 100%; }
       "config"
       "visual"
       "log";
+  }
+
+  .lista-circular-diagrama {
+    width: 360px;
+    height: 340px;
+    min-width: 360px;
+  }
+
+  .lista-circular-nucleo {
+    top: 41%;
+    font-size: 0.72rem;
+    padding: 0.38rem 0.7rem;
+  }
+
+  .lista-nodo--circular {
+    width: 90px;
+    min-width: 90px;
+    padding: 0.5rem 0.42rem;
   }
 }
