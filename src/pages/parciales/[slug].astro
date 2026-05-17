@@ -229,6 +229,18 @@ const esProyectoFinal = parcial.slug === "proyecto-final";
         </div>
       </section>
     )}
+
+    <section class="catalog-back-actions ds-panel">
+      <div>
+        <p class="ds-eyebrow">Navegación académica</p>
+        <h2>{esProyectoFinal ? "Volver desde el catálogo del proyecto" : "Volver desde el catálogo del parcial"}</h2>
+        <p>{esProyectoFinal ? "Regresa a la portada o continúa explorando programas temporales." : "Regresa a la portada para revisar otros bloques académicos."}</p>
+      </div>
+      <div class="catalog-back-actions__buttons">
+        <a class="btn btn-primary" href="/">Ir a la portada</a>
+        <a class="btn btn-ghost" href="/programas-temporales/catalogo">Ver programas temporales</a>
+      </div>
+    </section>
   </main>
 
   {esParcial02 && (

@@ -1298,6 +1298,28 @@ img, video, svg { display: block; max-width: 100%; }
   box-shadow: var(--sh-card);
 }
 
+.catalog-back-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+
+.catalog-back-actions h2 {
+  margin-bottom: var(--sp-2);
+}
+
+.catalog-back-actions p:last-child {
+  color: var(--text-2);
+}
+
+.catalog-back-actions__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: flex-end;
+}
+
 /* Programas temporales y parciales */
 .programa-shell,
 .parcial-shell {
@@ -1399,6 +1421,13 @@ img, video, svg { display: block; max-width: 100%; }
 }
 
 @media (max-width: 720px) {
+  .catalog-back-actions {
+    flex-direction: column;
+  }
+  .catalog-back-actions__buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
   .autor-card {
     grid-template-columns: 1fr;
   }

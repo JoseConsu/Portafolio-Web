@@ -228,8 +228,8 @@ export const parciales: Parcial[] = [
         nombre: "FIFO 2: Cola de impresion",
         descripcion:
           "Segundo aplicativo FIFO orientado a la administracion de trabajos enviados a una impresora compartida.",
-        estado: "proximamente",
-        tipoVista: "placeholder",
+        estado: "disponible",
+        tipoVista: "demo",
       },
       {
         id: "filo-1",
@@ -237,8 +237,8 @@ export const parciales: Parcial[] = [
         nombre: "FILO 1: Historial de acciones",
         descripcion:
           "Aplicativo tipo pila para registrar y revertir acciones recientes dentro de una interfaz de usuario.",
-        estado: "proximamente",
-        tipoVista: "placeholder",
+        estado: "disponible",
+        tipoVista: "demo",
       },
       {
         id: "filo-2",
