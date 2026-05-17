@@ -1,0 +1,35 @@
+/*
+ * Programa temporal 40: For complejidad 1
+ *
+ * Objetivo:
+ * Analizar un ciclo for que avanza de 2 en 2 y se detiene en n / 2.
+ * Aunque recorre menos pasos que n, las constantes se ignoran en notacion Big O,
+ * por eso su complejidad temporal es O(n).
+ */
+
+public class ForComplejidad1 {
+    public static void main(String[] args) {
+        int c, n = 20;
+
+        for (int i = 0; i < n / 2; i += 2) {
+            System.out.println(i);
+        }
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+0
+2
+4
+6
+8
+
+ANALISIS
+
+El ciclo ejecuta aproximadamente n / 4 iteraciones porque llega hasta n / 2
+y aumenta de 2 en 2. En Big O se eliminan constantes, entonces:
+
+T(n) = n / 4  =>  O(n)
+*/

@@ -438,6 +438,20 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
       ],
     },
   },
+  40: {
+    titulo: "For complejidad 1",
+    descripcion:
+      "Programa Java que analiza un ciclo for con limite n / 2 e incremento de 2, mostrando que las constantes no cambian la complejidad lineal O(n).",
+    categoria: "fundamentos",
+    tags: ["Java", "For", "Complejidad"],
+  },
+  41: {
+    titulo: "For complejidad 2",
+    descripcion:
+      "Programa Java que analiza dos ciclos for anidados de tamano n, incrementando un contador para evidenciar una complejidad cuadratica O(n^2).",
+    categoria: "fundamentos",
+    tags: ["Java", "For", "Complejidad"],
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -480,6 +494,8 @@ const ordenProgramasTemporales = [
   37,
   38,
   39,
+  40,
+  41,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {

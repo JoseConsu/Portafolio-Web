@@ -1,0 +1,2692 @@
+<!DOCTYPE html><html lang="es" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Programa temporal 40: For complejidad 1 | Programas temporales</title><meta name="description" content="Portafolio de Jose David Consuegra Medina enfocado en ciberseguridad, redes y servidores."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><script>
+      try {
+        const theme = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+      } catch {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script><link rel="stylesheet" href="/_astro/index.Cor2BKzd.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>  <main class="programa-shell" id="contenido-principal"> <section class="program-hero"> <img class="program-hero__logo" src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async"> <div> <p class="ds-eyebrow">Estructura de Datos y Analisis Algoritmicos</p> <h1>Programa temporal 40: For complejidad 1</h1> <p>Programa Java que analiza un ciclo for con limite n / 2 e incremento de 2, mostrando que las constantes no cambian la complejidad lineal O(n).</p> </div> <div class="program-hero__actions"> <div class="program-hero__icon" aria-hidden="true"> <img src="/icons/folder.svg" alt=""> </div> <a class="icono-volver" href="/" aria-label="Volver al menu principal" title="Volver al menu principal">
+Volver
+</a> </div> </section>   <section class="ds-panel zona-codigo"> <div class="encabezado-cuadro"> <h2> <span class="heading-icon"> <img src="/icons/rocket.svg" alt="" aria-hidden="true"> </span>
+Código del programa
+</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo"> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z"></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z"></path> </svg> </button> </div> <pre class="cuadro-codigo"><code>/*
+ * Programa temporal 40: For complejidad 1
+ *
+ * Objetivo:
+ * Analizar un ciclo for que avanza de 2 en 2 y se detiene en n / 2.
+ * Aunque recorre menos pasos que n, las constantes se ignoran en notacion Big O,
+ * por eso su complejidad temporal es O(n).
+ */
+
+public class ForComplejidad1 {
+    public static void main(String[] args) {
+        int c, n = 20;
+
+        for (int i = 0; i &lt; n / 2; i += 2) {
+            System.out.println(i);
+        }
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+0
+2
+4
+6
+8
+
+ANALISIS
+
+El ciclo ejecuta aproximadamente n / 4 iteraciones porque llega hasta n / 2
+y aumenta de 2 en 2. En Big O se eliminan constantes, entonces:
+
+T(n) = n / 4  =&gt;  O(n)
+*/
+</code></pre> </section>    <section class="panel subpanel zona-imagen"> <h2> <span class="heading-icon"> <img src="/icons/flask.svg" alt="" aria-hidden="true"> </span>
+Imagen de salida
+</h2> <div class="marco-imagen"> <img id="imagen-salida-programa" src="/proyectos-temporales/imagenes/programa-40.svg" alt="Imagen de salida de Programa temporal 40: For complejidad 1" loading="lazy" decoding="async"> </div> </section> </main> <script>(function(){const simuladorLista = null;
+
+    (function setupClipboard() {
+      const trigger = document.querySelector(".boton-copiar");
+      const codigo = document.querySelector(".cuadro-codigo");
+      if (!trigger || !codigo) return;
+
+      trigger.addEventListener("click", async () => {
+        const texto = codigo.textContent ?? "";
+        const iconoOriginal = trigger.querySelector("svg")?.cloneNode(true);
+        try {
+          await navigator.clipboard.writeText(texto);
+          trigger.textContent = "✅";
+          setTimeout(() => {
+            trigger.replaceChildren();
+            if (iconoOriginal) {
+              trigger.appendChild(iconoOriginal.cloneNode(true));
+            }
+          }, 1400);
+        } catch {
+          const seleccion = window.getSelection();
+          const rango = document.createRange();
+          rango.selectNodeContents(codigo);
+          seleccion?.removeAllRanges();
+          seleccion?.addRange(rango);
+        }
+      });
+    })();
+
+    function initComparativaMergeQuick() {
+      const tabla = document.querySelector("#tabla-comparativa");
+      if (!tabla) return;
+
+      const datosComparativa = {
+        int: {
+          desordenado: {
+            10: { merge: { tiempo: 0.07, comparaciones: 28, movimientos: 40, memoria: 6 }, quick: { tiempo: 0.05, comparaciones: 24, movimientos: 19, memoria: 2 } },
+            50: { merge: { tiempo: 0.45, comparaciones: 276, movimientos: 438, memoria: 24 }, quick: { tiempo: 0.36, comparaciones: 251, movimientos: 184, memoria: 7 } },
+            200: { merge: { tiempo: 2.21, comparaciones: 1540, movimientos: 2874, memoria: 95 }, quick: { tiempo: 1.66, comparaciones: 1394, movimientos: 980, memoria: 13 } }
+          },
+          parcial: {
+            10: { merge: { tiempo: 0.06, comparaciones: 24, movimientos: 40, memoria: 6 }, quick: { tiempo: 0.04, comparaciones: 18, movimientos: 14, memoria: 2 } },
+            50: { merge: { tiempo: 0.41, comparaciones: 249, movimientos: 438, memoria: 24 }, quick: { tiempo: 0.29, comparaciones: 190, movimientos: 133, memoria: 6 } },
+            200: { merge: { tiempo: 2.05, comparaciones: 1462, movimientos: 2874, memoria: 95 }, quick: { tiempo: 1.31, comparaciones: 1116, movimientos: 715, memoria: 11 } }
+          },
+          invertido: {
+            10: { merge: { tiempo: 0.07, comparaciones: 31, movimientos: 40, memoria: 6 }, quick: { tiempo: 0.11, comparaciones: 45, movimientos: 53, memoria: 8 } },
+            50: { merge: { tiempo: 0.47, comparaciones: 289, movimientos: 438, memoria: 24 }, quick: { tiempo: 1.93, comparaciones: 1225, movimientos: 1290, memoria: 46 } },
+            200: { merge: { tiempo: 2.24, comparaciones: 1601, movimientos: 2874, memoria: 95 }, quick: { tiempo: 22.8, comparaciones: 19900, movimientos: 20110, memoria: 189 } }
+          }
+        },
+        string: {
+          desordenado: {
+            10: { merge: { tiempo: 0.11, comparaciones: 31, movimientos: 40, memoria: 7 }, quick: { tiempo: 0.09, comparaciones: 26, movimientos: 21, memoria: 3 } },
+            50: { merge: { tiempo: 0.73, comparaciones: 295, movimientos: 438, memoria: 25 }, quick: { tiempo: 0.61, comparaciones: 266, movimientos: 196, memoria: 8 } },
+            200: { merge: { tiempo: 3.12, comparaciones: 1658, movimientos: 2874, memoria: 97 }, quick: { tiempo: 2.61, comparaciones: 1488, movimientos: 1059, memoria: 15 } }
+          },
+          parcial: {
+            10: { merge: { tiempo: 0.09, comparaciones: 26, movimientos: 40, memoria: 7 }, quick: { tiempo: 0.07, comparaciones: 21, movimientos: 16, memoria: 3 } },
+            50: { merge: { tiempo: 0.68, comparaciones: 271, movimientos: 438, memoria: 25 }, quick: { tiempo: 0.53, comparaciones: 218, movimientos: 151, memoria: 7 } },
+            200: { merge: { tiempo: 2.97, comparaciones: 1574, movimientos: 2874, memoria: 97 }, quick: { tiempo: 2.08, comparaciones: 1255, movimientos: 832, memoria: 12 } }
+          },
+          invertido: {
+            10: { merge: { tiempo: 0.12, comparaciones: 34, movimientos: 40, memoria: 7 }, quick: { tiempo: 0.18, comparaciones: 52, movimientos: 60, memoria: 9 } },
+            50: { merge: { tiempo: 0.77, comparaciones: 310, movimientos: 438, memoria: 25 }, quick: { tiempo: 2.41, comparaciones: 1270, movimientos: 1334, memoria: 50 } },
+            200: { merge: { tiempo: 3.16, comparaciones: 1719, movimientos: 2874, memoria: 97 }, quick: { tiempo: 25.9, comparaciones: 20480, movimientos: 20644, memoria: 194 } }
+          }
+        }
+      };
+
+      const filtroLongitud = document.querySelector("#filtro-longitud");
+      const filtroTipo = document.querySelector("#filtro-tipo");
+      const filtroEscenario = document.querySelector("#filtro-escenario");
+      const cuerpoTabla = document.querySelector("#tabla-comparativa tbody");
+      const cuerpoTablaComplejidad = document.querySelector("#tabla-complejidad tbody");
+      const listaVentajas = document.querySelector("#lista-ventajas");
+      const listaDesventajas = document.querySelector("#lista-desventajas");
+      const textoRecomendacion = document.querySelector("#texto-recomendacion");
+      const tabsDefinicion = document.querySelectorAll(".tab-definicion");
+      const detalleAlgoritmo = document.querySelector("#detalle-algoritmo");
+
+      if (!filtroLongitud || !filtroTipo || !filtroEscenario || !cuerpoTabla || !cuerpoTablaComplejidad || !listaVentajas || !listaDesventajas || !textoRecomendacion || !detalleAlgoritmo) {
+        return;
+      }
+
+      const metricas = [
+        { clave: "tiempo", etiqueta: "Tiempo (ms)", menorEsMejor: true },
+        { clave: "comparaciones", etiqueta: "Comparaciones", menorEsMejor: true },
+        { clave: "movimientos", etiqueta: "Movimientos", menorEsMejor: true },
+        { clave: "memoria", etiqueta: "Memoria extra estimada (KB)", menorEsMejor: true }
+      ];
+
+      const definicionesDetalladas = {
+        merge: {
+          titulo: "Merge Sort",
+          funcionalidad: [
+            "Divide recursivamente el arreglo en mitades hasta tener subarreglos de un elemento.",
+            "Conquista mezclando subarreglos ya ordenados mediante comparacion secuencial.",
+            "Mantiene orden estable: elementos iguales conservan su posicion relativa."
+          ],
+          ventajas: [
+            "Complejidad temporal estable O(n log n) en mejor, promedio y peor caso.",
+            "Excelente comportamiento en entradas invertidas o con patron adverso.",
+            "Muy util para listas enlazadas y para ordenamiento externo en disco."
+          ],
+          desventajas: [
+            "Requiere memoria auxiliar O(n) para el proceso de mezcla.",
+            "Puede ser menos rapido que Quick Sort en arreglos pequenos en memoria RAM.",
+            "Coste adicional de copiado/movimientos durante cada fase de merge."
+          ]
+        },
+        quick: {
+          titulo: "Quick Sort",
+          funcionalidad: [
+            "Selecciona un pivote y particiona el arreglo en menores/mayores al pivote.",
+            "Ordena recursivamente ambos lados de la particion (divide y venceras).",
+            "Su eficiencia depende de la calidad de las particiones logradas."
+          ],
+          ventajas: [
+            "En promedio logra O(n log n) y suele ser muy rapido en practica.",
+            "Uso de memoria auxiliar bajo (aprox. O(log n) por recursion promedio).",
+            "Muy eficiente en arreglos en memoria cuando el pivote esta bien elegido."
+          ],
+          desventajas: [
+            "Puede degradar a O(n²) en particiones muy desbalanceadas.",
+            "No es estable por defecto (iguales pueden cambiar su orden relativo).",
+            "Puede aumentar la profundidad de recursion en escenarios adversos."
+          ]
+        }
+      };
+
+      const complejidadesBase = {
+        merge: { mejor: "O(n log n)", promedio: "O(n log n)", peor: "O(n log n)", memoria: "O(n)" },
+        quick: { mejor: "O(n log n)", promedio: "O(n log n)", peor: "O(n²)", memoria: "O(log n) promedio / O(n) peor caso" }
+      };
+
+      const resolverGanador = (mergeValor, quickValor, menorEsMejor) => {
+        if (mergeValor === quickValor) return "Empate";
+        if (menorEsMejor) return mergeValor < quickValor ? "Merge Sort" : "Quick Sort";
+        return mergeValor > quickValor ? "Merge Sort" : "Quick Sort";
+      };
+
+      const renderizarDefinicionAlgoritmo = (algoritmo) => {
+        const datos = definicionesDetalladas[algoritmo];
+        if (!datos) return;
+        const crearBloqueLista = (titulo, items) => {
+          const fragment = document.createDocumentFragment();
+          const subtitulo = document.createElement("h4");
+          subtitulo.textContent = titulo;
+          const lista = document.createElement("ol");
+          items.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            lista.appendChild(li);
+          });
+          fragment.appendChild(subtitulo);
+          fragment.appendChild(lista);
+          return fragment;
+        };
+
+        detalleAlgoritmo.replaceChildren();
+        const titulo = document.createElement("h3");
+        titulo.textContent = `${datos.titulo}: definicion detallada`;
+        detalleAlgoritmo.appendChild(titulo);
+        detalleAlgoritmo.appendChild(crearBloqueLista("Funcionalidad del algoritmo", datos.funcionalidad));
+        detalleAlgoritmo.appendChild(crearBloqueLista("Ventajas", datos.ventajas));
+        detalleAlgoritmo.appendChild(crearBloqueLista("Desventajas", datos.desventajas));
+      };
+
+      const renderizarComparativa = () => {
+        const longitud = filtroLongitud.value;
+        const tipo = filtroTipo.value;
+        const escenario = filtroEscenario.value;
+        const datos = datosComparativa[tipo]?.[escenario]?.[longitud];
+        if (!datos) return;
+
+        const merge = datos.merge;
+        const quick = datos.quick;
+        cuerpoTabla.replaceChildren();
+        let puntosMerge = 0;
+        let puntosQuick = 0;
+        const ventajas = [];
+        const desventajas = [];
+
+        metricas.forEach((metrica) => {
+          const mergeValor = merge[metrica.clave];
+          const quickValor = quick[metrica.clave];
+          const ganador = resolverGanador(mergeValor, quickValor, metrica.menorEsMejor);
+          if (ganador === "Merge Sort") puntosMerge += 1;
+          if (ganador === "Quick Sort") puntosQuick += 1;
+          const fila = document.createElement("tr");
+          const celdaMetrica = document.createElement("td");
+          celdaMetrica.textContent = metrica.etiqueta;
+          const celdaMerge = document.createElement("td");
+          celdaMerge.textContent = String(mergeValor);
+          const celdaQuick = document.createElement("td");
+          celdaQuick.textContent = String(quickValor);
+          const celdaGanador = document.createElement("td");
+          const badge = document.createElement("span");
+          badge.className = `badge-ganador ${ganador === "Empate" ? "empate" : ganador === "Merge Sort" ? "merge" : "quick"}`;
+          badge.textContent = ganador;
+          celdaGanador.appendChild(badge);
+          fila.append(celdaMetrica, celdaMerge, celdaQuick, celdaGanador);
+          cuerpoTabla.appendChild(fila);
+        });
+
+        const factorEscenario = escenario === "invertido" ? "alto" : escenario === "parcial" ? "medio" : "normal";
+        const factorTipo = tipo === "string" ? "Comparacion lexicografica (costo adicional por longitud de texto)." : "Comparacion numerica directa.";
+        const filasComplejidad = [
+          ["Mejor caso", complejidadesBase.merge.mejor, complejidadesBase.quick.mejor],
+          ["Promedio", complejidadesBase.merge.promedio, complejidadesBase.quick.promedio],
+          [
+            `Peor caso (situacion actual: ${escenario})`,
+            complejidadesBase.merge.peor,
+            escenario === "invertido" ? "Se aproxima a O(n²) con pivote simple." : complejidadesBase.quick.peor
+          ],
+          ["Memoria adicional", complejidadesBase.merge.memoria, complejidadesBase.quick.memoria],
+          [
+            `Contexto de ${longitud} elementos (${tipo})`,
+            `Rendimiento estable con factor ${factorEscenario}.`,
+            escenario === "invertido" ? "Particiones desfavorables elevan comparaciones." : "Buen rendimiento promedio con pivote favorable."
+          ],
+          ["Tipo de dato seleccionado", factorTipo, factorTipo]
+        ];
+        cuerpoTablaComplejidad.replaceChildren();
+        filasComplejidad.forEach((filaData) => {
+          const fila = document.createElement("tr");
+          filaData.forEach((valor) => {
+            const celda = document.createElement("td");
+            celda.textContent = valor;
+            fila.appendChild(celda);
+          });
+          cuerpoTablaComplejidad.appendChild(fila);
+        });
+
+        if (quick.tiempo < merge.tiempo) {
+          ventajas.push("Quick Sort domina en tiempo promedio en este escenario.");
+        } else {
+          ventajas.push("Merge Sort mantiene un tiempo estable incluso en casos exigentes.");
+        }
+
+        if (merge.memoria > quick.memoria) {
+          desventajas.push("Merge Sort requiere memoria adicional para mezclar subarreglos.");
+        } else if (quick.memoria > merge.memoria) {
+          desventajas.push("Quick Sort aumenta profundidad de recursion y memoria en peores casos.");
+        }
+
+        if (escenario === "invertido") {
+          desventajas.push("Con pivote simple, Quick Sort se acerca al peor caso O(n²) en arreglos invertidos.");
+          ventajas.push("Merge Sort conserva complejidad O(n log n) sin importar el orden inicial.");
+        } else {
+          ventajas.push("Quick Sort aprovecha particiones favorables y reduce operaciones de movimiento.");
+        }
+
+        ventajas.push(`En ${tipo}, ambas soluciones escalan mejor en 50 y 200 elementos que algoritmos cuadraticos.`);
+
+        listaVentajas.replaceChildren(...ventajas.map((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          return li;
+        }));
+        listaDesventajas.replaceChildren(...desventajas.map((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          return li;
+        }));
+
+        if (puntosMerge > puntosQuick) {
+          textoRecomendacion.textContent = "Recomendacion: Merge Sort. En esta combinacion ofrece mejor balance global y mas estabilidad frente al peor caso.";
+        } else if (puntosQuick > puntosMerge) {
+          textoRecomendacion.textContent = "Recomendacion: Quick Sort. En esta combinacion logra mejor rendimiento promedio con menor costo operativo.";
+        } else {
+          textoRecomendacion.textContent = "Recomendacion: empate tecnico. Elige Merge Sort si priorizas estabilidad, o Quick Sort si priorizas rapidez promedio.";
+        }
+      };
+
+      filtroLongitud.addEventListener("change", renderizarComparativa);
+      filtroTipo.addEventListener("change", renderizarComparativa);
+      filtroEscenario.addEventListener("change", renderizarComparativa);
+      tabsDefinicion.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabsDefinicion.forEach((item) => item.classList.remove("activo"));
+          tab.classList.add("activo");
+          renderizarDefinicionAlgoritmo(tab.dataset.algoritmo ?? "merge");
+        });
+      });
+
+      renderizarDefinicionAlgoritmo("merge");
+      renderizarComparativa();
+    }
+
+    initComparativaMergeQuick();
+
+    function initSimuladorOrdenamientos() {
+      const root = document.querySelector("[data-simulador]");
+      if (!root) return;
+
+      const sliderCantidad = root.querySelector("#sim-cantidad");
+      const sliderValor = root.querySelector("#sim-cantidad-valor");
+      const tipoBotones = Array.from(root.querySelectorAll("[data-tipo]"));
+      const escenarioBotones = Array.from(root.querySelectorAll("[data-escenario]"));
+      const algoritmoBotones = Array.from(root.querySelectorAll("[data-algoritmo]"));
+      const linkPrograma = root.querySelector("#sim-program-link");
+      const velocidadSelect = root.querySelector("#sim-velocidad");
+      const startBtn = root.querySelector("#sim-start");
+      const pauseBtn = root.querySelector("#sim-pause");
+      const resetBtn = root.querySelector("#sim-reset");
+      const tablaBody = root.querySelector("#sim-tabla tbody");
+      const etiquetaEscenario = root.querySelector("#sim-etiqueta-escenario");
+      const configEstado = root.querySelector("#sim-config-estado");
+      const estadoTag = root.querySelector("#sim-estado");
+      const visualStage = root.querySelector("#sim-visual");
+      const timelineThumb = root.querySelector("#sim-timeline");
+      const descripcion = root.querySelector("#sim-descripcion");
+      const estabilidad = root.querySelector("#sim-estabilidad");
+      const recursionTexto = root.querySelector("#sim-recursion");
+      const situacionTexto = root.querySelector("#sim-situacion");
+      const logArea = root.querySelector("#sim-log");
+
+      if (!sliderCantidad || !sliderValor || !velocidadSelect || !tablaBody || !etiquetaEscenario || !configEstado || !estadoTag || !visualStage || !timelineThumb || !descripcion || !estabilidad || !recursionTexto || !situacionTexto || !logArea) {
+        return;
+      }
+
+      const ESCENARIOS = {
+        desordenado: { titulo: "Totalmente desordenado", descripcion: "Cada corrida baraja los datos para ejercitar el peor recorrido promedio." },
+        parcial: { titulo: "Parcialmente ordenado", descripcion: "Bloques ordenados con swaps controlados para medir optimizaciones." },
+        intercalado: { titulo: "Intercalado", descripcion: "Valores altos y bajos alternan, desafiando comparaciones locales." },
+        invertido: { titulo: "Invertido", descripcion: "Orden inverso absoluto para evidenciar el peor caso." }
+      };
+
+      const tipoEtiqueta = { int: "Enteros", string: "Strings" };
+      const stringPalette = ["#22d3ee", "#f97316", "#fde047", "#34d399", "#60a5fa", "#c084fc", "#fb7185", "#f59e0b", "#4ade80", "#f43f5e"];
+      const colorCache = new Map();
+
+      const ALGORITMOS = {
+        bubble: { nombre: "Bubble Sort", descripcion: "Versión clásica que compara vecinos y empuja el mayor al final.", estable: true, usaRecursion: false, color: "#22c55e", ejecutar: instrumentarBurbuja, visual: "Barras dinámicas" },
+        bubblePlus: { nombre: "Bubble Sort optimizado", descripcion: "Reduce pasadas al recordar el ultimo intercambio.", estable: true, usaRecursion: false, color: "#38bdf8", ejecutar: instrumentarBurbujaPlus, visual: "Barras con cortes anticipados" },
+        selection: { nombre: "Selection Sort", descripcion: "Encuentra el minimo restante y lo coloca en su sitio.", estable: false, usaRecursion: false, color: "#fb7185", ejecutar: instrumentarSeleccion, visual: "Barras" },
+        insertion: { nombre: "Insertion Sort", descripcion: "Inserta cada elemento en la zona ordenada desplazándolo.", estable: true, usaRecursion: false, color: "#facc15", ejecutar: instrumentarInsercion, visual: "Barras" },
+        shell: { nombre: "Shell Sort", descripcion: "Ordena usando gaps decrecientes para acelerar Inserción.", estable: false, usaRecursion: false, color: "#c084fc", ejecutar: instrumentarShell, visual: "Barras" },
+        shaker: { nombre: "Shaker Sort", descripcion: "Burbuja bidireccional que recorre ida y vuelta.", estable: true, usaRecursion: false, color: "#f97316", ejecutar: instrumentarShaker, visual: "Barras" },
+        merge: { nombre: "Merge Sort", descripcion: "Divide y conquista mezclando subarreglos ordenados.", estable: true, usaRecursion: true, color: "#14b8a6", ejecutar: instrumentarMerge, visual: "Barras + árbol de fusiones" },
+        quick: { nombre: "Quick Sort", descripcion: "Particiona alrededor de pivotes y resuelve recursivamente.", estable: false, usaRecursion: true, color: "#f472b6", ejecutar: instrumentarQuick, visual: "Barras" },
+        heap: { nombre: "Heap Sort", descripcion: "Construye un montículo y extrae máximos.", estable: false, usaRecursion: false, color: "#60a5fa", ejecutar: instrumentarHeap, visual: "Árbol binario" },
+        bucket: { nombre: "Bucket Sort", descripcion: "Distribuye elementos en cubetas y las ordena por separado.", estable: true, usaRecursion: false, color: "#34d399", ejecutar: instrumentarBucket, visual: "Árbol de buckets" },
+        radix: { nombre: "Radix Sort", descripcion: "Ordena por dígitos desde el menos significativo.", estable: true, usaRecursion: false, color: "#f59e0b", ejecutar: instrumentarRadix, visual: "Árbol de dígitos" },
+        counting: { nombre: "Counting Sort", descripcion: "Cuenta apariciones y reconstruye el arreglo ordenado.", estable: true, usaRecursion: false, color: "#e879f9", ejecutar: instrumentarCounting, visual: "Árbol de frecuencias" }
+      };
+
+      const enlacesProgramas = {
+        bubble: { int: "/programas-temporales/programa-02", string: "/programas-temporales/programa-01" },
+        bubblePlus: { int: "/programas-temporales/programa-05", string: "/programas-temporales/programa-06" },
+        selection: { int: "/programas-temporales/programa-11", string: "/programas-temporales/programa-12" },
+        insertion: { int: "/programas-temporales/programa-15", string: "/programas-temporales/programa-16" },
+        shell: { int: "/programas-temporales/programa-09", string: "/programas-temporales/programa-10" },
+        shaker: { int: "/programas-temporales/programa-18", string: "/programas-temporales/programa-19" },
+        merge: { int: "/programas-temporales/programa-21", string: "/programas-temporales/programa-22" },
+        quick: { int: "/programas-temporales/programa-07", string: "/programas-temporales/programa-08" },
+        heap: { int: "/programas-temporales/programa-24", string: "/programas-temporales/programa-25" },
+        bucket: { int: "/programas-temporales/programa-26", string: "/programas-temporales/programa-27" },
+        radix: { int: "/programas-temporales/programa-20" },
+        counting: { int: "/programas-temporales/programa-29" }
+      };
+
+      const state = {
+        tipoDato: "int",
+        escenario: "desordenado",
+        cantidad: Number(sliderCantidad.value),
+        algoritmoActivo: "bubble",
+        velocidad: Number(velocidadSelect.value),
+        resultados: [],
+        pasoActual: 0,
+        maxPasos: 0,
+        jugando: false,
+        temporizador: null
+      };
+
+      const seleccionarBoton = (coleccion, boton) => {
+        coleccion.forEach((item) => item.classList.remove("activo"));
+        boton.classList.add("activo");
+      };
+
+      const setStatus = (texto) => {
+        estadoTag.textContent = texto;
+      };
+
+      const obtenerColorBarra = (item, colorBase) => {
+        if (state.tipoDato === "string") {
+          const clave = item.label.charCodeAt(0);
+          if (!colorCache.has(clave)) {
+            const tono = stringPalette[colorCache.size % stringPalette.length];
+            colorCache.set(clave, tono);
+          }
+          return colorCache.get(clave);
+        }
+        return colorBase;
+      };
+
+      const actualizarSliderLabel = () => {
+        sliderValor.textContent = `${state.cantidad} datos`;
+      };
+
+      const actualizarEtiquetaEscenario = () => {
+        etiquetaEscenario.textContent = `${ESCENARIOS[state.escenario].titulo} · ${tipoEtiqueta[state.tipoDato]}`;
+      };
+
+      const detenerAnimacion = () => {
+        state.jugando = false;
+        if (state.temporizador) {
+          clearTimeout(state.temporizador);
+          state.temporizador = null;
+        }
+      };
+
+      const updateTimeline = () => {
+        const total = Math.max(1, state.maxPasos - 1);
+        const avance = state.resultados.length ? Math.min(1, state.pasoActual / total) : 0;
+        timelineThumb.style.setProperty("--avance", `${avance * 100}%`);
+      };
+
+      const renderLog = (descripcionPaso, pasoActual, totalPasos) => {
+        const mensaje = descripcionPaso ?? "Sin cambios visibles en este paso.";
+        const parrafo = document.createElement("p");
+        const strong = document.createElement("strong");
+        strong.textContent = `Paso ${Math.min(pasoActual + 1, totalPasos)}`;
+        parrafo.appendChild(strong);
+        parrafo.append(` · ${mensaje}`);
+        logArea.replaceChildren(parrafo);
+      };
+
+      const renderTreeView = (tree) => {
+        visualStage.dataset.view = "tree";
+        visualStage.replaceChildren();
+        const wrapper = document.createElement("div");
+        wrapper.className = "sim-tree";
+        const niveles = tree?.niveles ?? [];
+        if (!niveles.length) {
+          const texto = document.createElement("p");
+          texto.className = "sim-placeholder";
+          texto.textContent = "Estructura sin datos disponibles.";
+          wrapper.appendChild(texto);
+        } else {
+          niveles.forEach((nivel) => {
+            const fila = document.createElement("div");
+            fila.className = "tree-level";
+            nivel.forEach((nodo) => {
+              const elemento = document.createElement("div");
+              elemento.className = "tree-node";
+              if (nodo.highlight) elemento.classList.add("activo");
+              elemento.textContent = nodo.label;
+              fila.appendChild(elemento);
+            });
+            wrapper.appendChild(fila);
+          });
+        }
+        visualStage.appendChild(wrapper);
+      };
+
+      const renderBarsView = (paso, algoritmo) => {
+        visualStage.dataset.view = "bars";
+        visualStage.replaceChildren();
+        if (!paso.items?.length) {
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Inicia la simulación para ver las barras en movimiento.";
+          visualStage.appendChild(placeholder);
+          return;
+        }
+        const fragment = document.createDocumentFragment();
+        const maxValor = Math.max(...paso.items.map((item) => item.value), 1);
+        const mostrarEtiquetas = paso.items.length <= 45;
+        paso.items.forEach((item, indice) => {
+          const barra = document.createElement("div");
+          barra.className = "sim-bar";
+          barra.style.setProperty("--altura", `${Math.max(8, (item.value / maxValor) * 100)}%`);
+          barra.style.setProperty("--bar-color", obtenerColorBarra(item, algoritmo.color));
+          if (paso.resaltados?.includes(indice)) barra.classList.add("activo");
+          if (mostrarEtiquetas) {
+            const etiqueta = document.createElement("span");
+            etiqueta.textContent = String(item.label);
+            barra.appendChild(etiqueta);
+          }
+          fragment.appendChild(barra);
+        });
+        visualStage.appendChild(fragment);
+      };
+
+      const renderDescripcion = () => {
+        const meta = ALGORITMOS[state.algoritmoActivo];
+        if (!meta) return;
+        descripcion.textContent = `${meta.descripcion} · Vista: ${meta.visual ?? "Barras"}`;
+        estabilidad.textContent = meta.estable ? "Estable (mantiene el orden de iguales)" : "Inestable (puede reordenar valores identicos)";
+        recursionTexto.textContent = meta.usaRecursion ? "Usa recursividad" : "Iterativo";
+        situacionTexto.textContent = `${ESCENARIOS[state.escenario].titulo} · ${tipoEtiqueta[state.tipoDato]}`;
+        if (linkPrograma) {
+          const enlace = enlacesProgramas[state.algoritmoActivo]?.[state.tipoDato];
+          if (enlace) {
+            linkPrograma.href = enlace;
+            linkPrograma.textContent = "Ver programa individual";
+            linkPrograma.classList.remove("link-disabled");
+          } else {
+            linkPrograma.href = "#";
+            linkPrograma.textContent = "Programa no encontrado";
+            linkPrograma.classList.add("link-disabled");
+          }
+        }
+      };
+
+      const renderTabla = () => {
+        if (!state.resultados.length) {
+          const filaVacia = document.createElement("tr");
+          const celdaVacia = document.createElement("td");
+          celdaVacia.colSpan = 10;
+          celdaVacia.textContent = "Aún no hay datos procesados.";
+          filaVacia.appendChild(celdaVacia);
+          tablaBody.replaceChildren(filaVacia);
+          return;
+        }
+        const filas = state.resultados.map((resultado) => {
+          const pasoIndice = Math.min(state.pasoActual, resultado.steps.length - 1);
+          const paso = resultado.steps[pasoIndice] ?? resultado.steps[resultado.steps.length - 1];
+          const fila = document.createElement("tr");
+          fila.className = `sim-row ${resultado.id === state.algoritmoActivo ? "activo" : ""}`;
+          fila.style.setProperty("--alg-color", resultado.color);
+
+          const celdas = [
+            resultado.nombre,
+            String(Math.min(state.pasoActual + 1, resultado.steps.length)),
+            String(paso?.comparaciones ?? 0),
+            String(paso?.intercambios ?? 0),
+            String(paso?.iteraciones ?? 0),
+            resultado.tiempoMs.toFixed(2),
+            resultado.memoria.toFixed(1)
+          ];
+
+          celdas.forEach((valor) => {
+            const celda = document.createElement("td");
+            celda.textContent = valor;
+            fila.appendChild(celda);
+          });
+
+          const celdaRecursivo = document.createElement("td");
+          const tagRecursivo = document.createElement("span");
+          tagRecursivo.className = `sim-tag sim-tag--recursion ${resultado.usaRecursion ? "sim-tag--si" : "sim-tag--no"}`;
+          tagRecursivo.textContent = resultado.usaRecursion ? "Sí" : "No";
+          celdaRecursivo.appendChild(tagRecursivo);
+          fila.appendChild(celdaRecursivo);
+
+          const celdaEstable = document.createElement("td");
+          const tagEstable = document.createElement("span");
+          tagEstable.className = `sim-tag sim-tag--estabilidad ${resultado.estable ? "sim-tag--estable" : "sim-tag--inestable"}`;
+          tagEstable.textContent = resultado.estable ? "Estable" : "Inestable";
+          celdaEstable.appendChild(tagEstable);
+          fila.appendChild(celdaEstable);
+
+          const celdaPrograma = document.createElement("td");
+          const enlacePrograma = enlacesProgramas[resultado.id]?.[state.tipoDato];
+          if (enlacePrograma) {
+            const enlace = document.createElement("a");
+            enlace.className = "tabla-link";
+            enlace.href = enlacePrograma;
+            enlace.target = "_blank";
+            enlace.rel = "noreferrer";
+            enlace.textContent = "Abrir";
+            celdaPrograma.appendChild(enlace);
+          } else {
+            const span = document.createElement("span");
+            span.className = "tabla-link disabled";
+            span.textContent = "No encontrado";
+            celdaPrograma.appendChild(span);
+          }
+          fila.appendChild(celdaPrograma);
+
+          return fila;
+        });
+
+        tablaBody.replaceChildren(...filas);
+      };
+
+      const renderVisual = () => {
+        if (!state.resultados.length) {
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Inicia la simulación para ver las barras en movimiento.";
+          visualStage.replaceChildren(placeholder);
+          visualStage.dataset.view = "bars";
+          return;
+        }
+        const activo = state.resultados.find((item) => item.id === state.algoritmoActivo) ?? state.resultados[0];
+        const pasoIndice = Math.min(state.pasoActual, activo.steps.length - 1);
+        const paso = activo.steps[pasoIndice];
+        if (!paso) {
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Crea una nueva simulación para ver resultados.";
+          visualStage.replaceChildren(placeholder);
+          visualStage.dataset.view = "bars";
+          return;
+        }
+        if (paso.vista === "tree" && paso.tree) {
+          renderTreeView(paso.tree);
+        } else {
+          renderBarsView(paso, activo);
+        }
+        renderLog(paso.descripcion, pasoIndice, activo.steps.length);
+      };
+
+      const updateUi = () => {
+        renderTabla();
+        renderVisual();
+        renderDescripcion();
+        updateTimeline();
+      };
+
+      const scheduleTick = () => {
+        if (state.temporizador) {
+          clearTimeout(state.temporizador);
+          state.temporizador = null;
+        }
+        if (!state.jugando) return;
+        state.temporizador = window.setTimeout(() => {
+          if (state.pasoActual < state.maxPasos - 1) {
+            state.pasoActual += 1;
+            updateUi();
+            scheduleTick();
+          } else {
+            detenerAnimacion();
+            setStatus("Finalizado");
+          }
+        }, state.velocidad);
+      };
+
+      const estimarMemoria = (id, n) => {
+        switch (id) {
+          case "merge":
+            return n * 8;
+          case "quick":
+            return Math.log2(n + 1) * 64;
+          case "heap":
+            return n * 4;
+          default:
+            return n * 2;
+        }
+      };
+
+      const prepararSimulacion = () => {
+        colorCache.clear();
+        const dataset = generarDataset(state.tipoDato, state.escenario, state.cantidad);
+        const resultados = Object.entries(ALGORITMOS).map(([id, meta]) => {
+          const copia = dataset.map(clonarPunto);
+          const inicio = performance.now();
+          const steps = meta.ejecutar(copia);
+          const fin = performance.now();
+          return {
+            id,
+            nombre: meta.nombre,
+            color: meta.color,
+            estable: meta.estable,
+            usaRecursion: meta.usaRecursion,
+            steps,
+            tiempoMs: fin - inicio,
+            memoria: estimarMemoria(id, copia.length)
+          };
+        });
+        state.resultados = resultados;
+        state.pasoActual = 0;
+        state.maxPasos = Math.max(...resultados.map((r) => r.steps.length), 1);
+        configEstado.textContent = `Listo: ${state.cantidad} datos (${tipoEtiqueta[state.tipoDato]} · ${ESCENARIOS[state.escenario].titulo}).`;
+        updateUi();
+      };
+
+      const generarDataset = (tipoDato, escenario, cantidad) => {
+        const base = Array.from({ length: cantidad }, (_, index) => {
+          const valor = index + 1;
+          if (tipoDato === "string") {
+            const letra = String.fromCharCode(65 + (index % 26));
+            const sufijo = (index % 100).toString().padStart(2, "0");
+            return { value: valor, label: `${letra}${sufijo}` };
+          }
+          return { value: valor, label: valor.toString().padStart(2, "0") };
+        });
+
+        if (escenario === "invertido") {
+          return [...base].reverse();
+        }
+
+        if (escenario === "intercalado") {
+          const mezcla = [];
+          const mitad = Math.ceil(base.length / 2);
+          for (let i = 0; i < mitad; i++) {
+            if (base[i]) mezcla.push(base[i]);
+            if (base[i + mitad]) mezcla.push(base[i + mitad]);
+          }
+          return mezcla;
+        }
+
+        if (escenario === "parcial") {
+          const copia = [...base];
+          for (let i = 0; i < copia.length; i += 5) {
+            const j = Math.min(copia.length - 1, i + 3);
+            [copia[i], copia[j]] = [copia[j], copia[i]];
+          }
+          return copia;
+        }
+
+        const mezcla = [...base];
+        for (let i = mezcla.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [mezcla[i], mezcla[j]] = [mezcla[j], mezcla[i]];
+        }
+        return mezcla;
+      };
+
+      const crearEstadisticas = () => ({ comparaciones: 0, intercambios: 0, iteraciones: 0 });
+      const clonarPunto = (item) => ({ value: item.value, label: item.label });
+      const crearPaso = (items, stats, descripcion, extras = {}) => ({
+        items: items.map(clonarPunto),
+        comparaciones: stats.comparaciones,
+        intercambios: stats.intercambios,
+        iteraciones: stats.iteraciones,
+        descripcion,
+        vista: extras.vista ?? "bars",
+        tree: extras.tree ?? null,
+        resaltados: extras.resaltados ?? []
+      });
+
+      const construirTreeHeap = (items, tamanio, resaltados = []) => {
+        const niveles = [];
+        let nivelActual = 0;
+        let elementosEnNivel = 1;
+        let indice = 0;
+        while (indice < tamanio) {
+          const nivel = [];
+          for (let j = 0; j < elementosEnNivel && indice < tamanio; j++) {
+            nivel.push({ label: items[indice].label, highlight: resaltados.includes(indice) });
+            indice++;
+          }
+          niveles.push(nivel);
+          nivelActual++;
+          elementosEnNivel = Math.pow(2, nivelActual);
+        }
+        return { niveles };
+      };
+
+      const construirTreeBuckets = (buckets) => {
+        const header = buckets.map((bucket, idx) => ({
+          label: `B${idx + 1} (${bucket.length})`,
+          highlight: bucket.length > 0
+        }));
+        const filas = buckets.map((bucket) => (bucket.length ? bucket.map((item) => ({ label: item.label })) : [{ label: "—" }]));
+        return { niveles: [header, ...filas] };
+      };
+
+      const construirTreeRadix = (buckets, nivel) => {
+        const encabezado = buckets.map((bucket, idx) => ({ label: `D${idx}`, highlight: bucket.length > 0 }));
+        const detalle = buckets.map((bucket) => (bucket.length ? bucket.map((item) => ({ label: item.label })) : [{ label: "vacío" }]));
+        return { niveles: [[{ label: `Dígito ${nivel}` }], encabezado, ...detalle] };
+      };
+
+      const construirTreeContador = (contador) => {
+        if (!contador.length) return { niveles: [[{ label: "Sin datos" }]] };
+        const segmentos = Math.min(10, contador.length);
+        const rango = Math.ceil(contador.length / segmentos);
+        const nodos = [];
+        for (let i = 0; i < segmentos; i++) {
+          const inicio = i * rango;
+          if (inicio >= contador.length) break;
+          const fin = Math.min(contador.length - 1, inicio + rango - 1);
+          const suma = contador.slice(inicio, fin + 1).reduce((acc, val) => acc + val, 0);
+          nodos.push({ label: `${inicio}-${fin}: ${suma}`, highlight: suma > 0 });
+        }
+        return { niveles: [nodos] };
+      };
+
+      function instrumentarBurbuja(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        for (let i = 0; i < items.length - 1; i++) {
+          let huboCambio = false;
+          for (let j = 0; j < items.length - 1 - i; j++) {
+            stats.comparaciones++;
+            if (items[j].value > items[j + 1].value) {
+              [items[j], items[j + 1]] = [items[j + 1], items[j]];
+              stats.intercambios++;
+              huboCambio = true;
+              pasos.push(crearPaso(items, stats, `Intercambio entre posiciones ${j + 1} y ${j + 2}`));
+            }
+            stats.iteraciones++;
+          }
+          if (!huboCambio) break;
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Los datos ya estaban ordenados"));
+        return pasos;
+      }
+
+      function instrumentarBurbujaPlus(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        let ultimaPosicion = items.length - 1;
+        while (ultimaPosicion > 0) {
+          let nuevoLimite = 0;
+          for (let j = 0; j < ultimaPosicion; j++) {
+            stats.comparaciones++;
+            if (items[j].value > items[j + 1].value) {
+              [items[j], items[j + 1]] = [items[j + 1], items[j]];
+              stats.intercambios++;
+              nuevoLimite = j;
+              pasos.push(crearPaso(items, stats, `Intercambio optimizado en ${j + 1}`, { resaltados: [j, j + 1] }));
+            }
+            stats.iteraciones++;
+          }
+          if (nuevoLimite === 0) break;
+          ultimaPosicion = nuevoLimite;
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Arreglo ya estaba ordenado"));
+        return pasos;
+      }
+
+      function instrumentarSeleccion(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        for (let i = 0; i < items.length - 1; i++) {
+          let min = i;
+          for (let j = i + 1; j < items.length; j++) {
+            stats.comparaciones++;
+            if (items[j].value < items[min].value) {
+              min = j;
+            }
+          }
+          if (min !== i) {
+            [items[i], items[min]] = [items[min], items[i]];
+            stats.intercambios++;
+          }
+          stats.iteraciones++;
+          pasos.push(crearPaso(items, stats, `Posicion ${i + 1} lista`, { resaltados: [i, min] }));
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Arreglo trivial"));
+        return pasos;
+      }
+
+      function instrumentarInsercion(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        for (let i = 1; i < items.length; i++) {
+          const clave = items[i];
+          let j = i - 1;
+          stats.iteraciones++;
+          while (j >= 0 && items[j].value > clave.value) {
+            stats.comparaciones++;
+            items[j + 1] = items[j];
+            j -= 1;
+            stats.intercambios++;
+            pasos.push(crearPaso(items, stats, `Desplazando ${items[j + 1].label}`, { resaltados: [j + 1, j + 2] }));
+          }
+          if (j >= 0) stats.comparaciones++;
+          items[j + 1] = clave;
+          pasos.push(crearPaso(items, stats, `Insertando ${clave.label}`, { resaltados: [j + 1] }));
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Dataset minimo"));
+        return pasos;
+      }
+
+      function instrumentarShell(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        for (let gap = Math.floor(items.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+          for (let i = gap; i < items.length; i++) {
+            const temp = items[i];
+            let j = i;
+            while (j >= gap && items[j - gap].value > temp.value) {
+              stats.comparaciones++;
+              items[j] = items[j - gap];
+              j -= gap;
+              stats.intercambios++;
+              pasos.push(crearPaso(items, stats, `Gap ${gap}: desplazando ${temp.label}`, { resaltados: [j, j + gap] }));
+            }
+            if (j >= gap) stats.comparaciones++;
+            items[j] = temp;
+            stats.iteraciones++;
+            pasos.push(crearPaso(items, stats, `Gap ${gap}: insertando ${temp.label}`));
+          }
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Gap final sin cambios"));
+        return pasos;
+      }
+
+      function instrumentarShaker(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        let inicio = 0;
+        let fin = items.length - 1;
+        let intercambio = true;
+        while (inicio < fin && intercambio) {
+          intercambio = false;
+          for (let i = inicio; i < fin; i++) {
+            stats.comparaciones++;
+            if (items[i].value > items[i + 1].value) {
+              [items[i], items[i + 1]] = [items[i + 1], items[i]];
+              stats.intercambios++;
+              intercambio = true;
+            }
+            stats.iteraciones++;
+            pasos.push(crearPaso(items, stats, `Recorrido ➝ ${i + 1}`, { resaltados: [i, i + 1] }));
+          }
+          fin--;
+          if (!intercambio) break;
+          intercambio = false;
+          for (let i = fin; i > inicio; i--) {
+            stats.comparaciones++;
+            if (items[i - 1].value > items[i].value) {
+              [items[i], items[i - 1]] = [items[i - 1], items[i]];
+              stats.intercambios++;
+              intercambio = true;
+            }
+            stats.iteraciones++;
+            pasos.push(crearPaso(items, stats, `Recorrido ⬅ ${i}`, { resaltados: [i - 1, i] }));
+          }
+          inicio++;
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Sin movimientos"));
+        return pasos;
+      }
+
+      function instrumentarMerge(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        const buffer = Array(items.length);
+
+        const mergeSort = (inicio, fin) => {
+          if (inicio >= fin) return;
+          const medio = Math.floor((inicio + fin) / 2);
+          mergeSort(inicio, medio);
+          mergeSort(medio + 1, fin);
+          mezclar(inicio, medio, fin);
+          pasos.push(crearPaso(items, stats, `Mezcla ${inicio + 1}-${fin + 1}`));
+        };
+
+        const mezclar = (inicio, medio, fin) => {
+          let i = inicio;
+          let j = medio + 1;
+          let k = 0;
+          while (i <= medio && j <= fin) {
+            stats.comparaciones++;
+            if (items[i].value <= items[j].value) {
+              buffer[k++] = items[i++];
+            } else {
+              buffer[k++] = items[j++];
+              stats.intercambios++;
+            }
+            stats.iteraciones++;
+          }
+          while (i <= medio) {
+            buffer[k++] = items[i++];
+            stats.iteraciones++;
+          }
+          while (j <= fin) {
+            buffer[k++] = items[j++];
+            stats.iteraciones++;
+          }
+          for (let idx = 0; idx < k; idx++) {
+            items[inicio + idx] = buffer[idx];
+          }
+        };
+
+        mergeSort(0, items.length - 1);
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Dataset minimo"));
+        return pasos;
+      }
+
+      function instrumentarQuick(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+
+        const quickSort = (inicio, fin) => {
+          if (inicio >= fin) return;
+          const pivoteIndex = particion(inicio, fin);
+          pasos.push(crearPaso(items, stats, `Pivote colocado en posicion ${pivoteIndex + 1}`, { resaltados: [pivoteIndex] }));
+          quickSort(inicio, pivoteIndex - 1);
+          quickSort(pivoteIndex + 1, fin);
+        };
+
+        const particion = (inicio, fin) => {
+          const pivote = items[fin];
+          let i = inicio;
+          for (let j = inicio; j < fin; j++) {
+            stats.comparaciones++;
+            if (items[j].value < pivote.value) {
+              if (i !== j) {
+                [items[i], items[j]] = [items[j], items[i]];
+                stats.intercambios++;
+              }
+              i++;
+            }
+            stats.iteraciones++;
+            pasos.push(crearPaso(items, stats, `Comparando con pivote ${pivote.label}`, { resaltados: [i, j, fin] }));
+          }
+          [items[i], items[fin]] = [items[fin], items[i]];
+          stats.intercambios++;
+          return i;
+        };
+
+        quickSort(0, items.length - 1);
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Dataset minimo"));
+        return pasos;
+      }
+
+      function instrumentarHeap(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        const n = items.length;
+
+        const heapify = (tamanio, indice) => {
+          let mayor = indice;
+          const izquierda = 2 * indice + 1;
+          const derecha = 2 * indice + 2;
+          if (izquierda < tamanio) {
+            stats.comparaciones++;
+            if (items[izquierda].value > items[mayor].value) {
+              mayor = izquierda;
+            }
+          }
+          if (derecha < tamanio) {
+            stats.comparaciones++;
+            if (items[derecha].value > items[mayor].value) {
+              mayor = derecha;
+            }
+          }
+          if (mayor !== indice) {
+            [items[indice], items[mayor]] = [items[mayor], items[indice]];
+            stats.intercambios++;
+            pasos.push(crearPaso(items, stats, `Heapify sobre indice ${indice + 1}`, { resaltados: [indice, mayor], tree: construirTreeHeap(items, tamanio, [indice, mayor]), vista: "tree" }));
+            heapify(tamanio, mayor);
+          }
+          stats.iteraciones++;
+        };
+
+        for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+          heapify(n, i);
+        }
+        for (let i = n - 1; i > 0; i--) {
+          [items[0], items[i]] = [items[i], items[0]];
+          stats.intercambios++;
+          pasos.push(crearPaso(items, stats, `Extraido maximo hacia la posicion ${i + 1}`, { resaltados: [0, i], tree: construirTreeHeap(items, i, [0]), vista: "tree" }));
+          heapify(i, 0);
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Dataset minimo"));
+        return pasos;
+      }
+
+      function ordenarInsercionLigero(arr) {
+        for (let i = 1; i < arr.length; i++) {
+          const clave = arr[i];
+          let j = i - 1;
+          while (j >= 0 && arr[j].value > clave.value) {
+            arr[j + 1] = arr[j];
+            j--;
+          }
+          arr[j + 1] = clave;
+        }
+        return arr;
+      }
+
+      function instrumentarBucket(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        const bucketCount = Math.max(3, Math.ceil(Math.sqrt(items.length)));
+        const maxValor = Math.max(...items.map((item) => item.value), 1);
+        const buckets = Array.from({ length: bucketCount }, () => []);
+
+        items.forEach((item) => {
+          const indice = Math.min(bucketCount - 1, Math.floor((item.value / maxValor) * bucketCount));
+          buckets[indice].push(clonarPunto(item));
+          stats.iteraciones++;
+          pasos.push(crearPaso(items, stats, `Elemento ${item.label} entra a bucket ${indice + 1}`, { vista: "tree", tree: construirTreeBuckets(buckets) }));
+        });
+
+        const resultado = [];
+        buckets.forEach((bucket, idx) => {
+          ordenarInsercionLigero(bucket);
+          bucket.forEach((elemento) => {
+            resultado.push(elemento);
+            stats.iteraciones++;
+            pasos.push(crearPaso(resultado.concat(items.slice(resultado.length)), stats, `Reinsertando bucket ${idx + 1}`, { resaltados: [resultado.length - 1] }));
+          });
+        });
+        for (let i = 0; i < items.length; i++) {
+          items[i] = resultado[i];
+        }
+        pasos.push(crearPaso(items, stats, "Buckets combinados"));
+        return pasos;
+      }
+
+      function instrumentarRadix(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        const maxValor = Math.max(...items.map((item) => item.value), 1);
+        const maxDigitos = Math.floor(Math.log10(maxValor)) + 1;
+        let divisor = 1;
+
+        for (let d = 0; d < maxDigitos; d++) {
+          const buckets = Array.from({ length: 10 }, () => []);
+          items.forEach((item) => {
+            const digito = Math.floor((item.value / divisor) % 10);
+            buckets[digito].push(clonarPunto(item));
+            stats.iteraciones++;
+          });
+          pasos.push(crearPaso(items, stats, `Distribuyendo por dígito ${d + 1}`, { vista: "tree", tree: construirTreeRadix(buckets, d + 1) }));
+          let idx = 0;
+          buckets.forEach((bucket) => {
+            bucket.forEach((elemento) => {
+              items[idx++] = elemento;
+            });
+          });
+          divisor *= 10;
+          pasos.push(crearPaso(items, stats, `Reconstrucción tras dígito ${d + 1}`));
+        }
+        if (!pasos.length) pasos.push(crearPaso(items, stats, "Sin cambios"));
+        return pasos;
+      }
+
+      function instrumentarCounting(datos) {
+        const items = datos.map(clonarPunto);
+        const stats = crearEstadisticas();
+        const pasos = [];
+        const maxValor = Math.max(...items.map((item) => item.value), 1);
+        const contador = new Array(maxValor + 1).fill(0);
+
+        items.forEach((item) => {
+          contador[item.value]++;
+          stats.iteraciones++;
+          pasos.push(crearPaso(items, stats, `Contando ${item.label}`, { vista: "tree", tree: construirTreeContador(contador) }));
+        });
+
+        for (let i = 1; i < contador.length; i++) {
+          contador[i] += contador[i - 1];
+          stats.iteraciones++;
+          pasos.push(crearPaso(items, stats, `Acumulando rango ${i}`, { vista: "tree", tree: construirTreeContador(contador) }));
+        }
+
+        const salida = new Array(items.length);
+        for (let i = items.length - 1; i >= 0; i--) {
+          const valor = items[i].value;
+          contador[valor]--;
+          const posicion = contador[valor];
+          salida[posicion] = clonarPunto(items[i]);
+          stats.intercambios++;
+          pasos.push(crearPaso(salida.filter(Boolean), stats, `Colocando ${items[i].label}`));
+        }
+
+        for (let i = 0; i < items.length; i++) {
+          items[i] = salida[i];
+        }
+        pasos.push(crearPaso(items, stats, "Reconstrucción completada"));
+        return pasos;
+      }
+
+      const iniciarSimulacion = () => {
+        prepararSimulacion();
+        state.jugando = true;
+        setStatus("Ejecutando");
+        scheduleTick();
+      };
+
+      const resetVista = () => {
+        detenerAnimacion();
+        state.resultados = [];
+        state.pasoActual = 0;
+        state.maxPasos = 0;
+        setStatus("En espera");
+        updateUi();
+        const logInicial = document.createElement("p");
+        logInicial.textContent = "El registro mostrará el evento más reciente de la animación.";
+        logArea.replaceChildren(logInicial);
+        configEstado.textContent = 'Configura y presiona "Simular" para generar los datos.';
+      };
+
+      sliderCantidad.addEventListener("input", (event) => {
+        const valor = Number(event.currentTarget.value);
+        state.cantidad = valor;
+        actualizarSliderLabel();
+        detenerAnimacion();
+      });
+
+      velocidadSelect.addEventListener("change", (event) => {
+        state.velocidad = Number(event.currentTarget.value);
+      });
+
+      tipoBotones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+          seleccionarBoton(tipoBotones, boton);
+          state.tipoDato = boton.dataset.tipo ?? "int";
+          actualizarEtiquetaEscenario();
+          renderDescripcion();
+        });
+      });
+
+      escenarioBotones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+          seleccionarBoton(escenarioBotones, boton);
+          state.escenario = boton.dataset.escenario ?? "desordenado";
+          actualizarEtiquetaEscenario();
+          renderDescripcion();
+        });
+      });
+
+      algoritmoBotones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+          seleccionarBoton(algoritmoBotones, boton);
+          state.algoritmoActivo = boton.dataset.algoritmo ?? "bubble";
+          if (linkPrograma && boton.dataset.programa) {
+            linkPrograma.href = boton.dataset.programa;
+          }
+          renderDescripcion();
+          renderVisual();
+        });
+      });
+
+      startBtn?.addEventListener("click", () => {
+        detenerAnimacion();
+        iniciarSimulacion();
+      });
+
+      pauseBtn?.addEventListener("click", () => {
+        if (!state.resultados.length) return;
+        if (state.jugando) {
+          detenerAnimacion();
+          setStatus("Pausado");
+        } else {
+          state.jugando = true;
+          setStatus("Reanudado");
+          scheduleTick();
+        }
+      });
+
+      resetBtn?.addEventListener("click", resetVista);
+
+      actualizarSliderLabel();
+      actualizarEtiquetaEscenario();
+      renderDescripcion();
+      resetVista();
+    }
+
+    initSimuladorOrdenamientos();
+
+    (function setupSortingPlayground() {
+      const lab = document.querySelector(".simulator-lab");
+      const tabsContainer = document.getElementById("simTabs");
+      const canvas = document.getElementById("simCanvas");
+      const sizeSlider = document.getElementById("simSize");
+      const sizeLabel = document.getElementById("simSizeVal");
+      const speedSlider = document.getElementById("simSpeed");
+      const speedLabel = document.getElementById("simSpeedVal");
+      const orderSelect = document.getElementById("simOrder");
+      const rangeSlider = document.getElementById("simRange");
+      const rangeLabel = document.getElementById("simRangeVal");
+      const generateBtn = document.getElementById("simGenerate");
+      const startBtn = document.getElementById("simStart");
+      const pauseBtn = document.getElementById("simPause");
+      const stepBtn = document.getElementById("simStep");
+      const resetBtn = document.getElementById("simReset");
+      const compEl = document.getElementById("simComp");
+      const swapEl = document.getElementById("simSwap");
+      const timeEl = document.getElementById("simTime");
+      const stateEl = document.getElementById("simState");
+      const logEl = document.getElementById("simLog");
+      const infoTitle = document.getElementById("simInfoTitle");
+      const infoDesc = document.getElementById("simInfoDesc");
+      const infoTags = document.getElementById("simInfoComplexity");
+      const progressFill = document.getElementById("simProgress");
+
+      if (!lab || !tabsContainer || !(canvas instanceof HTMLCanvasElement)) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const ALGOS = {
+        bubble: { name: "Bubble", full: "Bubble Sort", desc: "Compara pares adyacentes y los intercambia si están en el orden incorrecto.", best: "O(n)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: true },
+        selection: { name: "Selection", full: "Selection Sort", desc: "Busca el mínimo del subarreglo no ordenado y lo coloca al inicio.", best: "O(n²)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: false },
+        insertion: { name: "Insertion", full: "Insertion Sort", desc: "Inserta cada elemento en la parte ya ordenada del arreglo.", best: "O(n)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: true },
+        shell: { name: "Shell", full: "Shell Sort", desc: "Generalización de insertion con gaps decrecientes.", best: "O(n log n)", avg: "O(n^{1.3})", worst: "O(n²)", space: "O(1)", stable: false },
+        merge: { name: "Merge", full: "Merge Sort", desc: "Divide y combina subarreglos con complejidad O(n log n).", best: "O(n log n)", avg: "O(n log n)", worst: "O(n log n)", space: "O(n)", stable: true },
+        quick: { name: "Quick", full: "Quick Sort", desc: "Particiona usando un pivote y recurre sobre cada mitad.", best: "O(n log n)", avg: "O(n log n)", worst: "O(n²)", space: "O(log n)", stable: false },
+        heap: { name: "Heap", full: "Heap Sort", desc: "Construye un max-heap y extrae el máximo sucesivamente.", best: "O(n log n)", avg: "O(n log n)", worst: "O(n log n)", space: "O(1)", stable: false },
+        counting: { name: "Counting", full: "Counting Sort", desc: "Cuenta ocurrencias de cada valor dentro de un rango acotado.", best: "O(n+k)", avg: "O(n+k)", worst: "O(n+k)", space: "O(k)", stable: true },
+        radix: { name: "Radix", full: "Radix Sort", desc: "Ordena dígito a dígito usando counting como subrutina.", best: "O(d·n)", avg: "O(d·n)", worst: "O(d·n)", space: "O(n+k)", stable: true },
+        cocktail: { name: "Cocktail", full: "Cocktail Shaker Sort", desc: "Burbuja bidireccional que recorre en ambos sentidos.", best: "O(n)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: true },
+        gnome: { name: "Gnome", full: "Gnome Sort", desc: "Variante de insertion que retrocede cuando encuentra desórdenes.", best: "O(n)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: true },
+        cycle: { name: "Cycle", full: "Cycle Sort", desc: "Minimiza escrituras determinando la posición final de cada elemento.", best: "O(n²)", avg: "O(n²)", worst: "O(n²)", space: "O(1)", stable: false }
+      };
+
+      const ALGO_KEYS = Object.keys(ALGOS);
+      let currentAlgo = ALGO_KEYS[0];
+      let arr = [];
+      let running = false;
+      let paused = false;
+      let comparisons = 0;
+      let swaps = 0;
+      let startTime = 0;
+      let animToken;
+      const highlights = {};
+
+      const resizeCanvas = () => {
+        const dpr = window.devicePixelRatio || 1;
+        const width = canvas.clientWidth;
+        canvas.width = width * dpr;
+        canvas.height = 220 * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawArray(arr, highlights);
+      };
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      function buildTabs() {
+        tabsContainer.replaceChildren();
+        ALGO_KEYS.forEach((key) => {
+          const button = document.createElement("button");
+          button.textContent = ALGOS[key].name;
+          button.type = "button";
+          if (key === currentAlgo) {
+            button.setAttribute("aria-current", "true");
+          }
+          button.addEventListener("click", () => {
+            currentAlgo = key;
+            Array.from(tabsContainer.children).forEach((child) => child.removeAttribute("aria-current"));
+            button.setAttribute("aria-current", "true");
+            updateInfo();
+            resetAll();
+          });
+          tabsContainer.appendChild(button);
+        });
+      }
+
+      function updateInfo() {
+        const data = ALGOS[currentAlgo];
+        if (!data) return;
+        if (infoTitle) infoTitle.textContent = data.full;
+        if (infoDesc) infoDesc.textContent = data.desc;
+        if (infoTags) {
+          const tags = [
+            `Mejor: ${data.best}`,
+            `Promedio: ${data.avg}`,
+            `Peor: ${data.worst}`,
+            `Espacio: ${data.space}`,
+            `Estable: ${data.stable ? "sí" : "no"}`
+          ].map((texto) => {
+            const span = document.createElement("span");
+            span.textContent = texto;
+            return span;
+          });
+          infoTags.replaceChildren(...tags);
+        }
+      }
+
+      function updateRangeLabels() {
+        if (sizeLabel && sizeSlider instanceof HTMLInputElement) {
+          sizeLabel.textContent = sizeSlider.value;
+        }
+        if (speedLabel && speedSlider instanceof HTMLInputElement) {
+          const labels = ["", "muy lento", "lento", "moderado", "normal", "normal", "rápido", "rápido", "muy rápido", "ultra", "instante"];
+          const idx = Number(speedSlider.value) || 0;
+          speedLabel.textContent = `${idx} — ${labels[idx] ?? ""}`;
+        }
+        if (rangeLabel && rangeSlider instanceof HTMLInputElement) {
+          rangeLabel.textContent = `1 – ${rangeSlider.value}`;
+        }
+      }
+
+      function makeArray() {
+        const n = Number(sizeSlider?.value ?? 30);
+        const max = Number(rangeSlider?.value ?? 100);
+        const order = orderSelect?.value ?? "random";
+        let base = Array.from({ length: n }, () => Math.floor(Math.random() * Math.max(1, max - 1)) + 1);
+        const shuffle = () => base.sort(() => Math.random() - 0.5);
+        switch (order) {
+          case "sorted":
+            base.sort((a, b) => a - b);
+            break;
+          case "reverse":
+            base.sort((a, b) => b - a);
+            break;
+          case "nearlySorted":
+            base.sort((a, b) => a - b);
+            for (let i = 0; i < Math.max(1, Math.floor(n * 0.1)); i++) {
+              const x = Math.floor(Math.random() * n);
+              const y = Math.floor(Math.random() * n);
+              [base[x], base[y]] = [base[y], base[x]];
+            }
+            break;
+          case "fewUnique":
+            const values = [Math.floor(max * 0.2), Math.floor(max * 0.5), Math.floor(max * 0.8)];
+            base = base.map(() => values[Math.floor(Math.random() * values.length)]);
+            break;
+          case "mountain":
+            base.sort((a, b) => a - b);
+            base = [...base.slice(0, Math.floor(n / 2)), ...base.slice(Math.floor(n / 2)).reverse()];
+            break;
+          case "valley":
+            base.sort((a, b) => b - a);
+            base = [...base.slice(0, Math.floor(n / 2)), ...base.slice(Math.floor(n / 2)).reverse()];
+            break;
+          case "pipes":
+            base.sort((a, b) => a - b);
+            const temp = [];
+            for (let i = 0; i < base.length; i += 2) temp.push(base[i]);
+            for (let i = 1; i < base.length; i += 2) temp.unshift(base[i]);
+            base = temp;
+            break;
+          default:
+            shuffle();
+            break;
+        }
+        return base;
+      }
+
+      function drawArray(values, hint = {}) {
+        const dpr = window.devicePixelRatio || 1;
+        const width = canvas.width / dpr;
+        const height = canvas.height / dpr;
+        ctx.clearRect(0, 0, width, height);
+        if (!values.length) return;
+        const max = Math.max(...values, 1);
+        const gap = 2;
+        const barWidth = Math.max(2, (width - gap * (values.length - 1)) / values.length);
+        values.forEach((value, index) => {
+          const barHeight = Math.max(4, (value / max) * (height - 18));
+          const x = index * (barWidth + gap);
+          const y = height - barHeight - 18;
+          let color = "#378add";
+          if (hint.sorted && hint.sorted.has(index)) color = "#1d9e75";
+          else if (hint.pivot === index) color = "#7f77dd";
+          else if (hint.min === index) color = "#d4537e";
+          else if (hint.swap && hint.swap.includes(index)) color = "#d85a30";
+          else if (hint.compare && hint.compare.includes(index)) color = "#ef9f27";
+          ctx.fillStyle = color;
+          ctx.fillRect(x, y, barWidth, barHeight);
+        });
+      }
+
+      function resetStats() {
+        comparisons = 0;
+        swaps = 0;
+        if (compEl) compEl.textContent = "0";
+        if (swapEl) swapEl.textContent = "0";
+        if (timeEl) timeEl.textContent = "0";
+        if (stateEl) stateEl.textContent = "listo";
+        if (progressFill) progressFill.style.width = "0%";
+      }
+
+      function log(message) {
+        if (!logEl) return;
+        logEl.innerHTML += `${message}<br />`;
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      function setRunning(active) {
+        running = active;
+        if (startBtn) startBtn.toggleAttribute("disabled", active);
+        if (generateBtn) generateBtn.toggleAttribute("disabled", active);
+        if (pauseBtn) pauseBtn.toggleAttribute("disabled", !active);
+        if (stepBtn) stepBtn.toggleAttribute("disabled", !active);
+        if (sizeSlider) sizeSlider.toggleAttribute("disabled", active);
+        if (orderSelect) orderSelect.toggleAttribute("disabled", active);
+        if (rangeSlider) rangeSlider.toggleAttribute("disabled", active);
+      }
+
+      function getDelay() {
+        const speeds = [0, 500, 250, 120, 60, 30, 15, 8, 3, 1, 0];
+        const idx = Number(speedSlider?.value ?? 5);
+        return speeds[idx] ?? 60;
+      }
+
+      async function startSort() {
+        if (running) return;
+        if (!arr.length) generateArray();
+        resetStats();
+        setRunning(true);
+        paused = false;
+        if (pauseBtn) pauseBtn.textContent = "Pausar";
+        if (stateEl) stateEl.textContent = "ordenando";
+        startTime = performance.now();
+        log(`▶ Iniciando ${ALGOS[currentAlgo].full} con ${arr.length} elementos...`);
+        const working = [...arr];
+        const sortedSet = new Set();
+        try {
+          await SORT_FUNCS[currentAlgo](working, sortedSet);
+        } catch (error) {
+          if (error !== "stopped") throw error;
+        }
+        if (running) {
+          working.forEach((_, idx) => sortedSet.add(idx));
+          arr = [...working];
+          drawArray(arr, { sorted: sortedSet });
+          const elapsed = Math.round(performance.now() - startTime);
+          if (timeEl) timeEl.textContent = String(elapsed);
+          if (stateEl) stateEl.textContent = "completado";
+          if (progressFill) progressFill.style.width = "100%";
+          log(`✓ Completado en ${elapsed}ms | ${comparisons} comp. | ${swaps} intercambios`);
+        }
+        setRunning(false);
+      }
+
+      function togglePause() {
+        if (!running) return;
+        paused = !paused;
+        if (pauseBtn) pauseBtn.textContent = paused ? "Continuar" : "Pausar";
+        if (stateEl) stateEl.textContent = paused ? "pausado" : "ordenando";
+      }
+
+      function stepOnce() {
+        paused = true;
+        if (pauseBtn) pauseBtn.textContent = "Continuar";
+      }
+
+      function resetAll() {
+        if (animToken) {
+          clearTimeout(animToken);
+          animToken = undefined;
+        }
+        running = false;
+        paused = false;
+        if (pauseBtn) {
+          pauseBtn.textContent = "Pausar";
+          pauseBtn.setAttribute("disabled", "true");
+        }
+        if (stepBtn) stepBtn.setAttribute("disabled", "true");
+        setRunning(false);
+        generateArray();
+      }
+
+      async function wait(hint, progress) {
+        comparisons++;
+        if (compEl) compEl.textContent = String(comparisons);
+        if (progressFill && progress !== undefined) {
+          progressFill.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
+        }
+        drawArray(arr, hint);
+        while (paused) {
+          await new Promise((resolve) => setTimeout(resolve, 50));
+          if (!running) throw "stopped";
+        }
+        if (!running) throw "stopped";
+        const delay = getDelay();
+        if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+
+      async function doSwap(array, i, j, hint) {
+        [array[i], array[j]] = [array[j], array[i]];
+        arr[i] = array[i];
+        arr[j] = array[j];
+        swaps++;
+        if (swapEl) swapEl.textContent = String(swaps);
+        hint.swap = [i, j];
+        drawArray(arr, hint);
+        if (!running) throw "stopped";
+        const delay = getDelay();
+        if (delay > 0) await new Promise((resolve) => setTimeout(resolve, Math.floor(delay / 2)));
+      }
+
+      const SORT_FUNCS = {
+        async bubble(a, sorted) {
+          for (let i = 0; i < a.length - 1; i++) {
+            let swapped = false;
+            for (let j = 0; j < a.length - i - 1; j++) {
+              await wait({ compare: [j, j + 1], sorted }, (i * a.length + j) / (a.length * a.length));
+              if (a[j] > a[j + 1]) {
+                await doSwap(a, j, j + 1, { sorted });
+                swapped = true;
+              }
+            }
+            sorted.add(a.length - 1 - i);
+            if (!swapped) break;
+          }
+          sorted.add(0);
+        },
+        async selection(a, sorted) {
+          for (let i = 0; i < a.length - 1; i++) {
+            let minIdx = i;
+            for (let j = i + 1; j < a.length; j++) {
+              await wait({ compare: [minIdx, j], min: minIdx, sorted }, i / a.length);
+              if (a[j] < a[minIdx]) minIdx = j;
+            }
+            if (minIdx !== i) await doSwap(a, i, minIdx, { sorted });
+            sorted.add(i);
+          }
+          sorted.add(a.length - 1);
+        },
+        async insertion(a, sorted) {
+          sorted.add(0);
+          for (let i = 1; i < a.length; i++) {
+            const key = a[i];
+            let j = i - 1;
+            while (j >= 0 && a[j] > key) {
+              await wait({ compare: [j, j + 1], sorted }, i / a.length);
+              a[j + 1] = a[j];
+              arr[j + 1] = a[j];
+              swaps++;
+              if (swapEl) swapEl.textContent = String(swaps);
+              j--;
+            }
+            a[j + 1] = key;
+            arr[j + 1] = key;
+            sorted.add(i);
+          }
+        },
+        async shell(a, sorted) {
+          let gap = 1;
+          while (gap < Math.floor(a.length / 3)) gap = gap * 3 + 1;
+          while (gap >= 1) {
+            for (let i = gap; i < a.length; i++) {
+              const temp = a[i];
+              let j = i;
+              while (j >= gap && a[j - gap] > temp) {
+                await wait({ compare: [j - gap, j], sorted }, gap / a.length);
+                a[j] = a[j - gap];
+                arr[j] = a[j];
+                swaps++;
+                if (swapEl) swapEl.textContent = String(swaps);
+                j -= gap;
+              }
+              a[j] = temp;
+              arr[j] = temp;
+            }
+            gap = Math.floor(gap / 3);
+          }
+          a.forEach((_, idx) => sorted.add(idx));
+        },
+        async merge(a, sorted) {
+          const temp = Array(a.length);
+          async function mergeSort(left, right) {
+            if (left >= right) return;
+            const mid = Math.floor((left + right) / 2);
+            await mergeSort(left, mid);
+            await mergeSort(mid + 1, right);
+            let i = left;
+            let j = mid + 1;
+            let k = left;
+            while (i <= mid && j <= right) {
+              await wait({ compare: [i, j], sorted }, (k - left) / (right - left + 1));
+              if (a[i] <= a[j]) temp[k++] = a[i++];
+              else temp[k++] = a[j++];
+            }
+            while (i <= mid) temp[k++] = a[i++];
+            while (j <= right) temp[k++] = a[j++];
+            for (let idx = left; idx <= right; idx++) {
+              a[idx] = temp[idx];
+              arr[idx] = temp[idx];
+            }
+          }
+          await mergeSort(0, a.length - 1);
+          a.forEach((_, idx) => sorted.add(idx));
+        },
+        async quick(a, sorted) {
+          async function quickSort(start, end) {
+            if (start >= end) return;
+            const pivotIndex = await partition(start, end);
+            sorted.add(pivotIndex);
+            await quickSort(start, pivotIndex - 1);
+            await quickSort(pivotIndex + 1, end);
+          }
+          async function partition(start, end) {
+            const pivot = a[end];
+            let i = start;
+            for (let j = start; j < end; j++) {
+              await wait({ compare: [j, end], pivot: end }, j / a.length);
+              if (a[j] < pivot) {
+                await doSwap(a, i, j, { pivot: end });
+                i++;
+              }
+            }
+            await doSwap(a, i, end, { pivot: i });
+            return i;
+          }
+          await quickSort(0, a.length - 1);
+          a.forEach((_, idx) => sorted.add(idx));
+        },
+        async heap(a, sorted) {
+          const heapify = async (n, i) => {
+            let largest = i;
+            const left = 2 * i + 1;
+            const right = 2 * i + 2;
+            if (left < n && a[left] > a[largest]) largest = left;
+            if (right < n && a[right] > a[largest]) largest = right;
+            if (largest !== i) {
+              await doSwap(a, i, largest, {});
+              await heapify(n, largest);
+            }
+          };
+          for (let i = Math.floor(a.length / 2) - 1; i >= 0; i--) {
+            await heapify(a.length, i);
+          }
+          for (let end = a.length - 1; end > 0; end--) {
+            await doSwap(a, 0, end, { sorted });
+            sorted.add(end);
+            await heapify(end, 0);
+          }
+          sorted.add(0);
+        },
+        async counting(a, sorted) {
+          const max = Math.max(...a);
+          const counts = new Array(max + 1).fill(0);
+          a.forEach((val) => counts[val]++);
+          for (let i = 1; i < counts.length; i++) counts[i] += counts[i - 1];
+          const output = new Array(a.length);
+          for (let i = a.length - 1; i >= 0; i--) {
+            const val = a[i];
+            counts[val]--;
+            output[counts[val]] = val;
+            swaps++;
+            if (swapEl) swapEl.textContent = String(swaps);
+            drawArray(output.filter(Boolean));
+            await new Promise((resolve) => setTimeout(resolve, getDelay()));
+          }
+          for (let i = 0; i < output.length; i++) {
+            a[i] = output[i];
+            arr[i] = output[i];
+            sorted.add(i);
+          }
+        },
+        async radix(a, sorted) {
+          const max = Math.max(...a);
+          let exp = 1;
+          while (Math.floor(max / exp) > 0) {
+            const buckets = Array.from({ length: 10 }, () => []);
+            for (const val of a) {
+              buckets[Math.floor(val / exp) % 10].push(val);
+            }
+            let idx = 0;
+            for (const bucket of buckets) {
+              for (const val of bucket) {
+                a[idx] = val;
+                arr[idx] = val;
+                idx++;
+              }
+            }
+            exp *= 10;
+            await wait({}, exp / max);
+          }
+          a.forEach((_, idx) => sorted.add(idx));
+        },
+        async cocktail(a, sorted) {
+          let startIdx = 0;
+          let endIdx = a.length - 1;
+          while (startIdx < endIdx) {
+            for (let i = startIdx; i < endIdx; i++) {
+              await wait({ compare: [i, i + 1], sorted }, i / a.length);
+              if (a[i] > a[i + 1]) await doSwap(a, i, i + 1, { sorted });
+            }
+            sorted.add(endIdx--);
+            for (let i = endIdx; i > startIdx; i--) {
+              await wait({ compare: [i - 1, i], sorted }, i / a.length);
+              if (a[i - 1] > a[i]) await doSwap(a, i - 1, i, { sorted });
+            }
+            sorted.add(startIdx++);
+          }
+        },
+        async gnome(a, sorted) {
+          let idx = 0;
+          while (idx < a.length) {
+            if (idx === 0 || a[idx] >= a[idx - 1]) {
+              idx++;
+            } else {
+              await doSwap(a, idx, idx - 1, {});
+              idx--;
+            }
+            await wait({}, idx / a.length);
+          }
+          a.forEach((_, i) => sorted.add(i));
+        },
+        async cycle(a, sorted) {
+          for (let cycleStart = 0; cycleStart < a.length - 1; cycleStart++) {
+            let item = a[cycleStart];
+            let pos = cycleStart;
+            for (let i = cycleStart + 1; i < a.length; i++) {
+              if (a[i] < item) pos++;
+            }
+            if (pos === cycleStart) continue;
+            while (item === a[pos]) pos++;
+            [a[pos], item] = [item, a[pos]];
+            arr[pos] = a[pos];
+            swaps++;
+            if (swapEl) swapEl.textContent = String(swaps);
+            await wait({}, pos / a.length);
+            while (pos !== cycleStart) {
+              pos = cycleStart;
+              for (let i = cycleStart + 1; i < a.length; i++) {
+                if (a[i] < item) pos++;
+              }
+              while (item === a[pos]) pos++;
+              [a[pos], item] = [item, a[pos]];
+              arr[pos] = a[pos];
+              swaps++;
+              if (swapEl) swapEl.textContent = String(swaps);
+              await wait({}, pos / a.length);
+            }
+          }
+          a.forEach((_, idx) => sorted.add(idx));
+        }
+      };
+
+      function generateArray() {
+        arr = makeArray();
+        drawArray(arr);
+        resetStats();
+        log("Arreglo generado: " + arr.length + " elementos");
+      }
+
+      buildTabs();
+      updateInfo();
+      updateRangeLabels();
+      generateArray();
+
+      sizeSlider?.addEventListener("input", () => {
+        updateRangeLabels();
+        if (!running) {
+          generateArray();
+        }
+      });
+      speedSlider?.addEventListener("input", updateRangeLabels);
+      rangeSlider?.addEventListener("input", () => {
+        updateRangeLabels();
+        if (!running) generateArray();
+      });
+      orderSelect?.addEventListener("change", () => {
+        if (!running) generateArray();
+      });
+      generateBtn?.addEventListener("click", () => {
+        if (!running) generateArray();
+      });
+      startBtn?.addEventListener("click", startSort);
+      pauseBtn?.addEventListener("click", togglePause);
+      stepBtn?.addEventListener("click", stepOnce);
+      resetBtn?.addEventListener("click", resetAll);
+    })();
+
+    function initListaEnlazadaSimulador(config) {
+      const root = document.querySelector(config.rootSelector);
+      if (!root) return;
+
+      const inputValor = root.querySelector(config.selectors.valor);
+      const inputPosicion = root.querySelector(config.selectors.posicion);
+      const operacionSelect = root.querySelector(config.selectors.operacion);
+      const vaciarBtn = root.querySelector(config.selectors.vaciar);
+      const ejemploBtn = root.querySelector(config.selectors.ejemplo);
+      const accionBtn = root.querySelector(config.selectors.accion);
+      const autoBtn = root.querySelector(config.selectors.auto);
+      const reiniciarBtn = root.querySelector(config.selectors.reiniciar);
+      const estado = root.querySelector(config.selectors.estado);
+      const total = root.querySelector(config.selectors.total);
+      const lienzo = root.querySelector(config.selectors.lienzo);
+      const salida = root.querySelector(config.selectors.salida);
+      const log = root.querySelector(config.selectors.log);
+      const explicacion = root.querySelector(config.selectors.explicacion);
+
+      if (!accionBtn || !autoBtn || !reiniciarBtn || !estado || !total || !lienzo || !salida || !log) {
+        return;
+      }
+
+      const state = {
+        datos: [...(config.listaInicial ?? [])],
+        reproduciendo: false,
+        ejecutandoAccion: false,
+        indiceActivo: 0,
+        indiceEnProceso: null,
+        indiceEliminado: null,
+        resaltarCiclo: false,
+        resaltarInicio: false,
+      };
+      const esCircular = config.tipo === "lista-circular-crud" || config.tipo === "lista-doble-circular-crud";
+      const esDobleCircular = config.tipo === "lista-doble-circular-crud";
+
+      const describirListaReversa = (datos = state.datos) => {
+        if (datos.length === 0) {
+          return "lista vacia (sin ciclo)";
+        }
+
+        const reversa = [...datos].reverse();
+        return `inicio <- ${reversa.join(" <- ")} <- vuelve a ${datos[0]}`;
+      };
+
+      const describirLista = (datos = state.datos) => {
+        if (datos.length === 0) {
+          return esCircular ? "lista vacia (sin ciclo)" : "null";
+        }
+
+        if (esDobleCircular) {
+          return `Ida: inicio -> ${datos.join(" -> ")} -> vuelve a ${datos[0]}\nVuelta: ${describirListaReversa(datos)}`;
+        }
+
+        return esCircular
+          ? `inicio -> ${datos.join(" -> ")} -> vuelve a ${datos[0]}`
+          : `${datos.join(" -> ")} -> null`;
+      };
+
+      const mensajeOperacionNoDisponible = (operacion, posicion) => {
+        const posicionValida = posicion === null || posicion < 1 ? 1 : posicion;
+
+        switch (operacion) {
+          case "eliminar-inicio":
+          case "eliminar-final":
+            return esCircular
+              ? "La lista circular esta vacia. No se puede eliminar porque no existe ningun nodo que reconectar al inicio."
+              : "La lista esta vacia. No se puede eliminar.";
+          case "eliminar-posicion":
+            return esCircular
+              ? `La posicion ${posicionValida} supera el tamano actual. No se elimina ningun nodo porque no existe ese enlace dentro del ciclo.`
+              : `La posicion ${posicionValida} supera el tamano, no se realiza eliminacion.`;
+          default:
+            return "Operacion no disponible.";
+        }
+      };
+
+      const explicacionesOperacion = {
+        "insertar-vacia": esCircular
+          ? esDobleCircular
+            ? "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y sus punteros siguiente/anterior vuelven a si mismo para formar el doble ciclo base."
+            : "Solo se usa cuando no hay nodos. El primer nodo queda como inicio y su enlace siguiente vuelve a si mismo para formar el ciclo base."
+          : "Solo se usa cuando no hay nodos. El primer nodo pasa a ser inicio y su siguiente queda en null.",
+        "insertar-inicio": esCircular
+          ? esDobleCircular
+            ? "Se crea un nuevo nodo antes del inicio. Deben actualizarse inicio.anterior, ultimo.siguiente y también los punteros inversos para conservar el recorrido ida/vuelta."
+            : "Se crea un nuevo nodo antes del actual inicio. Luego el ultimo nodo actualiza su enlace para volver al nuevo inicio."
+          : "Se crea un nuevo nodo, su siguiente apunta al inicio actual y luego inicio cambia al nuevo nodo.",
+        "insertar-final": esCircular
+          ? esDobleCircular
+            ? "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y se enlaza en dos sentidos con el inicio y con el nodo previo."
+            : "Se recorre hasta el ultimo nodo, se agrega el nuevo al final y ese nuevo nodo vuelve a apuntar al inicio."
+          : "Se recorre hasta el ultimo nodo y su siguiente pasa a apuntar al nuevo nodo.",
+        "insertar-posicion": esCircular
+          ? esDobleCircular
+            ? "Se avanza hasta el nodo anterior a la posicion deseada. El nuevo nodo se conecta con su vecino previo y su vecino siguiente, actualizando anterior y siguiente en ambos lados."
+            : "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final sin romper el ciclo."
+          : "Se avanza hasta el nodo anterior a la posicion deseada. Si la posicion es menor o igual a 1 se inserta al inicio; si supera el tamano, se agrega al final.",
+        "eliminar-inicio": esCircular
+          ? esDobleCircular
+            ? "Si hay un solo nodo, la lista queda vacia. Si hay varios, el nuevo inicio debe actualizar su anterior y el ultimo debe actualizar su siguiente."
+            : "Si hay un solo nodo, la lista queda vacia. Si hay varios, inicio avanza al siguiente y el ultimo nodo se reconecta con el nuevo inicio."
+          : "Inicio deja de apuntar al primer nodo y pasa al segundo. Si no hay nodos, no se puede eliminar.",
+        "eliminar-final": esCircular
+          ? esDobleCircular
+            ? "Se busca el penultimo nodo para que se vuelva el nuevo ultimo. Luego inicio.actualiza su anterior y el nuevo ultimo actualiza su siguiente."
+            : "Se busca el penultimo nodo para que ahora apunte de nuevo al inicio. Si solo hay un nodo, la lista queda vacia."
+          : "Se busca el penultimo nodo para que su siguiente quede en null. Si solo hay un nodo, la lista queda vacia.",
+        "eliminar-posicion": esCircular
+          ? esDobleCircular
+            ? "Se localiza el nodo anterior a la posicion y el siguiente al nodo eliminado. Ambos vecinos se reconectan actualizando anterior y siguiente."
+            : "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, se explica por que no se puede eliminar dentro del ciclo."
+          : "Se localiza el nodo anterior a la posicion y su enlace salta el nodo eliminado. Si la posicion no existe, no se realiza la eliminacion.",
+      };
+
+      const actualizarExplicacion = () => {
+        if (!explicacion) return;
+        const operacion = config.tipo === "lista-enlazada-crud" || config.tipo === "lista-circular-crud" || config.tipo === "lista-doble-circular-crud"
+          ? (operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
+          : (config.operacion ?? "insertar-inicio");
+        explicacion.textContent = explicacionesOperacion[operacion] ?? (esCircular
+          ? esDobleCircular
+            ? "Cada nodo mantiene dos referencias activas: anterior y siguiente, y ambas deben cerrar el mismo ciclo."
+            : "El ultimo nodo siempre debe volver a apuntar al inicio para conservar la circularidad."
+          : "El ultimo nodo termina en null y cada enlace debe mantenerse consistente.");
+      };
+
+      const logStep = (texto) => {
+        const p = document.createElement("p");
+        p.textContent = texto;
+        log.prepend(p);
+        const entradas = log.querySelectorAll("p");
+        if (entradas.length > 12) {
+          entradas[entradas.length - 1].remove();
+        }
+      };
+
+      const refrescarEstado = () => {
+        estado.textContent = state.datos.length > 0
+          ? `Lista actual: ${describirLista()}`
+          : esCircular
+            ? "Lista inicial: inicio sin nodos y sin enlace circular"
+            : "Lista inicial: inicio -> null";
+      };
+
+      const render = () => {
+        total.textContent = `${state.datos.length} ${state.datos.length === 1 ? "nodo" : "nodos"}`;
+        salida.textContent = describirLista();
+        refrescarEstado();
+        lienzo.classList.toggle("lista-lienzo--circular", esCircular);
+        lienzo.classList.toggle("lista-lienzo--doble", esDobleCircular);
+
+        if (state.datos.length === 0) {
+          const placeholder = document.createElement("p");
+          placeholder.className = "sim-placeholder";
+          placeholder.textContent = "Aun no hay nodos. Ejecuta una accion para comenzar.";
+          lienzo.replaceChildren(placeholder);
+          return;
+        }
+
+        if (esCircular) {
+          const width = 440;
+          const height = 360;
+          const centerX = width / 2;
+          const centerY = 176;
+          const radio = state.datos.length === 1 ? 0 : state.datos.length <= 3 ? 102 : state.datos.length <= 5 ? 118 : 132;
+          const nodeOffset = 56;
+          const svgNs = "http://www.w3.org/2000/svg";
+          const diagrama = document.createElement("div");
+          diagrama.className = "lista-circular-diagrama";
+          if (state.resaltarCiclo) {
+            diagrama.classList.add("lista-circular-diagrama--activa");
+          }
+
+          const svg = document.createElementNS(svgNs, "svg");
+          svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+          svg.setAttribute("aria-hidden", "true");
+          svg.classList.add("lista-circular-svg");
+
+          const defs = document.createElementNS(svgNs, "defs");
+          const marker = document.createElementNS(svgNs, "marker");
+          marker.setAttribute("id", "lista-circular-diagrama-arrowhead");
+          marker.setAttribute("markerWidth", "8");
+          marker.setAttribute("markerHeight", "8");
+          marker.setAttribute("refX", "7");
+          marker.setAttribute("refY", "4");
+          marker.setAttribute("orient", "auto");
+          const markerPath = document.createElementNS(svgNs, "path");
+          markerPath.setAttribute("d", "M0,0 L8,4 L0,8 Z");
+          markerPath.setAttribute("fill", "currentColor");
+          marker.appendChild(markerPath);
+          defs.appendChild(marker);
+
+          const markerBackward = document.createElementNS(svgNs, "marker");
+          markerBackward.setAttribute("id", "lista-circular-diagrama-arrowhead-backward");
+          markerBackward.setAttribute("markerWidth", "8");
+          markerBackward.setAttribute("markerHeight", "8");
+          markerBackward.setAttribute("refX", "7");
+          markerBackward.setAttribute("refY", "4");
+          markerBackward.setAttribute("orient", "auto");
+          const markerBackwardPath = document.createElementNS(svgNs, "path");
+          markerBackwardPath.setAttribute("d", "M0,0 L8,4 L0,8 Z");
+          markerBackwardPath.setAttribute("fill", "currentColor");
+          markerBackward.appendChild(markerBackwardPath);
+          defs.appendChild(markerBackward);
+          svg.appendChild(defs);
+
+          const posiciones = state.datos.map((_, idx) => {
+            const angulo = state.datos.length === 1
+              ? -Math.PI / 2
+              : (-Math.PI / 2) + ((Math.PI * 2 * idx) / state.datos.length);
+
+            return {
+              x: centerX + radio * Math.cos(angulo),
+              y: centerY + radio * Math.sin(angulo),
+              angulo,
+            };
+          });
+
+          const crearTrayecto = (desde, hacia, esCierre = false) => {
+            const dx = hacia.x - desde.x;
+            const dy = hacia.y - desde.y;
+            const longitud = Math.hypot(dx, dy) || 1;
+            const inicioX = desde.x + (dx / longitud) * nodeOffset;
+            const inicioY = desde.y + (dy / longitud) * nodeOffset;
+            const finX = hacia.x - (dx / longitud) * nodeOffset;
+            const finY = hacia.y - (dy / longitud) * nodeOffset;
+            const curvatura = esCierre ? 34 : 18;
+            const controlX = (inicioX + finX) / 2 + (-dy / longitud) * curvatura;
+            const controlY = (inicioY + finY) / 2 + (dx / longitud) * curvatura;
+            return `M ${inicioX} ${inicioY} Q ${controlX} ${controlY} ${finX} ${finY}`;
+          };
+
+          if (state.datos.length === 1) {
+            const loop = document.createElementNS(svgNs, "path");
+            loop.classList.add("lista-circular-ruta", "lista-circular-ruta--cierre");
+            if (state.resaltarCiclo) loop.classList.add("lista-circular-ruta--activa");
+            loop.setAttribute("d", `M ${centerX + 14} ${centerY - 46} C ${centerX + 108} ${centerY - 142}, ${centerX + 158} ${centerY + 28}, ${centerX + 28} ${centerY + 30}`);
+            loop.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
+            svg.appendChild(loop);
+            if (esDobleCircular) {
+              const reverseLoop = document.createElementNS(svgNs, "path");
+              reverseLoop.classList.add("lista-circular-ruta", "lista-circular-ruta--reversa", "lista-circular-ruta--cierre");
+              reverseLoop.setAttribute("d", `M ${centerX - 14} ${centerY - 46} C ${centerX - 108} ${centerY - 142}, ${centerX - 158} ${centerY + 28}, ${centerX - 28} ${centerY + 30}`);
+              reverseLoop.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead-backward)");
+              svg.appendChild(reverseLoop);
+            }
+          } else {
+            posiciones.forEach((posicion, idx) => {
+              const siguiente = posiciones[(idx + 1) % posiciones.length];
+              const ruta = document.createElementNS(svgNs, "path");
+              const esCierre = idx === posiciones.length - 1;
+              ruta.classList.add("lista-circular-ruta");
+              if (esCierre) ruta.classList.add("lista-circular-ruta--cierre");
+              if (state.resaltarCiclo && esCierre) ruta.classList.add("lista-circular-ruta--activa");
+              ruta.setAttribute("d", crearTrayecto(posicion, siguiente, esCierre));
+              ruta.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead)");
+              svg.appendChild(ruta);
+
+              if (esDobleCircular) {
+                const anterior = posiciones[(idx - 1 + posiciones.length) % posiciones.length];
+                const rutaReversa = document.createElementNS(svgNs, "path");
+                rutaReversa.classList.add("lista-circular-ruta", "lista-circular-ruta--reversa");
+                if (idx === 0) rutaReversa.classList.add("lista-circular-ruta--cierre");
+                rutaReversa.setAttribute("d", crearTrayecto(posicion, anterior, idx === 0));
+                rutaReversa.setAttribute("marker-end", "url(#lista-circular-diagrama-arrowhead-backward)");
+                svg.appendChild(rutaReversa);
+              }
+            });
+          }
+
+          diagrama.appendChild(svg);
+
+          const nucleo = document.createElement("div");
+          nucleo.className = "lista-circular-nucleo";
+          nucleo.textContent = state.datos.length === 1 ? "autoenlace" : esDobleCircular ? "doble ciclo" : "ciclo";
+          diagrama.appendChild(nucleo);
+
+          const inicioTag = document.createElement("div");
+          inicioTag.className = "lista-inicio-tag lista-inicio-tag--circular";
+          if (state.resaltarInicio) {
+            inicioTag.classList.add("lista-inicio-tag--activo");
+          }
+          inicioTag.textContent = "inicio";
+          const inicioPosicion = posiciones[0];
+          inicioTag.style.left = `${inicioPosicion.x}px`;
+          inicioTag.style.top = `${Math.max(24, inicioPosicion.y - 94)}px`;
+          diagrama.appendChild(inicioTag);
+
+          state.datos.forEach((valor, idx) => {
+            const posicion = posiciones[idx];
+            const nodo = document.createElement("div");
+            const clases = ["lista-nodo", "lista-nodo--circular"];
+            if (idx === state.indiceActivo) clases.push("lista-nodo-activo");
+            if (idx === state.indiceEnProceso) clases.push("lista-nodo-en-proceso");
+            if (idx === state.indiceEliminado) clases.push("lista-nodo-eliminado");
+            nodo.className = clases.join(" ");
+            nodo.setAttribute("role", "listitem");
+            if (idx === state.indiceEnProceso) {
+              nodo.setAttribute("aria-current", "true");
+            }
+            nodo.style.left = `${posicion.x}px`;
+            nodo.style.top = `${posicion.y}px`;
+
+            if (idx === state.indiceEnProceso) {
+              const marca = document.createElement("span");
+              marca.className = "lista-nodo-marca";
+              marca.textContent = "actual";
+              nodo.append(marca);
+            }
+
+            const dato = document.createElement("span");
+            dato.className = "lista-nodo-dato";
+            dato.textContent = String(valor);
+
+            const next = document.createElement("span");
+            next.className = "lista-nodo-next";
+            next.textContent = esDobleCircular
+              ? `→ ${state.datos[(idx + 1) % state.datos.length]} · ← ${state.datos[(idx - 1 + state.datos.length) % state.datos.length]}`
+              : idx < state.datos.length - 1 ? `→ ${state.datos[idx + 1]}` : `↺ ${state.datos[0]}`;
+
+            nodo.append(dato, next);
+
+            if (idx === state.indiceEliminado) {
+              const marcaEliminado = document.createElement("span");
+              marcaEliminado.className = "lista-nodo-marca lista-nodo-marca--danger";
+              marcaEliminado.textContent = "eliminado";
+              nodo.append(marcaEliminado);
+            }
+
+            diagrama.appendChild(nodo);
+          });
+
+          const leyenda = document.createElement("div");
+          leyenda.className = "lista-circular-enlace";
+          if (state.resaltarCiclo) {
+            leyenda.classList.add("lista-circular-enlace--activa");
+          }
+          leyenda.textContent = state.datos.length === 1
+            ? esDobleCircular
+              ? `El nodo ${state.datos[0]} se apunta a si mismo por anterior y siguiente.`
+              : `El nodo ${state.datos[0]} se apunta a si mismo.`
+            : esDobleCircular
+              ? `Linea continua = siguiente. Linea punteada = anterior. El ciclo se recorre al derecho y al reves.`
+              : `El ultimo nodo ${state.datos[state.datos.length - 1]} enlaza de regreso al inicio ${state.datos[0]}.`;
+          diagrama.appendChild(leyenda);
+
+          lienzo.replaceChildren(diagrama);
+          return;
+        }
+
+        const elementos = [];
+        const inicioTag = document.createElement("div");
+        inicioTag.className = "lista-inicio-tag";
+        if (state.resaltarInicio) {
+          inicioTag.classList.add("lista-inicio-tag--activo");
+        }
+        inicioTag.textContent = "inicio";
+        elementos.push(inicioTag);
+
+        const inicioFlecha = document.createElement("span");
+        inicioFlecha.className = "lista-flecha";
+        inicioFlecha.setAttribute("aria-hidden", "true");
+        inicioFlecha.textContent = "→";
+        elementos.push(inicioFlecha);
+
+        state.datos.forEach((valor, idx) => {
+          const nodo = document.createElement("div");
+          const clases = ["lista-nodo"];
+          if (idx === state.indiceActivo) clases.push("lista-nodo-activo");
+          if (idx === state.indiceEnProceso) clases.push("lista-nodo-en-proceso");
+          if (idx === state.indiceEliminado) clases.push("lista-nodo-eliminado");
+          nodo.className = clases.join(" ");
+          nodo.setAttribute("role", "listitem");
+          if (idx === state.indiceEnProceso) {
+            nodo.setAttribute("aria-current", "true");
+          }
+
+          if (idx === state.indiceEnProceso) {
+            const marca = document.createElement("span");
+            marca.className = "lista-nodo-marca";
+            marca.textContent = "actual";
+            nodo.append(marca);
+          }
+
+          const dato = document.createElement("span");
+          dato.className = "lista-nodo-dato";
+          dato.textContent = String(valor);
+
+          const next = document.createElement("span");
+          next.className = "lista-nodo-next";
+          next.textContent = idx < state.datos.length - 1 ? "siguiente" : esCircular ? `vuelve a ${state.datos[0]}` : "null";
+
+          nodo.append(dato, next);
+
+          if (idx === state.indiceEliminado) {
+            const marcaEliminado = document.createElement("span");
+            marcaEliminado.className = "lista-nodo-marca lista-nodo-marca--danger";
+            marcaEliminado.textContent = "eliminado";
+            nodo.append(marcaEliminado);
+          }
+
+          elementos.push(nodo);
+
+          if (idx < state.datos.length - 1) {
+            const flecha = document.createElement("span");
+            flecha.className = "lista-flecha";
+            flecha.setAttribute("aria-hidden", "true");
+            flecha.textContent = "→";
+            elementos.push(flecha);
+          }
+        });
+
+        lienzo.replaceChildren(...elementos);
+      };
+
+      const normalizarNumero = (valor) => {
+        const numero = Number(valor);
+        return Number.isFinite(numero) ? Math.trunc(numero) : null;
+      };
+
+      const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      const resaltarCiclo = async () => {
+        if (!esCircular) return;
+        state.resaltarCiclo = true;
+        state.resaltarInicio = true;
+        render();
+        await esperar(520);
+        state.resaltarCiclo = false;
+        state.resaltarInicio = false;
+        render();
+      };
+
+      const limpiarMarcadores = () => {
+        state.indiceEnProceso = null;
+        state.indiceEliminado = null;
+      };
+
+      const establecerLista = (datos) => {
+        state.datos = [...datos];
+        state.indiceActivo = state.datos.length > 0 ? 0 : 0;
+        limpiarMarcadores();
+        render();
+      };
+
+      const ejecutarAccion = async (accion = {}) => {
+        if (state.ejecutandoAccion) return;
+        state.ejecutandoAccion = true;
+        accionBtn.disabled = true;
+        autoBtn.disabled = true;
+
+        const valor = normalizarNumero(accion.valor ?? inputValor?.value);
+        const posicion = normalizarNumero(accion.posicion ?? inputPosicion?.value);
+        const operacionActual = config.tipo === "lista-enlazada-crud"
+          || config.tipo === "lista-circular-crud"
+          || config.tipo === "lista-doble-circular-crud"
+          ? (accion.operacion ?? operacionSelect?.value ?? config.operacion ?? "insertar-inicio")
+          : (config.operacion ?? "insertar-inicio");
+
+        try {
+          switch (operacionActual) {
+            case "insertar-vacia": {
+              if (state.datos.length > 0) {
+                logStep(esCircular
+                  ? "La lista circular ya tiene nodos. Reinicia o vaciala antes de usar la insercion sobre lista vacia."
+                  : "La lista ya tiene un nodo. Reinicia para volver a insertar en una lista vacia.");
+                return;
+              }
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+                logStep(accion.mensaje ?? (esCircular
+                  ? esDobleCircular
+                    ? `inicio = nuevoNodo(${valor}) y, como es el unico nodo, sus enlaces anterior y siguiente vuelven a si mismo.`
+                    : `inicio = nuevoNodo(${valor}) y, como es el unico nodo, tambien apunta de regreso a si mismo.`
+                  : `inicio = nuevoNodo(${valor}) porque la lista estaba vacia.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "insertar-inicio": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.unshift(valor);
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}. Sus enlaces anterior y siguiente vuelven al mismo nodo.`
+                    : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza siguiente, el inicio previo actualiza anterior y el ciclo queda cerrado en ambos sentidos.`
+                  : state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}. Como la lista circular solo tiene un nodo, su siguiente vuelve a si mismo.`
+                    : `Nodo nuevo (${valor}) creado al inicio. El ultimo nodo actualiza su enlace para volver al nuevo inicio.`
+                : `Nodo nuevo (${valor}) creado. nodoNuevo.siguiente = inicio; inicio = nodoNuevo.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "insertar-final": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.push(valor);
+              state.indiceActivo = state.datos.length - 1;
+              state.indiceEnProceso = state.indiceActivo;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}; sus enlaces anterior y siguiente apuntan al mismo nodo.`
+                    : `El nodo ${valor} se agrega al final y queda enlazado por siguiente y anterior con el inicio ${state.datos[0]} y el nodo previo.`
+                  : state.datos.length === 1
+                    ? `Se crea el primer nodo ${valor}; al ser circular, su siguiente apunta al mismo nodo.`
+                    : `El nodo ${valor} se agrega al final y su enlace siguiente regresa al nodo inicial ${state.datos[0]}.`
+                : `El nodo ${valor} se enlaza al final.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "insertar-posicion": {
+              if (valor === null) {
+                logStep("Entrada invalida: solo se permiten numeros.");
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (state.datos.length === 0 || destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.unshift(valor);
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                logStep(accion.mensaje ?? (esCircular
+                  ? esDobleCircular
+                    ? `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y se actualizan anterior y siguiente entre el nuevo inicio y el ultimo.`
+                    : `La posicion ${destino} se resuelve al inicio. ${valor} entra primero y el ultimo nodo vuelve a apuntar al nuevo inicio.`
+                  : `El nodo ${valor} entra al inicio porque la posicion es ${destino}.`));
+                render();
+                await resaltarCiclo();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+                state.indiceEliminado = null;
+                render();
+                await esperar(350);
+                state.datos.push(valor);
+                state.indiceActivo = state.datos.length - 1;
+                state.indiceEnProceso = state.indiceActivo;
+                logStep(accion.mensaje ?? (esCircular
+                  ? esDobleCircular
+                    ? `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo conserva enlaces anterior/siguiente con el inicio y el nodo previo.`
+                    : `La posicion ${destino} supera el tamano. ${valor} se agrega al final y el nuevo ultimo nodo conserva el enlace circular hacia ${state.datos[0]}.`
+                  : `La posicion ${destino} supera el tamano, por eso ${valor} se agrega al final.`));
+                render();
+                await resaltarCiclo();
+                await esperar(450);
+                break;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = null;
+              render();
+              await esperar(350);
+              state.datos.splice(destino - 1, 0, valor);
+              state.indiceActivo = destino - 1;
+              state.indiceEnProceso = destino - 1;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? `El nodo ${valor} se inserta en la posicion ${destino}. Los dos vecinos actualizan anterior y siguiente para mantener el doble ciclo.`
+                  : `El nodo ${valor} se inserta en la posicion ${destino}. Solo cambian los enlaces locales y el ciclo principal sigue cerrado.`
+                : `El nodo ${valor} se inserta en la posicion ${destino}.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-inicio": {
+              if (state.datos.length === 0) {
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
+                return;
+              }
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = 0;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.shift();
+              state.indiceActivo = 0;
+              state.indiceEnProceso = 0;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La lista doble circular queda vacia y desaparecen ambos recorridos.`
+                    : `Se elimina el nodo ${eliminado} del inicio y se actualizan ultimo.siguiente y nuevoInicio.anterior hacia ${state.datos[0]}.`
+                  : state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La lista circular queda vacia y ya no existe ciclo.`
+                    : `Se elimina el nodo ${eliminado} del inicio y el ultimo nodo se reconecta con el nuevo inicio ${state.datos[0]}.`
+                : `Se elimina el nodo ${eliminado} del inicio.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-final": {
+              if (state.datos.length === 0) {
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
+                return;
+              }
+              state.indiceEnProceso = Math.max(0, state.datos.length - 1);
+              state.indiceEliminado = state.datos.length - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.pop();
+              state.indiceActivo = Math.max(0, state.datos.length - 1);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La estructura doble circular queda vacia.`
+                    : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo y el inicio ${state.datos[0]} actualizan sus enlaces en ambos sentidos.`
+                  : state.datos.length === 0
+                    ? `Se elimina el unico nodo ${eliminado}. La estructura deja de ser circular porque queda vacia.`
+                    : `Se elimina el ultimo nodo ${eliminado}. El nuevo ultimo vuelve a enlazarse con ${state.datos[0]}.`
+                : `Se elimina el ultimo nodo ${eliminado}.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            case "eliminar-posicion": {
+              if (state.datos.length === 0) {
+                logStep(mensajeOperacionNoDisponible(operacionActual, posicion));
+                return;
+              }
+              const destino = posicion === null || posicion < 1 ? 1 : posicion;
+              if (destino <= 1) {
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = 0;
+                render();
+                await esperar(450);
+                const eliminado = state.datos.shift();
+                state.indiceActivo = 0;
+                state.indiceEnProceso = 0;
+                state.indiceEliminado = null;
+                logStep(accion.mensaje ?? (esCircular
+                  ? esDobleCircular
+                    ? state.datos.length === 0
+                      ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista doble circular queda vacia.`
+                      : `La posicion ${destino} elimina el inicio ${eliminado}. Se actualizan nuevoInicio.anterior y ultimo.siguiente.`
+                    : state.datos.length === 0
+                      ? `La posicion ${destino} elimina el unico nodo ${eliminado}; la lista queda vacia y el ciclo desaparece.`
+                      : `La posicion ${destino} elimina el inicio ${eliminado}. El ultimo nodo vuelve a conectarse con ${state.datos[0]}.`
+                  : `La posicion ${destino} elimina el nodo ${eliminado} del inicio.`));
+                render();
+                await resaltarCiclo();
+                await esperar(450);
+                break;
+              }
+              if (destino > state.datos.length) {
+                logStep(accion.mensaje ?? mensajeOperacionNoDisponible(operacionActual, destino));
+                return;
+              }
+              state.indiceEnProceso = destino - 2;
+              state.indiceEliminado = destino - 1;
+              render();
+              await esperar(450);
+              const eliminado = state.datos.splice(destino - 1, 1)[0];
+              state.indiceActivo = Math.max(0, destino - 2);
+              state.indiceEnProceso = state.indiceActivo;
+              state.indiceEliminado = null;
+              logStep(accion.mensaje ?? (esCircular
+                ? esDobleCircular
+                  ? state.datos.length === 0
+                    ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista doble circular queda vacia.`
+                    : `Se elimina el nodo ${eliminado} de la posicion ${destino} y sus dos vecinos se reconectan por anterior y siguiente.`
+                  : state.datos.length === 0
+                    ? `Se elimina el nodo ${eliminado} de la posicion ${destino}. La lista queda vacia.`
+                    : destino > state.datos.length
+                      ? `Se elimina el nodo ${eliminado} y el nuevo ultimo nodo mantiene el ciclo hacia ${state.datos[0]}.`
+                      : `Se elimina el nodo ${eliminado} de la posicion ${destino} y el nodo anterior ahora apunta directamente al siguiente dentro del ciclo.`
+                : `Se elimina el nodo ${eliminado} de la posicion ${destino}.`));
+              render();
+              await resaltarCiclo();
+              await esperar(450);
+              break;
+            }
+            default:
+              return;
+          }
+
+          render();
+          if (inputValor) {
+            inputValor.focus();
+            if (typeof inputValor.select === "function") {
+              inputValor.select();
+            }
+          }
+        } finally {
+          state.ejecutandoAccion = false;
+          if (!state.reproduciendo) {
+            accionBtn.disabled = false;
+            autoBtn.disabled = false;
+          }
+        }
+      };
+
+      const demoAutomatica = async () => {
+        if (state.reproduciendo) return;
+        state.reproduciendo = true;
+        autoBtn.disabled = true;
+        accionBtn.disabled = true;
+        for (const accion of config.demoAcciones) {
+          if (inputValor && accion.valor !== undefined) {
+            inputValor.value = String(accion.valor);
+          }
+          if (inputPosicion && accion.posicion !== undefined) {
+            inputPosicion.value = String(accion.posicion);
+          }
+          await ejecutarAccion(accion);
+          await new Promise((resolve) => setTimeout(resolve, 700));
+        }
+        logStep("Demo completada.");
+        state.reproduciendo = false;
+        autoBtn.disabled = false;
+        accionBtn.disabled = false;
+      };
+
+      accionBtn.addEventListener("click", () => ejecutarAccion());
+      inputValor?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
+      });
+      inputPosicion?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") ejecutarAccion();
+      });
+      autoBtn.addEventListener("click", demoAutomatica);
+      operacionSelect?.addEventListener("change", actualizarExplicacion);
+      vaciarBtn?.addEventListener("click", () => establecerLista([]));
+      ejemploBtn?.addEventListener("click", () => establecerLista(config.listaInicial ?? []));
+      reiniciarBtn.addEventListener("click", () => {
+        establecerLista(config.listaInicial ?? []);
+        const reinicio = document.createElement("p");
+        reinicio.textContent = "Lista reiniciada.";
+        log.replaceChildren(reinicio);
+        render();
+      });
+
+      render();
+      actualizarExplicacion();
+    }
+
+    if (simuladorLista) {
+      initListaEnlazadaSimulador({
+        rootSelector: "[data-lista-simulador]",
+        selectors: {
+          valor: "#lista-valor",
+          posicion: "#lista-posicion",
+          operacion: "#lista-operacion",
+          vaciar: "#lista-vacia",
+          ejemplo: "#lista-ejemplo",
+          accion: "#lista-accion",
+          auto: "#lista-auto",
+          reiniciar: "#lista-reiniciar",
+          estado: "#lista-estado",
+          total: "#lista-total",
+          lienzo: "#lista-lienzo",
+          salida: "#lista-salida",
+          log: "#lista-log",
+          explicacion: "#lista-explicacion-texto"
+        },
+        tipo: simuladorLista.tipo,
+        operacion: simuladorLista.operacion,
+        listaInicial: simuladorLista.listaInicial,
+        demoAcciones: simuladorLista.demoAcciones
+      });
+    }
+  })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html>

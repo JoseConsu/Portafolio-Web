@@ -1,0 +1,38 @@
+/*
+ * Programa temporal 41: For complejidad 2
+ *
+ * Objetivo:
+ * Analizar dos ciclos for anidados que recorren n posiciones cada uno.
+ * Por cada vuelta del ciclo externo, el ciclo interno ejecuta n iteraciones,
+ * produciendo una complejidad temporal O(n^2).
+ */
+
+public class ForComplejidad2 {
+    public static void main(String[] args) {
+        int c = 0;
+        int n = 20;
+
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < n; k++) {
+                c++;
+            }
+        }
+
+        System.out.println(c);
+    }
+}
+
+/*
+SALIDA ESPERADA (referencial)
+
+400
+
+ANALISIS
+
+El ciclo externo ejecuta n iteraciones y, por cada una, el ciclo interno
+tambien ejecuta n iteraciones. Por tanto:
+
+T(n) = n * n  =>  O(n^2)
+
+Con n = 20, el contador termina en 20 * 20 = 400.
+*/
