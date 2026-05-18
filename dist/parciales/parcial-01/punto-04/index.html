@@ -5,8 +5,8 @@
       } catch {
         document.documentElement.setAttribute("data-theme", "dark");
       }
-    </script><link rel="stylesheet" href="/_astro/index.P8IM7TPS.css">
-<link rel="stylesheet" href="/_astro/_punto_.Cgon-dFD.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 4: Ordenamiento con valores repetidos</h1> <p data-astro-cid-trhlygpa>Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
+    </script><link rel="stylesheet" href="/_astro/index.B8xeQYkW.css">
+<link rel="stylesheet" href="/_astro/_punto_.C6FYwerX.css"></head> <body> <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a> <main class="programa-shell" id="contenido-principal" data-astro-cid-trhlygpa> <section class="program-hero" data-astro-cid-trhlygpa> <img src="/programas-temporales/uis-logo.svg" alt="Logotipo de la Universidad Industrial de Santander" loading="eager" decoding="async" data-astro-cid-trhlygpa> <div data-astro-cid-trhlygpa> <p class="ds-eyebrow" data-astro-cid-trhlygpa>Parcial 01: Métricas de ordenamiento</p> <h1 data-astro-cid-trhlygpa>Punto 4: Ordenamiento con valores repetidos</h1> <p data-astro-cid-trhlygpa>Evaluar Burbuja Simple, Burbuja Mejorado, Quick Sort, Shell Sort, Seleccion Directa e Insercion en arreglos con alta repeticion para identificar el metodo mas adecuado.</p> </div> <a class="icono-volver" href="/parciales/parcial-01" aria-label="Volver al listado de puntos" title="Volver al listado de puntos" data-astro-cid-trhlygpa> <img src="/icons/folder.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa> </a> </section> <section class="ds-panel zona-codigo" data-astro-cid-trhlygpa> <div class="encabezado-cuadro" data-astro-cid-trhlygpa> <h2 data-astro-cid-trhlygpa><img src="/icons/rocket.svg" alt="" class="ui-icon" aria-hidden="true" data-astro-cid-trhlygpa>Código del punto</h2> <button class="boton-copiar" type="button" aria-label="Copiar codigo" data-astro-cid-trhlygpa> <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-astro-cid-trhlygpa> <path d="M8 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7Zm2 0h9v11h-9V7Z" data-astro-cid-trhlygpa></path> <path d="M5 4a2 2 0 0 1 2-2h9v2H7v11H5V4Zm-2 5h2v11a2 2 0 0 0 2 2h11v2H7a2 2 0 0 1-2-2V9Z" data-astro-cid-trhlygpa></path> </svg> </button> </div> <pre class="cuadro-codigo" data-astro-cid-trhlygpa><code data-astro-cid-trhlygpa>/*
 PARCIAL 1 - PUNTO 4
 
 Ordenamiento de valores repetidos:
@@ -1352,5 +1352,217 @@ const accionesFiloIniciales = ["Escribir título","Insertar imagen","Cambiar col
       });
 
       resetFilo();
+    }
+
+    const filo2StackRoot = document.querySelector("#filo2-stack");
+    if (filo2StackRoot) {
+      const inputNombre = document.querySelector("#filo2-nombre");
+      const selectCat = document.querySelector("#filo2-cat");
+      const selectPrio = document.querySelector("#filo2-prio");
+      const btnPush = document.querySelector("#filo2-push");
+      const btnPop = document.querySelector("#filo2-pop");
+      const btnReset = document.querySelector("#filo2-reset");
+      const feedback = document.querySelector("#filo2-feedback");
+      const topVal = document.querySelector("#filo2-top-val");
+      const countVal = document.querySelector("#filo2-count");
+      const lastVal = document.querySelector("#filo2-last");
+      const opName = document.querySelector("#filo2-op-name");
+      const opDetail = document.querySelector("#filo2-op-detail");
+      const opCode = document.querySelector("#filo2-op-code");
+      const structPanel = document.querySelector("#filo2-structure");
+      const historyList = document.querySelector("#filo2-history");
+      const traceList = document.querySelector("#filo2-trace");
+      const tableBody = document.querySelector("#filo2-tabla");
+      const filo2CodeBlocks = Array.from(document.querySelectorAll("[data-filo2-code-block]"));
+
+      const solicitudesIniciales = [
+        { codigo: "S003", nombre: "Error de acceso al sistema", categoria: "Seguridad", prioridad: "Alta", timestamp: "08:12" },
+        { codigo: "S002", nombre: "VPN no conecta", categoria: "Red", prioridad: "Media", timestamp: "08:08" },
+        { codigo: "S001", nombre: "Pantalla sin señal", categoria: "Hardware", prioridad: "Baja", timestamp: "08:03" },
+      ];
+      const catIcons = { Red: "NET", Seguridad: "SEC", Hardware: "HW", Software: "SW", "Base de datos": "DB" };
+      let pilaFilo2 = solicitudesIniciales.map((solicitud) => ({ ...solicitud }));
+      let historialFilo2 = [];
+      let trazasFilo2 = ["[INIT] top = S003, size = 3", "S003.next -> S002 · S002.next -> S001 · S001.next -> null"];
+      let siguienteFilo2 = 4;
+
+      function escapeFilo2Html(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function codigoFilo2() {
+        return `S${String(siguienteFilo2++).padStart(3, "0")}`;
+      }
+
+      function horaFilo2() {
+        return new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+      }
+
+      function prioridadBadge(prioridad) {
+        const clase = { Alta: "prio-alta", Media: "prio-media", Baja: "prio-baja" }[prioridad] ?? "prio-baja";
+        return `<span class="prio-badge ${clase}">${escapeFilo2Html(prioridad)}</span>`;
+      }
+
+      function setFilo2CodeHighlights(active, related = []) {
+        for (const block of filo2CodeBlocks) {
+          const key = block instanceof HTMLElement ? block.dataset.filo2CodeBlock : "";
+          block.classList.toggle("filo-code-block--active", key === active);
+          block.classList.toggle("filo-code-block--related", related.includes(key ?? ""));
+        }
+      }
+
+      function pushFilo2Trace(...lines) {
+        trazasFilo2 = [...lines, ...trazasFilo2].slice(0, 10);
+      }
+
+      function showFilo2Feedback(message, warn = false) {
+        if (!(feedback instanceof HTMLElement)) return;
+        feedback.textContent = message;
+        feedback.style.color = warn ? "var(--danger)" : "var(--text-2)";
+      }
+
+      function renderFilo2({ op = "Estado actual", detail = "", code = "Atributos de la pila.", activeCode = "stack-fields", relatedCode = [] } = {}) {
+        const top = pilaFilo2[0] ?? null;
+        if (topVal) topVal.textContent = top ? top.nombre : "- (pila vacía)";
+        if (countVal) countVal.textContent = `${pilaFilo2.length} solicitud${pilaFilo2.length === 1 ? "" : "es"}`;
+        if (lastVal) lastVal.textContent = historialFilo2[0]?.nombre ?? "Aún no hay registros";
+        if (opName) opName.textContent = op;
+        if (opDetail) opDetail.textContent = detail;
+        if (opCode) opCode.textContent = code;
+
+        filo2StackRoot.innerHTML = pilaFilo2.length === 0
+          ? `<p class="filo-stack__empty">La pila está vacía.</p>`
+          : pilaFilo2.map((nodo, index) => `
+              <div class="filo-turno ${index === 0 ? "filo-turno--top filo-turno--focus" : ""}">
+                <span>${index === 0 ? "Cima - top" : "Nodo"}</span>
+                <strong>${catIcons[nodo.categoria] ?? ""} ${escapeFilo2Html(nodo.nombre)}</strong>
+                <p>${escapeFilo2Html(nodo.codigo)} · ${escapeFilo2Html(nodo.categoria)} · ${escapeFilo2Html(nodo.timestamp)}</p>
+                ${prioridadBadge(nodo.prioridad)}
+              </div>
+            `).join("");
+
+        if (structPanel) {
+          structPanel.innerHTML = pilaFilo2.length === 0
+            ? `<div class="filo-stack-empty"><p>top = null · La pila no contiene solicitudes.</p></div>`
+            : pilaFilo2.map((nodo, index) => {
+                const isTop = index === 0;
+                const isBase = index === pilaFilo2.length - 1;
+                const nextLabel = isBase ? "null" : pilaFilo2[index + 1].codigo;
+                return `<div class="filo-stack-piece">
+                  <div class="filo-pointer-row">${isTop ? `<span class="filo-pointer filo-pointer--top filo-pointer--active">top -> ${escapeFilo2Html(nodo.codigo)}</span>` : ""}${isBase ? `<span class="filo-pointer filo-pointer--base">base (next = null)</span>` : ""}</div>
+                  <div class="filo-node ${isTop ? "filo-node--top filo-node--focus" : ""} ${isBase ? "filo-node--base" : ""}">
+                    <span class="filo-node__label">${escapeFilo2Html(nodo.codigo)}${isTop ? " · cima" : ""}${isBase ? " · base" : ""}</span>
+                    <strong>${escapeFilo2Html(nodo.nombre)}</strong>
+                    <small>${escapeFilo2Html(nodo.categoria)} · next -> ${escapeFilo2Html(nextLabel)}</small>
+                  </div>
+                </div>`;
+              }).join(`<div class="filo-arrow-down"><strong>↓</strong></div>`);
+        }
+
+        if (tableBody) {
+          tableBody.innerHTML = pilaFilo2.length === 0
+            ? `<tr><td colspan="6" class="filo-table-empty">La pila está vacía.</td></tr>`
+            : pilaFilo2.map((nodo, index) => `<tr class="${index === 0 ? "td-top" : ""}">
+                <td class="td-code">${escapeFilo2Html(nodo.codigo)}</td>
+                <td>${catIcons[nodo.categoria] ?? ""} ${escapeFilo2Html(nodo.nombre)}</td>
+                <td>${escapeFilo2Html(nodo.categoria)}</td>
+                <td>${prioridadBadge(nodo.prioridad)}</td>
+                <td>${index === 0 ? "Cima (top)" : index === pilaFilo2.length - 1 ? "Base" : `Posición ${index + 1}`}</td>
+                <td>${escapeFilo2Html(nodo.timestamp)}</td>
+              </tr>`).join("");
+        }
+
+        if (historyList) {
+          historyList.innerHTML = historialFilo2.length === 0
+            ? `<li class="filo-history__empty">Todavía no se ha resuelto ninguna solicitud.</li>`
+            : historialFilo2.map((nodo) => `<li><span class="hist-code">${escapeFilo2Html(nodo.codigo)}</span>${escapeFilo2Html(nodo.nombre)} ${prioridadBadge(nodo.prioridad)}</li>`).join("");
+        }
+
+        if (traceList) {
+          traceList.innerHTML = trazasFilo2.map((line) => `<li>${escapeFilo2Html(line)}</li>`).join("");
+        }
+
+        setFilo2CodeHighlights(activeCode, relatedCode);
+      }
+
+      function registrarSolicitudFilo2() {
+        if (!(inputNombre instanceof HTMLInputElement)) return;
+        const nombre = inputNombre.value.trim().replace(/[<>]/g, "");
+        if (!nombre) {
+          showFilo2Feedback("Escribe el nombre del problema antes de registrarlo.", true);
+          inputNombre.focus();
+          return;
+        }
+
+        const categoria = selectCat instanceof HTMLSelectElement ? selectCat.value : "Red";
+        const prioridad = selectPrio instanceof HTMLSelectElement ? selectPrio.value : "Media";
+        const anteriorTop = pilaFilo2[0]?.codigo ?? "null";
+        const nuevo = { codigo: codigoFilo2(), nombre, categoria, prioridad, timestamp: horaFilo2() };
+        pilaFilo2 = [nuevo, ...pilaFilo2];
+        pushFilo2Trace(`push(${nuevo.codigo}) -> top = ${nuevo.codigo}, next -> ${anteriorTop}, size = ${pilaFilo2.length}`);
+        showFilo2Feedback(`Se registró "${nombre}" (${nuevo.codigo}) en la cima de la pila.`);
+        renderFilo2({
+          op: `push("${nuevo.codigo}")`,
+          detail: `"${nombre}" se apila encima. top avanza a ${nuevo.codigo}. next del nuevo nodo apunta al anterior top.`,
+          code: "Sección push: nuevo.next = top, luego top = nuevo.",
+          activeCode: "push-insert",
+          relatedCode: ["node-class", "stack-fields"],
+        });
+        inputNombre.value = "";
+        inputNombre.focus();
+      }
+
+      function resolverSolicitudFilo2() {
+        if (pilaFilo2.length === 0) {
+          showFilo2Feedback("No hay solicitudes en la pila. Registra alguna primero.", true);
+          pushFilo2Trace("pop() abortado -> pila vacía (top = null)");
+          renderFilo2({ op: "pop() - pila vacía", detail: "top = null. No existe solicitud en la cima.", code: "Sección pop: estaVacia() devuelve true.", activeCode: "is-empty" });
+          return;
+        }
+
+        const [resuelta, ...resto] = pilaFilo2;
+        pilaFilo2 = resto;
+        historialFilo2 = [resuelta, ...historialFilo2].slice(0, 10);
+        const nuevoTop = pilaFilo2[0]?.codigo ?? "null";
+        pushFilo2Trace(`pop() -> ${resuelta.codigo} "${resuelta.nombre}" · top = ${nuevoTop}, size = ${pilaFilo2.length}`);
+        showFilo2Feedback(`Se resolvió "${resuelta.nombre}" (${resuelta.codigo}) correctamente.`);
+        renderFilo2({
+          op: `pop() -> "${resuelta.codigo}"`,
+          detail: `"${resuelta.nombre}" abandona la cima. top avanza a ${nuevoTop}.`,
+          code: "Sección pop: resuelto = top, top = top.next, size--.",
+          activeCode: "pop-extract",
+          relatedCode: ["stack-fields"],
+        });
+      }
+
+      function resetFilo2() {
+        pilaFilo2 = solicitudesIniciales.map((solicitud) => ({ ...solicitud }));
+        historialFilo2 = [];
+        trazasFilo2 = ["reset -> top = S003, size = 3", "S003.next -> S002 · S002.next -> S001 · S001.next -> null"];
+        siguienteFilo2 = 4;
+        if (inputNombre instanceof HTMLInputElement) inputNombre.value = "";
+        showFilo2Feedback("La simulación volvió al estado inicial.");
+        renderFilo2({
+          op: "Reset de simulación",
+          detail: "La pila volvió a su configuración original con tres solicitudes y sin historial.",
+          code: "Se restauran los nodos enlazados y el puntero top con los valores iniciales.",
+          activeCode: "stack-fields",
+          relatedCode: ["node-class"],
+        });
+      }
+
+      btnPush?.addEventListener("click", registrarSolicitudFilo2);
+      btnPop?.addEventListener("click", resolverSolicitudFilo2);
+      btnReset?.addEventListener("click", resetFilo2);
+      inputNombre?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") registrarSolicitudFilo2();
+      });
+
+      resetFilo2();
     }
   })();</script>  <script type="module">const i=Array.from(document.querySelectorAll("[data-section]")),r=Array.from(document.querySelectorAll(".nav-btn[data-target]")),f=Array.from(document.querySelectorAll("details")),l=document.querySelector("[data-theme-toggle]"),u=document.querySelector("[data-theme-label]"),y=Array.from(document.querySelectorAll(".interactive-glow")),b=document.querySelector(".app-nav");let d="";function m(){return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"}function g(){const e=m();l?.setAttribute("aria-pressed",e==="light"?"true":"false"),l?.setAttribute("aria-label",e==="light"?"Cambiar al tema oscuro":"Cambiar al tema claro"),u&&(u.textContent=e==="light"?"Claro":"Oscuro")}function h(){for(const e of f){const t=e.querySelector(".details-state");t&&(t.textContent=e.open?"Ocultar":"Desplegar")}}function A(){return(b?.offsetHeight??0)+24}function s(e,t=!0){if(e){d=e;for(const o of r){const n=o.dataset.target===e;o.classList.toggle("active",n),n?o.setAttribute("aria-current","page"):o.removeAttribute("aria-current")}if(t)try{history.replaceState(null,"",`#${e}`)}catch{}}}function p(e,t="smooth"){const o=i.find(c=>c.id===e);if(!o)return;const n=o.getBoundingClientRect().top+window.scrollY-A();window.scrollTo({top:Math.max(0,n),behavior:t})}for(const e of r)e.addEventListener("click",()=>{const t=e.dataset.target;t&&(s(t),p(t))}),e.addEventListener("keydown",t=>{const o=r.indexOf(e);o!==-1&&((t.key==="ArrowDown"||t.key==="ArrowRight")&&(t.preventDefault(),r[(o+1)%r.length]?.focus()),(t.key==="ArrowUp"||t.key==="ArrowLeft")&&(t.preventDefault(),r[(o-1+r.length)%r.length]?.focus()),t.key==="Home"&&(t.preventDefault(),r[0]?.focus()),t.key==="End"&&(t.preventDefault(),r.at(-1)?.focus()))});if(i.length>0){const e=new IntersectionObserver(t=>{const o=t.filter(n=>n.isIntersecting).sort((n,c)=>c.intersectionRatio-n.intersectionRatio)[0];o?.target?.id&&o.target.id!==d&&s(o.target.id)},{rootMargin:"-45% 0px -45% 0px",threshold:[0,.25,.5,.75,1]});for(const t of i)e.observe(t)}l?.addEventListener("click",()=>{const t=m()==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t);try{localStorage.setItem("theme",t)}catch{}g()});for(const e of f)e.addEventListener("toggle",h);const a=window.location.hash?window.location.hash.slice(1):"";a&&i.some(e=>e.id===a)?(s(a,!1),p(a,"auto")):i[0]&&s(i[0].id,!1);g();h();for(const e of y)e.addEventListener("pointermove",t=>{const o=e.getBoundingClientRect(),n=`${t.clientX-o.left}px`,c=`${t.clientY-o.top}px`;e.style.setProperty("--spot-x",n),e.style.setProperty("--spot-y",c)});try{console.log("%cPortafolio JDC","font-family:monospace;font-size:14px;font-weight:700;color:#00e5ff"),console.log("%cAstro + CSS tokens + interacciones inspiradas en JDC","font-family:monospace;font-size:11px;color:#9aa3c8")}catch{}</script> </body> </html> 

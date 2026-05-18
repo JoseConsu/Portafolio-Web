@@ -180,8 +180,8 @@ const esProyectoFinal = parcial.slug === "proyecto-final";
             <p class="ds-eyebrow">Aplicativos web del proyecto</p>
             <h2>Catálogo del proyecto final</h2>
             <p>
-              Este bloque reúne cuatro aplicativos basados en estructuras lineales. El primero ya se encuentra
-              disponible como demo interactiva y los siguientes quedan listos para ampliarse en el mismo flujo.
+              Este bloque reúne cuatro aplicativos basados en estructuras lineales. Las demos disponibles permiten
+              explorar colas FIFO y pilas FILO con visualización de punteros y operaciones en tiempo real.
             </p>
           </div>
           <div class="catalogo-final-apps__legend" aria-label="Estados de aplicativos">
@@ -915,7 +915,9 @@ const esProyectoFinal = parcial.slug === "proyecto-final";
 
   .app-card {
     display: grid;
-    gap: var(--sp-3);
+    align-content: start;
+    gap: var(--sp-4);
+    min-height: 290px;
     padding: var(--sp-5);
     border-radius: 24px;
     border: 1px solid var(--br-1);
@@ -959,12 +961,17 @@ const esProyectoFinal = parcial.slug === "proyecto-final";
 
   .app-card h3 {
     font-size: 1.3rem;
+    line-height: 1.22;
+    letter-spacing: -0.025em;
     color: var(--text-1);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .app-card p {
     color: var(--text-2);
-    line-height: 1.7;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
   }
 
   .app-card__footer span:last-child {

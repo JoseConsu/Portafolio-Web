@@ -7,11 +7,8 @@
      .academics-grid, .program-card, .simulator,
      .parciales-grid
 
-   Importa theme.css primero:
-     @import './theme.css';
+   BaseLayout importa theme.css antes de este archivo.
    ============================================================= */
-
-@import './theme.css';
 
 /* ─── RESET ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,6 +48,14 @@ body {
 }
 
 section { padding: var(--sp-24) 0; }
+
+.catalogo-shell > section,
+.programa-shell > section,
+.parcial-shell > section,
+.app-shell > section,
+.ds-shell > section {
+  padding: 0;
+}
 
 /* ─── TIPOGRAFÍA ─────────────────────────────────────────────── */
 h1, h2, h3, h4 {
@@ -546,6 +551,8 @@ img, video, svg { display: block; max-width: 100%; }
   font-weight: 700;
   color: var(--text-1);
   line-height: 1.35;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
 }
 
 .program-card__desc {
@@ -726,7 +733,7 @@ img, video, svg { display: block; max-width: 100%; }
   flex-shrink: 0;
 }
 
-.sim-bar {
+.simulator__preview .sim-bar {
   flex: 1;
   border-radius: 2px 2px 0 0;
   background: var(--moss);
@@ -734,15 +741,15 @@ img, video, svg { display: block; max-width: 100%; }
   min-width: 6px;
   animation: sim-bounce 1.6s ease-in-out infinite alternate;
 }
-.sim-bar:nth-child(2)  { animation-delay: 0.1s; opacity: 0.5; }
-.sim-bar:nth-child(3)  { animation-delay: 0.2s; }
-.sim-bar:nth-child(4)  { animation-delay: 0.3s; opacity: 0.6; }
-.sim-bar:nth-child(5)  { animation-delay: 0.4s; }
-.sim-bar:nth-child(6)  { animation-delay: 0.5s; opacity: 0.4; }
-.sim-bar:nth-child(7)  { animation-delay: 0.6s; }
-.sim-bar:nth-child(8)  { animation-delay: 0.15s; opacity: 0.8; }
-.sim-bar:nth-child(9)  { animation-delay: 0.35s; }
-.sim-bar:nth-child(10) { animation-delay: 0.55s; opacity: 0.6; }
+.simulator__preview .sim-bar:nth-child(2)  { animation-delay: 0.1s; opacity: 0.5; }
+.simulator__preview .sim-bar:nth-child(3)  { animation-delay: 0.2s; }
+.simulator__preview .sim-bar:nth-child(4)  { animation-delay: 0.3s; opacity: 0.6; }
+.simulator__preview .sim-bar:nth-child(5)  { animation-delay: 0.4s; }
+.simulator__preview .sim-bar:nth-child(6)  { animation-delay: 0.5s; opacity: 0.4; }
+.simulator__preview .sim-bar:nth-child(7)  { animation-delay: 0.6s; }
+.simulator__preview .sim-bar:nth-child(8)  { animation-delay: 0.15s; opacity: 0.8; }
+.simulator__preview .sim-bar:nth-child(9)  { animation-delay: 0.35s; }
+.simulator__preview .sim-bar:nth-child(10) { animation-delay: 0.55s; opacity: 0.6; }
 
 @keyframes sim-bounce {
   from { transform: scaleY(0.6); }
@@ -1346,6 +1353,27 @@ img, video, svg { display: block; max-width: 100%; }
   box-shadow: var(--sh-card);
 }
 
+.program-hero > div,
+.encabezado-parcial > div,
+.encabezado-programa > div {
+  min-width: 0;
+}
+
+.program-hero h1,
+.encabezado-parcial h1,
+.encabezado-programa h1 {
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.program-hero p,
+.encabezado-parcial p,
+.encabezado-programa p {
+  overflow-wrap: anywhere;
+}
+
 .program-hero__logo {
   margin: auto;
 }
@@ -1435,10 +1463,20 @@ img, video, svg { display: block; max-width: 100%; }
     grid-template-columns: 1fr;
     text-align: center;
   }
+  .encabezado-parcial,
+  .encabezado-programa {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
   .program-hero__actions {
     align-items: center;
     flex-direction: row;
     justify-content: center;
+  }
+  .encabezado-parcial .icono-volver,
+  .encabezado-programa .icono-volver {
+    justify-self: center;
   }
 }
 
@@ -1468,6 +1506,19 @@ img, video, svg { display: block; max-width: 100%; }
   background: var(--card-bg-strong);
   transition: transform var(--t-base), border-color var(--t-base);
   box-shadow: var(--sh-card);
+}
+
+.tarjeta-punto h3,
+.temporary-card h3 {
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.tarjeta-punto p,
+.temporary-card p {
+  overflow-wrap: anywhere;
 }
 
 .tarjeta-punto:hover,
@@ -1569,11 +1620,14 @@ img, video, svg { display: block; max-width: 100%; }
   padding: var(--sp-4);
   box-shadow: var(--sh-card);
   margin-top: var(--sp-4);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tabla-contenedor table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 680px;
 }
 
 .tabla-contenedor th,
@@ -1811,7 +1865,7 @@ img, video, svg { display: block; max-width: 100%; }
   box-shadow: var(--sh-card);
 }
 
-.sim-bar {
+.sim-visual-stage .sim-bar {
   flex: 1;
   min-width: 6px;
   border-radius: 0.5rem 0.5rem 0 0;
@@ -1832,15 +1886,70 @@ img, video, svg { display: block; max-width: 100%; }
   animation: none;
 }
 
-.sim-bar span {
+.sim-visual-stage .sim-bar span {
   font-size: 0.65rem;
   transform: rotate(180deg);
   writing-mode: vertical-rl;
   color: var(--text);
 }
 
-.sim-bar.activo {
+.sim-visual-stage .sim-bar.activo {
   box-shadow: 0 0 15px color-mix(in srgb, var(--bar-color, var(--accent)) 90%, transparent);
+}
+
+.sim-timeline {
+  padding-top: var(--sp-2);
+}
+
+.sim-timeline-track {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--br-2);
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+  overflow: hidden;
+}
+
+.sim-timeline-thumb {
+  width: var(--avance, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--moss), var(--terra));
+  box-shadow: 0 0 16px var(--moss-glow);
+  transition: width 0.24s ease;
+}
+
+.sim-tree {
+  display: grid;
+  gap: var(--sp-3);
+  align-content: center;
+  min-height: 100%;
+}
+
+.sim-placeholder {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 520px);
+  border: 1px dashed var(--br-strong);
+  border-radius: var(--r-xl);
+  background: rgba(255,255,255,0.025);
+  color: var(--text-2);
+  padding: var(--sp-4);
+  text-align: center;
+}
+
+.tabla-link {
+  color: var(--moss);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tabla-link.disabled,
+.link-disabled {
+  color: var(--text-3);
+  cursor: not-allowed;
+  opacity: 0.7;
+  text-decoration: none;
 }
 
 .simulator-lab {

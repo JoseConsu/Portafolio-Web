@@ -102,7 +102,7 @@ const tipoDatoLabels: Record<string, string> = {
     )}
 
     {metricasPrograma && !esSimuladorOrdenamientos && (
-      <section class="ds-card-grid" aria-live="polite">
+      <section class="ds-card-grid">
         {escenariosOrdenados.map((escenario) => {
           const datosEscenario = metricasPrograma.escenarios[escenario];
           if (!datosEscenario) return null;
@@ -490,7 +490,7 @@ const tipoDatoLabels: Record<string, string> = {
             <p class="sim-config-note" id="sim-config-estado">Configura y presiona "Simular" para generar los datos.</p>
           </section>
 
-          <section class="sim-table" aria-live="polite">
+          <section class="sim-table">
             <div class="sim-table-head">
               <h3>Tabla comparativa paso a paso</h3>
               <span class="sim-tag" id="sim-etiqueta-escenario">Desordenado · Enteros</span>
@@ -606,7 +606,7 @@ const tipoDatoLabels: Record<string, string> = {
               {(simuladorCRUD || simuladorCircular || simuladorDobleCircular) && <button type="button" class="sim-btn" id="lista-ejemplo">Cargar ejemplo</button>}
               <button type="button" class="sim-btn fantasma" id="lista-reiniciar">Reiniciar</button>
             </div>
-            <div class="lista-explicacion" aria-live="polite">
+              <div class="lista-explicacion">
               <h3>Guía rápida</h3>
               <p id="lista-explicacion-texto">
                 {esListaCircular
@@ -619,7 +619,7 @@ const tipoDatoLabels: Record<string, string> = {
             <p class="sim-config-note" id="lista-estado">{esListaCircular ? "Lista inicial: inicio sin nodos y sin enlace circular" : "Lista inicial: inicio -&gt; null"}</p>
           </section>
 
-          <section class="lista-panel lista-panel-visual" aria-live="polite">
+          <section class="lista-panel lista-panel-visual">
             <div class="sim-table-head">
               <h3>Estado actual de la lista</h3>
               <span class="sim-tag" id="lista-total">0 nodos</span>

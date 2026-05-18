@@ -81,6 +81,18 @@
   /* Layout */
   --max-w:  1240px;
   --nav-h:  68px;
+
+  /* Alias de compatibilidad para vistas academicas */
+  --panel: var(--ink-2);
+  --panel-soft: var(--ink-3);
+  --accent: var(--moss);
+  --accent-soft: var(--moss-dim);
+  --line: var(--br-2);
+  --muted: var(--text-2);
+  --text: var(--text-1);
+  --moss-soft: #b7f3cb;
+  --shadow-sm: var(--sh-sm);
+  --shadow-glow: 0 0 24px var(--moss-glow);
 }
 
 /* ─── TEMA CLARO ─────────────────────────────────────────────── */
@@ -101,4 +113,5 @@
   --sh-md:        0 6px 24px rgba(0, 0, 0, 0.12);
   --sh-lg:        0 12px 48px rgba(0, 0, 0, 0.16);
   --sh-card:      0 4px 20px rgba(0, 0, 0, 0.10), 0 0 0 1px var(--br-strong);
+  --moss-soft: #27633f;
 }

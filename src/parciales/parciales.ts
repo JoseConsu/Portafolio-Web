@@ -246,8 +246,8 @@ export const parciales: Parcial[] = [
         nombre: "FILO 2: Bandeja de procesos",
         descripcion:
           "Aplicativo tipo pila enfocado en procesos de soporte donde la ultima solicitud preparada es la primera en resolverse.",
-        estado: "proximamente",
-        tipoVista: "placeholder",
+        estado: "disponible",
+        tipoVista: "demo",
       },
     ],
   },
