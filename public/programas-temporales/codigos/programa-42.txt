@@ -1,0 +1,41 @@
+/*
+ * Programa temporal 42: While con multiplicacion por 2 en C++
+ *
+ * Objetivo:
+ * Analizar un ciclo while donde la variable de control se duplica en cada
+ * iteracion. Al crecer por potencias de 2, el numero de vueltas aumenta de
+ * forma logaritmica respecto al limite n.
+ */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int i = 1;
+
+    while (i < 10) {
+        std::cout << i << std::endl;
+        i = i * 2;
+    }
+}
+
+/*
+SALIDA ESPERADA
+
+1
+2
+4
+8
+
+ANALISIS
+
+La variable i inicia en 1 y en cada iteracion se multiplica por 2:
+
+1 -> 2 -> 4 -> 8 -> 16
+
+El ciclo imprime solo los valores menores que 10, por eso se detiene antes de
+mostrar 16. Para un limite general n, la cantidad de iteraciones corresponde a
+cuantas veces se puede duplicar 1 antes de alcanzar n:
+
+T(n) = log2(n)  =>  O(log n)
+*/

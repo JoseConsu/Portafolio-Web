@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1439" height="1080" viewBox="0 0 1439 1080" role="img" aria-labelledby="titulo desc">
+  <title id="titulo">Programa temporal 42 - While que duplica i</title>
+  <desc id="desc">Ficha visual sobre un ciclo while en C++ que duplica la variable i y produce complejidad logaritmica.</desc>
+
+  <defs>
+    <linearGradient id="fondo42" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfeff" />
+      <stop offset="100%" stop-color="#f5f3ff" />
+    </linearGradient>
+    <linearGradient id="header42" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <filter id="sombra42" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.14" />
+    </filter>
+    <pattern id="puntos42" width="42" height="42" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2" fill="#0f766e" opacity="0.09" />
+    </pattern>
+  </defs>
+
+  <rect width="1439" height="1080" fill="url(#fondo42)" />
+  <rect width="1439" height="1080" fill="url(#puntos42)" />
+  <rect width="1439" height="120" fill="url(#header42)" />
+  <text x="64" y="62" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#ffffff">Programa 42: While que duplica i</text>
+  <text x="66" y="98" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#dffdfa">La variable crece como potencias de 2 hasta romper la condicion i &lt; 10.</text>
+
+  <rect x="72" y="164" width="560" height="300" rx="24" fill="#ffffff" stroke="#99f6e4" stroke-width="2" filter="url(#sombra42)" />
+  <text x="112" y="222" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#0f172a">1. Idea central</text>
+  <rect x="112" y="252" width="224" height="54" rx="16" fill="#ccfbf1" />
+  <text x="136" y="287" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#0f766e">i siguiente</text>
+  <text x="360" y="290" font-family="Courier New, monospace" font-size="34" font-weight="700" fill="#6d28d9">= i x 2</text>
+  <text x="112" y="356" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#334155">No avanza de uno en uno.</text>
+  <text x="112" y="396" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#334155">Salta por potencias: 1, 2, 4, 8...</text>
+  <text x="112" y="432" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#64748b">Cuando i llega a 16, la condicion ya es falsa.</text>
+
+  <rect x="670" y="164" width="696" height="300" rx="24" fill="#111827" filter="url(#sombra42)" />
+  <text x="710" y="222" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#ffffff">2. Codigo clave</text>
+  <text x="710" y="282" font-family="Courier New, monospace" font-size="27" fill="#f0abfc">int</text>
+  <text x="765" y="282" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">i = </text>
+  <text x="842" y="282" font-family="Courier New, monospace" font-size="27" fill="#a78bfa">1</text>
+  <text x="860" y="282" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">;</text>
+  <text x="710" y="340" font-family="Courier New, monospace" font-size="27" fill="#f0abfc">while</text>
+  <text x="815" y="340" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">(i &lt; </text>
+  <text x="913" y="340" font-family="Courier New, monospace" font-size="27" fill="#a78bfa">10</text>
+  <text x="950" y="340" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">) {</text>
+  <text x="760" y="396" font-family="Courier New, monospace" font-size="27" fill="#67e8f9">cout</text>
+  <text x="842" y="396" font-family="Courier New, monospace" font-size="27" fill="#f0abfc">&lt;&lt;</text>
+  <text x="900" y="396" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">i</text>
+  <text x="932" y="396" font-family="Courier New, monospace" font-size="27" fill="#f0abfc">&lt;&lt;</text>
+  <text x="990" y="396" font-family="Courier New, monospace" font-size="27" fill="#67e8f9">endl;</text>
+  <text x="760" y="432" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">i = i </text>
+  <text x="880" y="432" font-family="Courier New, monospace" font-size="27" fill="#fde68a">* 2</text>
+  <text x="940" y="432" font-family="Courier New, monospace" font-size="27" fill="#e5e7eb">;</text>
+
+  <rect x="72" y="512" width="1294" height="330" rx="26" fill="#ffffff" stroke="#ddd6fe" stroke-width="2" filter="url(#sombra42)" />
+  <text x="112" y="572" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#0f172a">3. Visualizacion del ciclo</text>
+  <line x1="182" y1="700" x2="1144" y2="700" stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" />
+
+  <circle cx="182" cy="700" r="50" fill="#ccfbf1" stroke="#0f766e" stroke-width="4" />
+  <text x="168" y="716" font-family="Courier New, monospace" font-size="42" font-weight="700" fill="#0f766e">1</text>
+  <text x="137" y="784" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0f766e">1 &lt; 10 si</text>
+  <text x="142" y="814" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#475569">imprime</text>
+
+  <circle cx="422" cy="700" r="50" fill="#ede9fe" stroke="#6d28d9" stroke-width="4" />
+  <text x="408" y="716" font-family="Courier New, monospace" font-size="42" font-weight="700" fill="#6d28d9">2</text>
+  <text x="377" y="784" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#6d28d9">2 &lt; 10 si</text>
+  <text x="382" y="814" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#475569">imprime</text>
+
+  <circle cx="662" cy="700" r="50" fill="#ccfbf1" stroke="#0f766e" stroke-width="4" />
+  <text x="648" y="716" font-family="Courier New, monospace" font-size="42" font-weight="700" fill="#0f766e">4</text>
+  <text x="617" y="784" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0f766e">4 &lt; 10 si</text>
+  <text x="622" y="814" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#475569">imprime</text>
+
+  <circle cx="902" cy="700" r="50" fill="#ede9fe" stroke="#6d28d9" stroke-width="4" />
+  <text x="888" y="716" font-family="Courier New, monospace" font-size="42" font-weight="700" fill="#6d28d9">8</text>
+  <text x="857" y="784" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#6d28d9">8 &lt; 10 si</text>
+  <text x="862" y="814" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#475569">imprime</text>
+
+  <circle cx="1144" cy="700" r="50" fill="#fee2e2" stroke="#dc2626" stroke-width="4" />
+  <text x="1118" y="716" font-family="Courier New, monospace" font-size="42" font-weight="700" fill="#dc2626">16</text>
+  <text x="1089" y="784" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#dc2626">16 &lt; 10 no</text>
+  <text x="1086" y="814" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#475569">se detiene</text>
+
+  <rect x="72" y="900" width="625" height="100" rx="22" fill="#f8fafc" stroke="#99f6e4" stroke-width="2" filter="url(#sombra42)" />
+  <text x="112" y="940" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#0f172a">4. Salida</text>
+  <text x="112" y="976" font-family="Courier New, monospace" font-size="31" font-weight="700" fill="#0f766e">1, 2, 4, 8</text>
+
+  <rect x="725" y="900" width="641" height="100" rx="22" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2" filter="url(#sombra42)" />
+  <text x="765" y="940" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" fill="#0f172a">Complejidad</text>
+  <text x="765" y="976" font-family="Courier New, monospace" font-size="31" font-weight="700" fill="#6d28d9">iteraciones aprox. log2(n) =&gt; O(log n)</text>
+</svg>

@@ -452,6 +452,20 @@ const configuracionesPersonalizadas: Record<number, ConfiguracionPersonalizada> 
     categoria: "fundamentos",
     tags: ["Java", "For", "Complejidad"],
   },
+  42: {
+    titulo: "While con multiplicacion por 2 en C++",
+    descripcion:
+      "Programa C++ que inicia un contador en 1, lo imprime mientras sea menor que 10 y lo duplica en cada iteracion para evidenciar crecimiento logaritmico O(log n).",
+    categoria: "fundamentos",
+    tags: ["C++", "While", "Complejidad"],
+  },
+  43: {
+    titulo: "HashMap de inventario en Java",
+    descripcion:
+      "Programa Java que usa una tabla hash con HashMap para registrar productos por codigo, buscar un elemento por llave, modificarlo y mostrar la cantidad total del inventario.",
+    categoria: "estructuras de datos",
+    tags: ["Java", "HashMap", "Hash"],
+  },
 };
 
 const ordenProgramasTemporales = [
@@ -496,6 +510,8 @@ const ordenProgramasTemporales = [
   39,
   40,
   41,
+  42,
+  43,
 ];
 
 const construirTituloProgramaTemporal = (numero: number, tituloBase?: string) => {
